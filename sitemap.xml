@@ -5,1023 +5,1023 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>https://virantha.com/</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2012/10/23/using-calibre-to-manage-my-e-books/</loc>
+<loc>https://virantha.github.io/2012/10/23/using-calibre-to-manage-my-e-books/</loc>
 <lastmod>2012-10-23T19:18:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2012/10/25/getting-rid-of-paper-clutter/</loc>
+<loc>https://virantha.github.io/2012/10/25/getting-rid-of-paper-clutter/</loc>
 <lastmod>2012-10-25T14:30:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2012/11/02/class-based-decorators-in-python/</loc>
+<loc>https://virantha.github.io/2012/11/02/class-based-decorators-in-python/</loc>
 <lastmod>2012-11-02T01:22:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/</loc>
+<loc>https://virantha.github.io/2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/</loc>
 <lastmod>2013-01-13T04:19:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/03/01/better-vim-for-python/</loc>
+<loc>https://virantha.github.io/2013/03/01/better-vim-for-python/</loc>
 <lastmod>2013-03-01T19:13:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/04/20/python-auto-sort-of-ocred-pdfs/</loc>
+<loc>https://virantha.github.io/2013/04/20/python-auto-sort-of-ocred-pdfs/</loc>
 <lastmod>2013-04-20T20:25:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/07/03/bluetooth-headset-with-dedicated-mute-button/</loc>
+<loc>https://virantha.github.io/2013/07/03/bluetooth-headset-with-dedicated-mute-button/</loc>
 <lastmod>2013-07-03T02:55:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/</loc>
+<loc>https://virantha.github.io/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/</loc>
 <lastmod>2013-07-22T20:08:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/</loc>
+<loc>https://virantha.github.io/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/</loc>
 <lastmod>2013-07-23T20:08:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/08/16/reading-and-writing-microsoft-word-docx-files-with-python/</loc>
+<loc>https://virantha.github.io/2013/08/16/reading-and-writing-microsoft-word-docx-files-with-python/</loc>
 <lastmod>2013-08-16T03:16:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/09/04/pyyaml-include-yaml-files-within-yaml-files/</loc>
+<loc>https://virantha.github.io/2013/09/04/pyyaml-include-yaml-files-within-yaml-files/</loc>
 <lastmod>2013-09-04T21:43:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/09/29/quick-web-app-with-go-ember-js-and-mongodb/</loc>
+<loc>https://virantha.github.io/2013/09/29/quick-web-app-with-go-ember-js-and-mongodb/</loc>
 <lastmod>2013-09-29T19:17:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/11/04/creating-new-notes-and-attaching-files-using-evernotes-python-api/</loc>
+<loc>https://virantha.github.io/2013/11/04/creating-new-notes-and-attaching-files-using-evernotes-python-api/</loc>
 <lastmod>2013-11-04T17:53:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2013/11/14/starting-a-simple-flask-app-with-heroku/</loc>
+<loc>https://virantha.github.io/2013/11/14/starting-a-simple-flask-app-with-heroku/</loc>
 <lastmod>2013-11-14T21:03:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/01/09/hacking-together-a-wifi-photo-frame-with-a-toshiba-flashair-sd-card-wireless-photo-uploads/</loc>
+<loc>https://virantha.github.io/2014/01/09/hacking-together-a-wifi-photo-frame-with-a-toshiba-flashair-sd-card-wireless-photo-uploads/</loc>
 <lastmod>2014-01-09T17:18:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/01/10/airframe-usage-guide/</loc>
+<loc>https://virantha.github.io/2014/01/10/airframe-usage-guide/</loc>
 <lastmod>2014-01-10T17:18:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/02/02/digital-toaster-oven-survey/</loc>
+<loc>https://virantha.github.io/2014/02/02/digital-toaster-oven-survey/</loc>
 <lastmod>2014-02-02T17:18:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/</loc>
+<loc>https://virantha.github.io/2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/</loc>
 <lastmod>2014-03-02T17:18:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/08/pound-reverse-proxy-easy-to-use-hostnames/</loc>
+<loc>https://virantha.github.io/2014/03/08/pound-reverse-proxy-easy-to-use-hostnames/</loc>
 <lastmod>2014-03-08T21:46:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/11/font-rendering-fix-chrome/</loc>
+<loc>https://virantha.github.io/2014/03/11/font-rendering-fix-chrome/</loc>
 <lastmod>2014-03-11T11:26:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/17/one-touch-scanning-with-fujitsu-scansnap-in-linux/</loc>
+<loc>https://virantha.github.io/2014/03/17/one-touch-scanning-with-fujitsu-scansnap-in-linux/</loc>
 <lastmod>2014-03-17T12:11:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/24/clang-mavericks-error-workaround/</loc>
+<loc>https://virantha.github.io/2014/03/24/clang-mavericks-error-workaround/</loc>
 <lastmod>2014-03-24T15:21:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/30/images-color-and-blank-detection/</loc>
+<loc>https://virantha.github.io/2014/03/30/images-color-and-blank-detection/</loc>
 <lastmod>2014-03-30T23:39:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/03/30/scanpdf-usage-guide/</loc>
+<loc>https://virantha.github.io/2014/03/30/scanpdf-usage-guide/</loc>
 <lastmod>2014-03-30T23:13:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/04/15/replacing-noisy-fan-broan-bathroom-688/</loc>
+<loc>https://virantha.github.io/2014/04/15/replacing-noisy-fan-broan-bathroom-688/</loc>
 <lastmod>2014-04-15T23:41:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/05/07/ember-js-oauth2-implicit-grant-example/</loc>
+<loc>https://virantha.github.io/2014/05/07/ember-js-oauth2-implicit-grant-example/</loc>
 <lastmod>2014-05-07T21:12:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/05/08/setting-up-new-project-using-google-oauth2-api/</loc>
+<loc>https://virantha.github.io/2014/05/08/setting-up-new-project-using-google-oauth2-api/</loc>
 <lastmod>2014-05-08T11:46:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/05/12/existing-tab-stop-manipulation-in-vim/</loc>
+<loc>https://virantha.github.io/2014/05/12/existing-tab-stop-manipulation-in-vim/</loc>
 <lastmod>2014-05-12T09:46:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/05/21/ubuntu-14-04-trusty-on-xenserver-62/</loc>
+<loc>https://virantha.github.io/2014/05/21/ubuntu-14-04-trusty-on-xenserver-62/</loc>
 <lastmod>2014-05-21T13:12:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2014/08/22/setting-up-edgemax-edgerouter-lite-erlite-3/</loc>
+<loc>https://virantha.github.io/2014/08/22/setting-up-edgemax-edgerouter-lite-erlite-3/</loc>
 <lastmod>2014-08-22T09:46:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2015/01/26/building-a-low-power-file-server-intel-avoton/</loc>
+<loc>https://virantha.github.io/2015/01/26/building-a-low-power-file-server-intel-avoton/</loc>
 <lastmod>2015-01-26T11:13:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2015/03/09/migrating-xenserver-vdi-to-kvm/</loc>
+<loc>https://virantha.github.io/2015/03/09/migrating-xenserver-vdi-to-kvm/</loc>
 <lastmod>2015-03-09T12:02:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/</loc>
+<loc>https://virantha.github.io/2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/</loc>
 <lastmod>2015-04-07T15:41:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/01/12/reverse-engineering-nissan-connect-ev-protocol/</loc>
+<loc>https://virantha.github.io/2016/01/12/reverse-engineering-nissan-connect-ev-protocol/</loc>
 <lastmod>2016-01-12T10:14:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/03/10/example-provisioning-of-hackt-using-vagrant-ansible/</loc>
+<loc>https://virantha.github.io/2016/03/10/example-provisioning-of-hackt-using-vagrant-ansible/</loc>
 <lastmod>2016-03-10T10:14:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/04/07/updated-reverse-engineering-nissan-connect-ev-protocol/</loc>
+<loc>https://virantha.github.io/2016/04/07/updated-reverse-engineering-nissan-connect-ev-protocol/</loc>
 <lastmod>2016-04-07T11:00:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/06/23/elegant-command-line-parsing-in-python/</loc>
+<loc>https://virantha.github.io/2016/06/23/elegant-command-line-parsing-in-python/</loc>
 <lastmod>2016-06-23T14:42:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/07/06/parent-guide-to-starting-pokemon/</loc>
+<loc>https://virantha.github.io/2016/07/06/parent-guide-to-starting-pokemon/</loc>
 <lastmod>2016-07-06T13:19:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/10/13/funds-gather-framework-for-scraping-financial-information/</loc>
+<loc>https://virantha.github.io/2016/10/13/funds-gather-framework-for-scraping-financial-information/</loc>
 <lastmod>2016-10-13T12:16:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/11/07/photokeeper-usage-guide/</loc>
+<loc>https://virantha.github.io/2016/11/07/photokeeper-usage-guide/</loc>
 <lastmod>2016-11-07T13:21:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2016/11/28/moneydance-python-extension-tips/</loc>
+<loc>https://virantha.github.io/2016/11/28/moneydance-python-extension-tips/</loc>
 <lastmod>2016-11-28T12:27:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2017/09/22/hardware-simulation-using-curio/</loc>
+<loc>https://virantha.github.io/2017/09/22/hardware-simulation-using-curio/</loc>
 <lastmod>2017-09-22T11:20:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2017/09/27/hardware-simulation-using-curio-2/</loc>
+<loc>https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/</loc>
 <lastmod>2017-09-27T11:20:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2017/09/28/hardware-simulation-using-curio-3/</loc>
+<loc>https://virantha.github.io/2017/09/28/hardware-simulation-using-curio-3/</loc>
 <lastmod>2017-09-28T11:20:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2019/03/30/bricknil/</loc>
+<loc>https://virantha.github.io/2019/03/30/bricknil/</loc>
 <lastmod>2019-03-30T23:46:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2019/03/30/raspberry-pi-setup-with-ansible-python-37/</loc>
+<loc>https://virantha.github.io/2019/03/30/raspberry-pi-setup-with-ansible-python-37/</loc>
 <lastmod>2019-03-30T21:28:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2019/04/04/lego-spike-prime-compared/</loc>
+<loc>https://virantha.github.io/2019/04/04/lego-spike-prime-compared/</loc>
 <lastmod>2019-04-04T11:09:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2019/05/20/choosing-a-thunderbolt-3-dock-macbook/</loc>
+<loc>https://virantha.github.io/2019/05/20/choosing-a-thunderbolt-3-dock-macbook/</loc>
 <lastmod>2019-05-20T22:09:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/2021/04/01/edgeos-dnsmasq-client-specific-dns-dhcp/</loc>
+<loc>https://virantha.github.io/2021/04/01/edgeos-dnsmasq-client-specific-dns-dhcp/</loc>
 <lastmod>2021-04-01T10:33:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/archives.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/archives.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/author/virantha.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/author/virantha.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/author/virantha2.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/author/virantha2.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/author/virantha3.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/author/virantha3.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/blog.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/blog.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/blog2.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/blog2.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/blog3.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/blog3.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/categories.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/categories.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/airframe.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/airframe.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/bricknil.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/bricknil.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/diy.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/diy.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/fundsgather.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/fundsgather.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/oneresume.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/oneresume.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/photokeeper.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/photokeeper.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/pypdfocr.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/pypdfocr.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/scanpdf.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/scanpdf.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/shopping.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/shopping.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/snippet.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/snippet.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/snippets.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/snippets.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/tech.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/tech.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/category/tech2.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/category/tech2.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/search.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/search.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/airframe.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/airframe.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/ansible.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/ansible.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/appliance.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/appliance.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/async.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/async.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/automation.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/automation.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/await.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/await.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/bluetooth.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/bluetooth.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/bluetoothle.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/bluetoothle.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/bricknil.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/bricknil.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/buying-guide.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/buying-guide.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/curio.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/curio.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/decorators.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/decorators.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/dhcp.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/dhcp.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/diy.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/diy.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/dns.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/dns.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/docking-station.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/docking-station.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/docopt.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/docopt.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/docx.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/docx.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/ebooks.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/ebooks.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/edgeos.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/edgeos.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/ember.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/ember.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/evernote.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/evernote.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/financial.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/financial.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/flashair.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/flashair.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/flask.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/flask.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/flickr.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/flickr.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/frame.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/frame.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/go.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/go.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/hardware.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/hardware.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/heroku.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/heroku.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/hub.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/hub.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/imagemagick.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/imagemagick.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/javascript.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/javascript.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/jython.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/jython.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/leaf.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/leaf.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/lego.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/lego.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/linux.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/linux.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/macbook.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/macbook.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/moneydance.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/moneydance.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/mongodb.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/mongodb.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/nissan.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/nissan.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/oauth.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/oauth.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/ocr.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/ocr.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/paperless.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/paperless.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/pdf.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/pdf.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/photo.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/photo.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/photokeeper.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/photokeeper.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/pi.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/pi.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/pokemon.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/pokemon.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/python.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/python.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/python2.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/python2.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/qif.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/qif.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/raspberry.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/raspberry.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/resume.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/resume.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/router.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/router.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/scan.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/scan.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/scansnap.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/scansnap.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/schema.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/schema.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/scraping.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/scraping.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/shopping.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/shopping.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/snippet.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/snippet.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/tech.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/tech.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/tesseract.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/tesseract.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/thunderbolt.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/thunderbolt.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/tips.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/tips.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/toys.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/toys.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/usb-c.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/usb-c.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/vagrant.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/vagrant.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/vim.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/vim.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/virtualization.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/virtualization.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/web.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/web.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/word.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/word.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tag/yaml.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tag/yaml.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://virantha.com/tags.html</loc>
-<lastmod>2024-12-17T22:14:55-00:00</lastmod>
+<loc>https://virantha.github.io/tags.html</loc>
+<lastmod>2024-12-17T22:25:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
