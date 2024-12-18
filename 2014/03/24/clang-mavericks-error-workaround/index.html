@@ -147,18 +147,17 @@ on Mon 24 March 2014 </p>
   <div class="article_text">
     <p>Recently updated to Xcode 5.1 on my Mavericks install, and when I went to update a few Python PyPI packages
 like reportlab and fabric, I started hitting this error on the compile step:</p>
-<pre class="literal-block">
-clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
+<pre class="literal-block">clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
 </pre>
 <p>After a little bit of googling, it seems like the workaround for now is to do the following:</p>
 <div class="highlight"><pre><span></span><span class="nv">ARCHFLAGS</span><span class="o">=</span>-Wno-error<span class="o">=</span>unused-command-line-argument-hard-error-in-future<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>reportlab<span class="w"> </span>fabric
 </pre></div>
 <p>Note that if you've already tried to install a package that had some C extensions for speedups that did not compile,
 yet the non-spedup version did install, then run the following command to reinstall it with the above ARCHFLAGS
-prefix [ref]Credit to <a class="reference external" href="http://stackoverflow.com/questions/19548957/can-i-force-pip-to-reinstall-the-current-version">this post</a> [/ref]:</p>
+prefix <sup id="sf-clang-mavericks-error-workaround-1-back"><a href="#sf-clang-mavericks-error-workaround-1" class="simple-footnote" title="Credit to this post ">1</a></sup>:</p>
 <div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--reinstall<span class="w"> </span>PACKAGE
 </pre></div>
-
+<ol class="simple-footnotes"><li id="sf-clang-mavericks-error-workaround-1">Credit to <a class="reference external" href="http://stackoverflow.com/questions/19548957/can-i-force-pip-to-reinstall-the-current-version">this post</a>  <a href="#sf-clang-mavericks-error-workaround-1-back" class="simple-footnote-back">↩︎</a></li></ol>
   </div>
   <div class="article_meta">
     <p>Category: <a href="https://virantha.github.io/category/snippets.html">Snippets</a></p>

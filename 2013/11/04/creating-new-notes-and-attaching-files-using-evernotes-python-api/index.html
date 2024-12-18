@@ -178,13 +178,54 @@ each function separately in the next sections.</p>
 <h2><a class="toc-backref" href="#toc-entry-1">1   Imports</a></h2>
 <p>Here's the complete set of imports that took me a while to track down,
 even from Evernote's own examples:</p>
-<p>[gist:id=7294365,file=_imports.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=_imports.py'></script>
+    <noscript>
+        <pre><code>import os
+import hashlib
+import sys
+ 
+ 
+from evernote.api.client import EvernoteClient
+import evernote.edam.type.ttypes as Types
+import evernote.edam.userstore.constants as UserStoreConstants
+from evernote.edam.error.ttypes import EDAMUserException
+from evernote.edam.error.ttypes import EDAMSystemException
+from evernote.edam.error.ttypes import EDAMNotFoundException
+from evernote.edam.error.ttypes import EDAMErrorCode
+ </code></pre>
+    </noscript>
+</div>
 </div>
 <div class="section" id="authentication">
 <h2><a class="toc-backref" href="#toc-entry-2">2   Authentication</a></h2>
 <p>And here's how to do the authentication using a developer token (Go to
 the following places to get a token: <a class="reference external" href="https://sandbox.evernote.com/api/DeveloperToken.action">Sandbox evernote server</a> or <a class="reference external" href="https://www.evernote.com/api/DeveloperToken.action">Production Evernote server</a></p>
-<p>[gist:id=7294365,file=_auth.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=_auth.py'></script>
+    <noscript>
+        <pre><code>    def _connect_to_evernote(self, dev_token):
+        user = None
+        try:
+            self.client = EvernoteClient(token=dev_token)
+            self.user_store = self.client.get_user_store()
+            user = self.user_store.getUser()
+        except EDAMUserException as e:
+            err = e.errorCode
+            print("Error attempting to authenticate to Evernote: %s - %s" % (EDAMErrorCode._VALUES_TO_NAMES[err], e.parameter))
+            return False
+        except EDAMSystemException as e:
+            err = e.errorCode
+            print("Error attempting to authenticate to Evernote: %s - %s" % (EDAMErrorCode._VALUES_TO_NAMES[err], e.message))
+            sys.exit(-1)
+ 
+        if user:
+            print("Authenticated to evernote as user %s" % user.username)
+            return True
+        else:
+            return False</code></pre>
+    </noscript>
+</div>
 <p>The important thing is to keep the EvernoteClient object around in
 <tt class="docutils literal">self.client</tt>, as this will proved the authenticated access to the
 note stores.</p>
@@ -193,7 +234,42 @@ note stores.</p>
 <h2><a class="toc-backref" href="#toc-entry-3">3   Handle notebooks</a></h2>
 <p>The next step is to check whether the required notebook is available,
 or if we need to make it. See the _check_and_make_notebook function.</p>
-<p>[gist:id=7294365,file=_notebook.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=_notebook.py'></script>
+    <noscript>
+        <pre><code>def _get_notebooks(self):
+        note_store = self.client.get_note_store()
+        notebooks = note_store.listNotebooks()
+        return {n.name:n for n in notebooks}
+ 
+    def _create_notebook(self, notebook):
+        note_store = self.client.get_note_store()
+        return note_store.createNotebook(notebook)
+ 
+    def _update_notebook(self, notebook):
+        note_store = self.client.get_note_store()
+        note_store.updateNotebook(notebook)
+        return
+ 
+    def _check_and_make_notebook(self, notebook_name, stack=None):
+        notebooks = self._get_notebooks()
+        if notebook_name in notebooks:
+            # Existing notebook, so just update the stack if needed
+            notebook = notebooks[notebook_name]
+            if stack:
+                notebook.stack = stack
+                self._update_notebook(notebook)
+            return notebook
+        else:
+            # Need to create a new notebook
+            notebook = Types.Notebook()
+            notebook.name = notebook_name
+            if stack:
+                notebook.stack = stack
+            notebook = self._create_notebook(notebook)
+            return notebook</code></pre>
+    </noscript>
+</div>
 <p>We use the <tt class="docutils literal">get_note_store</tt> API call to get all the
 notebooks, and return a dict with the notebook name mapping to the
 notebook, in function <tt class="docutils literal">_get_notebooks</tt>. Then, if the desired
@@ -207,7 +283,50 @@ call, and store it using the <tt class="docutils literal">createNotebook</tt> AP
 <h2><a class="toc-backref" href="#toc-entry-4">4   Create the new note with attachment</a></h2>
 <p>Next is the real meat of this example, where we create the note with
 the attachment:</p>
-<p>[gist:id=7294365,file=_note.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=_note.py'></script>
+    <noscript>
+        <pre><code>  def _create_evernote_note(self, notebook, filename):
+        # Create the new note
+        note = Types.Note()
+        note.title = os.path.basename(filename)
+        note.notebookGuid = notebook.guid
+        note.content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">'
+        note.content += '<en-note>My first PDF upload<br/>'
+       
+        # Calculate the md5 hash of the pdf
+        md5 = hashlib.md5()
+        with open(filename,'rb') as f: 
+            pdf_bytes = f.read()
+        md5.update(pdf_bytes)
+        md5hash = md5.hexdigest()
+ 
+        # Create the Data type for evernote that goes into a resource
+        pdf_data = Types.Data()
+        pdf_data.bodyHash = md5hash
+        pdf_data.size = len(pdf_bytes) 
+        pdf_data.body = pdf_bytes
+ 
+        # Add a link in the evernote boy for this content
+        link = '<en-media type="application/pdf" hash="%s"/>' % md5hash
+        note.content += link
+        note.content += '</en-note>'
+        
+        # Create a resource for the note that contains the pdf
+        pdf_resource = Types.Resource()
+        pdf_resource.data = pdf_data
+        pdf_resource.mime = "application/pdf"
+        
+        # Create a resource list to hold the pdf resource
+        resource_list = []
+        resource_list.append(pdf_resource)
+ 
+        # Set the note's resource list
+        note.resources = resource_list
+ 
+        return note</code></pre>
+    </noscript>
+</div>
 <p>We create a new note using <tt class="docutils literal">Types.Note()</tt>, and set its containing
 notebook using the <tt class="docutils literal">GUID</tt> of the notebook. We then start setting the
 contents of the note using the Evernote markup language. All the text
@@ -228,11 +347,166 @@ a <tt class="docutils literal">Resource</tt> list</li>
 <div class="section" id="uploading-the-note">
 <h2><a class="toc-backref" href="#toc-entry-5">5   Uploading the note</a></h2>
 <p>The final step is to upload the note:</p>
-<p>[gist:id=7294365,file=_upload.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=_upload.py'></script>
+    <noscript>
+        <pre><code>    def upload_to_notebook(self, filename, notebookname):
+ 
+        # Check if the evernote notebook exists
+        print ("Checking for notebook named %s" % notebookname)
+        notebook = self._check_and_make_notebook(notebookname, "my_stack")
+ 
+        print("Uploading %s to %s" % (filename, notebookname))
+        
+        note = self._create_evernote_note(notebook, filename)
+ 
+        # Store the note in evernote
+        note_store = self.client.get_note_store()
+        note = note_store.createNote(note)</code></pre>
+    </noscript>
+</div>
 </div>
 <div class="section" id="complete-example">
 <h2><a class="toc-backref" href="#toc-entry-6">6   Complete example</a></h2>
-<p>[gist:id=7294365,file=evernote_pdf_upload.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/7294365.js?file=evernote_pdf_upload.py'></script>
+    <noscript>
+        <pre><code>import os
+import hashlib
+import sys
+
+
+from evernote.api.client import EvernoteClient
+import evernote.edam.type.ttypes as Types
+import evernote.edam.userstore.constants as UserStoreConstants
+from evernote.edam.error.ttypes import EDAMUserException
+from evernote.edam.error.ttypes import EDAMSystemException
+from evernote.edam.error.ttypes import EDAMNotFoundException
+from evernote.edam.error.ttypes import EDAMErrorCode
+
+
+class EvernoteUpload(object):
+    
+
+    def __init__(self, dev_token):
+        self._connect_to_evernote(dev_token)
+
+    def _connect_to_evernote(self, dev_token):
+        user = None
+        try:
+            self.client = EvernoteClient(token=dev_token)
+            self.user_store = self.client.get_user_store()
+            user = self.user_store.getUser()
+        except EDAMUserException as e:
+            err = e.errorCode
+            print("Error attempting to authenticate to Evernote: %s - %s" % (EDAMErrorCode._VALUES_TO_NAMES[err], e.parameter))
+            return False
+        except EDAMSystemException as e:
+            err = e.errorCode
+            print("Error attempting to authenticate to Evernote: %s - %s" % (EDAMErrorCode._VALUES_TO_NAMES[err], e.message))
+            sys.exit(-1)
+
+        if user:
+            print("Authenticated to evernote as user %s" % user.username)
+            return True
+        else:
+            return False
+
+
+    def _get_notebooks(self):
+        note_store = self.client.get_note_store()
+        notebooks = note_store.listNotebooks()
+        return {n.name:n for n in notebooks}
+
+    def _create_notebook(self, notebook):
+        note_store = self.client.get_note_store()
+        return note_store.createNotebook(notebook)
+
+    def _update_notebook(self, notebook):
+        note_store = self.client.get_note_store()
+        note_store.updateNotebook(notebook)
+        return
+
+    def _check_and_make_notebook(self, notebook_name, stack=None):
+        notebooks = self._get_notebooks()
+        if notebook_name in notebooks:
+            # Existing notebook, so just update the stack if needed
+            notebook = notebooks[notebook_name]
+            if stack:
+                notebook.stack = stack
+                self._update_notebook(notebook)
+            return notebook
+        else:
+            # Need to create a new notebook
+            notebook = Types.Notebook()
+            notebook.name = notebook_name
+            if stack:
+                notebook.stack = stack
+            notebook = self._create_notebook(notebook)
+            return notebook
+
+    def _create_evernote_note(self, notebook, filename):
+        # Create the new note
+        note = Types.Note()
+        note.title = os.path.basename(filename)
+        note.notebookGuid = notebook.guid
+        note.content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">'
+        note.content += '<en-note>My first PDF upload<br/>'
+       
+        # Calculate the md5 hash of the pdf
+        md5 = hashlib.md5()
+        with open(filename,'rb') as f: 
+            pdf_bytes = f.read()
+        md5.update(pdf_bytes)
+        md5hash = md5.hexdigest()
+
+        # Create the Data type for evernote that goes into a resource
+        pdf_data = Types.Data()
+        pdf_data.bodyHash = md5hash
+        pdf_data.size = len(pdf_bytes) 
+        pdf_data.body = pdf_bytes
+
+        # Add a link in the evernote boy for this content
+        link = '<en-media type="application/pdf" hash="%s"/>' % md5hash
+        note.content += link
+        note.content += '</en-note>'
+        
+        # Create a resource for the note that contains the pdf
+        pdf_resource = Types.Resource()
+        pdf_resource.data = pdf_data
+        pdf_resource.mime = "application/pdf"
+        
+        # Create a resource list to hold the pdf resource
+        resource_list = []
+        resource_list.append(pdf_resource)
+
+        # Set the note's resource list
+        note.resources = resource_list
+
+        return note
+
+        
+    def upload_to_notebook(self, filename, notebookname):
+
+        # Check if the evernote notebook exists
+        print ("Checking for notebook named %s" % notebookname)
+        notebook = self._check_and_make_notebook(notebookname, "my_stack")
+
+        print("Uploading %s to %s" % (filename, notebookname))
+        
+        note = self._create_evernote_note(notebook, filename)
+
+        # Store the note in evernote
+        note_store = self.client.get_note_store()
+        note = note_store.createNote(note)
+
+if __name__ == '__main__': 
+    dev_token = "YOUR_DEV_TOKEN"
+    p = EvernoteUpload(dev_token)
+    p.upload_to_notebook('test_sherlock.pdf', 'boom')
+</code></pre>
+    </noscript>
+</div>
 </div>
 
   </div>

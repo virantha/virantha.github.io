@@ -513,7 +513,7 @@ ul.auto-toc li {
       }
 
       .footnote {
-        font-size: smaller;
+        font-size: 8px;
         .fn-backref{
           margin-right: 5px;
           text-decoration: none;
@@ -784,3 +784,7 @@ table.pretty {
 }
 
 
+ol.simple-footnotes {
+    font-size:smaller;
+    border-top:1px solid rgb(217, 217, 217);
+}

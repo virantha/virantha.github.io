@@ -209,7 +209,14 @@ ssh pi@raspberrypi.local
 <h3><a class="toc-backref" href="#toc-entry-4">1.3   Change the default password on the Pi</a></h3>
 <ol class="arabic">
 <li><p class="first">You may need to modify the <cite>hosts</cite> file in <cite>pi_setup</cite> directory to put in your own IP address for the Pi.</p>
-<p>[gist:id=1b1352c0290b39718596d2bb6891b8bb,file=hosts]</p>
+<div class="gist">
+    <script src='https://gist.github.com/1b1352c0290b39718596d2bb6891b8bb.js?file=hosts'></script>
+    <noscript>
+        <pre><code>[pi]
+raspberrypi.local      ansible_user=pi
+</code></pre>
+    </noscript>
+</div>
 </li>
 <li><p class="first">You will need to install the python library <cite>passlib</cite> by running <cite>pip install passlib</cite> on your local machine (not the Pi).  This is needed to hash the new password.</p>
 </li>
@@ -221,7 +228,41 @@ ansible-playbook -i hosts change_password.yml --ask-pass
 shadow file and updating the password:</p>
 </li>
 </ol>
-<p>[gist:id=1b1352c0290b39718596d2bb6891b8bb,file=change_password.yml]</p>
+<div class="gist">
+    <script src='https://gist.github.com/1b1352c0290b39718596d2bb6891b8bb.js?file=change_password.yml'></script>
+    <noscript>
+        <pre><code>- hosts: all
+  remote_user: pi
+  become_method: sudo
+  vars_prompt:
+      - name: new_password
+        prompt: "Enter the password you would like to use for the user pi"
+        confirm: yes
+
+  tasks:
+    - name: backup shadow file
+      copy:
+        remote_src: yes
+        src: /etc/shadow
+        dest: /tmp/shadow
+      become: yes
+
+    - name: generate hash pass
+      delegate_to: localhost
+      command:  python -c "from passlib.hash import md5_crypt; import getpass; print (md5_crypt.hash('{{new_password}}'))"
+      register: hash
+
+    - debug:
+        var: hash.stdout
+
+    - name: update password
+      user:
+        name: pi
+        password:  '{{hash.stdout}}'
+      become: yes
+</code></pre>
+    </noscript>
+</div>
 </div>
 <div class="section" id="run-the-setup-playbook">
 <h3><a class="toc-backref" href="#toc-entry-5">1.4   Run the setup playbook</a></h3>
@@ -233,7 +274,181 @@ execute it on your local machine is:</p>
 ansible-playbook -i hosts tasks.yml --ask-pass
 </pre>
 <p>The install will take around two hours, so please be patient.  Most of the time is spent compiling and installing Python from source.  Here's the playbook being executed:</p>
-<p>[gist:id=1b1352c0290b39718596d2bb6891b8bb,file=tasks.yml]</p>
+<div class="gist">
+    <script src='https://gist.github.com/1b1352c0290b39718596d2bb6891b8bb.js?file=tasks.yml'></script>
+    <noscript>
+        <pre><code>- hosts: all
+  remote_user: pi
+  become_method: sudo
+
+  vars:
+    PYTHON: "3.7.2"
+    OPEN_SSL: openssl-1.0.2g
+    build_path: "{{ansible_env.HOME}}/build"
+    HOME: "{{ansible_env.HOME}}"
+
+  tasks:
+    - name: Update APT package cache
+      apt: update_cache=yes
+      become: yes
+
+    - name: Update packages
+      apt: upgrade=dist
+      become: yes
+
+    - name: Install build-essential
+      package: name="build-essential" state=present
+      become: yes
+
+    - name: Install build packages
+      apt:
+          state: present
+          name:
+              - tk-dev
+              - libncurses5-dev
+              - libncursesw5-dev
+              - libreadline6-dev
+              - libdb5.3-dev
+              - libgdbm-dev
+              - libsqlite3-dev
+              - libssl-dev
+              - libbz2-dev
+              - libexpat1-dev
+              - liblzma-dev
+              - zlib1g-dev
+              - libffi-dev
+              - uuid-dev
+              - vim
+              - git
+              - python-pip
+              - screen
+      become: yes
+
+    - name: Ensure build directory exists
+      file:
+          path: "{{ build_path }}"
+          state: directory
+          recurse: yes
+          
+    - name: Download openssl
+      get_url:
+          url: "https://www.openssl.org/source/{{ OPEN_SSL }}.tar.gz"
+          dest: "{{ build_path }}/{{ OPEN_SSL }}.tar.gz"
+          mode: "755"
+      register: openssl_download
+
+    - name: Untar openssl
+      unarchive:
+          remote_src: yes
+          src: "{{ build_path }}/{{ OPEN_SSL }}.tar.gz"
+          dest: "{{ build_path }}"
+      when: openssl_download.changed
+
+    - name: configure openssl
+      command: ./config shared --prefix=/usr/local
+      args:
+          chdir: "{{ build_path }}/{{ OPEN_SSL }}"
+      when: openssl_download.changed
+
+    - name: make openssl
+      command: make -j 4
+      args:
+          chdir: "{{ build_path }}/{{ OPEN_SSL }}"
+      register: make_openssl
+      when: openssl_download.changed
+
+    - name: install openssl
+      command: make install
+      args:
+          chdir: "{{ build_path }}/{{ OPEN_SSL }}"
+      become: yes
+      when: make_openssl.changed
+
+    - name: set /etc/ld.so.conf.d to add /usr/local/
+      lineinfile:
+          path: /etc/ld.so.conf.d/openssl.conf
+          create: yes
+          line: "/usr/local/lib"
+      become: yes
+
+    - name: run ldconfig to update dynamic link lib path to use /usr/local/lib
+      command: ldconfig
+      become: yes
+
+    - name: Download python 3.7
+      get_url:
+          url: "https://www.python.org/ftp/python/{{PYTHON}}/Python-{{PYTHON}}.tgz"
+          dest: "{{ build_path }}/Python-{{ PYTHON }}.tgz"
+          mode: "755"
+      register: python_download
+
+    - name: Untar python
+      unarchive:
+          remote_src: yes
+          src: "{{ build_path }}/Python-{{ PYTHON }}.tgz"
+          dest: "{{ build_path }}"
+      when: python_download.changed
+
+    - name: Uncomment SSL
+      blockinfile:
+          path: "{{ build_path}}/Python-{{ PYTHON }}/Modules/Setup.dist"
+          insertbefore: "#SSL=/usr/local/ssl"
+          block: |
+              SSL=/usr/local/ssl
+              _ssl _ssl.c \
+                  -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+                      -L$(SSL)/lib -lssl -lcrypto
+
+    - name: configure python
+      command: ./configure --enable-optimizations --with-openssl=/usr/local --prefix=/usr/local
+      args:
+          chdir: "{{ build_path }}/Python-{{ PYTHON }}"
+      when: python_download.changed
+      register: python_configure
+
+    - name: make python
+      shell: make -j 4'
+      args:
+          chdir: "{{ build_path }}/Python-{{ PYTHON }}"
+      register: make_python
+      when: python_configure.changed
+
+    - name: install python
+      shell: make altinstall'
+      args:
+          chdir: "{{ build_path }}/Python-{{ PYTHON }}"
+      become: yes
+      when: python_configure.changed
+
+    - name: Setup .bashrc
+      blockinfile:
+          path: "{{ HOME }}/.bashrc"
+          block: |
+              export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python3.7"
+              source /usr/local/bin/virtualenvwrapper.sh
+
+    - name: Install pip virtualenv
+      pip:
+        executable: /usr/local/bin/pip3.7
+        name:
+            - virtualenv
+            - virtualenvwrapper
+      become: yes
+
+    - name: pip install bricknil
+      pip:
+        name:
+            - bricknil
+        virtualenv: "{{ HOME }}/.virtualenvs/bricknil"
+        virtualenv_python: python3.7
+        
+    - name: git clone bricknil
+      git:
+          repo: 'https://github.com/virantha/bricknil.git'
+          dest: '{{ HOME }}/bricknil'
+          clone: yes</code></pre>
+    </noscript>
+</div>
 <p>At the end, there are a couple of steps where I install a sample package and clone a github repo (which in
 this case is my <a class="reference external" href="https://virantha.github.io/bricknil">bricknil</a> project for controlling Lego trains and robots.  Python 3.7 will be available as
 <cite>/usr/local/bin/python3.7</cite> and virtualenvwrapper will use it as the default python.</p>

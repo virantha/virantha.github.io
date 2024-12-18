@@ -190,7 +190,70 @@ the APIs.</p>
 a top-level user account like 'Checking' or a <em>Category</em>.</p>
 <p>You can see the power
 and conciseness of Jython married with access to Moneydance internals in the few lines of code it took to accomplish the above:</p>
-<p>[gist:id=5ace1fa44a2e1156e8542523596124f1,file=1-simple-moneydance-popup.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/5ace1fa44a2e1156e8542523596124f1.js?file=1-simple-moneydance-popup.py'></script>
+    <noscript>
+        <pre><code>from com.infinitekind.moneydance.model import *
+import os
+from javax.swing import JButton, JFrame, JScrollPane, JTextArea, BoxLayout, BorderFactory
+
+class SimplePopupExtension(object):
+
+    def initialize(self, extension_context, extension_object):
+	self.moneydanceContext = extension_context
+	self.moneydanceExtensionObject = extension_object
+
+	# here we register ourselves with a menu item to invoke a feature
+	# (ignore the button and icon mentions in the docs)
+	self.moneydanceContext.registerFeature(extension_object, "popup", None, "Test popup")
+        
+    # invoke(eventstring) is called when we receive a callback for the feature that
+    # we registered in the initialize method
+    def invoke(self, eventString=""):
+	self.moneydanceContext.setStatus("Python extension received command: %s" % (eventString))
+
+        if eventString=='popup':
+            self._show_popup()
+
+    def __str__(self):
+	return "SimplePopup"
+
+    # Our actual user code
+    def _show_popup(self):
+        self._initUI()
+        book = moneydance.getCurrentAccountBook()
+        account_names = []
+        for acct in AccountUtil.getAccountIterator(book):
+            account_names.append(acct.getFullAccountName())
+        self.text_area.text = '\n'.join(account_names)
+
+    def _initUI(self):
+        frame = JFrame('Simple popup', defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE, size=(300,300))
+        frame.setLayout(BoxLayout(frame.contentPane, BoxLayout.PAGE_AXIS))
+        # Call-back to close popup
+        def closeDialog(event):
+            frame.visible = False
+            frame.dispose()
+
+        # Instantiate components
+        self.text_area = JTextArea()
+        msgScroller = JScrollPane()                                                                                                                                                                                                              
+        msgScroller.setBorder(BorderFactory.createTitledBorder("Accounts"))
+        msgScroller.setViewportView(self.text_area)
+        self.close_button = JButton('Close', actionPerformed = closeDialog)
+
+        # Add components to frame
+        frame.add(msgScroller)
+        frame.add(self.close_button)
+        frame.visible = True
+
+
+# Tell moneydance this is an extension
+moneydance_extension = SimplePopupExtension()
+
+</code></pre>
+    </noscript>
+</div>
 <p>To get this installed, simply open Moneydance 2017 (previous versions will not work) and select <tt class="docutils literal">Python Scripting</tt> from the <tt class="docutils literal">Windows</tt> menu.
 This will pop-up the Python interface where you'll do the following:</p>
 <div class="figure" style="width: 1368px; height: auto; max-width: 100%;">
@@ -341,7 +404,85 @@ directory.</p>
 <div class="section" id="modify-build-xml">
 <h3><a class="toc-backref" href="#toc-entry-8">5.3   Modify build.xml</a></h3>
 <p>We're going to slightly modify the supplied build.xml as shown below:</p>
-<p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=build.xml]</p>
+<div class="gist">
+    <script src='https://gist.github.com/4464c7be4dc40cfe66dc3658059cdc31.js?file=build.xml'></script>
+    <noscript>
+        <pre><code><!--
+build file for ant
+http://jakarta.apache.org/ant/index.html
+-->
+
+<project name="myextension" default="all" basedir=".">
+  <property name="version"  value="2.2"/>
+  <property name="src" value="."/>
+  <property name="build" value="./build"/>
+  <property name="privkeyfile" value="${src}/priv_key"/>
+  <property name="pubkeyfile" value="${src}/pub_key"/>
+  <property name="privkeyid" value="99"/>
+
+  <property name="build.compiler"  value="classic"/>
+  <property name="build.compiler.fulldepend"  value="true"/>
+  <property name="build.sysclasspath" value="ignore" /> <!-- suppress ridiculous "includeantruntime not set" messages from ant -->
+  <property name="build.includeantruntime" value="false"/>
+  <property name="dist"  value="../dist"/>
+  <property name="tmp"  value="../tmp"/>
+  <property name="debug"  value="on"/>
+  <property name="optimize"  value="off"/>
+
+  <path id="classpath">
+    <pathelement path="../lib/extadmin.jar"/>
+    <pathelement path="../lib/moneydance-dev.jar"/>
+    <pathelement path="../lib/jython-standalone-2.7.0.jar"/>
+  </path>
+
+  <target name="init">
+    <mkdir dir="${dist}"/>
+    <mkdir dir="${build}"/>
+  </target>   
+
+  <target name="myextension" depends="init">
+    <javac target="1.6" source="1.6" srcdir="${src}" debug="${debug}" optimize="${optimize}"
+      classpathref="classpath"  destdir="${build}"
+      includes="com/moneydance/modules/features/myextension/**"/>
+
+    <jar destfile="${dist}/myextension.mxt">
+      <fileset dir="${src}" includes="
+             com/moneydance/modules/features/myextension/meta_info.dict
+             com/moneydance/modules/features/myextension/*.gif
+             com/moneydance/modules/features/myextension/*.jpg
+             com/moneydance/modules/features/myextension/*.jpeg"/>
+      <fileset dir="${build}" includes="com/moneydance/modules/features/myextension/**"/>
+      <fileset dir="${src}/com/moneydance/modules/features/myextension/python" includes="**/**.py"/>
+    </jar>
+
+    <java newenvironment="true" 
+      classpathref="classpath"
+      classname="com.moneydance.admin.KeyAdmin">
+      <arg value="signextjar"/>
+      <arg value="${privkeyfile}"/>
+      <arg value="${privkeyid}"/>
+      <arg value="myextension"/>
+      <arg line="${dist}/myextension.mxt"/>
+    </java>
+    <move file="${src}/s-myextension.mxt" tofile="${dist}/myextension.mxt"/>
+  </target>
+
+  <target name="genkeys">
+    <java 
+      classpathref="classpath"
+      classname="com.moneydance.admin.KeyAdmin">
+      <arg value="genkey"/>
+      <arg value="${privkeyfile}"/>
+      <arg value="${pubkeyfile}"/>
+    </java>
+  </target>
+
+  <target name="all" depends="myextension"/>
+
+</project>
+</code></pre>
+    </noscript>
+</div>
 <p>First, around line 26 we add our <tt class="docutils literal">jython.jar</tt> include, and then we add a python
 subdirectory to the code directory on line 46.  The python subdirectory gets copied to
 the root of the .mxt file during the build, which is important for being able to import
@@ -352,7 +493,125 @@ the extension in the next section.</p>
 <h3><a class="toc-backref" href="#toc-entry-9">5.4   Modify Main.java</a></h3>
 <p>Now, we'll modify the main Java file for the extension to support arbitrary
 Python extensions like so:</p>
-<p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=Main.java]</p>
+<div class="gist">
+    <script src='https://gist.github.com/4464c7be4dc40cfe66dc3658059cdc31.js?file=Main.java'></script>
+    <noscript>
+        <pre><code>package com.moneydance.modules.features.myextension;
+
+import com.moneydance.apps.md.controller.FeatureModule;
+import com.moneydance.apps.md.controller.FeatureModuleContext;
+import com.moneydance.apps.md.controller.ModuleUtil;
+import com.moneydance.apps.md.controller.UserPreferences;
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.awt.*;
+import java.net.*;
+
+import org.python.util.PythonInterpreter;
+import org.python.core.*;
+
+/** Pluggable module used to give users access to a Account List
+    interface to Moneydance.
+*/
+
+public class Main
+  extends FeatureModule
+{
+  private PythonInterpreter pi = null;  // Use this for running our python code
+
+  public void init() {
+    // the first thing we will do is register this module to be invoked
+    // via the application toolbar
+    FeatureModuleContext context = getContext();
+    try {
+      context.registerFeature(this, "popup",
+        getIcon("accountlist"),
+        getName());
+
+      this.pi = new PythonInterpreter();
+      String path = getSourceFile().toString(); // Get the location of this mxt
+      this.pi.set("jarpath", path);
+      this.pi.exec("import sys");
+      this.pi.exec("if jarpath not in sys.path: sys.path.append(jarpath)");
+      this.pi.exec("from com.infinitekind.moneydance.model import *");
+      this.pi.exec("import pyextension");
+      this.pi.exec("reload(pyextension)");
+      this.pi.set("context", context);
+      this.pi.set("extensionobject", this);
+      this.pi.exec("ext = pyextension.SimplePopupExtension()");
+      this.pi.exec("ext.initialize (context, extensionobject, True)");
+    }
+    catch (Exception e) {
+      e.printStackTrace(System.err);
+    }
+  }
+
+  public void cleanup() {
+    closeConsole();
+  }
+  
+  private Image getIcon(String action) {
+    try {
+      ClassLoader cl = getClass().getClassLoader();
+      java.io.InputStream in = 
+        cl.getResourceAsStream("/com/moneydance/modules/features/myextension/icon.gif");
+      if (in != null) {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream(1000);
+        byte buf[] = new byte[256];
+        int n = 0;
+        while((n=in.read(buf, 0, buf.length))>=0)
+          bout.write(buf, 0, n);
+        return Toolkit.getDefaultToolkit().createImage(bout.toByteArray());
+      }
+    } catch (Throwable e) { }
+    return null;
+  }
+  
+  /** Process an invokation of this module with the given URI */
+  public void invoke(String uri) {
+    String command = uri;
+    String parameters = "";
+    int theIdx = uri.indexOf('?');
+    if(theIdx>=0) {
+      command = uri.substring(0, theIdx);
+      parameters = uri.substring(theIdx+1);
+    }
+    else {
+      theIdx = uri.indexOf(':');
+      if(theIdx>=0) {
+        command = uri.substring(0, theIdx);
+      }
+    }
+
+    // Pass through the invocation string to the Python handler
+    try {
+      this.pi.set("invoke_string", command);
+      this.pi.exec("ext.invoke(invoke_string)");
+    }
+    catch (Exception e) {
+      e.printStackTrace(System.err);
+    }
+  }
+
+  public String getName() {
+    return "Show popup";
+  }
+
+  FeatureModuleContext getUnprotectedContext() {
+    return getContext();
+  }
+
+  synchronized void closeConsole() {
+    System.gc();
+  }
+}
+
+
+</code></pre>
+    </noscript>
+</div>
 <p>Here's what's going on:</p>
 <ul class="simple">
 <li>First, to clean up, I'm taking out all references to the AccountList popup.  We'll use
@@ -382,7 +641,72 @@ command) to our Python extension.</li>
 <div class="section" id="python-extension">
 <h3><a class="toc-backref" href="#toc-entry-10">5.5   Python extension</a></h3>
 <p>The Python extension is hardly changed from the original that we discussed above:</p>
-<p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=pyextension.py]</p>
+<div class="gist">
+    <script src='https://gist.github.com/4464c7be4dc40cfe66dc3658059cdc31.js?file=pyextension.py'></script>
+    <noscript>
+        <pre><code>from com.infinitekind.moneydance.model import *
+import os
+from javax.swing import JButton, JFrame, JScrollPane, JTextArea, BoxLayout, BorderFactory
+
+class SimplePopupExtension(object):
+
+    def initialize(self, extension_context, extension_object, from_java=False):
+	self.moneydanceContext = extension_context
+	self.moneydanceExtensionObject = extension_object
+
+	# here we register ourselves with a menu item to invoke a feature
+	# (ignore the button and icon mentions in the docs)
+        if not from_java: 
+            self.moneydanceContext.registerFeature(extension_object, "popup", None, "Test popup")
+        
+    # invoke(eventstring) is called when we receive a callback for the feature that
+    # we registered in the initialize method
+    def invoke(self, eventString=""):
+	self.moneydanceContext.setStatus("Python extension received command: %s" % (eventString))
+
+        if eventString=='popup':
+            self._show_popup()
+
+    def __str__(self):
+	return "SimplePopup"
+
+    # Our actual user code
+    def _show_popup(self):
+        self._initUI()
+        pass
+        book = self.moneydanceContext.getCurrentAccountBook()
+        account_names = []
+        for acct in AccountUtil.getAccountIterator(book):
+            account_names.append(acct.getFullAccountName())
+        self.text_area.text = '\n'.join(account_names)
+
+    def _initUI(self):
+        frame = JFrame('Simple popup', defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE, size=(300,300))
+        frame.setLayout(BoxLayout(frame.contentPane, BoxLayout.PAGE_AXIS))
+        # Call-back to close popup
+        def closeDialog(event):
+            frame.visible = False
+            frame.dispose()
+
+        # Instantiate components
+        self.text_area = JTextArea()
+        msgScroller = JScrollPane()                                                                                                                                                                                                              
+        msgScroller.setBorder(BorderFactory.createTitledBorder("Accounts"))
+        msgScroller.setViewportView(self.text_area)
+        self.close_button = JButton('Close', actionPerformed = closeDialog)
+
+        # Add components to frame
+        frame.add(msgScroller)
+        frame.add(self.close_button)
+        frame.visible = True
+
+
+# Tell moneydance this is an extension
+moneydance_extension = SimplePopupExtension()
+
+</code></pre>
+    </noscript>
+</div>
 <p>The only change is I added a parameter to the <tt class="docutils literal">initialize</tt> method called <em>from_java</em>, which if set to True, will prevent
 the Python extension from also registering a menu item.  I also changed the reference to get the Context to using a member variable (not sure if this is needed or not, but it seemed cleaner).</p>
 <p>And that's it!  Now, the nice thing is that you can test the Python extension unchanged through the Python interface in Moneydance, and when you're ready, you can

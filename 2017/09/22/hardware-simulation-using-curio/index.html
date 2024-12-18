@@ -206,13 +206,13 @@ transferred into the channel.</li>
 <li><strong>Port</strong> - The sender process has an <strong>output port</strong> that is connected to the channel, and the receiver has an <strong>input port</strong> on its end of the channel.</li>
 </ul>
 <p>As an example, let's consider the simple one-place buffer that's shown below.
-[ref]from preprint of Asynchronous VLSI Systems by Rajit Manohar[/ref]  The
+<sup id="sf-hardware-simulation-using-curio-1-back"><a href="#sf-hardware-simulation-using-curio-1" class="simple-footnote" title="from preprint of Asynchronous VLSI Systems by Rajit Manohar">1</a></sup>  The
 single buffer has two ports, with L being the input port, and R being the
 output port.  All the buffer does is receive a value on L, store it in <em>x</em>, and then send
 it out on R.  We can then construct a <strong>system</strong> of these buffers that implement a
 linear pipeline by connecting the adjacent R and L ports with <em>channels</em>.</p>
 <div class="figure align-center" style="width: 836px; height: auto; max-width: 100%;">
-<img alt="Linear buffers" src="/images/2017/chp/buf.png" style="width: 836px; height: auto; max-width: 100%;"/>
+<img alt="Linear buffers" src="/images/2017/chp/buf.png" style="width: 836px; height: auto; max-width: 100%;">
 </div>
 </div>
 <div class="section" id="building-the-simulator">
@@ -221,8 +221,7 @@ linear pipeline by connecting the adjacent R and L ports with <em>channels</em>.
 <h3><a class="toc-backref" href="#toc-entry-4">3.1   The Process class</a></h3>
 <p>First thing, let's start with a simple class to represent a <em>Process</em> (reminder
 that all code I'm writing probably <strong>requires Python 3.6</strong>)</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
+<pre class="code python literal-block"><span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
 
 </span>    <span class="n">next_id</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
 
@@ -246,8 +245,7 @@ string representations and also a <em>message</em> method to hand output from th
 a standard way.</p>
 <p>I want to segue here and introduce a new feature in 3.6 called <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">fstrings</a>, which
 are faster, cleaner to read, and just plain awesome once you start using them.</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
+<pre class="code python literal-block"><span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
 
 </span>    <span class="n">next_id</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
 
@@ -269,8 +267,7 @@ are faster, cleaner to read, and just plain awesome once you start using them.</
 <p>Alright, now let's create a Process subclass that actually does something
 useful: a <em>Source</em> process that sends a specified value on a channel a fixed
 number of times.</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Source</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+<pre class="code python literal-block"><span class="k">class</span> <span class="nc">Source</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">srcval</span><span class="p">):</span><span class="w">
 </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
@@ -300,8 +297,7 @@ on the semantics of this (things like <tt class="docutils literal">yield from</t
 <p>Now, let's further introduce a <em>Sink</em> process that 'eats' values (say from a source), and
 the <em>Buffer</em> process described in the previous section that just receives and passes
 on a value.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">CancelledError</span><span class="w">
+<pre class="code python literal-block"><span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">CancelledError</span><span class="w">
 </span><span class="k">class</span> <span class="nc">Sink</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
@@ -351,8 +347,7 @@ it will just hang waiting for more input).</p>
 processes: We need a way to implement the communication channels.  Luckily, Curio has
 a built-in Queue type that's explicitly designed for this kind of communication.</p>
 <p>Here's our first stab at the Channel class, assuming we've done a <tt class="docutils literal">from curio import Queue</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">Queue</span><span class="w">
+<pre class="code python literal-block"><span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">Queue</span><span class="w">
 </span><span class="k">class</span> <span class="nc">Channel</span><span class="p">:</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
@@ -381,8 +376,7 @@ is available).  Once the <em>recv</em> is done, it's important to call the
 <h2><a class="toc-backref" href="#toc-entry-6">4   Running the system</a></h2>
 <p>Now we have all the initial pieces available to put together a complete simulation
 of a linear pipeline of buffers with its environment.  Here's our first version of the code:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">spawn</span><span class="w">
+<pre class="code python literal-block"><span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">spawn</span><span class="w">
 </span><span class="k">async</span> <span class="k">def</span> <span class="nf">system</span><span class="p">():</span><span class="w">
 
 </span>    <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># How many buffers in our linear pipeline</span><span class="w">
@@ -427,8 +421,7 @@ Processes running as tasks in Curio's event loop.  Then, we just wait for the
 <em>Source</em> process to be complete by doing a <tt class="docutils literal">join()</tt> on its task.  Once we know the
 <em>Source</em> is done, we can go ahead and call <tt class="docutils literal">cancel()</tt> on all the remaining tasks,
 because we know they are just waiting on their input channels.</p>
-<pre class="code text literal-block">
-src1.0: sending 1
+<pre class="code text literal-block">src1.0: sending 1
 src1.0: sent 1
 src1.0: sending 1
 buf[0].1: received 1
@@ -461,7 +454,7 @@ in this <a class="reference external" href="https://gist.github.com/ce2bca039ce3
 <p><a class="reference external" href="https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/">In the next article</a> in this series, we'll talk about enhancing the simulator
 and adding some error-checking.</p>
 </div>
-
+<ol class="simple-footnotes"><li id="sf-hardware-simulation-using-curio-1">from preprint of Asynchronous VLSI Systems by Rajit Manohar <a href="#sf-hardware-simulation-using-curio-1-back" class="simple-footnote-back">↩︎</a></li></ol>
   </div>
   <div class="article_meta">
     <p>Category: <a href="https://virantha.github.io/category/tech.html">Tech</a></p>
