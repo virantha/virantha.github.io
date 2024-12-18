@@ -144,15 +144,9 @@ on Wed 07 May 2014 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2014/05/07/ember-js-oauth2-implicit-grant-example/" class="nohover">Example of how to authenticate using Oauth2 in Ember.js using Implicit Grant (client-side)</a></h1>
   </div>
-  <div class="article_text">
-    <p>This post will show a quick and complete example on how to authenticate someone
-using their Google credentials in your <a class="reference external" href="http://emberjs.com">Ember.js</a>  web
-application.  This uses the implicit-grant scheme in Oauth2, so everything
-happens on the client side, without exposing the user's Google credentials or
-requiring a back-end server.  Obviously, at some point you'll have a server to
-store the authentication token and persist other user information, but the
-whole authentication infrastructure will stay on the client.</p>
-<div class="contents topic" id="table-of-contents">
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents</a></p>
 <ul class="auto-toc simple">
 <li><a class="reference internal" href="#what-we-re-building" id="toc-entry-1">1   What we're building</a></li>
@@ -175,6 +169,17 @@ whole authentication infrastructure will stay on the client.</p>
 </li>
 </ul>
 </div>
+    </nav>
+</div>
+  <div class="article_text">
+    <p>This post will show a quick and complete example on how to authenticate someone
+using their Google credentials in your <a class="reference external" href="http://emberjs.com">Ember.js</a>  web
+application.  This uses the implicit-grant scheme in Oauth2, so everything
+happens on the client side, without exposing the user's Google credentials or
+requiring a back-end server.  Obviously, at some point you'll have a server to
+store the authentication token and persist other user information, but the
+whole authentication infrastructure will stay on the client.</p>
+
 <div class="section" id="what-we-re-building">
 <h2><a class="toc-backref" href="#toc-entry-1">1   What we're building</a></h2>
 <p>I'm going to use a toy example that displays a list of events to an authenticated user.

@@ -144,6 +144,22 @@ on Mon 09 March 2015 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2015/03/09/migrating-xenserver-vdi-to-kvm/" class="nohover">Migrating XenServer Virtual Machine VDIs to KVM</a></h1>
   </div>
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#googling-it" id="toc-entry-1">1   Googling it</a></li>
+<li><a class="reference internal" href="#the-easy-way" id="toc-entry-2">2   The easy way</a><ul class="auto-toc">
+<li><a class="reference internal" href="#expose-the-vdi-on-your-xenserver-host" id="toc-entry-3">2.1   Expose the VDI on your Xenserver Host</a></li>
+<li><a class="reference internal" href="#install-the-image-on-your-kvm-host" id="toc-entry-4">2.2   Install the image on your KVM host</a></li>
+<li><a class="reference internal" href="#cleanup" id="toc-entry-5">2.3   Cleanup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav>
+</div>
   <div class="article_text">
     <p>After having worked with Xenserver 6.2 for over a year now, I've decided to
 migrate away from it.  It just wasn't stable enough with SATA
@@ -160,17 +176,11 @@ snapshots and backups were handled:</p>
 <p>Needless to say, I've been itching to give another solution a shot.  I finally decided to migrate
 to KVM, and it took me a while to figure out how to seamlessly migrate my Windows virtual
 machines over.  The actual process is very simple and detailed below.</p>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
-<ul class="auto-toc simple">
-<li><a class="reference internal" href="#googling-it" id="toc-entry-1">1   Googling it</a></li>
-<li><a class="reference internal" href="#the-easy-way" id="toc-entry-2">2   The easy way</a><ul class="auto-toc">
-<li><a class="reference internal" href="#expose-the-vdi-on-your-xenserver-host" id="toc-entry-3">2.1   Expose the VDI on your Xenserver Host</a></li>
-<li><a class="reference internal" href="#install-the-image-on-your-kvm-host" id="toc-entry-4">2.2   Install the image on your KVM host</a></li>
-<li><a class="reference internal" href="#cleanup" id="toc-entry-5">2.3   Cleanup</a></li>
-</ul>
-</li>
-</ul>
+<div class="section" id="googling-it">
+<h2><a class="toc-backref" href="#toc-entry-1">1   Googling it</a></h2>
+<p>There are lots of tutorials on the web about using XenCenter in Windows to export disks,
+but in my experience, XenCenter was extremely unreliable even for imports and I
+didn't want to build another Windows VM just to export disks.</p>
 <script>
                 $(document).ready( function () { 
                     $('#uuids').DataTable( { layout:
@@ -183,12 +193,6 @@ machines over.  The actual process is very simple and detailed below.</p>
                         }
                     }); 
                     } );</script></div>
-<div class="section" id="googling-it">
-<h2><a class="toc-backref" href="#toc-entry-1">1   Googling it</a></h2>
-<p>There are lots of tutorials on the web about using XenCenter in Windows to export disks,
-but in my experience, XenCenter was extremely unreliable even for imports and I
-didn't want to build another Windows VM just to export disks.</p>
-</div>
 <div class="section" id="the-easy-way">
 <h2><a class="toc-backref" href="#toc-entry-2">2   The easy way</a></h2>
 <p>Turns out, and it appears not many people are aware of it, there's a simple command line interface

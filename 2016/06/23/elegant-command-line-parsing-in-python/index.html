@@ -144,6 +144,22 @@ on Thu 23 June 2016 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2016/06/23/elegant-command-line-parsing-in-python/" class="nohover">Elegant command line parsing in Python using docopt, schema, and yaml</a></h1>
   </div>
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#running-parametrized-spice-simulations" id="toc-entry-1">1   Running parametrized SPICE simulations</a></li>
+<li><a class="reference internal" href="#setting-up-the-options" id="toc-entry-2">2   Setting up the options</a></li>
+<li><a class="reference internal" href="#validating-options-with-schema" id="toc-entry-3">3   Validating options with schema</a></li>
+<li><a class="reference internal" href="#using-a-configuration-file-to-supply-options" id="toc-entry-4">4   Using a configuration file to supply options</a></li>
+<li><a class="reference internal" href="#loading-in-the-parameters" id="toc-entry-5">5   Loading in the parameters</a></li>
+<li><a class="reference internal" href="#generating-and-running-the-scenarios" id="toc-entry-6">6   Generating and running the scenarios</a></li>
+<li><a class="reference internal" href="#logging-the-results-and-complete-script" id="toc-entry-7">7   Logging the results and complete script</a></li>
+</ul>
+</div>
+    </nav>
+</div>
   <div class="article_text">
     <p>Both for my work and personal use, I tend to develop many command-line Python
 scripts that are very data-driven and configurable.  In Python, it's pretty
@@ -170,18 +186,7 @@ common pattern for anyone in an engineering field:</p>
 <li>Execute an external simulator on the simulation file</li>
 <li>Parse the results and log the results in a CSV file</li>
 </ul>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
-<ul class="auto-toc simple">
-<li><a class="reference internal" href="#running-parametrized-spice-simulations" id="toc-entry-1">1   Running parametrized SPICE simulations</a></li>
-<li><a class="reference internal" href="#setting-up-the-options" id="toc-entry-2">2   Setting up the options</a></li>
-<li><a class="reference internal" href="#validating-options-with-schema" id="toc-entry-3">3   Validating options with schema</a></li>
-<li><a class="reference internal" href="#using-a-configuration-file-to-supply-options" id="toc-entry-4">4   Using a configuration file to supply options</a></li>
-<li><a class="reference internal" href="#loading-in-the-parameters" id="toc-entry-5">5   Loading in the parameters</a></li>
-<li><a class="reference internal" href="#generating-and-running-the-scenarios" id="toc-entry-6">6   Generating and running the scenarios</a></li>
-<li><a class="reference internal" href="#logging-the-results-and-complete-script" id="toc-entry-7">7   Logging the results and complete script</a></li>
-</ul>
-</div>
+
 <div class="section" id="running-parametrized-spice-simulations">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Running parametrized SPICE simulations</a></h2>
 <p>For the purposes of this example, I'm going to walk-through a simple script that I've

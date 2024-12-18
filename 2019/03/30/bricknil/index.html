@@ -144,6 +144,17 @@ on Sat 30 March 2019 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2019/03/30/bricknil/" class="nohover">BrickNil - Control LEGO Bluetooth Sensors and Motors with Python</a></h1>
   </div>
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="simple">
+<li><a class="reference internal" href="#features" id="toc-entry-1">Features</a></li>
+<li><a class="reference internal" href="#more-documentation" id="toc-entry-2">More documentation</a></li>
+</ul>
+</div>
+    </nav>
+</div>
   <div class="article_text">
     <p>BrickNil <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[*]</a> provides an easy way to connect to and program LEGO® Bluetooth hubs (including the
 PoweredUp Passenger Train <a class="reference external" href="https://www.amazon.com/gp/product/B07CC37F63/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07CC37F63">60197</a> and Cargo Train <a class="reference external" href="https://www.amazon.com/gp/product/B07C39LCZ9/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07C39LCZ9">60198</a> sets, and the Lego
@@ -156,24 +167,6 @@ easily scale to programming large interactive systems.</p>
 event programming built on top of the <a class="reference external" href="http://curio.readthedocs.io">Curio</a> async library.  As an aside, the choice of
 async library is fairly arbitrary; and enabling another library such as <cite>asyncio</cite> or <cite>Trio</cite>
 should be straightforward.</p>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
-<ul class="simple">
-<li><a class="reference internal" href="#features" id="toc-entry-1">Features</a></li>
-<li><a class="reference internal" href="#more-documentation" id="toc-entry-2">More documentation</a></li>
-</ul>
-<script>
-                $(document).ready( function () { 
-                    $('#components').DataTable( { layout:
-                     {
-                        topStart: null,
-                        topEnd: null,
-                        bottom: null,
-                        bottomStart: 'info',
-                        bottomEnd: 'paging'
-                        }
-                    }); 
-                    } );</script></div>
 <p>An example BrickNil program for controlling the Train motor speed is shown below:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">sleep</span>
 <span class="kn">from</span> <span class="nn">bricknil</span> <span class="kn">import</span> <span class="n">attach</span><span class="p">,</span> <span class="n">start</span>
@@ -195,7 +188,18 @@ should be straightforward.</p>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">start</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-</pre></div>
+</pre><script>
+                $(document).ready( function () { 
+                    $('#components').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
 <ul class="simple">
 <li>Free and open-source software: ASL2 license</li>
 <li>Documentation: <a class="reference external" href="http://virantha.github.io/bricknil">http://virantha.github.io/bricknil</a></li>

@@ -144,6 +144,28 @@ on Mon 28 November 2016 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2016/11/28/moneydance-python-extension-tips/" class="nohover">How to use Python to generate extensions with a GUI for Moneydance 2017</a></h1>
   </div>
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
+<p class="topic-title"><a class="reference internal" href="#top">Table of contents</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#pop-up-a-simple-frame-with-a-button" id="toc-entry-1">1   Pop up a simple frame with a button</a></li>
+<li><a class="reference internal" href="#importing-python-files" id="toc-entry-2">2   Importing Python files</a></li>
+<li><a class="reference internal" href="#import-jar-files" id="toc-entry-3">3   Import JAR files</a></li>
+<li><a class="reference internal" href="#persisting-data-in-your-secure-moneydance-file" id="toc-entry-4">4   Persisting data in your secure moneydance file</a></li>
+<li><a class="reference internal" href="#bundling-python-into-a-moneydance-java-extension" id="toc-entry-5">5   Bundling Python into a Moneydance Java Extension</a><ul class="auto-toc">
+<li><a class="reference internal" href="#install-the-developer-kit" id="toc-entry-6">5.1   Install the Developer Kit</a></li>
+<li><a class="reference internal" href="#download-the-jython-standalone-jar" id="toc-entry-7">5.2   Download the Jython Standalone .jar</a></li>
+<li><a class="reference internal" href="#modify-build-xml" id="toc-entry-8">5.3   Modify build.xml</a></li>
+<li><a class="reference internal" href="#modify-main-java" id="toc-entry-9">5.4   Modify Main.java</a></li>
+<li><a class="reference internal" href="#python-extension" id="toc-entry-10">5.5   Python extension</a></li>
+<li><a class="reference internal" href="#compiling" id="toc-entry-11">5.6   Compiling</a></li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav>
+</div>
   <div class="article_text">
     <p>This post describes some of my experiences writing a python extension for Moneydance, a cross-platform
 personal finance manager (an alternative to Intuit Quicken).  I was originally attracted to this product
@@ -162,24 +184,7 @@ the APIs.</p>
 <li><a class="reference external" href="https://infinitekind.com/dev/python_template.py">Sample template from Moneydance</a></li>
 <li><a class="reference external" href="http://infinitekind.com/dev/RM-NetWorth/wiki_jython.html">Moneydance Jython notes</a></li>
 </ul>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table of contents</a></p>
-<ul class="auto-toc simple">
-<li><a class="reference internal" href="#pop-up-a-simple-frame-with-a-button" id="toc-entry-1">1   Pop up a simple frame with a button</a></li>
-<li><a class="reference internal" href="#importing-python-files" id="toc-entry-2">2   Importing Python files</a></li>
-<li><a class="reference internal" href="#import-jar-files" id="toc-entry-3">3   Import JAR files</a></li>
-<li><a class="reference internal" href="#persisting-data-in-your-secure-moneydance-file" id="toc-entry-4">4   Persisting data in your secure moneydance file</a></li>
-<li><a class="reference internal" href="#bundling-python-into-a-moneydance-java-extension" id="toc-entry-5">5   Bundling Python into a Moneydance Java Extension</a><ul class="auto-toc">
-<li><a class="reference internal" href="#install-the-developer-kit" id="toc-entry-6">5.1   Install the Developer Kit</a></li>
-<li><a class="reference internal" href="#download-the-jython-standalone-jar" id="toc-entry-7">5.2   Download the Jython Standalone .jar</a></li>
-<li><a class="reference internal" href="#modify-build-xml" id="toc-entry-8">5.3   Modify build.xml</a></li>
-<li><a class="reference internal" href="#modify-main-java" id="toc-entry-9">5.4   Modify Main.java</a></li>
-<li><a class="reference internal" href="#python-extension" id="toc-entry-10">5.5   Python extension</a></li>
-<li><a class="reference internal" href="#compiling" id="toc-entry-11">5.6   Compiling</a></li>
-</ul>
-</li>
-</ul>
-</div>
+
 <div class="section" id="pop-up-a-simple-frame-with-a-button">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Pop up a simple frame with a button</a></h2>
 <p>Here's a simple script based off the Moneydance template that will pop-up a frame with a scrollable list of the names of the current accounts.</p>

@@ -144,17 +144,9 @@ on Sat 30 March 2019 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2019/03/30/raspberry-pi-setup-with-ansible-python-37/" class="nohover">Setting up a Raspberry Pi with Python 3.7+ using Ansible</a></h1>
   </div>
-  <div class="article_text">
-    <p>Here's a set of <a class="reference external" href="https://www.ansible.com/resources/get-started">Ansible</a> playbook files to do an unattended compile of Python 3.7+ with SSL on a
-headless wifi-connected Raspberry Pi.  A recent project of mine (<a class="reference external" href="https://virantha.github.io/bricknil">bricknil</a>) uses 3.7, and
-it was a little frustrating to get the default 3.5 upgraded on my Raspbian image --
-I had to compile Python from source with the newer SSL libraries (so that pip works), and get around some uuid
-compilation issues that took a fair bit of web research to figure out.</p>
-<p>Everything is run from the local machine
-talking to the Pi over ssh, and you just need Ansible installed on your local machine (which can be
-as easy as <cite>pip install ansible</cite> depending on your OS).  Hope this helps save some time for anyone else needing
-get modern Python installed on their RPi!</p>
-<div class="contents topic" id="table-of-contents">
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
 <li><a class="reference internal" href="#steps" id="toc-entry-1">1   Steps</a><ul class="auto-toc">
@@ -166,6 +158,19 @@ get modern Python installed on their RPi!</p>
 </li>
 </ul>
 </div>
+    </nav>
+</div>
+  <div class="article_text">
+    <p>Here's a set of <a class="reference external" href="https://www.ansible.com/resources/get-started">Ansible</a> playbook files to do an unattended compile of Python 3.7+ with SSL on a
+headless wifi-connected Raspberry Pi.  A recent project of mine (<a class="reference external" href="https://virantha.github.io/bricknil">bricknil</a>) uses 3.7, and
+it was a little frustrating to get the default 3.5 upgraded on my Raspbian image --
+I had to compile Python from source with the newer SSL libraries (so that pip works), and get around some uuid
+compilation issues that took a fair bit of web research to figure out.</p>
+<p>Everything is run from the local machine
+talking to the Pi over ssh, and you just need Ansible installed on your local machine (which can be
+as easy as <cite>pip install ansible</cite> depending on your OS).  Hope this helps save some time for anyone else needing
+get modern Python installed on their RPi!</p>
+
 <div class="section" id="steps">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Steps</a></h2>
 <div class="section" id="download-a-raspbian-image-and-burn-it-to-a-sd-card">

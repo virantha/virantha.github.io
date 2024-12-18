@@ -144,6 +144,48 @@ on Sun 29 September 2013 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2013/09/29/quick-web-app-with-go-ember-js-and-mongodb/" class="nohover">Quick web app with Go, Ember.js, and MongoDB</a></h1>
   </div>
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#getting-started" id="toc-entry-1">1   Getting started</a><ul class="auto-toc">
+<li><a class="reference internal" href="#get-my-code" id="toc-entry-2">1.1   Get my code</a></li>
+<li><a class="reference internal" href="#depedencies" id="toc-entry-3">1.2   Depedencies</a><ul class="auto-toc">
+<li><a class="reference internal" href="#mongodb" id="toc-entry-4">1.2.1   MongoDB</a></li>
+<li><a class="reference internal" href="#gorilla" id="toc-entry-5">1.2.2   Gorilla</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-we-re-going-to-be-building" id="toc-entry-6">2   What we're going to be building</a><ul class="auto-toc">
+<li><a class="reference internal" href="#running-the-app" id="toc-entry-7">2.1   Running the app</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-discussion" id="toc-entry-8">3   Code discussion</a><ul class="auto-toc">
+<li><a class="reference internal" href="#the-backend-go-server-server-mongo-go" id="toc-entry-9">3.1   The Backend Go Server (server_mongo.go)</a><ul class="auto-toc">
+<li><a class="reference internal" href="#main" id="toc-entry-10">3.1.1   Main</a></li>
+<li><a class="reference internal" href="#globals-and-types" id="toc-entry-11">3.1.2   Globals and types</a></li>
+<li><a class="reference internal" href="#the-handlers" id="toc-entry-12">3.1.3   The handlers</a><ul class="auto-toc">
+<li><a class="reference internal" href="#create-a-kitten" id="toc-entry-13">3.1.3.1   Create a kitten</a></li>
+<li><a class="reference internal" href="#display-the-kittens" id="toc-entry-14">3.1.3.2   Display the kittens</a></li>
+<li><a class="reference internal" href="#delete-a-kitten" id="toc-entry-15">3.1.3.3   Delete a kitten</a></li>
+<li><a class="reference internal" href="#update-a-kitten-name" id="toc-entry-16">3.1.3.4   Update a kitten name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#frontend-ember-js-app" id="toc-entry-17">3.2   Frontend ember.js app</a><ul class="auto-toc">
+<li><a class="reference internal" href="#html-output-template" id="toc-entry-18">3.2.1   HTML output template</a></li>
+<li><a class="reference internal" href="#ember-js-application" id="toc-entry-19">3.2.2   Ember.js application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav>
+</div>
   <div class="article_text">
     <div class="figure align-left" style="width: 236px">
 <img alt="skip_better Screenshot" src="/images/2013/kittens_app_screenshot_scaled.png" style="width: 236px;"/>
@@ -255,44 +297,6 @@ example, fixed up some incompatibilites with the latest version of
 ember-data.js, and added support for a backing store using MongoDB. You
 can find all the code for this at my <a class="reference external" href="http://github.com/virantha/kittens_ember_go">github</a>, while I describe some of
 the more interesting stuff below.</p>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
-<ul class="auto-toc simple">
-<li><a class="reference internal" href="#getting-started" id="toc-entry-1">1   Getting started</a><ul class="auto-toc">
-<li><a class="reference internal" href="#get-my-code" id="toc-entry-2">1.1   Get my code</a></li>
-<li><a class="reference internal" href="#depedencies" id="toc-entry-3">1.2   Depedencies</a><ul class="auto-toc">
-<li><a class="reference internal" href="#mongodb" id="toc-entry-4">1.2.1   MongoDB</a></li>
-<li><a class="reference internal" href="#gorilla" id="toc-entry-5">1.2.2   Gorilla</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#what-we-re-going-to-be-building" id="toc-entry-6">2   What we're going to be building</a><ul class="auto-toc">
-<li><a class="reference internal" href="#running-the-app" id="toc-entry-7">2.1   Running the app</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#code-discussion" id="toc-entry-8">3   Code discussion</a><ul class="auto-toc">
-<li><a class="reference internal" href="#the-backend-go-server-server-mongo-go" id="toc-entry-9">3.1   The Backend Go Server (server_mongo.go)</a><ul class="auto-toc">
-<li><a class="reference internal" href="#main" id="toc-entry-10">3.1.1   Main</a></li>
-<li><a class="reference internal" href="#globals-and-types" id="toc-entry-11">3.1.2   Globals and types</a></li>
-<li><a class="reference internal" href="#the-handlers" id="toc-entry-12">3.1.3   The handlers</a><ul class="auto-toc">
-<li><a class="reference internal" href="#create-a-kitten" id="toc-entry-13">3.1.3.1   Create a kitten</a></li>
-<li><a class="reference internal" href="#display-the-kittens" id="toc-entry-14">3.1.3.2   Display the kittens</a></li>
-<li><a class="reference internal" href="#delete-a-kitten" id="toc-entry-15">3.1.3.3   Delete a kitten</a></li>
-<li><a class="reference internal" href="#update-a-kitten-name" id="toc-entry-16">3.1.3.4   Update a kitten name</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#frontend-ember-js-app" id="toc-entry-17">3.2   Frontend ember.js app</a><ul class="auto-toc">
-<li><a class="reference internal" href="#html-output-template" id="toc-entry-18">3.2.1   HTML output template</a></li>
-<li><a class="reference internal" href="#ember-js-application" id="toc-entry-19">3.2.2   Ember.js application</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
 <div class="section" id="getting-started">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Getting started</a></h2>
 <div class="section" id="get-my-code">

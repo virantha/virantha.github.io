@@ -144,14 +144,9 @@ on Mon 26 January 2015 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2015/01/26/building-a-low-power-file-server-intel-avoton/" class="nohover">Building a low-power home file server using Intel's Avoton platform</a></h1>
   </div>
-  <div class="article_text">
-    <p>In this post I'll detail the hardware I used to upgrade my 2 year old home
-server that was getting a little bit long in the tooth.  I wanted to replace a
-Core i7 based XenServer host connected to an external 8-bay SATA enclosure that
-had an idle power consumption of over 100W for machine+enclosure
-with all drives spun down.  In my new build, with 8 hard drives and
-3 SSDs, I can get it under 40W with drives spun down but the system awake.</p>
-<div class="contents topic" id="table-of-contents">
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
 <li><a class="reference internal" href="#getting-the-components" id="toc-entry-1">1   Getting the components</a><ul class="auto-toc">
@@ -163,18 +158,16 @@ with all drives spun down.  In my new build, with 8 hard drives and
 </ul>
 </li>
 </ul>
-<script>
-                $(document).ready( function () { 
-                    $('#components').DataTable( { layout:
-                     {
-                        topStart: null,
-                        topEnd: null,
-                        bottom: null,
-                        bottomStart: 'info',
-                        bottomEnd: 'paging'
-                        }
-                    }); 
-                    } );</script></div>
+</div>
+    </nav>
+</div>
+  <div class="article_text">
+    <p>In this post I'll detail the hardware I used to upgrade my 2 year old home
+server that was getting a little bit long in the tooth.  I wanted to replace a
+Core i7 based XenServer host connected to an external 8-bay SATA enclosure that
+had an idle power consumption of over 100W for machine+enclosure
+with all drives spun down.  In my new build, with 8 hard drives and
+3 SSDs, I can get it under 40W with drives spun down but the system awake.</p>
 <div class="section" id="getting-the-components">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Getting the components</a></h2>
 <p>Here's the list and summary of each part.  I have more details and options
@@ -273,7 +266,18 @@ PicoPSU with a good adapter, but this was the easier solution.  Keep in mind
 that the Silvestone DS308B NAS case uses a SFX form-factor power supply, like
 this power supply, and not a standard ATX sized power supply.</p>
 </div>
-</div>
+<script>
+                $(document).ready( function () { 
+                    $('#components').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
 
   </div>
   <div class="article_meta">

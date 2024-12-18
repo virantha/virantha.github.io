@@ -144,19 +144,9 @@ on Fri 22 September 2017 </p>
   <div class="article_title">
     <h1><a href="https://virantha.github.io/2017/09/22/hardware-simulation-using-curio/" class="nohover">Part 1 - Building a Fast Event-Driven Simulator for Concurrent Systems of Hardware Processes Using Curio and Python 3.6</a></h1>
   </div>
-  <div class="article_text">
-    <p>In this post, the first in a series of three, I'm going to show you how to
-build an elegant simulator of a concurrent system using the amazing <a class="reference external" href="http://curio.readthedocs.io/en/latest/">Curio</a>
-library from David Beazley that's built on Python 3.6's async coroutine
-features.  I hope it'll provide a nice intro to how to take advantage of
-event-driven programming in Python using the <a class="reference external" href="http://curio.readthedocs.io/en/latest/">Curio</a> library and the new
-async/await semantics in Python 3.4+ (although I will take advantage of some
-cool new 3.6 features to simplify my code).</p>
-<p>In Part 1, we'll quickly build a simulation framework, which
-will then be enhanced and optimized into a "proper" framework in <a class="reference external" href="https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/">Part 2</a>.  I intend
-to finish up in <a class="reference external" href="https://virantha.github.io/2017/09/28/hardware-simulation-using-curio-3/">Part 3</a> with a set of concrete examples on how to use it to simulate
-your own message-passing hardware systems that can solve interesting problems.</p>
-<div class="contents topic" id="table-of-contents">
+<div class="span2 table-of-content">
+    <nav class="affix">
+    <div class="toc" id="">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
 <li><a class="reference internal" href="#background" id="toc-entry-1">1   Background</a></li>
@@ -169,6 +159,21 @@ your own message-passing hardware systems that can solve interesting problems.</
 <li><a class="reference internal" href="#running-the-system" id="toc-entry-6">4   Running the system</a></li>
 </ul>
 </div>
+    </nav>
+</div>
+  <div class="article_text">
+    <p>In this post, the first in a series of three, I'm going to show you how to
+build an elegant simulator of a concurrent system using the amazing <a class="reference external" href="http://curio.readthedocs.io/en/latest/">Curio</a>
+library from David Beazley that's built on Python 3.6's async coroutine
+features.  I hope it'll provide a nice intro to how to take advantage of
+event-driven programming in Python using the <a class="reference external" href="http://curio.readthedocs.io/en/latest/">Curio</a> library and the new
+async/await semantics in Python 3.4+ (although I will take advantage of some
+cool new 3.6 features to simplify my code).</p>
+<p>In Part 1, we'll quickly build a simulation framework, which
+will then be enhanced and optimized into a "proper" framework in <a class="reference external" href="https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/">Part 2</a>.  I intend
+to finish up in <a class="reference external" href="https://virantha.github.io/2017/09/28/hardware-simulation-using-curio-3/">Part 3</a> with a set of concrete examples on how to use it to simulate
+your own message-passing hardware systems that can solve interesting problems.</p>
+
 <div class="section" id="background">
 <h2><a class="toc-backref" href="#toc-entry-1">1   Background</a></h2>
 <p>First, some background on what I'll be describing:
