@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="python, imagemagick">
+
+  <title>
+Detecting color vs greyscale and blank pages during scanning | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Sun 30 March 2014 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2014/03/30/images-color-and-blank-detection/" class="nohover">Detecting color vs greyscale and blank pages during scanning</a></h1>
+  </div>
+  <div class="article_text">
+    <p>Recently, I <a class="reference external" href="http://virantha.com/category/scanpdf.html">needed</a> a way to detect if a color scanned image was actually color or just contained greyscale/BW
+content.  I also wanted to detect if an image was &quot;blank&quot;, or just a continuous shade of one color.  I couldn't
+really find a simple solution on the web, so I pieced together my own using ImageMagick, as described below.  I
+am not an image processing person by any means, but these quick hacks worked well in practice for my needs.</p>
+<div class="section" id="detecting-color-vs-greyscale">
+<h2>Detecting color vs greyscale</h2>
+<p>There are a lot of questions on forums about this (<a class="reference external" href="http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&amp;t=19580">1</a>, <a class="reference external" href="http://programmers.stackexchange.com/questions/131067/image-color-grayscale-classification">2</a>), but no solution seemed to work for me. I basically
+needed to take a scanned color image, and detect if the original source was just a B&amp;W document that I could
+down-convert into a dithered 1-bit document to save space/processing time.</p>
+<p>The solution I came up with was similar to <a class="reference external" href="http://www.imagemagick.org/Usage/compare/#type_general">this post</a>
+in the ImageMagick documentation</p>
+<blockquote>
+Another technique is to do a direct 'best fit' of a 3 dimensional line to
+all the colors (or a simplified Color Matrix of metrics) in the image.  The
+error of the fit (generally average of the squares of the errors) gives you
+a very good indication about how well the image fits to that line.</blockquote>
+<p>The observation is that a pure grey scale image will have colors that
+individually have RGB components that are the same (RGB: #222222), so a plot of
+greys in 3D space should lie on a single line going through the origin. A
+monochromatic tint (sepia) similarly will also lie on a line with different
+slope/intercept, and if there are any shade variations, there will be some
+errors off the line.</p>
+<p>Finding this best-linear-fit in 3D space is overkill for my problem. I don't
+need the line, and only need to deal with very small tints from grey (intercept
+of the line will be very close to the origin).  So I just need to know if some
+simple error metric that correlates to my image's colors deviation from the
+best fit line is within some threshold.  Here's the solution I came up with
+that I've verified works well at scanning different types of paper documents:</p>
+<ol class="arabic simple">
+<li>Quantize the number of colors in the image to some small number like 8.</li>
+<li>Quantize to 8-bits in each component.</li>
+<li>Generate a frequency table of those colors (optional, I didn't really end up using this)</li>
+<li>Take each of the top N colors, and calculate the mean of the differences between the RGB components.</li>
+<li>If the mean for any color is larger than some threshold (I used 20), then classify this image as color; if it is less, then I can safely assume the original image was greyscale or black and white.</li>
+</ol>
+<p>I use ImageMagick for the first 3 actions, using the following command:</p>
+<pre class="literal-block">
+convert IMAGE -colors 8 -depth 8 -format %c histogram:info:-
+</pre>
+<p>This generates output like the following (small differences may arise depending on the image format):</p>
+<pre class="literal-block">
+ 10831: ( 24, 26, 26,255) #181A1A srgba(24,26,26,1)
+  4836: ( 55, 87, 79,255) #37574F srgba(55,87,79,1)
+  6564: ( 77,138,121,255) #4D8A79 srgba(77,138,121,1)
+  4997: ( 86, 96, 93,255) #56605D srgba(86,96,93,1)
+  7005: ( 92,153,139,255) #5C998B srgba(92,153,139,1)
+  2479: (143,118,123,255) #8F767B srgba(143,118,123,1)
+  8870: (169,176,170,255) #A9B0AA srgba(169,176,170,1)
+442906: (254,254,254,255) #FEFEFE srgba(254,254,254,1)
+  1053: (  0,  0,  0,255) #000000 black
+484081: (255,255,255,255) #FFFFFF white
+</pre>
+<p>And here's my python code for parsing it (you can find this being used in <a class="reference external" href="https://github.com/virantha/scanpdf/blob/master/scanpdf/scanpdf.py">scanpdf</a>).  Note that I just use all
+the colors instead of limiting it to the top N.</p>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;convert </span><span class="si">%s</span><span class="s2"> -colors 8 -depth 8 -format </span><span class="si">%%</span><span class="s2">c histogram:info:-&quot;</span> <span class="o">%</span> <span class="n">filename</span>
+<span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="n">mLine</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;\s*(?P&lt;count&gt;\d+):\s*\(\s*(?P&lt;R&gt;\d+),\s*(?P&lt;G&gt;\d+),\s*(?P&lt;B&gt;\d+).+&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">out</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+    <span class="n">matchLine</span> <span class="o">=</span> <span class="n">mLine</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">matchLine</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">),</span>
+                     <span class="p">)</span>
+                <span class="p">]</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+<span class="c1"># sort</span>
+<span class="n">colors</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">is_color</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">:</span>
+    <span class="c1"># Calculate the mean differences between the RGB components</span>
+    <span class="c1"># Shades of grey will be very close to zero in this metric...</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                 <span class="nb">abs</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                 <span class="nb">abs</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                 <span class="p">]))</span><span class="o">/</span><span class="mi">3</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="n">is_color</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">return</span> <span class="n">is_color</span>
+</pre></div>
+</div>
+<div class="section" id="detecting-blank-pages">
+<h2>Detecting blank pages</h2>
+<p>For this, I originally started off with <a class="reference external" href="http://dave.frop.net/blank_page_detection_command_line_imagemagick">post</a>
+and used the following command line:</p>
+<pre class="literal-block">
+convert %s -shave 1%x1%  -format &quot;%[fx:mean]&quot; info:
+</pre>
+<p>For a BW image (with one channel), This returns the average white value after
+trimming off the edges of the image. So if the percentage is &gt;0.97, I would say
+the page was blank.  Unfortunately, this doesn't work for color images as the
+channels will have information.</p>
+<p>My final idea was to use the image information in each channel, and
+specifically the standard deviation, to identify images with information.  If
+the standard deviation is higher, that means there is more variation in a
+particular RGB channel, or in other words, more features in the image. So, I
+just look at the standard deviation of each channel and if it's higher than a
+threshold, I mark it as a non-blank page.  I use the ImageMagick <tt class="docutils literal">identify
+<span class="pre">-verbose</span></tt> tool to get this value:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_blank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;identify -verbose </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">mStdDev</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;\s*standard deviation:\s*\d+\.\d+\s*\((?P&lt;percent&gt;\d+\.\d+)\).*&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">mStdDev</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">stdev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;percent&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">stdev</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+<p>Obviously, any noise (high frequency variation) will also contribute to a
+higher stdev, so at some point in the future, I might run some denoise filters
+first, but for now I can live with the false positive non-blanks.</p>
+<p>That's it for this post.  Again, you can see how I used this in my own pdf scanning script, <a class="reference external" href="https://github.com/virantha/scanpdf/blob/master/scanpdf/scanpdf.py">ScanPDF</a>.</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/imagemagick.html">imagemagick</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2014/03/30/images-color-and-blank-detection/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

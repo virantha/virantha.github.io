@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - PyPDFOCR</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/pypdfocr.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2013-07-23T20:08:00-04:00</updated><entry><title>PyPDFOCR - Guide to Usage</title><link href="https://virantha.com/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/" rel="alternate"></link><published>2013-07-23T20:08:00-04:00</published><updated>2013-07-23T20:08:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2013-07-23:/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/</id><summary type="html">&lt;ul class="simple"&gt;
+&lt;li&gt;Take a scanned PDF file and run OCR on it (using the Tesseract OCR
+software from Google), generating a searchable PDF&lt;/li&gt;
+&lt;li&gt;Optionally, watch a folder for incoming scanned PDFs and
+automatically run OCR on them&lt;/li&gt;
+&lt;li&gt;Optionally, file the scanned PDFs into directories based on simple
+keyword matching that you specify …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;ul class="simple"&gt;
+&lt;li&gt;Take a scanned PDF file and run OCR on it (using the Tesseract OCR
+software from Google), generating a searchable PDF&lt;/li&gt;
+&lt;li&gt;Optionally, watch a folder for incoming scanned PDFs and
+automatically run OCR on them&lt;/li&gt;
+&lt;li&gt;Optionally, file the scanned PDFs into directories based on simple
+keyword matching that you specify&lt;/li&gt;
+&lt;li&gt;Evernote auto-upload and filing based on keyword search&lt;/li&gt;
+&lt;li&gt;Email status when it files your PDF&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;More links:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://virantha.com/category/pypdfocr.html"&gt;Blog &amp;#64; virantha.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://virantha.github.com/pypdfocr/html"&gt;Documentation &amp;#64; gitpages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.github.com/virantha/pypdfocr"&gt;Source &amp;#64; github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="usage"&gt;
+&lt;h2&gt;Usage:&lt;/h2&gt;
+&lt;div class="section" id="single-conversion"&gt;
+&lt;h3&gt;Single conversion:&lt;/h3&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr filename.pdf
+
+--&amp;gt; filename_ocr.pdf will be generated
+&lt;/pre&gt;
+&lt;p&gt;If you have a language pack installed, then you can specify it with the
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-l&lt;/span&gt;&lt;/tt&gt; option:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr -l spa filename.pdf
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="folder-monitoring"&gt;
+&lt;h3&gt;Folder monitoring:&lt;/h3&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr -w watch_directory
+
+--&amp;gt; Every time a pdf file is added to `watch_directory` it will be OCR'ed
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="automatic-filing"&gt;
+&lt;h3&gt;Automatic filing:&lt;/h3&gt;
+&lt;p&gt;To automatically move the OCR'ed pdf to a directory based on a keyword,
+use the -f option and specify a configuration file (described below):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr filename.pdf -f -c config.yaml
+&lt;/pre&gt;
+&lt;p&gt;You can also do this in folder monitoring mode:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr -w watch_directory -f -c config.yaml
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="filing-based-on-filename-match"&gt;
+&lt;h3&gt;Filing based on filename match:&lt;/h3&gt;
+&lt;p&gt;If no keywords match the contents of the filename, you can optionally
+allow it to fallback to trying to find keyword matches with the PDF
+filename using the -n option. For example, you may have receipts always
+named as &lt;tt class="docutils literal"&gt;receipt_2013_12_2.pdf&lt;/tt&gt; by your scanner, and you want to move
+this to a folder called 'receipts'. Assuming you have a keyword
+&lt;tt class="docutils literal"&gt;receipt&lt;/tt&gt; matching to folder &lt;tt class="docutils literal"&gt;receipts&lt;/tt&gt; in your configuration file
+as described below, you can run the following and have this filed even
+if the content of the pdf does not contain the text 'receipt':&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr filename.pdf -f -c config.yaml -n
+&lt;/pre&gt;
+&lt;div class="section" id="configuration-file-for-automatic-pdf-filing"&gt;
+&lt;h4&gt;Configuration file for automatic PDF filing&lt;/h4&gt;
+&lt;p&gt;The config.yaml file above is a simple folder to keyword matching text
+file. It determines where your OCR'ed PDFs (and optionally, the original
+scanned PDF) are placed after processing. An example is given below:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+target_folder: &amp;quot;docs/filed&amp;quot;
+default_folder: &amp;quot;docs/filed/manual_sort&amp;quot;
+original_move_folder: &amp;quot;docs/originals&amp;quot;
+
+folders:
+    finances:
+        - american express
+        - chase card
+        - internal revenue service
+    travel:
+        - boarding pass
+        - airlines
+        - expedia
+        - orbitz
+    receipts:
+        - receipt
+&lt;/pre&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;target_folder&lt;/tt&gt; is the root of your filing cabinet. Any PDF moving
+will happen in sub-directories under this directory.&lt;/p&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;folders&lt;/tt&gt; section defines your filing directories and the keywords
+associated with them. In this example, we have three filing directories
+(finances, travl, receipts), and some associated keywords for each
+filing directory. For example, if your OCR'ed PDF contains the phrase
+&amp;quot;american express&amp;quot; (in any upper/lower case), it will be filed into
+&lt;tt class="docutils literal"&gt;docs/filed/finances&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;default_folder&lt;/tt&gt; is where the OCR'ed PDF is moved to if there is
+no keyword match.&lt;/p&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;original_move_folder&lt;/tt&gt; is optional (you can comment it out with
+&lt;tt class="docutils literal"&gt;#&lt;/tt&gt; in front of that line), but if specified, the original scanned PDF
+is moved into this directory after OCR is done. Otherwise, if this field
+is not present or commented out, your original PDF will stay where it
+was found.&lt;/p&gt;
+&lt;p&gt;If there is any naming conflict during filing, the program will add an
+underscore followed by a number to each filename, in order to avoid
+overwriting files that may already be present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="evernote-upload"&gt;
+&lt;h3&gt;Evernote upload:&lt;/h3&gt;
+&lt;div class="section" id="evernote-authentication-token"&gt;
+&lt;h4&gt;Evernote authentication token&lt;/h4&gt;
+&lt;p&gt;To enable Evernote support, you will need to &lt;a class="reference external" href="https://www.evernote.com/api/DeveloperToken.action"&gt;get a developer token for
+your Evernote
+account.&lt;/a&gt;. You
+should note that this script will never delete or modify existing notes
+in your account, and limits itself to creating new Notebooks and Notes.
+Once you get that token, you copy and paste it into your configuration
+file as shown below&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="evernote-filing-usage"&gt;
+&lt;h4&gt;Evernote filing usage&lt;/h4&gt;
+&lt;p&gt;To automatically upload the OCR'ed pdf to a folder based on a keyword,
+use the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-e&lt;/span&gt;&lt;/tt&gt; option instead of the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-f&lt;/span&gt;&lt;/tt&gt; auto filing option.&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr filename.pdf -e -c config.yaml
+&lt;/pre&gt;
+&lt;p&gt;Similarly, you can also do this in folder monitoring mode:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pypdfocr -w watch_directory -e -c config.yaml
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="evernote-filing-configuration-file"&gt;
+&lt;h4&gt;Evernote filing configuration file&lt;/h4&gt;
+&lt;p&gt;The config file shown above only needs to change slightly. The folders
+section is completely unchanged, but note that &lt;tt class="docutils literal"&gt;target_folder&lt;/tt&gt; is the
+name of your &amp;quot;Notebook stack&amp;quot; in Evernote, and the &lt;tt class="docutils literal"&gt;default_folder&lt;/tt&gt;
+should just be the default Evernote upload notebook name.&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+target_folder: &amp;quot;evernote_stack&amp;quot;
+default_folder: &amp;quot;default&amp;quot;
+original_move_folder: &amp;quot;docs/originals&amp;quot;
+evernote_developer_token: &amp;quot;YOUR_TOKEN&amp;quot;
+
+folders:
+    finances:
+        - american express
+        - chase card
+        - internal revenue service
+    travel:
+        - boarding pass
+        - airlines
+        - expedia
+        - orbitz
+    receipts:
+        - receipt
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="auto-email"&gt;
+&lt;h3&gt;Auto email&lt;/h3&gt;
+&lt;p&gt;You can have PyPDFOCR email you everytime it converts a file and files
+it. You need to first specify the following lines in the configuration
+file and then use the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-m&lt;/span&gt;&lt;/tt&gt; option when invoking &lt;tt class="docutils literal"&gt;pypdfocr&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+mail_smtp_server: &amp;quot;smtp.gmail.com:587&amp;quot;
+mail_smtp_login: &amp;quot;virantha&amp;#64;gmail.com&amp;quot;
+mail_smtp_password: &amp;quot;PASSWORD&amp;quot;
+mail_from_addr: &amp;quot;virantha&amp;#64;gmail.com&amp;quot;
+mail_to_list:
+    - &amp;quot;virantha&amp;#64;gmail.com&amp;quot;
+    - &amp;quot;person2&amp;#64;gmail.com&amp;quot;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="advanced-options"&gt;
+&lt;h2&gt;Advanced options&lt;/h2&gt;
+&lt;div class="section" id="fine-tuning-tesseract-ghostscript-others"&gt;
+&lt;h3&gt;Fine-tuning Tesseract/Ghostscript/others&lt;/h3&gt;
+&lt;p&gt;You can specify Tesseract and Ghostscript executable locations manually, as
+well as the number of concurrent processes allowed during preprocessing and
+tesseract.  Use the following in your configuration file:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+tesseract:
+    binary: &amp;quot;/usr/bin/tesseract&amp;quot;
+    threads: 8
+
+ghostscript:
+    binary: &amp;quot;/usr/local/bin/gs&amp;quot;
+
+preprocess:
+    threads: 8
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="handling-disk-time-outs"&gt;
+&lt;h3&gt;Handling disk time-outs&lt;/h3&gt;
+&lt;p&gt;If you need to increase the time interval (default 3 seconds) between new
+document scans when pypdfocr is watching a directory, you can specify the following
+option in the configuration file:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+watch:
+    scan_interval: 6
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;div class="section" id="using-pip"&gt;
+&lt;h3&gt;Using pip&lt;/h3&gt;
+&lt;p&gt;PyPDFOCR is available in PyPI, so you can just run:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pip install pypdfocr
+&lt;/pre&gt;
+&lt;p&gt;Please note that some of the 3rd-party libraries required by PyPDFOCR wiill
+require some build tools, especially on a default Ubuntu system.  If you run
+into any issues using pip install, you may want to install the
+following packages on Ubuntu and try again:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;li&gt;libjpeg-dev&lt;/li&gt;
+&lt;li&gt;zlib-bin&lt;/li&gt;
+&lt;li&gt;zlib1g-dev&lt;/li&gt;
+&lt;li&gt;python-dev&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For those on &lt;strong&gt;Windows&lt;/strong&gt;, because it's such a pain to get all the PIL
+and PDF dependencies installed, I've gone ahead and made an executable
+called
+&lt;a class="reference external" href="https://github.com/virantha/pypdfocr/blob/master/dist/pypdfocr.exe?raw=true"&gt;pypdfocr.exe&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You still need to install Tesseract, GhostScript, etc. as detailed below in
+the external dependencies list.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="manual-install"&gt;
+&lt;h3&gt;Manual install&lt;/h3&gt;
+&lt;p&gt;Clone the source directly from github (you need to have git installed):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+git clone https://github.com/virantha/pypdfocr.git
+&lt;/pre&gt;
+&lt;p&gt;Then, install the following third-party python libraries:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Pillow (Python Imaging Library) &lt;a class="reference external" href="https://pillow.readthedocs.org/en/3.1.x/"&gt;https://pillow.readthedocs.org/en/3.1.x/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ReportLab (PDF generation library)
+&lt;a class="reference external" href="http://www.reportlab.com/opensource/"&gt;http://www.reportlab.com/opensource/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Watchdog (Cross-platform fhlesystem events monitoring)
+&lt;a class="reference external" href="https://pypi.python.org/pypi/watchdog"&gt;https://pypi.python.org/pypi/watchdog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PyPDF2 (Pure python pdf library)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These can all be installed via pip:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+pip install Pillow
+pip install reportlab
+pip install watchdog
+pip install pypdf2
+&lt;/pre&gt;
+&lt;p&gt;You will also need to install the external dependencies listed below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="external-dependencies"&gt;
+&lt;h3&gt;External Dependencies&lt;/h3&gt;
+&lt;p&gt;PyPDFOCR relies on the following (free) programs being installed and in
+the path:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Tesseract OCR software &lt;a class="reference external" href="https://code.google.com/p/tesseract-ocr/"&gt;https://code.google.com/p/tesseract-ocr/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GhostScript &lt;a class="reference external" href="http://www.ghostscript.com/"&gt;http://www.ghostscript.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ImageMagick &lt;a class="reference external" href="http://www.imagemagick.org/"&gt;http://www.imagemagick.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Poppler &lt;a class="reference external" href="http://poppler.freedesktop.org/"&gt;http://poppler.freedesktop.org/&lt;/a&gt;  (&lt;a class="reference external" href="http://sourceforge.net/projects/poppler-win32/"&gt;Windows&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Poppler is only required if you want pypdfocr to figure out the original PDF resolution
+automatically; just make sure you have &lt;tt class="docutils literal"&gt;pdfimages&lt;/tt&gt; in your path.   Note that the
+&lt;a class="reference external" href="http://www.foolabs.com/xpdf/download.html"&gt;xpdf&lt;/a&gt; provided &lt;tt class="docutils literal"&gt;pdfimages&lt;/tt&gt; does not work for this,
+because it does not support the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-list&lt;/span&gt;&lt;/tt&gt; option to list the table of images in a PDF file.&lt;/p&gt;
+&lt;p&gt;On Mac OS X, you can install these using homebrew:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+brew install tesseract
+brew install ghostscript
+brew install poppler
+brew install imagemagick
+&lt;/pre&gt;
+&lt;p&gt;On Windows, please use the installers provided on their download pages.&lt;/p&gt;
+&lt;p&gt;** Important ** Tesseract version 3.02.02 or newer required
+(apparently 3.02.01-6 and possibly others do not work due to a hocr
+output format change that I'm not planning to address). On Ubuntu, you
+may need to compile and install it manually by following &lt;a class="reference external" href="http://miphol.com/muse/2013/05/install-tesseract-ocr-on-ubunt.html"&gt;these
+instructions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Also note that if you want Tesseract to recognize rotated documents (upside down, or rotated 90 degrees)
+then you need to find your tessdata directory and do the following:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+cd /usr/local/share/tessdata
+cp eng.traineddata osd.traineddata
+&lt;/pre&gt;
+&lt;p&gt;&lt;tt class="docutils literal"&gt;osd&lt;/tt&gt; stands for Orientation and Script Detection, so you need to copy the .traineddata
+for whatever language you want to scan in as &lt;tt class="docutils literal"&gt;osd.traineddata&lt;/tt&gt;.  If you don't do this step,
+then any landscape document will produce garbage&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="disclaimer"&gt;
+&lt;h2&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;While test coverage is at 84% right now, Sphinx docs generation is at an
+early stage. The software is distributed on an &amp;quot;AS IS&amp;quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="PyPDFOCR"></category><category term="ocr"></category><category term="pdf"></category><category term="python"></category><category term="tesseract"></category></entry><entry><title>PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract</title><link href="https://virantha.com/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/" rel="alternate"></link><published>2013-07-22T20:08:00-04:00</published><updated>2013-07-22T20:08:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2013-07-22:/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/</id><summary type="html">&lt;div class="figure align-right"&gt;
+&lt;img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Updates:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Anytime -&amp;nbsp;&lt;a class="reference external" href="http://virantha.github.io/pypdfocr/html/"&gt;Get the latest updates on PyPDFOCR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;10/28/13 - Adds uploading to Evernote notebooks based on
+keywords!&lt;/li&gt;
+&lt;li&gt;10/25/13 - Supports filing to directories based on keyword search&lt;/li&gt;
+&lt;li&gt;10/22/13 - Now on PyPI, so you can just do &amp;quot;pip install
+pypdfocr&amp;quot;! (For windows, I still recommend downloading …&lt;/li&gt;&lt;/ul&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;div class="figure align-right"&gt;
+&lt;img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Updates:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Anytime -&amp;nbsp;&lt;a class="reference external" href="http://virantha.github.io/pypdfocr/html/"&gt;Get the latest updates on PyPDFOCR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;10/28/13 - Adds uploading to Evernote notebooks based on
+keywords!&lt;/li&gt;
+&lt;li&gt;10/25/13 - Supports filing to directories based on keyword search&lt;/li&gt;
+&lt;li&gt;10/22/13 - Now on PyPI, so you can just do &amp;quot;pip install
+pypdfocr&amp;quot;! (For windows, I still recommend downloading my
+prebuilt .exe as written below)&lt;/li&gt;
+&lt;li&gt;10/21/13 - Script can watch a directory for new pdfs and
+automatically run ocr on them!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;On a &lt;a class="reference external" href="http://virantha.com/2012/10/25/getting-rid-of-paper-clutter/"&gt;previous post&lt;/a&gt;, I've discussed how I've become a fan of
+&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00ATZ9QMO?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Fujitsu's ScanSnap&lt;/a&gt; device to reduce the pile
+of paper in my office. &amp;nbsp;I've been wanting to script more of the flow,
+and the one stumbling block has been the optical character recognition
+phase that makes the scanned PDF searchable. In this post, I'll detail
+my experience in using a free OCR engine from HP/Google called Tesseract
+to handle the PDF OCR conversion.&lt;/p&gt;
+&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#tesseract-ocr" id="toc-entry-1"&gt;Tesseract OCR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usage" id="toc-entry-2"&gt;Usage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#installation" id="toc-entry-3"&gt;Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#how-scripting-tesseract-for-pdf-to-pdf-conversion-works" id="toc-entry-4"&gt;How Scripting Tesseract for PDF to PDF conversion works&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="tesseract-ocr"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;Tesseract OCR&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The ScanSnap ships with a free version of &lt;a class="amazon" href="http://www.amazon.com/gp/product/B005S7ZMXA?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Abbyy FineReader&lt;/a&gt;, an excellent piece of OCR
+software; unfortunately any scripting ability requires a pricey upgrade
+to the Pro version. &amp;nbsp;A short search later, I found the most popular
+open/free solution out there: &lt;a class="reference external" href="https://code.google.com/p/tesseract-ocr/"&gt;Tesseract-OCR&lt;/a&gt;. &amp;nbsp;I had looked at this a
+while ago when the text-recognition quality seemed lacking, but version
+3.x has improved significantly.&lt;/p&gt;
+&lt;p&gt;However, simply downloading Tesseract and running it doesn't lead to a
+very usable solution, as I frustratingly found out. &amp;nbsp;The software only
+takes image files (like TIFF or JPG) as input, and produces either a
+text file or a HOCR html file as output. &amp;nbsp;Even a web search did not
+bring up any ready-built scripts to have Tesseract take a PDF as an
+input and output the OCR'ed PDF. &amp;nbsp;So, with the help of a HOCR to pdf
+script I found from google, I wrote up my own script called PyPDFOCR.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usage"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;Usage&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Once you have PyPDFOCR instaled, it's as simple as typing:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+python pypdfocr.py filename.pdf
+&lt;/pre&gt;
+&lt;p&gt;This will generate a corresponding filename_ocr.pdf&lt;/p&gt;
+&lt;p&gt;Please see the
+&lt;a class="reference external" href="http://virantha.github.io/pypdfocr/html/"&gt;documentation&lt;/a&gt;&amp;nbsp;for all the
+features.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-3"&gt;Installation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This script does have a bunch of external dependencies (all free/open
+source). So far, I've verified it runs on Mac OS X (10.7; probably other
+versions too) and Windows 7 64-bit.&lt;/p&gt;
+&lt;p&gt;Please see
+the&amp;nbsp;&lt;a class="reference external" href="http://virantha.github.io/pypdfocr/html/"&gt;documentation&lt;/a&gt;&amp;nbsp;for
+installation instructions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-scripting-tesseract-for-pdf-to-pdf-conversion-works"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-4"&gt;How Scripting Tesseract for PDF to PDF conversion works&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Here's how this script works:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Using Ghostscript, convert the input PDF into a multi-page tiff image&lt;/li&gt;
+&lt;li&gt;Using Ghostscript, convert the input PDF into multiple jpeg images.
+Required to work around a compression issue in the ReportLab PDF
+generation.&lt;/li&gt;
+&lt;li&gt;Using Tesseract, convert the multi-page tiff into a OCR
+representation called HOCR (html based open standard on describing
+every recognized word location on a page)&lt;/li&gt;
+&lt;li&gt;Build the output PDF using the multiple jpeg images, while parsing
+the HOCR file and generating text on each page in an invisible font&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Special thanks to the folks at google who wrote&amp;nbsp;&lt;a class="reference external" href="https://code.google.com/p/hocr-tools/source/browse/hocr-pdf"&gt;hocr-pdf.py&lt;/a&gt;&amp;nbsp;(Apache
+license 2.0)) that showed me how to use the hocr format; I basically
+only had to add multi-page support for this part of the flow.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="PyPDFOCR"></category><category term="ocr"></category><category term="pdf"></category><category term="python"></category><category term="tesseract"></category></entry></feed>

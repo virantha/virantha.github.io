@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="python, curio, async, await">
+
+  <title>
+Part 2 - Building a Fast Event-Driven Simulator for Concurrent Systems of Hardware Processes Using Curio and Python 3.6 | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Wed 27 September 2017 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2017/09/27/hardware-simulation-using-curio-2/" class="nohover">Part 2 - Building a Fast Event-Driven Simulator for Concurrent Systems of Hardware Processes Using Curio and Python 3.6</a></h1>
+  </div>
+  <div class="article_text">
+    <p>This is the second in my series on using <a class="reference external" href="http://curio.readthedocs.io/en/latest/">Curio</a> to build an event-driven simulator for
+hardware processes. (see <a class="reference external" href="https://virantha.com/2017/09/22/hardware-simulation-using-curio/">Part 1</a> for the first article)</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#enhancing-the-simulator-framework" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Enhancing the Simulator Framework</a></li>
+<li><a class="reference internal" href="#introducing-ports" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Introducing Ports</a></li>
+<li><a class="reference internal" href="#simplifying-the-execution" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Simplifying the execution</a></li>
+<li><a class="reference internal" href="#type-annotations-for-readability" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Type-annotations for readability</a></li>
+<li><a class="reference internal" href="#adding-simulation-timestamps-to-the-framework" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Adding simulation timestamps to the framework</a></li>
+</ul>
+</div>
+<div class="section" id="enhancing-the-simulator-framework">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Enhancing the Simulator Framework</a></h2>
+<p>Now, we're going to make this framework a little bit more robust and less verbose
+when defining the system.  In order to do this, I'm going to first introduce the
+<em>Port</em> class that will be used to define how <em>Processes</em> are connected.  Then
+we'll write a utility function to start and end the system automatically,  and
+leverage type-annotations to make the code cleaner. Finally, we'll  also
+introduce a distributed timestamp system to keep track of simulator time.</p>
+</div>
+<div class="section" id="introducing-ports">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Introducing Ports</a></h2>
+<p>Let's add the following classes to our framework:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Port</span><span class="p">:</span><span class="w">
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">chan</span> <span class="o">=</span> <span class="kc">None</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">InputPort</span><span class="p">(</span><span class="n">Port</span><span class="p">):</span><span class="w">
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>        <span class="k">return</span> <span class="n">tok</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">OutputPort</span><span class="p">(</span><span class="n">Port</span><span class="p">):</span><span class="w">
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span><span class="w">
+</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="o">.</span><span class="n">send</span><span class="p">((</span><span class="n">val</span><span class="p">))</span>
+</pre>
+<p>An <em>OutputPort</em> is meant to connect to the sender side of a <em>Channel</em>, so it has a
+<tt class="docutils literal">send</tt> method, while the <em>InputPort</em> connects to the receiver side with a <tt class="docutils literal">recv</tt>
+method.</p>
+<p>Both kinds of <em>Ports</em> contain a link to the
+<em>Channel</em> to which it is connected to.</p>
+<p>Now, let's introduce a utility function that given an <em>OutputPort</em> and an <em>InputPort</em>,
+will instantiate a channel to be used to connect the two ports.  This lets us
+hide the concept of a <em>Channel</em> inside this utility <tt class="docutils literal">connect</tt> function and will
+eliminate the need to manually instantiate it in our simulation like we did
+previously.</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">''</span><span class="p">):</span><span class="w">
+</span>    <span class="c1"># Connect ports together by instantiating a channel</span><span class="w">
+
+</span>    <span class="n">chan</span> <span class="o">=</span> <span class="n">Channel</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+
+</span>    <span class="c1"># Check to make sure the ports have not been connected previously to other channels!</span><span class="w">
+</span>    <span class="k">assert</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">chan</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> has already been connected!&quot;</span><span class="w">
+</span>    <span class="k">assert</span> <span class="ow">not</span> <span class="n">b</span><span class="o">.</span><span class="n">chan</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> has already been connected!&quot;</span><span class="w">
+
+</span>    <span class="c1"># Check to make sure the two ports are of opposite type (input/output)</span><span class="w">
+</span>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">InputPort</span><span class="p">):</span><span class="w">
+</span>        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">OutputPort</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> are both input ports!&quot;</span><span class="w">
+
+</span>        <span class="c1"># Store the ports this channel is connected to</span><span class="w">
+</span>        <span class="c1"># b ---chan---&gt; a</span><span class="w">
+</span>        <span class="n">chan</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">b</span><span class="w">
+</span>        <span class="n">chan</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">a</span><span class="w">
+</span>    <span class="k">else</span><span class="p">:</span><span class="w">
+</span>        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">InputPort</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> are both output ports!&quot;</span><span class="w">
+
+</span>        <span class="c1"># Store the ports this channel is connected to</span><span class="w">
+</span>        <span class="c1"># a ---chan---&gt; b</span><span class="w">
+</span>        <span class="n">chan</span><span class="o">.</span><span class="n">l</span> <span class="o">=</span> <span class="n">a</span><span class="w">
+</span>        <span class="n">chan</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">b</span><span class="w">
+
+</span>    <span class="c1"># Now assign the channel to the two ports</span><span class="w">
+</span>    <span class="n">a</span><span class="o">.</span><span class="n">chan</span> <span class="o">=</span> <span class="n">chan</span><span class="w">
+</span>    <span class="n">b</span><span class="o">.</span><span class="n">chan</span> <span class="o">=</span> <span class="n">chan</span>
+</pre>
+<p>This allows us to add a variety of checks like making sure a <em>Port</em> is only connected once
+to a <em>Channel</em> (recall that channels are point-to-point connections), and that
+one is an input and the other is an output.</p>
+<p>Next, let's modify our <em>Processes</em> to perform <tt class="docutils literal">send</tt> and <tt class="docutils literal">recv</tt> actions on
+their internal ports instead of channels.</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Source</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">srcval</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">srcval</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">OutputPort</span><span class="p">()</span><span class="w">
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sent </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;terminated&quot;</span><span class="p">)</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">Sink</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">InputPort</span><span class="p">()</span><span class="w">
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="n">tok_count</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+</span>        <span class="k">try</span><span class="p">:</span><span class="w">
+</span>            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
+</span>                <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>                <span class="n">tok_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
+</span>                <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>        <span class="k">except</span> <span class="n">CancelledError</span><span class="p">:</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tok_count</span><span class="si">}</span><span class="s2"> tokens received&quot;</span><span class="p">)</span><span class="w">
+
+
+</span><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">InputPort</span><span class="p">()</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">OutputPort</span><span class="p">()</span><span class="w">
+
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
+</span>            <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+</pre>
+<p>In each constructor now, we've defined member variables for the <em>Ports</em> that each
+<em>Process</em> needs, and we've gotten rid of the <tt class="docutils literal">connect</tt> method and delegated that
+to the new <tt class="docutils literal">connect</tt> function.</p>
+<p>At this point, we can rewrite our <tt class="docutils literal">system</tt> and remove any instantiations of <em>Channels</em>,
+which is pretty neat.  And there's much more error checking going on to make sure we
+don't try to connect mismatched <em>Port</em> types, for example.</p>
+<pre class="code python literal-block">
+<span class="k">async</span> <span class="k">def</span> <span class="nf">system</span><span class="p">():</span><span class="w">
+
+</span>    <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># How many buffers in our linear pipeline</span><span class="w">
+
+</span>    <span class="c1"># Instantiate the processes</span><span class="w">
+</span>    <span class="n">src</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s1">'src1'</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="w">
+</span>    <span class="n">buf</span> <span class="o">=</span> <span class="p">[</span><span class="n">Buffer</span><span class="p">(</span><span class="sa">f</span><span class="s1">'buf[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span><span class="w">
+</span>    <span class="n">snk</span> <span class="o">=</span> <span class="n">Sink</span><span class="p">(</span><span class="s1">'snk'</span><span class="p">)</span><span class="w">
+
+</span>    <span class="c1"># Connect the processes with the channels</span><span class="w">
+</span>    <span class="n">connect</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">L</span><span class="p">)</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span><span class="w">
+</span>        <span class="n">connect</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">L</span><span class="p">)</span><span class="w">
+</span>    <span class="n">connect</span><span class="p">(</span><span class="n">snk</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span><span class="p">)</span><span class="w">
+
+</span>    <span class="c1"># Start the processes</span><span class="w">
+</span>    <span class="n">p_src</span> <span class="o">=</span> <span class="k">await</span> <span class="n">spawn</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span><span class="w">
+</span>    <span class="n">p_snk</span> <span class="o">=</span> <span class="k">await</span> <span class="n">spawn</span><span class="p">(</span><span class="n">snk</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span><span class="w">
+</span>    <span class="n">p_buf</span> <span class="o">=</span> <span class="p">[</span><span class="k">await</span> <span class="n">spawn</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span><span class="w">
+
+</span>    <span class="c1"># Wait for the source to finish sending all its values</span><span class="w">
+</span>    <span class="k">await</span> <span class="n">p_src</span><span class="o">.</span><span class="n">join</span><span class="p">()</span><span class="w">
+</span>    <span class="c1"># Cancel the remaining processes</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span><span class="w">
+</span>        <span class="k">await</span> <span class="n">p_buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span><span class="w">
+</span>    <span class="k">await</span> <span class="n">p_snk</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</pre>
+<p>Running this will yield the same output as our first simulator.  You can find the
+complete code file in this <a class="reference external" href="https://gist.github.com/93f052ea6f1eef5ddf483487edcf9289">port_gist</a>.</p>
+</div>
+<div class="section" id="simplifying-the-execution">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Simplifying the execution</a></h2>
+<p>One further step we can take now is to eliminate the need to manually <tt class="docutils literal">spawn</tt> and <tt class="docutils literal">join</tt>/<tt class="docutils literal">cancel</tt> the processes to run our system.  Wouldn't it be nice if we could just
+say something like <tt class="docutils literal">run_all</tt> which would automatically start the defined processes?</p>
+<p>Well, let's do just that!  The basic idea is to keep track of all the instantiated process
+in the <em>Process</em> base class.  However, in order to <tt class="docutils literal">join</tt> on the correct type of <em>Process</em> (i.e. only Processes that generate values), we'll need to distinguish two kinds of
+processes, <em>Producers</em> and others (non-producers).   We'll make any of the former inherit
+from a new (abstract) class called <em>Producer</em> so we can keep track of those instances.</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
+
+</span>    <span class="n">next_id</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+</span>    <span class="n">non_producer_processes</span> <span class="o">=</span> <span class="p">{}</span><span class="w">
+</span>    <span class="n">producer_processes</span> <span class="o">=</span> <span class="p">{}</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span><span class="w">
+</span>        <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
+</span>        <span class="c1"># Keep track of all source processes (join on these at the end), and non-source processes (cancel on these at the end)</span><span class="w">
+</span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Producer</span><span class="p">):</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+</span>        <span class="k">else</span><span class="p">:</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">non_producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')&quot;</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">Producer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+</span>    <span class="c1"># All processes that drive the system (by injecting values in on channels unconditionally)</span><span class="w">
+</span>    <span class="c1"># must subclass this process</span><span class="w">
+</span>    <span class="k">pass</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">Source</span><span class="p">(</span><span class="n">Producer</span><span class="p">):</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">srcval</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">srcval</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">OutputPort</span><span class="p">()</span><span class="w">
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sent </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;terminated&quot;</span><span class="p">)</span>
+</pre>
+<p>Now, the <tt class="docutils literal">producer_processes</tt> dict keeps track of all the <em>Producer</em> type processes,
+and <tt class="docutils literal">non_producer_processes</tt> stores the rest.  We also change <em>Source</em> to inherit from
+the new <em>Producer</em> subclass.</p>
+<p>And that's pretty much it, we can now create a generic <tt class="docutils literal">run_all</tt> function like so:</p>
+<pre class="code python literal-block">
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run_all</span><span class="p">():</span><span class="w">
+</span>    <span class="n">source_tasks</span> <span class="o">=</span> <span class="p">[]</span><span class="w">
+</span>    <span class="n">other_tasks</span> <span class="o">=</span> <span class="p">[]</span><span class="w">
+
+</span>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Process</span><span class="o">.</span><span class="n">producer_processes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span><span class="w">
+</span>        <span class="n">source_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">await</span> <span class="n">spawn</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">exec</span><span class="p">()))</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Process</span><span class="o">.</span><span class="n">non_producer_processes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span><span class="w">
+</span>        <span class="n">other_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">await</span> <span class="n">spawn</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">exec</span><span class="p">()))</span><span class="w">
+
+</span>    <span class="c1"># Now wait for all sources to end</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">source_tasks</span><span class="p">:</span><span class="w">
+</span>        <span class="k">await</span> <span class="n">task</span><span class="o">.</span><span class="n">join</span><span class="p">()</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">other_tasks</span><span class="p">:</span><span class="w">
+</span>        <span class="k">await</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</pre>
+<p>And our <tt class="docutils literal">system</tt> reduces to just the following:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">spawn</span><span class="w">
+</span><span class="k">async</span> <span class="k">def</span> <span class="nf">system</span><span class="p">():</span><span class="w">
+
+</span>    <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># How many buffers in our linear pipeline</span><span class="w">
+
+</span>    <span class="c1"># Instantiate the processes</span><span class="w">
+</span>    <span class="n">src</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s1">'src1'</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="w">
+</span>    <span class="n">buf</span> <span class="o">=</span> <span class="p">[</span><span class="n">Buffer</span><span class="p">(</span><span class="sa">f</span><span class="s1">'buf[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]'</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span><span class="w">
+</span>    <span class="n">snk</span> <span class="o">=</span> <span class="n">Sink</span><span class="p">(</span><span class="s1">'snk'</span><span class="p">)</span><span class="w">
+
+</span>    <span class="c1"># Connect the processes with the channels</span><span class="w">
+</span>    <span class="n">connect</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">L</span><span class="p">)</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span><span class="w">
+</span>        <span class="n">connect</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">L</span><span class="p">)</span><span class="w">
+</span>    <span class="n">connect</span><span class="p">(</span><span class="n">snk</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="n">buf</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span><span class="p">)</span><span class="w">
+
+</span>    <span class="k">await</span> <span class="n">run_all</span><span class="p">()</span>
+</pre>
+<p>Much simpler and requires just the <em>Process</em> and <em>Connection</em> definitions!  The runnable
+code is at <a class="reference external" href="https://gist.github.com/f674356a82fadc95841ffae437e38838">run_all_gist</a>.</p>
+</div>
+<div class="section" id="type-annotations-for-readability">
+<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Type-annotations for readability</a></h2>
+<p>Python 3 introduced type annotations as part of the syntax, and I'm going to leverage
+that to specify the ports on a Process in a cleaner way.  For example, instead of
+instantiating an <em>InputPort</em> and an <em>OutputPort</em> manually in the constructor of the
+<em>Buffer</em> process, I'm going to add support to do the following:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+
+</span>    <span class="n">L</span><span class="p">:</span> <span class="n">InputPort</span><span class="w">
+</span>    <span class="n">R</span><span class="p">:</span> <span class="n">OutputPort</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
+</span>            <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+</pre>
+<p>The syntax of <tt class="docutils literal">variable: type</tt> is an annotation, and although Python does not
+yet assert any type checks based on this (although there are static type
+checking tools out there that do), we can still get access to an object's annotations
+by looking at the <tt class="docutils literal">__annotations__</tt> member dict, which is a mapping of the name to
+the type like so:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">(</span><span class="s2">&quot;buf&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">.</span><span class="vm">__annotations__</span>
+<span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">InputPort</span><span class="s1">&#39;&gt;, &#39;</span><span class="sa">R</span><span class="s1">&#39;: &lt;class &#39;</span><span class="n">__main__</span><span class="o">.</span><span class="n">OutputPort</span><span class="s1">&#39;&gt;}</span>
+</pre></div>
+<p>I'm going to modify the <em>Process</em> base class's constructor to take any annotations
+that are ports, and inject <strong>instances</strong> of those types into the object like so:</p>
+<pre class="code python literal-block">
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span><span class="w">
+</span>        <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
+</span>        <span class="c1"># Keep track of all source processes (join on these at the end), and non-source processes (cancel on these at the end)</span><span class="w">
+</span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Producer</span><span class="p">):</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+</span>        <span class="k">else</span><span class="p">:</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">non_producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+
+</span>        <span class="c1"># Inject the ports from the annotations on this instance</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__annotations__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span><span class="w">
+</span>            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Port</span><span class="p">):</span><span class="w">
+</span>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'injecting port(</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">) </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> onto </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span>                <span class="n">port</span> <span class="o">=</span> <span class="n">val</span><span class="p">()</span><span class="w">
+</span>                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+</pre>
+<p>Ignoring the <tt class="docutils literal">print</tt> that's only three extra lines needed to move to this cleaner
+syntax.  Isn't Python awesome?</p>
+<p>You can find the complete code at <a class="reference external" href="https://gist.github.com/54a7d02d4d50a9fcbce8082c34ff774d">annotate_gist</a>.</p>
+</div>
+<div class="section" id="adding-simulation-timestamps-to-the-framework">
+<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Adding simulation timestamps to the framework</a></h2>
+<p>Finally, let's make our simulator able to model the performance of our hardware system.
+We can make each <em>Process</em> have a timestep that corresponds to how long it takes to
+execute its code.  Each time through, each <em>Process</em> will update its local time with
+this timestep.  Then, when communication occurs, we simply dispatch the local time
+with each sent value.  At the receiving end, the local time is either smaller or larger
+than the message timestamp.  Since messages can't have come from the future, if the
+local time is smaller, then we need to update the receiver's local time to the
+received messages timestamp, in order not to violate causality.</p>
+<p>So what will it take to do this?  I'm going to introduce a default <em>timestep</em> variable
+to the <em>Process</em> class, and set it to 100 units.  I'm also going to introduce an
+<tt class="docutils literal">advance_time</tt> method that will increment the local <tt class="docutils literal">_time</tt> by the timestep
+when called like so:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Process</span><span class="p">:</span><span class="w">
+
+</span>    <span class="n">next_id</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+</span>    <span class="n">non_producer_processes</span> <span class="o">=</span> <span class="p">{}</span><span class="w">
+</span>    <span class="n">producer_processes</span> <span class="o">=</span> <span class="p">{}</span><span class="w">
+</span>    <span class="n">timestep</span> <span class="o">=</span> <span class="mi">100</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span><span class="w">
+</span>        <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
+</span>        <span class="c1"># Keep track of all source processes (join on these at the end), and non-source processes (cancel on these at the end)</span><span class="w">
+</span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Producer</span><span class="p">):</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+</span>        <span class="k">else</span><span class="p">:</span><span class="w">
+</span>            <span class="n">Process</span><span class="o">.</span><span class="n">non_producer_processes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="w">
+
+</span>        <span class="c1"># Inject the ports from the annotations on this instance</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__annotations__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span><span class="w">
+</span>            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Port</span><span class="p">):</span><span class="w">
+</span>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'injecting port(</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">) </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> onto </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span>                <span class="n">port</span> <span class="o">=</span> <span class="n">val</span><span class="p">()</span><span class="w">
+</span>                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span><span class="w">
+</span>                <span class="n">port</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span>  <span class="c1"># Store the process this port is a part of (used for updating local time in the proc on a receive)</span><span class="w">
+
+</span>        <span class="c1"># Local time</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="nf">advance_local_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')&quot;</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">print</span><span class="p">(</span> <span class="sa">f</span><span class="s1">'T:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre>
+<p>I've also modified the <tt class="docutils literal">message</tt> method to provide the current time on each print
+while the simulation is running.  One other thing to note is that I changed the
+<em>Port</em> injection code to allow every <em>Port</em> to know its containing <em>Process</em>; this
+gives every <em>Port</em> the ability to access the local <tt class="docutils literal">_time</tt> variable. Once each
+<em>Port</em> has this information, we just make the <tt class="docutils literal">send</tt> method transmit a tuple of the
+value <em>and</em> the local <tt class="docutils literal">_time</tt>, and the <tt class="docutils literal">receive</tt> method can compare each
+incoming message's timestamp with the local <tt class="docutils literal">_time</tt>, and update it if necessary:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Port</span><span class="p">:</span><span class="w">
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">chan</span> <span class="o">=</span> <span class="kc">None</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="kc">None</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">InputPort</span><span class="p">(</span><span class="n">Port</span><span class="p">):</span><span class="w">
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="n">tok</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">_time</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span><span class="w">
+</span>        <span class="k">return</span> <span class="n">tok</span><span class="w">
+
+</span><span class="k">class</span> <span class="nc">OutputPort</span><span class="p">(</span><span class="n">Port</span><span class="p">):</span><span class="w">
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span><span class="w">
+</span>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="o">.</span><span class="n">send</span><span class="p">((</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">_time</span><span class="p">))</span>
+</pre>
+<p>The only remaining thing to modify is each <em>Process</em> to make sure we advance
+the local time at the proper place. For example, in the buffer we will advance the
+time after the receive but before the send, to model the execution time of processing
+a value like so:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
+
+</span>    <span class="n">L</span><span class="p">:</span> <span class="n">InputPort</span><span class="w">
+</span>    <span class="n">R</span><span class="p">:</span> <span class="n">OutputPort</span><span class="w">
+
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="w">
+</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+
+</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
+</span>            <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">advance_local_time</span><span class="p">()</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+</pre>
+<p>And that's it.  If we run the simulation now, we get the following output, with
+the simulation time reported in every message:</p>
+<pre class="code bash literal-block">
+T:0:<span class="w"> </span>src1.0<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:100:<span class="w"> </span>src1.0<span class="w"> </span>-<span class="w"> </span>sent<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:100:<span class="w"> </span>src1.0<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:100:<span class="w"> </span>buf<span class="o">[</span><span class="m">0</span><span class="o">]</span>.1<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:200:<span class="w"> </span>buf<span class="o">[</span><span class="m">0</span><span class="o">]</span>.1<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:200:<span class="w"> </span>buf<span class="o">[</span><span class="m">1</span><span class="o">]</span>.2<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:300:<span class="w"> </span>buf<span class="o">[</span><span class="m">1</span><span class="o">]</span>.2<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>.<span class="w">
+</span>.<span class="w">
+</span>.<span class="w">
+</span>T:1700:<span class="w"> </span>buf<span class="o">[</span><span class="m">7</span><span class="o">]</span>.8<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1800:<span class="w"> </span>buf<span class="o">[</span><span class="m">7</span><span class="o">]</span>.8<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1800:<span class="w"> </span>buf<span class="o">[</span><span class="m">9</span><span class="o">]</span>.10<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1900:<span class="w"> </span>buf<span class="o">[</span><span class="m">9</span><span class="o">]</span>.10<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1800:<span class="w"> </span>buf<span class="o">[</span><span class="m">8</span><span class="o">]</span>.9<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1900:<span class="w"> </span>buf<span class="o">[</span><span class="m">8</span><span class="o">]</span>.9<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:2000:<span class="w"> </span>snk.11<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:1900:<span class="w"> </span>buf<span class="o">[</span><span class="m">9</span><span class="o">]</span>.10<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:2000:<span class="w"> </span>buf<span class="o">[</span><span class="m">9</span><span class="o">]</span>.10<span class="w"> </span>-<span class="w"> </span>sending<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:2100:<span class="w"> </span>snk.11<span class="w"> </span>-<span class="w"> </span>received<span class="w"> </span><span class="m">1</span><span class="w">
+</span>T:2100:<span class="w"> </span>snk.11<span class="w"> </span>-<span class="w"> </span><span class="m">10</span><span class="w"> </span>tokens<span class="w"> </span>received
+</pre>
+<p>The complete runnable  code is available as a gist - <a class="reference external" href="https://gist.github.com/6c7602a08ce5bb4abfc30c7f66f63f67">timestamp_gist</a>.</p>
+<p>And that brings us to the close of this article.  In <a class="reference external" href="https://virantha.com/2017/09/28/hardware-simulation-using-curio-3/">Part 3</a>, I'll demonstrate
+how we can build and model a hardware palindrome checker using this framework.  Thanks for reading!</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/curio.html">curio</a>,      <a href="https://virantha.com/tag/async.html">async</a>,      <a href="https://virantha.com/tag/await.html">await</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2017/09/27/hardware-simulation-using-curio-2/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

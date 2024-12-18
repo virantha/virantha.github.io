@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="appliance, diy">
+
+  <title>
+Fix your Breville Smart Oven by replacing the thermal fuse | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Sun 02 March 2014 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/" class="nohover">Fix your Breville Smart Oven by replacing the thermal fuse</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-right">
+<img alt="Breville Smart Oven BOV 450XL" src="/images/2014/breville/breville.jpg" />
+</div>
+<p>In this post, I'll dicuss how I was able to quickly and inexpensively replace
+the thermal fuse on our Breville digital toaster oven.  There were a few
+scattered forum posts from which I pieced together this information, even
+though this appears to be a common issue, and applies to the following
+conditions:</p>
+<ol class="arabic simple">
+<li>You own a Breville Smart Oven that's out of warranty (or don't want to deal with
+the weeks of delay in getting a warranty replacement)</li>
+<li>Your oven is completely 'dead', with no display characters appearing when you plug it
+in or press the buttons.</li>
+<li>Your outlet is working properly (reset any GFCI or breakers) and you have verified other appliances work fine with the outlet you are using for the toaster oven.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Disclaimer!
+Please use the how-to below at your own risk.  Although the fix
+is fairly straight-forward for anyone with a technical/DIY/engineering
+background, you are dealing with line voltages and a high temperature appliance.
+I cannot accept any responsibility for loss or damage resulting from your use or
+misuse of this information.</p>
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#background" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></li>
+<li><a class="reference internal" href="#fixing-the-fuse" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Fixing the fuse</a><ul class="auto-toc">
+<li><a class="reference internal" href="#tools-requireed" id="toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Tools requireed</a></li>
+<li><a class="reference internal" href="#replacement-fuse" id="toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Replacement fuse</a></li>
+<li><a class="reference internal" href="#replacement-procedure" id="toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Replacement procedure</a><ul class="auto-toc">
+<li><a class="reference internal" href="#remove-screws" id="toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Remove screws</a></li>
+<li><a class="reference internal" href="#pry-open-back-panel" id="toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Pry open back panel</a></li>
+<li><a class="reference internal" href="#disassemble-fuse-assembly-bracket" id="toc-entry-8">2.3.3&nbsp;&nbsp;&nbsp;Disassemble fuse assembly bracket</a></li>
+<li><a class="reference internal" href="#replace-fuse-in-assembly" id="toc-entry-9">2.3.4&nbsp;&nbsp;&nbsp;Replace fuse in assembly</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="background">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></h2>
+<p>A little more than 4 months after our purchase, with light duty of
+~2-3 cycles of toasting bread every day, the Breville just refused to power on one day.
+After verifying there was no cord/outlet issue, I did some google searches and
+discovered that this is in fact a <a class="reference external" href="https://getsatisfaction.com/breville/topics/my_smart_oven_wont_turn_on/">common issue</a>.  It appears that the thermal
+fuse, which is used to cut-off power when the oven gets too hot, needed replacing.
+I'm not sure why the fuse would blow, since my oven had plenty of space around it
+and I did not bake at high temperatures for a prolonged period of time, but this
+seemed like a common failure mode.</p>
+<p>The relatively simple fix is detailed in the next section, and is based on this
+<a class="reference external" href="http://www.fixya.com/support/t11821265-breville_bov650xl_will_not_power">post where someone replaced the 650XL fuse</a></p>
+</div>
+<div class="section" id="fixing-the-fuse">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Fixing the fuse</a></h2>
+<div class="section" id="tools-requireed">
+<h3><a class="toc-backref" href="#toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Tools requireed</a></h3>
+<ul class="simple">
+<li>Philips screwdriver</li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00FZPDG1K?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Wire cutters</a></li>
+<li>Plastic pry tool</li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B0002STTSY?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Crimp tool</a> (best) or needle-nose pliers (acceptable)</li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00F0CF5SA?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Crimp terminals</a></li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B000EVYGZA?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Digital multimeter</a> or continuity checker (nice-to-have)</li>
+</ul>
+</div>
+<div class="section" id="replacement-fuse">
+<h3><a class="toc-backref" href="#toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Replacement fuse</a></h3>
+<p>There are two options to getting a replacement part:</p>
+<ol class="arabic">
+<li><p class="first">Get the entire fuse assembly (basically a long wire with a heat-resistant wrap, plus a thermal fuse and mounting bracket) for ~$5 plus shipping:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.ereplacementparts.com/thermal-fuse-assembly-p-630232.html">BOV800XL Fuse Assembly</a></li>
+<li><a class="reference external" href="http://www.ereplacementparts.com/thermal-fuse-assy-new-type-p-630212.html">BOV650XL Fuse Assembly</a></li>
+<li><a class="reference external" href="http://www.ereplacementparts.com/fuse-assembly-p-1439646.html">BOV450XL Fuse Assembly</a></li>
+</ul>
+</li>
+<li><p class="first">Avoid the long lead times, and just buy the thermal fuse at Radio Shack or
+Amazon.com:</p>
+<blockquote>
+<ul>
+<li><p class="first"><a class="reference external" href="http://www.radioshack.com/product/index.jsp?productId=2102788">Radio Shack</a> - 443F 10A-rated fuse.</p>
+</li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B0087ZRIAA/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B0087ZRIAA&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B0087ZRIAA.01._SCMZZZZZZZ_.jpg"/>Metal TF 216 Celsius Cutoff Fuse</a></div></div></li>
+</ul>
+</blockquote>
+<p>The latter is an exact temperature replacement for the 420F fuse in my 450XL, while
+the former is a slightly higher temperature one. I went with the 443F one from Radio Shack because I wanted a little bit of headroom on fusing it next time, and I could buy this
+in the store.  You will also need some <a class="reference external" href="http://www.radioshack.com/product/index.jsp?productId=2103494&amp;filterName=Cable+type&amp;filterValue=Butt+connectors">crimp terminals</a>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="replacement-procedure">
+<h3><a class="toc-backref" href="#toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Replacement procedure</a></h3>
+<div class="section" id="remove-screws">
+<h4><a class="toc-backref" href="#toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Remove screws</a></h4>
+<p>Make sure your oven is unplugged, place it front panel down on a counter, so you can get
+easy access to the screws in the back.  Remove all of them ~2 dozen, as shown in the
+picture below:</p>
+<div class="figure">
+<img alt="back" src="/images/2014/breville/breville_back.jpg" />
+</div>
+<p>Next, remove all the screws on the bottom feet of the oven, as well as two screws on the bottom sides. (sorry, no picture here)  Remove the plastic feet from the front.  I could not
+figure out a way to remove the rear feet as there appeared to be a rivet holding
+them in place, but YMMV.</p>
+</div>
+<div class="section" id="pry-open-back-panel">
+<h4><a class="toc-backref" href="#toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Pry open back panel</a></h4>
+<p>Slowly slide the back panel down and to the right, without snapping off the feet in the process (maybe there's a better way to do this, but all you need is access to the left
+side of the oven where the power cord goes into the fuse).</p>
+<div class="figure">
+<img alt="open" src="/images/2014/breville/breville_open.jpg" />
+</div>
+</div>
+<div class="section" id="disassemble-fuse-assembly-bracket">
+<h4><a class="toc-backref" href="#toc-entry-8">2.3.3&nbsp;&nbsp;&nbsp;Disassemble fuse assembly bracket</a></h4>
+<p>The white assembly is on the left side, and you'll need to remove two phillips screws to
+disengage from the inner oven wall.  Pull it out of the bracket as shown below:</p>
+<div class="figure">
+<img alt="open" src="/images/2014/breville/breville_bracket.jpg" />
+</div>
+<p>At this point, it's probably a good idea to use a multi-meter and test for lack of
+continuity across the two ends of the wired assembly, to verify that the fuse is in fact
+blown.</p>
+<p>Now, you can either replace this entire assembly if you went that route, or
+replace just the fuse in the next section.</p>
+</div>
+<div class="section" id="replace-fuse-in-assembly">
+<h4><a class="toc-backref" href="#toc-entry-9">2.3.4&nbsp;&nbsp;&nbsp;Replace fuse in assembly</a></h4>
+<p>If you slide back the white plastic sheath, you'll see the thermal fuse underneath:</p>
+<div class="figure">
+<img alt="fuse" src="/images/2014/breville/breville_fuse.jpg" />
+</div>
+<p>Now, just cut off the old fuse with the crimp connectors on either side, making
+sure to remember which side is marked black, and connect your new fuse with
+new uninsulated crimp terminals.  Roll back the sheath over the fuse, place it
+back in the bracket, re-attach the bracket, and rescrew the back panel</p>
+<p>You're done!</p>
+</div>
+</div>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/diy.html">DIY</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/appliance.html">appliance</a>,      <a href="https://virantha.com/tag/diy.html">diy</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="hardware">
+
+  <title>
+Building a low-power home file server using Intel's Avoton platform | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Mon 26 January 2015 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2015/01/26/building-a-low-power-file-server-intel-avoton/" class="nohover">Building a low-power home file server using Intel's Avoton platform</a></h1>
+  </div>
+  <div class="article_text">
+    <p>In this post I'll detail the hardware I used to upgrade my 2 year old home
+server that was getting a little bit long in the tooth.  I wanted to replace a
+Core i7 based XenServer host connected to an external 8-bay SATA enclosure that
+had an idle power consumption of over 100W for machine+enclosure
+with all drives spun down.  In my new build, with 8 hard drives and
+3 SSDs, I can get it under 40W with drives spun down but the system awake.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#getting-the-components" id="toc-entry-1">1   Getting the components</a><ul class="auto-toc">
+<li><a class="reference internal" href="#build-details" id="toc-entry-2">1.1   Build details</a></li>
+<li><a class="reference internal" href="#motherboard" id="toc-entry-3">1.2   Motherboard</a></li>
+<li><a class="reference internal" href="#case" id="toc-entry-4">1.3   Case</a></li>
+<li><a class="reference internal" href="#memory" id="toc-entry-5">1.4   Memory</a></li>
+<li><a class="reference internal" href="#power-supply" id="toc-entry-6">1.5   Power supply</a></li>
+</ul>
+</li>
+</ul>
+<script>
+                $(document).ready( function () { 
+                    $('#components').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
+<div class="section" id="getting-the-components">
+<h2><a class="toc-backref" href="#toc-entry-1">1   Getting the components</a></h2>
+<p>Here's the list and summary of each part.  I have more details and options
+listed in the next section.</p>
+<table border="1" class="docutils pretty compact stripe cell-border" id="components">
+<caption>File-server components</caption>
+
+<thead valign="bottom">
+<tr><th class="head">Component</th>
+<th class="head">Retail</th>
+<th class="head">Paid</th>
+<th class="head">Comments</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00HIDQG6E/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00HIDQG6E&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00HIDQG6E.01._SCMZZZZZZZ_.jpg"/>ASRock C2550I Intel Avoton Motherboard and CPU</a></div></div></td>
+<td>$309</td>
+<td>$223 @ newegg</td>
+<td>Mini-itx 12 SATA ports (!), quad-core Intel Atom 14W TDP CPU</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00IAELTAI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00IAELTAI&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00IAELTAI.01._SCMZZZZZZZ_.jpg"/>Silverstone DS380B Case</a></div></div></td>
+<td>$149</td>
+<td>$149</td>
+<td>Supports 8 hard drives with hot-swappable trays (only 2x molex power connectors for all 8 drives) plus 4x 2.5in drive cage.  SFX power supply required.</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00C249PEO/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00C249PEO&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00C249PEO.01._SCMZZZZZZZ_.jpg"/>Corsair Air Series SP120 PWM Quiet Edition Case fans</a></div></div></td>
+<td>$20 each</td>
+<td>~$15 @ newegg wih twin pack</td>
+<td>PWM (4-pin) so speed is controllable and reportable via BIOS.  Very quiet and high CFM and pressure</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00H46JSVU/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00H46JSVU&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00H46JSVU.01._SCMZZZZZZZ_.jpg"/>Kingston 8GB DDR3 1600 Low Voltage (1.35V) with ECC</a></div></div></td>
+<td>$84</td>
+<td>$84</td>
+<td>Used a single stick and will upgrade later. Important to note this is server memory with ECC support and 1.35V (low-voltage) vs standard 1.5V</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00FA4KP8S/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00FA4KP8S&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00FA4KP8S.01._SCMZZZZZZZ_.jpg"/>Silverstone Tek 300W (ST30SF) Power Supply</a></div></div></td>
+<td>$55</td>
+<td>$55</td>
+<td>SFX form factor.  Temperature controlled fan that stays off under 50W load in typical usage. Non-modular</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B009GUXWDM/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B009GUXWDM&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B009GUXWDM.01._SCMZZZZZZZ_.jpg"/>Monoprice SATA cable</a></div></div></td>
+<td>$2.50</td>
+<td>$2.50</td>
+<td>Good length for this case/MB, and locking latches and good build quality</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="build-details">
+<h3><a class="toc-backref" href="#toc-entry-2">1.1   Build details</a></h3>
+</div>
+<div class="section" id="motherboard">
+<h3><a class="toc-backref" href="#toc-entry-3">1.2   Motherboard</a></h3>
+<p>I went with the new Avoton series of server boards based on the Silvermont Atom
+platform (the passively cooled CPU is soldered onto the motherboard).  These
+are surprisingly capable and extremely low power.  For example, the 4-core
+<a class="amazon" href="http://www.amazon.com/gp/product/B00LS34SJM?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">ASRock C2550D4l</a> mini-ITX motherboard has 14W TDP, and is
+usually under 10W.  This server-class motherboard has no problem playing back
+my high-bit-rate 1080P Plex streams, and supports 64GB ECC RAM (regular RAM
+also works), 12 SATA ports, and has an IPMI interface.  IPMI uses a dedicated
+ethernet port and lets you get a console via a web interface over the network,
+letting you physically place this machine anywhere you like and do everything
+without a keyboard and monitor.  You get access to all the sensors, BIOS, and
+even BIOS updates through this web interface, which makes everything
+hassle-free, and makes me wonder why I didn't splurge for this feature years
+ago.</p>
+<p>If you're planning on doing any kind of virtualization or multiple Plex
+streams, then I recommend jumping up to the 8-core version, the
+<a class="amazon" href="http://www.amazon.com/gp/product/B00HIDQG6E?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">ASRock C2750D4I</a>.</p>
+</div>
+<div class="section" id="case">
+<h3><a class="toc-backref" href="#toc-entry-4">1.3   Case</a></h3>
+<p>I decided to go with the new NAS desktop <a class="amazon" href="http://www.amazon.com/gp/product/B00IAELTAI?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">DS380B case</a> from
+Silverstone that has a built-in 8x3.5in bay hot-swappable backplane, plus an
+internal bracket for mounting up to 4x2.5in hard drives or SSDs.  It comes with
+3x120mm fans that are relatively quiet, but I upgraded to 3 [amazon B00C249PEO
+Corsair SP120 Quiet fans] that support fan speed control via PWM and also
+report RPMs to the BIOS.</p>
+</div>
+<div class="section" id="memory">
+<h3><a class="toc-backref" href="#toc-entry-5">1.4   Memory</a></h3>
+<p>Here is a list of all the Kingston memory that will work with this board:
+<a class="reference external" href="http://www.kingston.com/us/memory/search?DeviceType=8&amp;Mfr=ASR&amp;Line=Server%20Board&amp;Model=87350&amp;Description=Kingston_ValueRam_Memory_Server_Premier_Memory_HyperX_Memory_for_ASRock_Server_Board_C2550D4I">Kingston ECC memory</a>
+I decided to pay the slight premium for a stick of ECC low-voltage RAM.</p>
+<p>See <a class="reference external" href="http://www.servethehome.com/testing-power-savings-low-voltage-135v-kingston-memory-intel-avoton/">this article</a> for the benefits of using 1.35V vs 1.5V RAM.  You'd probably end up saving about 1 to 2W on a 16GB system, or almost 10% on a ~20W TDP system like the Avoton.</p>
+</div>
+<div class="section" id="power-supply">
+<h3><a class="toc-backref" href="#toc-entry-6">1.5   Power supply</a></h3>
+<p>I originally considered getting a <a class="amazon" href="http://www.amazon.com/gp/product/B005TWE6B8?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">PicoPSU-160-XT</a> with 16A
+brick, but the power brick was sold out, and I wasn't too keen in the end on
+running the 12V directly to my system.  Plus, it was tough to find an adapter
+plate to have a nice DC-plugin come into the case.  Moreover, I was looking
+at combined over $100 for this combination, so I ended up settling for a
+<a class="amazon" href="http://www.amazon.com/gp/product/B00FA4KP8S?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">300W power supply</a> that's fanless under 50W draw from
+Silverstone listed below. I probably could've saved a few watts with the
+PicoPSU with a good adapter, but this was the easier solution.  Keep in mind
+that the Silvestone DS308B NAS case uses a SFX form-factor power supply, like
+this power supply, and not a standard ATX sized power supply.</p>
+</div>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/hardware.html">hardware</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2015/01/26/building-a-low-power-file-server-intel-avoton/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

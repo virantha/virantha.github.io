@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - Bricknil</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/bricknil.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2019-03-30T23:46:00-04:00</updated><entry><title>BrickNil - Control LEGO Bluetooth Sensors and Motors with Python</title><link href="https://virantha.com/2019/03/30/bricknil/" rel="alternate"></link><published>2019-03-30T23:46:00-04:00</published><updated>2019-03-30T23:46:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2019-03-30:/2019/03/30/bricknil/</id><summary type="html">&lt;p&gt;BrickNil &lt;a class="footnote-reference" href="#footnote-1" id="footnote-reference-1"&gt;[*]&lt;/a&gt; provides an easy way to connect to and program LEGO® Bluetooth hubs (including the
+PoweredUp Passenger Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07CC37F63/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07CC37F63"&gt;60197&lt;/a&gt; and Cargo Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07C39LCZ9/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07C39LCZ9"&gt;60198&lt;/a&gt; sets, and the Lego
+Duplo Steam Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07BK6M2WC/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07BK6M2WC"&gt;10874&lt;/a&gt; and Cargo Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07BK6KQR6/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07BK6KQR6"&gt;10875&lt;/a&gt; ) using Python on OS X and
+Linux. This work was inspired by this &lt;a class="reference external" href="https://www.eurobricks.com/forum/index.php?/forums/topic/162288-powered-up-a-tear-down/"&gt;EuroBricks&lt;/a&gt; thread …&lt;/p&gt;</summary><content type="html">&lt;p&gt;BrickNil &lt;a class="footnote-reference" href="#footnote-1" id="footnote-reference-1"&gt;[*]&lt;/a&gt; provides an easy way to connect to and program LEGO® Bluetooth hubs (including the
+PoweredUp Passenger Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07CC37F63/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07CC37F63"&gt;60197&lt;/a&gt; and Cargo Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07C39LCZ9/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07C39LCZ9"&gt;60198&lt;/a&gt; sets, and the Lego
+Duplo Steam Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07BK6M2WC/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07BK6M2WC"&gt;10874&lt;/a&gt; and Cargo Train &lt;a class="reference external" href="https://www.amazon.com/gp/product/B07BK6KQR6/ref=as_li_tl?ie=UTF8&amp;amp;tag=virantha-20&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;linkCode=as2&amp;amp;creativeASIN=B07BK6KQR6"&gt;10875&lt;/a&gt; ) using Python on OS X and
+Linux. This work was inspired by this &lt;a class="reference external" href="https://www.eurobricks.com/forum/index.php?/forums/topic/162288-powered-up-a-tear-down/"&gt;EuroBricks&lt;/a&gt; thread and the NodeJS
+&lt;a class="reference external" href="https://github.com/nathankellenicki/node-poweredup"&gt;Powered-Up&lt;/a&gt; library. Unlike the official apps available from LEGO, BrickNil
+allows you to control multiple hubs with a single program, which lets you
+easily scale to programming large interactive systems.&lt;/p&gt;
+&lt;p&gt;BrickNil requires modern Python (designed and tested for 3.7) and uses asynchronous
+event programming built on top of the &lt;a class="reference external" href="http://curio.readthedocs.io"&gt;Curio&lt;/a&gt; async library.  As an aside, the choice of
+async library is fairly arbitrary; and enabling another library such as &lt;cite&gt;asyncio&lt;/cite&gt; or &lt;cite&gt;Trio&lt;/cite&gt;
+should be straightforward.&lt;/p&gt;
+&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents:&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#features" id="toc-entry-1"&gt;Features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#more-documentation" id="toc-entry-2"&gt;More documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;An example BrickNil program for controlling the Train motor speed is shown below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;curio&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bricknil&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;attach&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bricknil.hub&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;PoweredUpHub&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bricknil.sensor&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TrainMotor&lt;/span&gt;
+
+&lt;span class="nd"&gt;@attach&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TrainMotor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;motor&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Train&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PoweredUpHub&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="k"&gt;async&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;  &lt;span class="c1"&gt;# Repeat this control two times&lt;/span&gt;
+            &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;motor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ramp_speed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;80&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# Ramp speed to 80 over 5 seconds&lt;/span&gt;
+            &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;motor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ramp_speed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# Brake to 0 over 1 second&lt;/span&gt;
+            &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;async&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;system&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;train&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Train&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;My train&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;system&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Free and open-source software: ASL2 license&lt;/li&gt;
+&lt;li&gt;Documentation: &lt;a class="reference external" href="http://virantha.github.io/bricknil"&gt;http://virantha.github.io/bricknil&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Source: &lt;a class="reference external" href="https://github.com/virantha/bricknil"&gt;https://github.com/virantha/bricknil&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table class="docutils footnote" frame="void" id="footnote-1" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#footnote-reference-1"&gt;[*]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;BrickNil's name comes from the word &amp;quot;Nil&amp;quot; (නිල්) in &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Sinhalese_language"&gt;Sinhala&lt;/a&gt; which means Blue (as in Bluetooth)&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="section" id="features"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;Features&lt;/a&gt;&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Fully supports Python asynchronous keywords and coroutines&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last"&gt;
+&lt;li&gt;Allows expressive concurrent programming using async/await syntax&lt;/li&gt;
+&lt;li&gt;The current implementation uses the async library &lt;a class="reference external" href="http://curio.readthedocs.io"&gt;Curio&lt;/a&gt; by David Beazley&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Cross-platform&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last"&gt;
+&lt;li&gt;Uses the Adafruit Bluefruit BluetoothLE library for Mac OS X&lt;/li&gt;
+&lt;li&gt;Uses the Bleak Bluetooth library for Linux and Win10; also tested on Raspberry Pi.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;Supports the following LEGO® Bluetooth components:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This site may receive a commission (at no cost to you) if you buy an item through an affiliate link on this page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table border="1" class="docutils" id="components"&gt;
+&lt;caption&gt;Lego components supported&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="10%" /&gt;
+&lt;col width="19%" /&gt;
+&lt;col width="38%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Peripheral&lt;/th&gt;
+&lt;th class="head"&gt;Price&lt;/th&gt;
+&lt;th class="head"&gt;Sets&lt;/th&gt;
+&lt;th class="head"&gt;Support&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;PoweredUp Hub (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FHub-88009"&gt;88009&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$50&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60197&lt;/a&gt;, &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60198&lt;/a&gt;, &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07BMGR1FN?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;76112&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;LED color, Button, Current, Voltage sensor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PoweredUp Train Motor (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FTrain-Motor-88011"&gt;88011&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$14&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60197&lt;/a&gt;, &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60198&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Motor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PoweredUp Remote (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FRemote-Control-88010"&gt;88010&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$23&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60197&lt;/a&gt;, &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;60198&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Remote buttons&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PoweredUp Light (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FLight-88005"&gt;88005&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$10&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FLight-88005"&gt;88005&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Brightness&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Boost Hub (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FMove-Hub-88006"&gt;88006&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$80&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;17101&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Motors, Tilt, LED, Button, Current, Voltage sensors&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Boost Vision Sensor (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FColor-Distance-Sensor-88007"&gt;88007&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$14&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;17101&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Color, distance, count&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Boost External Motor (&lt;a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;amp;mid=13923&amp;amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FMedium-Linear-Motor-88008"&gt;88008&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;$17&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;17101&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Motor speed, position&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duplo Train Base&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07BK6M2WC?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;10874&lt;/a&gt;, &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07BK6KQR6?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;10875&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Motor, speedometer, color, distance, speaker, voltage&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="more-documentation"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;More documentation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;For more examples and documentation, please see the &lt;a class="reference external" href="http://virantha.github.io/bricknil"&gt;project website&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Bricknil"></category><category term="tech"></category><category term="bricknil"></category><category term="python"></category><category term="curio"></category><category term="async"></category><category term="bluetoothle"></category><category term="lego"></category></entry></feed>

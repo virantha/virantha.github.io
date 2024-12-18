@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - Shopping</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/shopping.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2019-05-20T22:09:00-04:00</updated><entry><title>Best Docking Stations for Apple MacBooks - Thunderbolt 3 or USB-C?</title><link href="https://virantha.com/2019/05/20/choosing-a-thunderbolt-3-dock-macbook/" rel="alternate"></link><published>2019-05-20T22:09:00-04:00</published><updated>2019-05-20T22:09:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2019-05-20:/2019/05/20/choosing-a-thunderbolt-3-dock-macbook/</id><summary type="html">&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="auto-toc simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usb-terminology-tower-of-babel" id="toc-entry-1"&gt;1&amp;nbsp;&amp;nbsp;&amp;nbsp;USB Terminology - Tower of Babel&lt;/a&gt;&lt;ul class="auto-toc"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#connector-plug-types-usb-a-vs-b-vs-c" id="toc-entry-2"&gt;1.1&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector/Plug Types (USB A vs. B vs. C)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#protocol-types-usb-1-1-2-0-3-1-and-thunderbolt" id="toc-entry-3"&gt;1.2&amp;nbsp;&amp;nbsp;&amp;nbsp;Protocol Types: USB 1.1, 2.0, 3.1 and Thunderbolt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#cable-wiring-factors" id="toc-entry-4"&gt;1.3&amp;nbsp;&amp;nbsp;&amp;nbsp;Cable/Wiring factors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#connector-protocol-and-cable-summary" id="toc-entry-5"&gt;1.4&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector, Protocol, and Cable Summary&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#power-delivery" id="toc-entry-6"&gt;2&amp;nbsp;&amp;nbsp;&amp;nbsp;Power Delivery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#docking-stations-for-thunderbolt-3-equipped-computers" id="toc-entry-7"&gt;3&amp;nbsp;&amp;nbsp;&amp;nbsp;Docking …&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="auto-toc simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usb-terminology-tower-of-babel" id="toc-entry-1"&gt;1&amp;nbsp;&amp;nbsp;&amp;nbsp;USB Terminology - Tower of Babel&lt;/a&gt;&lt;ul class="auto-toc"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#connector-plug-types-usb-a-vs-b-vs-c" id="toc-entry-2"&gt;1.1&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector/Plug Types (USB A vs. B vs. C)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#protocol-types-usb-1-1-2-0-3-1-and-thunderbolt" id="toc-entry-3"&gt;1.2&amp;nbsp;&amp;nbsp;&amp;nbsp;Protocol Types: USB 1.1, 2.0, 3.1 and Thunderbolt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#cable-wiring-factors" id="toc-entry-4"&gt;1.3&amp;nbsp;&amp;nbsp;&amp;nbsp;Cable/Wiring factors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#connector-protocol-and-cable-summary" id="toc-entry-5"&gt;1.4&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector, Protocol, and Cable Summary&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#power-delivery" id="toc-entry-6"&gt;2&amp;nbsp;&amp;nbsp;&amp;nbsp;Power Delivery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#docking-stations-for-thunderbolt-3-equipped-computers" id="toc-entry-7"&gt;3&amp;nbsp;&amp;nbsp;&amp;nbsp;Docking stations for Thunderbolt 3 equipped computers&lt;/a&gt;&lt;ul class="auto-toc"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usb-c-docking-stations" id="toc-entry-8"&gt;3.1&amp;nbsp;&amp;nbsp;&amp;nbsp;USB-C docking stations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#thunderbolt-3-docking-stations" id="toc-entry-9"&gt;3.2&amp;nbsp;&amp;nbsp;&amp;nbsp;Thunderbolt 3 docking stations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usb-and-thunderbolt-cables-and-adapters" id="toc-entry-10"&gt;4&amp;nbsp;&amp;nbsp;&amp;nbsp;USB and Thunderbolt cables and adapters&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;The state of I/O standards these days can be confusing, even for experienced
+engineers, and this article attempts to explain some of the intricacies
+involved in picking the right docking station for your needs.&lt;/p&gt;
+&lt;p&gt;I recently upgraded my five year old MacBook Pro to a newer model with
+Thunderbolt 3 ports, and I was left with the dilemma of figuring out the best
+docking station for all my legacy USB peripherals and my
+Thunderbolt/Displayport monitor. My personal choice, with a Thunderbolt 3
+equipped laptop, is to go with a &lt;a class="amazon" href="http://www.amazon.com/gp/product/B07JM3S5SJ?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Thunderbolt 3 docking station&lt;/a&gt; for my desk,
+and a cheaper portable USB-C hub when traveling. Both options are discussed
+below, with some tables comparing the different products based on
+capabilities and ports, but first, I'll cover some background on the
+different standards in play.&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This site may receive a commission (at no cost to you) if you buy an item through an affiliate link on this page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usb-terminology-tower-of-babel"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;1&amp;nbsp;&amp;nbsp;&amp;nbsp;USB Terminology - Tower of Babel&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;A significant source of confusion over USB terminology arises due to the
+hard-to-differentiate naming conventions. For example, USB-A and USB-C (or
+Type A and Type B) refer to the physical connector design (the 'plug'), and
+&lt;cite&gt;USB2&lt;/cite&gt; and &lt;cite&gt;USB3.1 gen 2&lt;/cite&gt; refer to the protocol running over these
+connectors. These naming conventions for standards are further confused by
+various marketing terms overlayed on top of these standards, such as
+HighSpeed, SuperSpeed USB, SuperSpeed USB+, and their associated logos. Many
+different technical publications such as &lt;a class="reference external" href="https://www.tomshardware.com/news/usb-31-usb-type-c-refresher,29933.html"&gt;Tom's&lt;/a&gt;
+and &lt;a class="reference external" href="https://arstechnica.com/gadgets/2016/11/the-complete-guide-to-living-a-new-fangled-usb-c-and-thunderbolt-3-lifestyle/"&gt;Ars&lt;/a&gt;
+have some excellent articles intended to clear up some of these differences,
+so I'll only quickly summarize the relevant terms for this article before
+diving into what each docking station supports.&lt;/p&gt;
+&lt;p&gt;The three main things to consider when connecting two devices (e.g. computer and peripheral) are:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="#connector-plug"&gt;Connector type&lt;/a&gt; (what the plug/socket looks like)&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="#protocol-types"&gt;Protocol/communication standard&lt;/a&gt; (what language is spoken over the
+connection)&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="#cable-wiring"&gt;Cable type&lt;/a&gt; (what wires are used and how they're certified)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let's take a look at each of these factors in the sections below.&lt;/p&gt;
+&lt;div class="section" id="connector-plug-types-usb-a-vs-b-vs-c"&gt;
+&lt;span id="connector-plug"&gt;&lt;/span&gt;&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;1.1&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector/Plug Types (USB A vs. B vs. C)&lt;/a&gt;&lt;/h3&gt;
+&lt;table border="1" class="docutils" id="usb-conn"&gt;
+&lt;caption&gt;USB Connector Types&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;USB-A&lt;/th&gt;
+&lt;th class="head"&gt;USB-B&lt;/th&gt;
+&lt;th class="head"&gt;USB-C&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="skip_better usb-c" src="/images/2019/usb/usba.jpg" style="width: 100px;" /&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;td&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="skip_better usb-c" src="/images/2019/usb/usbb.jpg" style="width: 100px;" /&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;td&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="skip_better usb-c" src="/images/2019/usb/usbc.jpg" style="width: 100px;" /&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;USB-A, USB-B,  and USB-C refer to the physical connector or plug that a cable
+or peripheral supports.  A really detailed description of every single
+connection type and sub-type, with pictures, can be seen at this &lt;a class="reference external" href="https://www.cablestogo.com/learning/connector-guides/usb#a-type"&gt;C2G
+(Cables2Go)&lt;/a&gt;
+site.&lt;/p&gt;
+&lt;p&gt;USB-A and USB-B have been around since the original days of USB 1.1, and are
+relatively large plugs that need to be oriented properly when you plug it in
+(so it has an &amp;quot;up&amp;quot; and &amp;quot;down&amp;quot; side to it, and can only go into a socket in
+the proper orientation.) USB-C, which came into the market around 2015, is
+smaller than the earlier -A and -B connectors (about the same size as Apple's
+Lightning connector), and is symmetric, so it doesn't have a specific up or
+down orientation it needs to be plugged in with. The newer MacBooks, MacBook
+Airs, and MacBook Pros (since about 2016) have switched exclusively to using
+USB-C physical connectors for both power and connecting peripherals.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="protocol-types-usb-1-1-2-0-3-1-and-thunderbolt"&gt;
+&lt;span id="protocol-types"&gt;&lt;/span&gt;&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-3"&gt;1.2&amp;nbsp;&amp;nbsp;&amp;nbsp;Protocol Types: USB 1.1, 2.0, 3.1 and Thunderbolt&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Now, let's discuss how devices talk to each other once they're plugged in
+with one of these different plug types. These different &amp;quot;languages&amp;quot;, or
+protocols, are referred to by their USB version numbers, with the newer
+versions supporting faster communication speeds across the cables. These
+speeds are expressed as bits per second (bps); and with speeds getting as
+fast as they are these days, there is usually a Giga(1 billion), multiplier
+on the speed to make it easier to say, so the unit becomes Gbps:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;&lt;strong&gt;USB&lt;/strong&gt;&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last"&gt;
+&lt;li&gt;&lt;strong&gt;USB 1.1&lt;/strong&gt; - Up to 0.012Gbps&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;USB 2.0&lt;/strong&gt; - Up to 0.48Gbps&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;USB 3.1 gen 1&lt;/strong&gt; - Up to 5Gbps&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;USB 3.1 gen 2&lt;/strong&gt; - Up to 10Gbps&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Thunderbolt 3&lt;/strong&gt; - Up to 40Gbps&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All the USB standards could theoretically use the original Type-A connectors.
+However, it's more common these days to find USB 3.1 cables with Type-C
+connectors. In fact, the 2015, 2016 and 2017 MacBooks have a single USB-C
+port running USB 3.1 gen 1.&lt;/p&gt;
+&lt;p&gt;Where it gets interesting is that &lt;strong&gt;Thunderbolt 3 also uses USB-C connectors&lt;/strong&gt;,
+and can run USB 3.1 gen 2 (and all the other earlier USB protocols) over its
+links.  In addition, Thunderbolt 3 supports the 40Gbps Thunderbolt protocol, as
+well as 8 lanes of DisplayPort 1.2, 4 lanes of PCIe, and is fully
+bidirectional.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="cable-wiring-factors"&gt;
+&lt;span id="cable-wiring"&gt;&lt;/span&gt;&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-4"&gt;1.3&amp;nbsp;&amp;nbsp;&amp;nbsp;Cable/Wiring factors&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Even with compatible connectors on each end of the cable, once connected, the
+device communication speed may end up being limited to less than the maximum
+data rates supported by the protocol because the actual wiring inside the
+cable cannot support those data rates. For example, even if you have have two
+Thunderbolt 3 devices that support 40Gbps communication speeds, if your cable
+is passive and longer than 0.5m, you'll only get 20Gbps max across that
+connection.&lt;/p&gt;
+&lt;p&gt;To ensure your cable can reach the maximum speeds supported by your devices, your
+cable needs to be &lt;em&gt;certified&lt;/em&gt; to meet a certain standard's speed.
+If you want to connect two USB 3.1 devices with USB-C ports at 10Gbps, in
+addition to making sure both devices support the USB 3.1 &lt;strong&gt;Gen 2&lt;/strong&gt; protocol,
+you need to make sure the cable manufacturer certifies the cable for &amp;quot;USB3.1 Gen 2&amp;quot; applications.
+Otherwise, it's likely you'll be limited by a max of 5Gbps of the Gen 1
+standard.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="connector-protocol-and-cable-summary"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-5"&gt;1.4&amp;nbsp;&amp;nbsp;&amp;nbsp;Connector, Protocol, and Cable Summary&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Whew, if you made it this far, here's a quick summary of common ways these three factors interact:&lt;/p&gt;
+&lt;iframe width="700" height="230" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=CD0F18972D751D7B%212562&amp;authkey=%21ADrIxjYxCRujyII&amp;em=2&amp;wdAllowInteractivity=False&amp;Item='protocols'!A2%3AH9&amp;wdHideGridlines=True&amp;wdInConfigurator=True"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="power-delivery"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-6"&gt;2&amp;nbsp;&amp;nbsp;&amp;nbsp;Power Delivery&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One thing I haven't mentioned yet is the power capabilities of each of these
+different types of interfaces. Each type of
+connection can provide a certain amount of power to your devices by default.
+While the early USB2.0 protocol over USB-A connectors could only provide 2.5W
+of power, the later USB3.1 standard bumped this up to 4.5W. When you add the
+USB-C connector to the USB3.1 protocol, this figure gets further increased to 15W.
+Every single cable out there will support these max power ratings, since
+these numbers are required by the respective standard.&lt;/p&gt;
+&lt;p&gt;In addition to the standard power ratings, there's a newer &lt;em&gt;optional&lt;/em&gt; capability called &lt;strong&gt;Power Delivery&lt;/strong&gt; that can
+augment the max power capabilities of the device port to higher levels
+depending on the cable type used. This is how, for example, laptops from
+Apple and other manufacturers can support charging in the 60W to 80W range,
+depending on the model.&lt;/p&gt;
+&lt;p&gt;A summary can be seen in the following table:&lt;/p&gt;
+&lt;iframe width="700" height="219" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=CD0F18972D751D7B%212562&amp;authkey=%21ADrIxjYxCRujyII&amp;em=2&amp;wdAllowInteractivity=False&amp;ActiveCell='power'!H1&amp;Item='power'!A1%3AK9&amp;wdHideGridlines=True&amp;wdInConfigurator=True"&gt;&lt;/iframe&gt;&lt;p&gt;It's important to note that if you have a laptop like the MacBook Pro that can
+support greater than 60W of power, then you need to have the higher power EMCA
+cable along with a dock that can deliver higher power to charge it at the
+fastest rate.  If not, your dock will still work but may either not have enough
+power to charge the battery or charge at a slower rate.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="docking-stations-for-thunderbolt-3-equipped-computers"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-7"&gt;3&amp;nbsp;&amp;nbsp;&amp;nbsp;Docking stations for Thunderbolt 3 equipped computers&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Because of the backwards-compatibility of Thunderbolt 3 ports with USB 3.1
+standards, a MacBook Air or Pro with Thunderbolt 3 can use either a cheaper
+USB-C docking station, or a more expensive Thunderbolt 3 docking station. If
+you have a MacBook, which as of early 2019 only offers USB3.1 gen 1 speeds on
+its single USB-C port, then there's no point in getting the faster
+Thunderbolt 3 docking stations and you should stick with the USB-C ones.&lt;/p&gt;
+&lt;p&gt;Either of these types of docks on the market these days can provide Ethernet,
+USB, SD card, headphone/mic, and video connectivity in addition to Power
+Delivery. The main difference is the max speeds each docking station will
+support, which becomes important if you're trying to connect to very high
+resolution monitors at high refresh rates, which we'll discuss in more detail
+below.&lt;/p&gt;
+&lt;div class="section" id="usb-c-docking-stations"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-8"&gt;3.1&amp;nbsp;&amp;nbsp;&amp;nbsp;USB-C docking stations&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;These are relatively inexpensive, ranging in price from $50 to $200.
+The cheaper portable hubs have a smaller number of ports, and limited power
+capabilities, if any. Unlike &lt;em&gt;real&lt;/em&gt; USB power delivery that can route the
+docking station's own power supply onto a USB-C cable, these hubs will
+just pass through the power from your existing laptop power brick. If you
+want more ports or want to minimize the number of power adapters you have
+sitting on your desk, you'll have to upgrade to the &amp;gt;$100 docks listed
+below.&lt;/p&gt;
+&lt;p&gt;Further, if you're planning to connect high-resolution displays over HDMI or
+DisplayPort, then you'll need to be aware of the following:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;If all you need is 1080p HD displays (or even 2560x1600), then you are guaranteed 60Hz refresh rate support.&lt;/li&gt;
+&lt;li&gt;If you need 4K (or even ultra-wide displays like 3840x1440), then a single USB-C cable can only support a 30Hz refresh rate while still maintaining
+enough bandwidth to supply USB 3.1 speeds on the hub's USB ports.&lt;/li&gt;
+&lt;li&gt;If you absolutely need 4K at 60Hz using a USB-C dock, then you will need a dock that
+supports a special 4K/60Hz mode, with the caveat that now your USB ports
+will be limited to USB 2.0 speeds &lt;a class="footnote-reference" href="#footnote-1" id="footnote-reference-1"&gt;[*]&lt;/a&gt;. In addition, the computer needs to support this
+particular DisplayPort Alternate mode over USB-C, which the new Apple laptops do.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;A summary of some of the docks available is shown below:&lt;/p&gt;
+&lt;iframe width="700" height="289" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=CD0F18972D751D7B%212562&amp;authkey=%21ADrIxjYxCRujyII&amp;em=2&amp;wdAllowInteractivity=False&amp;Item='USB-C%20Docks'!C1%3AU10&amp;wdHideGridlines=True&amp;wdInConfigurator=True"&gt;&lt;/iframe&gt;&lt;p&gt;Some important notes:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;While there are DisplayLink (unrelated to any USB-C DisplayPort Alternate
+modes) capable docks out there that enable a higher number of display,
+support for that is very driver and manufacturer dependent.&lt;/li&gt;
+&lt;li&gt;Very few docks out there will support the DisplayPort Alternate modes for 4K at 60Hz.  The Cable Matters station
+is unique in that it has a switch to enable this mode.&lt;/li&gt;
+&lt;li&gt;All of these docks use the DisplayPort Alternate standard to get the video data to the hub, at which point, depending on the hub,
+there may be some active circuitry implemented that allows the hub to convert the DisplayPort data to HDMI or other video out types.  Although
+the USB-C standard discusses a HDMI Alternate mode for transmitting native HDMI signals over the cable directly, I have not seen any
+hubs that implement this.&lt;/li&gt;
+&lt;li&gt;The SD card reader speeds can vary; if you want higher than UHS-I (aka SD 3.0) which runs at ~100MB/s, then you'll need to check the specs. As of now,
+there are a few that support UHS-II, but not UHS-III.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="thunderbolt-3-docking-stations"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-9"&gt;3.2&amp;nbsp;&amp;nbsp;&amp;nbsp;Thunderbolt 3 docking stations&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;For future-proofing, if your computer supports it, I recommend just getting a
+Thunderbolt 3 docking station, which will get you higher speeds for your
+peripherals and better graphics, as well as the ability to daisy-chain up to 6
+devices via the docking station.&lt;/p&gt;
+&lt;p&gt;Thunderbolt 3 can be thought of as the &amp;quot;super&amp;quot;-USB interface:  It supports USB3.1 standards,
+and DisplayPort 1.2 modes (including 2x 4K 30bpp at 60Hz), but also adds in support
+for PCI Express Gen 3 and THunderbolt 10Gb virtual-Ethernet, all with the same USB-C connector.&lt;/p&gt;
+&lt;p&gt;My summarized survey of Thunderbolt 3 docks is below:&lt;/p&gt;
+&lt;iframe width="700" height="296" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=CD0F18972D751D7B%212562&amp;authkey=%21ADrIxjYxCRujyII&amp;em=2&amp;wdAllowInteractivity=False&amp;Item='TB3%20Docks'!C1%3AW10&amp;wdHideGridlines=True&amp;wdInConfigurator=True"&gt;&lt;/iframe&gt;&lt;p&gt;Some tips:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;You can get HDMI with an DP-&amp;gt;HDMI adapter, so you don't necessarily need a hub with a built-in HDMI port.  Just make sure to get an active adapter regardless of the target video connector type&lt;/li&gt;
+&lt;li&gt;If you need high-speed SD card readers, then the OWC 14-port or CalDigit stations are your only options.&lt;/li&gt;
+&lt;li&gt;The Diamond is a generic design that can be found under other brand names.  The Monoprice rebrand sells for about $10 less but does not include
+a TB3 cable.&lt;/li&gt;
+&lt;li&gt;I myself got the OWC 14-port, which can be found on sale in the open-box section of OWC's web store every now and then for a discount.  I use
+&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01MQ26QIY?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Apple's Thunderbolt to Thunderbolt 2 adapter&lt;/a&gt; to connect to my Thunderbolt 2 display.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table class="docutils footnote" frame="void" id="footnote-1" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#footnote-reference-1"&gt;[*]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;A USB-C cable contains 4 lanes of wires (each lane is a pair of differential wires), plus a USB2.0 pair consisting of a TX and RX wire. Normally,
+USB 3.1 uses 2 lanes (one for TX and one for RX), leaving 2 lanes unused.  &lt;a class="reference external" href="http://www.vesa.org/wp-content/uploads/2014/09/DP-Alt-Mode-Overview-for-VESA-v1.pdf"&gt;DisplayPort&lt;/a&gt; Alternate mode (if supported by the peripheral and host), can
+utilize the unused pair of lanes for transmitting DisplayPort video a USB-C hub, which can in turn be relayed
+over a DisplayPort cable to the monitor.  These two lanes can be used for DisplayPort 1.2a and supports enough bandwidth for a single 2560x1600 or 2 each of 1080p displays, or
+4K at 30Hz.  DisplayPort Alternate mode &lt;em&gt;also&lt;/em&gt; supports using all 4 lanes in the USB-C connector, enabling enough bandwidth to drive 4K at 60Hz.  However,
+this mode is not supported by most hubs, and it also pushes all USB connectivity to the USB2.0 dedicated pair, meaining you lose any high-speed USB 3.1
+capability.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usb-and-thunderbolt-cables-and-adapters"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-10"&gt;4&amp;nbsp;&amp;nbsp;&amp;nbsp;USB and Thunderbolt cables and adapters&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Here's a set of links to cables and adapters for the different standards.&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="20%" /&gt;
+&lt;col width="24%" /&gt;
+&lt;col width="29%" /&gt;
+&lt;col width="27%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;From&lt;/th&gt;
+&lt;th class="head"&gt;To&lt;/th&gt;
+&lt;th class="head"&gt;Cable or adapter&lt;/th&gt;
+&lt;th class="head"&gt;Notes&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;USB-A&lt;/td&gt;
+&lt;td&gt;USB-A&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00HSS9IDW?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00HSS9IDW.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;USB-A&lt;/td&gt;
+&lt;td&gt;USB-C&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01GGKYR2O?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01GGKYR2O.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;USB 3.1 gen 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;USB-C&lt;/td&gt;
+&lt;td&gt;USB-C&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07D7SP4T4?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B07D7SP4T4.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;USB 3.1 gen 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01KGU0R9W?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01KGU0R9W.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;40Gbps 60W&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07R43LPCX?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B07R43LPCX.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;40Gbps 100W&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01H5QF2TK?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01H5QF2TK.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;40Gbps 100W active&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Thunderbolt 3&lt;/td&gt;
+&lt;td&gt;Thunderbolt 2&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01MQ26QIY?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01MQ26QIY.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;DisplayPort&lt;/td&gt;
+&lt;td&gt;HDMI&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00S0C7QO8?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00S0C7QO8.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Active adapter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;DisplayPort&lt;/td&gt;
+&lt;td&gt;Mini DisplayPort&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B013PWQPFS?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B013PWQPFS.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;DisplayPort&lt;/td&gt;
+&lt;td&gt;VGA&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00JFY6YJS?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00JFY6YJS.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;USB-C&lt;/td&gt;
+&lt;td&gt;HDMI&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B07HVQQPYK?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B07HVQQPYK.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;4K at 60Hz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;USB-C&lt;/td&gt;
+&lt;td&gt;DisplayPort&lt;/td&gt;
+&lt;td&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01J6DT070?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01J6DT070.01._SCMZZZZZZZ_.jpg"/&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;4K at 60Hz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</content><category term="Shopping"></category><category term="thunderbolt"></category><category term="macbook"></category><category term="usb-c"></category><category term="buying guide"></category><category term="docking station"></category><category term="hub"></category></entry><entry><title>Getting started with the Pokemon Trading Card Game (TCG) for parents</title><link href="https://virantha.com/2016/07/06/parent-guide-to-starting-pokemon/" rel="alternate"></link><published>2016-07-06T13:19:00-04:00</published><updated>2016-07-06T13:19:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2016-07-06:/2016/07/06/parent-guide-to-starting-pokemon/</id><summary type="html">&lt;p&gt;Growing up, I missed the window where Pokemon and its associated card game were
+hugely popular; I suppose my parents caught a lucky break, but then again,
+they did have to deal with my Transformers and GoBot toys all over the house!&lt;/p&gt;
+&lt;p&gt;As of 2016, I'm not sure if Pokemon …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Growing up, I missed the window where Pokemon and its associated card game were
+hugely popular; I suppose my parents caught a lucky break, but then again,
+they did have to deal with my Transformers and GoBot toys all over the house!&lt;/p&gt;
+&lt;p&gt;As of 2016, I'm not sure if Pokemon is going through a resurgence or not, but
+if any of you have
+younger school-age offspring like I do, then you may have heard a lot of begging for
+learning Pokemon and collecting cards.  Things finally came to a head around my son's
+birthday this year, and I had to give in and start looking into this strange and unfamiliar
+universe.&lt;/p&gt;
+&lt;p&gt;The first challenge is, because it's several decades old, the Pokemon trading card game
+has evolved considerably, having sprouted dozens of themes, expansions, and characters.  There's
+even a tablet app that lets you play a digital version of the game for free, but my children already get enough
+screen time and encouraging this digital playing was the last thing I wanted.
+The second challenge is, there isn't really a 'getting started' guide for parents that would ease
+one into purchasing the proper cards to learn the rules with a 5 or 6 year old, without investing
+a whole lot of time, research, and money.  After a few false steps, here are my thoughts on making this
+as painless as possible.&lt;/p&gt;
+&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="auto-toc simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#your-first-purchase" id="toc-entry-1"&gt;1&amp;nbsp;&amp;nbsp;&amp;nbsp;Your first purchase&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#getting-in-some-virtual-training" id="toc-entry-2"&gt;2&amp;nbsp;&amp;nbsp;&amp;nbsp;Getting in some virtual training&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#expanding-your-deck" id="toc-entry-3"&gt;3&amp;nbsp;&amp;nbsp;&amp;nbsp;Expanding your deck&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#organizing-your-child-s-cards" id="toc-entry-4"&gt;4&amp;nbsp;&amp;nbsp;&amp;nbsp;Organizing your child's cards&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#next-steps" id="toc-entry-5"&gt;5&amp;nbsp;&amp;nbsp;&amp;nbsp;Next steps&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="your-first-purchase"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;1&amp;nbsp;&amp;nbsp;&amp;nbsp;Your first purchase&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Just buy the following starter deck (Trainer Kit)  from Amazon:&lt;/p&gt;
+&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01AAUSDVM/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01AAUSDVM&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01AAUSDVM.01._SCMZZZZZZZ_.jpg"/&gt;Pokemon TCG: XY Trainer Kit - Pikachu Libre and Suicune&lt;/a&gt;&lt;/div&gt;&lt;p&gt;It's less than $10 so you can inexpensively decide if Pokemon is something you
+want to introduce at home.  The kit
+comes with a printed sheet of &lt;a class="reference external" href="http://www.pokemon.com/us/pokemon-tcg/rules"&gt;rules to the game&lt;/a&gt;, a plastic
+coin for flipping, a game mat that shows where the different piles of cards
+should go, game markers, and has a simplified set of 60 cards that are
+pre-arranged and split into two 30-card decks for two players.  Even better, it
+comes with a detailed walk-through that will get you through several rounds of
+play; after spending about 15 minutes on this, I was ready to go through it and
+teach it to my son.  After you do this walk-through, you can shuffle the decks
+and then play several 'real' games.&lt;/p&gt;
+&lt;p&gt;Once you've gotten familiar with the mechanics of the game, then the real fun begins.
+The actual game consists of each player having 60 cards each, so you'll need to purchase
+more cards to have a two-player game at home that reflects the real game. (You can, of course,
+use the cards you already have as a single player 60-card deck)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="getting-in-some-virtual-training"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;2&amp;nbsp;&amp;nbsp;&amp;nbsp;Getting in some virtual training&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;At this point, if you have an iPad or Android tablet lying around, and you have
+some spare time, you should probably download the free Pokemon TCG &lt;a class="reference external" href="https://itunes.apple.com/us/app/pokemon-tcg-online/id841098932?mt=8"&gt;iOS&lt;/a&gt; or
+&lt;a class="reference external" href="https://play.google.com/store/apps/details?id=com.pokemon.pokemontcg&amp;amp;hl=en"&gt;Android&lt;/a&gt;
+app and play some games on your tablet.  This way, you can see the full game
+mechanics for yourself and observe some of the strategy and complexity that
+begins to emerge.  You'll have to go to Pokemon's web site and register for an
+account to get the most out of this (although the app does let you play as a
+guest).  I wouldn't recommend letting your kids play with the apps at this
+stage, although you can create child accounts down the road with access
+controls.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="expanding-your-deck"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-3"&gt;3&amp;nbsp;&amp;nbsp;&amp;nbsp;Expanding your deck&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Now, on to buying more cards so you can get a full set of two 60-card decks.&lt;/p&gt;
+&lt;p&gt;Although you can buy what are called 'booster packs' which contain 10 random character/training cards, at this
+stage, it's much better to invest in one of the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p class="first"&gt;&lt;strong&gt;Theme packs&lt;/strong&gt;: Each theme pack comes with a complete 60-card deck that you can use immediately to play with another person.
+Here are a few of the more recent ones that you could look into (for about $12 to $16 each).  You could buy one of these
+and immediately begin playing the full game with you child.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01CJKRKP6/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01CJKRKP6&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01CJKRKP6.01._SCMZZZZZZZ_.jpg"/&gt;XY-Fates Collide Theme Deck&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01A0ZSAM4/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01A0ZSAM4&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01A0ZSAM4.01._SCMZZZZZZZ_.jpg"/&gt;XY Break Point Theme Deck&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01ABAHULK/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01ABAHULK&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01ABAHULK.01._SCMZZZZZZZ_.jpg"/&gt;Geninja and Luxray double pack (120 cards)&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01E653HKO/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01E653HKO&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01E653HKO.01._SCMZZZZZZZ_.jpg"/&gt;Zygarde and Lugia double pack (120 cards)&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;&lt;strong&gt;Elite Trainer Box&lt;/strong&gt;: There are basically gift boxes that come with a nice box to organize your cards, ~8 packs of boosters (10 cards each),
+and about 45 energy cards (which are included in theme decks, but not in booster packs). They also come with competition-legal
+plastic/acrylic dice and markers (nice upgrades to the cardboard ones you got in the starter pack).  They also contain card sleeves
+to protect your more expensive/powerful cards.  These boxes are quite a bit more
+expensive at list price (~$50), but Amazon has them on sale for a little over $30, which actually makes the price per card around 26 cents,
+about the same as buying a theme deck at list price.  Here's a selection of the most recent trainer boxes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B01BCRP8ME/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B01BCRP8ME&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B01BCRP8ME.01._SCMZZZZZZZ_.jpg"/&gt;XY-Fates Collide Elite Trainer Box&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B017WVBLOI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B017WVBLOI&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B017WVBLOI.01._SCMZZZZZZZ_.jpg"/&gt;XY Break Point Elite Trainer Box&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B016BIQ0ZS/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B016BIQ0ZS&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B016BIQ0ZS.01._SCMZZZZZZZ_.jpg"/&gt;XY Breakthrough Elite Trainer Box&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="organizing-your-child-s-cards"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-4"&gt;4&amp;nbsp;&amp;nbsp;&amp;nbsp;Organizing your child's cards&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Once you start getting more and more decks and booster packs, you'll need a way to keep them organized.
+There seem to be two main ways people store them: in special card boxes (like a card catalog or recipe card box),
+or in clear poket pages kept in a binder.  The latter seems a little tedious for all but your most precious and/or
+rare cards with pretty foil artwork.  So, I'd recomend the following: Keep your decks and booster cards in a travel box,
+and keep a binder for special cards.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p class="first"&gt;&lt;strong&gt;Card storage boxes&lt;/strong&gt;:&lt;/p&gt;
+&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00WFJJWM6/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00WFJJWM6&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00WFJJWM6.01._SCMZZZZZZZ_.jpg"/&gt;Caseling hard case&lt;/a&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;&lt;strong&gt;Binder&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Pocket pages: &lt;a class="amazon" href="http://www.amazon.com/gp/product/B005HIOVOG?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Ultra Pro 25 Pages with 9 slots per page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Binder:&lt;ul&gt;
+&lt;li&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00H4E6QI0?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Pokemon 2-inch 3-ring binder&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B014R11CK4?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Charizard 2-inch 3-ring binder&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00X2VIN5I?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Pikachu 2-inch 3-ring binder&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="next-steps"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-5"&gt;5&amp;nbsp;&amp;nbsp;&amp;nbsp;Next steps&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I'll keep this updated as a I keep learning more (haven't even talked about EX cards, Mega cards, BREAK cards, etc!)  but here are a few resources to follow:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://www.pokemon.com/us/pokemon-tcg/"&gt;Official Pokemon site&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://geekdad.com/2014/06/guide-to-pokemon-deck-building/"&gt;Parent's guide to Pokemon deck building&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://bulbapedia.bulbagarden.net/wiki/List_of_Pokémon_Trading_Card_Game_expansions"&gt;Chronology of Pokemon deck releases&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content><category term="Shopping"></category><category term="pokemon"></category></entry><entry><title>Digital Toaster Oven Options</title><link href="https://virantha.com/2014/02/02/digital-toaster-oven-survey/" rel="alternate"></link><published>2014-02-02T17:18:00-05:00</published><updated>2014-02-02T17:18:00-05:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-02-02:/2014/02/02/digital-toaster-oven-survey/</id><summary type="html">&lt;div class="figure align-right"&gt;
+&lt;img alt="Breville Smart Oven BOV 450XL" src="/images/2014/breville/breville.jpg" /&gt;
+&lt;/div&gt;
+&lt;p&gt;One of the best kitchen upgrades we did was replacing our old twist-a-dial
+toaster oven with one that integrates a digital control panel.  This gives us
+precise toasting time control (just dial in the exact number of minutes and seconds you
+want) and avoids ending up with burnt toast because …&lt;/p&gt;</summary><content type="html">&lt;div class="figure align-right"&gt;
+&lt;img alt="Breville Smart Oven BOV 450XL" src="/images/2014/breville/breville.jpg" /&gt;
+&lt;/div&gt;
+&lt;p&gt;One of the best kitchen upgrades we did was replacing our old twist-a-dial
+toaster oven with one that integrates a digital control panel.  This gives us
+precise toasting time control (just dial in the exact number of minutes and seconds you
+want) and avoids ending up with burnt toast because the analog &amp;quot;darkness&amp;quot; setting was just a tad off.&lt;/p&gt;
+&lt;p&gt;Even in this day and age, manufacturers have released only a surprisingly small
+selection of digital toaster, with corresponding high price tags.
+When I was looking, only the Breville was widely available, but there are more
+choices these days:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Breville Smart Ovens:&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last"&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B006CVVA7I/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B006CVVA7I&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B006CVVA7I.01._SCMZZZZZZZ_.jpg"/&gt;BOV450XL Mini $150&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00357YS3A/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00357YS3A&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00357YS3A.01._SCMZZZZZZZ_.jpg"/&gt;BOV650XL Compact $180&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B001L5TVGW/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B001L5TVGW&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B001L5TVGW.01._SCMZZZZZZZ_.jpg"/&gt;BOV800XL Convection $250&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B008XMY1RK/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B008XMY1RK&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B008XMY1RK.01._SCMZZZZZZZ_.jpg"/&gt;Cuisinart TOB-100 Compact Toaster Oven $75&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00BT9704U/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00BT9704U&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00BT9704U.01._SCMZZZZZZZ_.jpg"/&gt;Oster TSSTTVDGSM Digital 4-slice Toaster Oven $60&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class="first"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B005RRBMVW/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005RRBMVW&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B005RRBMVW.01._SCMZZZZZZZ_.jpg"/&gt;Waring Pro TCO650 Digital Convection Oven $85&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I bought the Mini Breville BOV450XL remanufactured/refurbished model when it was
+offered at a deep discount, based on the rave reviews, and I was not disappointed
+with the results while it worked.  (see this post for
+&lt;a class="reference external" href="https://virantha.com/2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/"&gt;more follow-up on this model&lt;/a&gt;)&lt;/p&gt;
+</content><category term="Shopping"></category><category term="appliance"></category><category term="diy"></category></entry><entry><title>Bluetooth headset with dedicated mute button</title><link href="https://virantha.com/2013/07/03/bluetooth-headset-with-dedicated-mute-button/" rel="alternate"></link><published>2013-07-03T02:55:00-04:00</published><updated>2013-07-03T02:55:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2013-07-03:/2013/07/03/bluetooth-headset-with-dedicated-mute-button/</id><summary type="html">&lt;p&gt;I typically spend several hours a day on conference calls, and I really
+miss my old blackberry that used to have a dedicated mute button. The
+iPhone touch button on the phone screen is just not quick enough to
+quickly jump in and out of a meeting in a noisy …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I typically spend several hours a day on conference calls, and I really
+miss my old blackberry that used to have a dedicated mute button. The
+iPhone touch button on the phone screen is just not quick enough to
+quickly jump in and out of a meeting in a noisy environment.&lt;/p&gt;
+&lt;p&gt;Which brings me to my next point; why is it so difficult to find a
+decent bluetooth headset these days that make it easy to mute the mic
+when on a call? I really liked my &lt;a class="amazon" href="http://www.amazon.com/gp/product/B002JIMZU4?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20"&gt;Plantronics Discovery 975 Bluetooth Headset&lt;/a&gt; for
+its comfort and unobtrusive style, but it was a pain to mute a call; I'm
+not sure what kind of usability study was done when they decided a
+&amp;quot;long&amp;quot; press on the single volume button was the mute/unmute control.&lt;/p&gt;
+&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B002JIMZU4/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B002JIMZU4&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B002JIMZU4.01._SCMZZZZZZZ_.jpg"/&gt;Plantronics Discovery 975&lt;/a&gt;&lt;/div&gt;&lt;p&gt;So here's my recent research on a replacement headset with a usable mute
+feature:&lt;/p&gt;
+&lt;table border="1" class="docutils" id="headsets"&gt;
+&lt;caption&gt;Headset Comparison&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col width="16%" /&gt;
+&lt;col width="11%" /&gt;
+&lt;col width="11%" /&gt;
+&lt;col width="32%" /&gt;
+&lt;col width="32%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Headset&lt;/th&gt;
+&lt;th class="head"&gt;Price&lt;/th&gt;
+&lt;th class="head"&gt;Mute&lt;/th&gt;
+&lt;th class="head"&gt;Features&lt;/th&gt;
+&lt;th class="head"&gt;User complaints&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B0092KJ9BU/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0092KJ9BU&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B0092KJ9BU.01._SCMZZZZZZZ_.jpg"/&gt;Plantronics Voyager Legend&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$80&lt;/td&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Sensor to answer call when placed on head&lt;/td&gt;
+&lt;td&gt;Users complain noise-cancelling distorts voice, non-standard charging cable&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00JLVNF2O/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00JLVNF2O&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00JLVNF2O.01._SCMZZZZZZZ_.jpg"/&gt;Plantronics Voyager Edge&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$118&lt;/td&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Bluetooth 4.0, HD Voice support, motion sensor&lt;/td&gt;
+&lt;td&gt;Expensive&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00BWG4TUI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00BWG4TUI&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00BWG4TUI.01._SCMZZZZZZZ_.jpg"/&gt;Jabra MOTION&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$100&lt;/td&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Motion sensor - Turns off when out of ear, pick it up and answers call&lt;/td&gt;
+&lt;td&gt;Touch controls for volume not very sensitive; not very convenient to place on ear&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B008X0TBKO/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B008X0TBKO&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B008X0TBKO.01._SCMZZZZZZZ_.jpg"/&gt;Jabra SUPREME&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$90&lt;/td&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Micro-usb charger&lt;/td&gt;
+&lt;td&gt;Call quality, noise cancelling average&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B0041D81WQ/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0041D81WQ&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B0041D81WQ.01._SCMZZZZZZZ_.jpg"/&gt;Motorola OASIS&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;~$50&lt;/td&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Cheaper&lt;/td&gt;
+&lt;td&gt;Older headset; Bluetooth 2.0, no ADP; Sound quality low&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B005LISQ0W/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005LISQ0W&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B005LISQ0W.01._SCMZZZZZZZ_.jpg"/&gt;Bose Series 2&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$150&lt;/td&gt;
+&lt;td&gt;N*&lt;/td&gt;
+&lt;td&gt;Loud volume; good noise-cancelling&lt;/td&gt;
+&lt;td&gt;Left or right versions; low battery life&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B005PVXKC4/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005PVXKC4&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B005PVXKC4.01._SCMZZZZZZZ_.jpg"/&gt;Motorola ELITE&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$70&lt;/td&gt;
+&lt;td&gt;N*&lt;/td&gt;
+&lt;td&gt;Unobtrusive&lt;/td&gt;
+&lt;td&gt;Older&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div class="first last"&gt;&lt;div&gt;&lt;a class="amazon" href="http://www.amazon.com/gp/product/B00DQ5RHK2/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00DQ5RHK2&amp;linkCode=am2&amp;tag=virantha-20"&gt;&lt;img src="http://images.amazon.com/images/P/B00DQ5RHK2.01._SCMZZZZZZZ_.jpg"/&gt;Plantronics M165 Marque 2&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td&gt;$40&lt;/td&gt;
+&lt;td&gt;N*&lt;/td&gt;
+&lt;td&gt;Most affordable option&lt;/td&gt;
+&lt;td&gt;Newer model, but sound quality low&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;* Hold vol+/- simultaneously to mute&lt;/p&gt;
+&lt;p&gt;I decided to try out the Voyager Legend, and see if the call quality is
+good enough; I'll keep this updated with my experiences.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image1" src="http://ir-na.amazon-adsystem.com/e/ir?t=virantha-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=B002JIMZU4" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update: 7/16/13
+*Well, I got my Plantronics Voyager Legend today along with a dash of
+reality on what companies fob on us these days as &amp;quot;products&amp;quot;. &amp;nbsp;While the
+fit and feel of the headset was good, the sound quality when paired with
+my iPhone 5 was quite simply atrocious. &amp;nbsp;It's hard to describe, but my
+voice just sounds chopped up and distorted on the other end. &amp;nbsp;What's
+strange is that the music streaming sounds fine, but the voice
+transmission is just awful, non-understandable, and robotic sounding.
+&amp;nbsp;And this in a perfectly quiet environment with a full charge and my
+phone in line of sight less than a foot away; firmware was also
+up-to-date according to Plantronics' myheadset updated. *&lt;/em&gt;&amp;nbsp;I'm packing
+this up and sending it back right away**. &amp;nbsp;Sorry, Plantronics, I was
+expecting better from you after the Discovery 925/975 series; if you
+can't get the basic audio quality up to par on voice on a headset, then
+why bother?&lt;/p&gt;
+&lt;p&gt;I already ordered the Jabra Supreme to replace it.&lt;/p&gt;
+&lt;div class="section" id="jabra-supreme-update"&gt;
+&lt;h2&gt;Jabra Supreme update&lt;/h2&gt;
+&lt;p&gt;Well, after about a week of using it, I'm happy with the Jabra Supreme.
+The sound quality on calls is good, the mute button works, and it's very
+comfortable on the ear. The earbud, surprisingly, is unlike most others
+that sit inside your ear close to your ear-canal; instead, the Jabra
+Supreme rests against the outside of your ear. It's also nice to just
+fold in the boom mic and have the headset turn off.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="jabra-motion-update-dec-2014"&gt;
+&lt;h2&gt;Jabra Motion Update (Dec 2014)&lt;/h2&gt;
+&lt;p&gt;I've also been using this now for the past year or so, after finding it on
+sale.  I'd say that quality wise it's very similar to the Supreme, but the fit
+is a little better.  I also think that battery standby is much better; the
+supreme would always be out of battery after being turned off for a week or
+two, with the Motion never having this issue. It is a litle bit more annoying
+to put on, and I don't think I would recommend it for smaller ears because the
+portion that fits between your ear and head is rather thick.  I do find it more
+stable on my ear once I get it on, however.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Shopping"></category><category term="bluetooth"></category><category term="shopping"></category><category term="tech"></category></entry></feed>

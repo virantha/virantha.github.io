@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - PhotoKeeper</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/photokeeper.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2016-11-07T13:21:00-05:00</updated><entry><title>PhotoKeeper: Usage guide</title><link href="https://virantha.com/2016/11/07/photokeeper-usage-guide/" rel="alternate"></link><published>2016-11-07T13:21:00-05:00</published><updated>2016-11-07T13:21:00-05:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2016-11-07:/2016/11/07/photokeeper-usage-guide/</id><summary type="html">&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents:&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#features" id="toc-entry-1"&gt;Features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usage" id="toc-entry-2"&gt;Usage:&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#examine-files" id="toc-entry-3"&gt;Examine files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#copy-files-to-a-directory" id="toc-entry-4"&gt;Copy files to a directory&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#upload-files-to-flickr" id="toc-entry-5"&gt;Upload files to Flickr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#full-help" id="toc-entry-6"&gt;Full help&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#installation" id="toc-entry-7"&gt;Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#disclaimer" id="toc-entry-8"&gt;Disclaimer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;This script will take a source directory (say the contents of a flash card from a camera),
+scan all the image/video file EXIFs, and sort them into date-based folders …&lt;/p&gt;</summary><content type="html">&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title"&gt;&lt;a class="reference internal" href="#top"&gt;Table of Contents:&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#features" id="toc-entry-1"&gt;Features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#usage" id="toc-entry-2"&gt;Usage:&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#examine-files" id="toc-entry-3"&gt;Examine files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#copy-files-to-a-directory" id="toc-entry-4"&gt;Copy files to a directory&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#upload-files-to-flickr" id="toc-entry-5"&gt;Upload files to Flickr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#full-help" id="toc-entry-6"&gt;Full help&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#installation" id="toc-entry-7"&gt;Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#disclaimer" id="toc-entry-8"&gt;Disclaimer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;This script will take a source directory (say the contents of a flash card from a camera),
+scan all the image/video file EXIFs, and sort them into date-based folders in a user-specified
+directory.  It will optionally only copy files that have not already been copied (deduplication per
+folder).  Photo Keeper can also upload all the files to Flickr into the same date-based album
+structure, also taking care not to duplicate files.&lt;/p&gt;
+&lt;p&gt;At some point, I intend to integrate this with the FlashAir series of cards for auto-uploads directly
+from the camera, but that is still a work in progress.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Free and open-source software: ASL2 license&lt;/li&gt;
+&lt;li&gt;Blog: &lt;a class="reference external" href="http://virantha.com/category/projects/photokeeper"&gt;http://virantha.com/category/projects/photokeeper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Documentation: &lt;a class="reference external" href="http://virantha.github.io/photokeeper/html"&gt;http://virantha.github.io/photokeeper/html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Source: &lt;a class="reference external" href="https://github.com/virantha/photokeeper"&gt;https://github.com/virantha/photokeeper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="features"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;Features&lt;/a&gt;&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Sort image files (JPEG/TIFF) and video files into date-based folders (currently only YYYY-MM-DD format supported)&lt;/li&gt;
+&lt;li&gt;Upload images and videos to Flickr into date-based albums&lt;/li&gt;
+&lt;li&gt;Avoid duplication of files based on photo taken time, size, and filename&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usage"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;Usage:&lt;/a&gt;&lt;/h2&gt;
+&lt;div class="section" id="examine-files"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-3"&gt;Examine files&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Examine the files in a given source directory (no changes or copying):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+photokeeper SRC_DIR examine
+&lt;/pre&gt;
+&lt;p&gt;Results in:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+Examining 482 files in /source
+100%|██████████████████████████████████████▉| 481/482 [00:08&amp;lt;00:00, 59.88file/s]
+Found images from 14 days
+{   '2016-06-24': 5,
+        '2016-07-02': 30,
+        '2016-07-03': 12,
+        '2016-07-04': 32,
+        '2016-07-05': 3,
+        '2016-07-21': 1,
+        '2016-08-02': 20,
+        '2016-08-05': 51,
+        '2016-09-30': 13,
+        '2016-10-09': 131,
+        '2016-10-10': 46,
+        '2016-10-29': 91,
+        '2016-10-31': 45,
+        '2016-11-06': 1}
+Total images: 481
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="copy-files-to-a-directory"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-4"&gt;Copy files to a directory&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Copy the files in a given source directory to a target directory with no duplication:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+photokeeper SRC_DIR TGT_DIR dedupe file
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="upload-files-to-flickr"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-5"&gt;Upload files to Flickr&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;First, go to Flickr and get a private key at &lt;a class="reference external" href="http://www.flickr.com/services/api/misc.api_keys.html"&gt;http://www.flickr.com/services/api/misc.api_keys.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Then, create a directory from where you will start photokeeper, and create a file called flickr_api.yaml:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;YOUR_API_KEY&amp;quot;&lt;/span&gt;
+&lt;span class="nt"&gt;secret&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;YOUR_API_SECRET&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now, use the following command:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+photokeeper SRC_DIR TGT_DIR dedupe flickr
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="full-help"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-6"&gt;Full help&lt;/a&gt;&lt;/h3&gt;
+&lt;pre class="literal-block"&gt;
+Usage:
+        photokeeper.py [options] SOURCE_DIR examine
+        photokeeper.py [options] SOURCE_DIR TARGET_DIR [dedupe] file
+        photokeeper.py [options] SOURCE_DIR [dedupe] flickr
+        photokeeper.py [options] SOURCE_DIR TARGET_DIR [dedupe] file flickr
+        photokeeper.py [options] SOURCE_DIR TARGET_DIR all
+        photokeeper.py --conf=FILE
+        photokeeper.py -h
+
+Arguments:
+        SOURCE_DIR  Source directory of photos
+        TARGET_DIR  Where to copy the image files
+        all         Run all steps in the flow (examine,dedupe,flickr,file)
+        examine    Examine EXIF tags
+        dedupe     Only select files not already present in target directory
+        flickr     Upload to flickr
+        file       Copy files
+
+Options:
+        -h --help        show this message
+        -v --verbose     show more information
+        -d --debug       show even more information
+        --conf=FILE      load options from file
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-7"&gt;Installation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;PhotoKeeper is currently only tested and provided for Python 3.5.  I have no
+plans to backport this to Python 2.x as I am shifting all my new development to
+3.x exclusively.&lt;/p&gt;
+&lt;!-- code-block: bash
+
+$ pip install photokeeper --&gt;
+&lt;/div&gt;
+&lt;div class="section" id="disclaimer"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-8"&gt;Disclaimer&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The software is distributed on an &amp;quot;AS IS&amp;quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="PhotoKeeper"></category><category term="tech"></category><category term="photokeeper"></category><category term="flashair"></category><category term="flickr"></category><category term="frame"></category><category term="photo"></category><category term="python"></category></entry></feed>

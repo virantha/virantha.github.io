@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet/less" type="text/css" href="/theme/css/style.less">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha N. Ekanayake">
+  <meta name="description" content="Technical writings by Virantha N. Ekanayake">
+
+
+
+<meta name="keywords" content="ocr, pdf, python, tesseract">
+
+  <title>
+PyPDFOCR - Guide to Usage | Virantha's Blog  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="">
+      </a>
+      <h2><a href="" class="nohover">Virantha N. Ekanayake</a></h2>
+      <p>
+        <form style="display: inline;" action="/search.html">
+            <div style="float: center;" id="tipue_focus"><input type="text" name="q" id="tipue_search_input">
+            <input class='hide' type="button" id="tipue_search_button" onclick="this.form.submit();"></div>
+        </form>
+      
+      </p>
+      <div>
+          <ul>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">You can add links in your config file</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">Another social link</span><i class="fa fa-external-link-square "></i></a></li>
+            <br>
+            <li><a href="https://getpelican.com/" target="_blank">Pelican<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://www.python.org/" target="_blank">Python.org<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file<i class="fa fa-external-link-square "></i></a></li>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="">Home</a> &#124; 
+            <ul>
+                <li><a href='/index.html'>All posts</a></li>
+                <li><a href='/'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="/category/tech.html"> Tech notes </a> </li>
+                <li><a href="/category/snippets.html"> Snippets </a> </li>
+                <li><a href="/category/diy.html"> DIY </a> </li>
+                <li><a href="/category/shopping.html"> Shopping </a> </li>
+
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Tue 23 July 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs.html" class="nohover">PyPDFOCR - Guide to Usage</a></h1>
+  </div>
+  <div class="article_text">
+    <ul class="simple">
+<li>Take a scanned PDF file and run OCR on it (using the Tesseract OCR
+software from Google), generating a searchable PDF</li>
+<li>Optionally, watch a folder for incoming scanned PDFs and
+automatically run OCR on them</li>
+<li>Optionally, file the scanned PDFs into directories based on simple
+keyword matching that you specify</li>
+<li>Evernote auto-upload and filing based on keyword search</li>
+<li>Email status when it files your PDF</li>
+</ul>
+<p>More links:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://virantha.com/category/pypdfocr.html">Blog &#64; virantha.com</a></li>
+<li><a class="reference external" href="http://virantha.github.com/pypdfocr/html">Documentation &#64; gitpages</a></li>
+<li><a class="reference external" href="https://www.github.com/virantha/pypdfocr">Source &#64; github</a></li>
+</ul>
+<div class="section" id="usage">
+<h2>Usage:</h2>
+<div class="section" id="single-conversion">
+<h3>Single conversion:</h3>
+<pre class="literal-block">
+pypdfocr filename.pdf
+
+--&gt; filename_ocr.pdf will be generated
+</pre>
+<p>If you have a language pack installed, then you can specify it with the
+<tt class="docutils literal"><span class="pre">-l</span></tt> option:</p>
+<pre class="literal-block">
+pypdfocr -l spa filename.pdf
+</pre>
+</div>
+<div class="section" id="folder-monitoring">
+<h3>Folder monitoring:</h3>
+<pre class="literal-block">
+pypdfocr -w watch_directory
+
+--&gt; Every time a pdf file is added to `watch_directory` it will be OCR'ed
+</pre>
+</div>
+<div class="section" id="automatic-filing">
+<h3>Automatic filing:</h3>
+<p>To automatically move the OCR'ed pdf to a directory based on a keyword,
+use the -f option and specify a configuration file (described below):</p>
+<pre class="literal-block">
+pypdfocr filename.pdf -f -c config.yaml
+</pre>
+<p>You can also do this in folder monitoring mode:</p>
+<pre class="literal-block">
+pypdfocr -w watch_directory -f -c config.yaml
+</pre>
+</div>
+<div class="section" id="filing-based-on-filename-match">
+<h3>Filing based on filename match:</h3>
+<p>If no keywords match the contents of the filename, you can optionally
+allow it to fallback to trying to find keyword matches with the PDF
+filename using the -n option. For example, you may have receipts always
+named as <tt class="docutils literal">receipt_2013_12_2.pdf</tt> by your scanner, and you want to move
+this to a folder called 'receipts'. Assuming you have a keyword
+<tt class="docutils literal">receipt</tt> matching to folder <tt class="docutils literal">receipts</tt> in your configuration file
+as described below, you can run the following and have this filed even
+if the content of the pdf does not contain the text 'receipt':</p>
+<pre class="literal-block">
+pypdfocr filename.pdf -f -c config.yaml -n
+</pre>
+<div class="section" id="configuration-file-for-automatic-pdf-filing">
+<h4>Configuration file for automatic PDF filing</h4>
+<p>The config.yaml file above is a simple folder to keyword matching text
+file. It determines where your OCR'ed PDFs (and optionally, the original
+scanned PDF) are placed after processing. An example is given below:</p>
+<pre class="literal-block">
+target_folder: &quot;docs/filed&quot;
+default_folder: &quot;docs/filed/manual_sort&quot;
+original_move_folder: &quot;docs/originals&quot;
+
+folders:
+    finances:
+        - american express
+        - chase card
+        - internal revenue service
+    travel:
+        - boarding pass
+        - airlines
+        - expedia
+        - orbitz
+    receipts:
+        - receipt
+</pre>
+<p>The <tt class="docutils literal">target_folder</tt> is the root of your filing cabinet. Any PDF moving
+will happen in sub-directories under this directory.</p>
+<p>The <tt class="docutils literal">folders</tt> section defines your filing directories and the keywords
+associated with them. In this example, we have three filing directories
+(finances, travl, receipts), and some associated keywords for each
+filing directory. For example, if your OCR'ed PDF contains the phrase
+&quot;american express&quot; (in any upper/lower case), it will be filed into
+<tt class="docutils literal">docs/filed/finances</tt></p>
+<p>The <tt class="docutils literal">default_folder</tt> is where the OCR'ed PDF is moved to if there is
+no keyword match.</p>
+<p>The <tt class="docutils literal">original_move_folder</tt> is optional (you can comment it out with
+<tt class="docutils literal">#</tt> in front of that line), but if specified, the original scanned PDF
+is moved into this directory after OCR is done. Otherwise, if this field
+is not present or commented out, your original PDF will stay where it
+was found.</p>
+<p>If there is any naming conflict during filing, the program will add an
+underscore followed by a number to each filename, in order to avoid
+overwriting files that may already be present.</p>
+</div>
+</div>
+<div class="section" id="evernote-upload">
+<h3>Evernote upload:</h3>
+<div class="section" id="evernote-authentication-token">
+<h4>Evernote authentication token</h4>
+<p>To enable Evernote support, you will need to <a class="reference external" href="https://www.evernote.com/api/DeveloperToken.action">get a developer token for
+your Evernote
+account.</a>. You
+should note that this script will never delete or modify existing notes
+in your account, and limits itself to creating new Notebooks and Notes.
+Once you get that token, you copy and paste it into your configuration
+file as shown below</p>
+</div>
+<div class="section" id="evernote-filing-usage">
+<h4>Evernote filing usage</h4>
+<p>To automatically upload the OCR'ed pdf to a folder based on a keyword,
+use the <tt class="docutils literal"><span class="pre">-e</span></tt> option instead of the <tt class="docutils literal"><span class="pre">-f</span></tt> auto filing option.</p>
+<pre class="literal-block">
+pypdfocr filename.pdf -e -c config.yaml
+</pre>
+<p>Similarly, you can also do this in folder monitoring mode:</p>
+<pre class="literal-block">
+pypdfocr -w watch_directory -e -c config.yaml
+</pre>
+</div>
+<div class="section" id="evernote-filing-configuration-file">
+<h4>Evernote filing configuration file</h4>
+<p>The config file shown above only needs to change slightly. The folders
+section is completely unchanged, but note that <tt class="docutils literal">target_folder</tt> is the
+name of your &quot;Notebook stack&quot; in Evernote, and the <tt class="docutils literal">default_folder</tt>
+should just be the default Evernote upload notebook name.</p>
+<pre class="literal-block">
+target_folder: &quot;evernote_stack&quot;
+default_folder: &quot;default&quot;
+original_move_folder: &quot;docs/originals&quot;
+evernote_developer_token: &quot;YOUR_TOKEN&quot;
+
+folders:
+    finances:
+        - american express
+        - chase card
+        - internal revenue service
+    travel:
+        - boarding pass
+        - airlines
+        - expedia
+        - orbitz
+    receipts:
+        - receipt
+</pre>
+</div>
+</div>
+<div class="section" id="auto-email">
+<h3>Auto email</h3>
+<p>You can have PyPDFOCR email you everytime it converts a file and files
+it. You need to first specify the following lines in the configuration
+file and then use the <tt class="docutils literal"><span class="pre">-m</span></tt> option when invoking <tt class="docutils literal">pypdfocr</tt>:</p>
+<pre class="literal-block">
+mail_smtp_server: &quot;smtp.gmail.com:587&quot;
+mail_smtp_login: &quot;virantha&#64;gmail.com&quot;
+mail_smtp_password: &quot;PASSWORD&quot;
+mail_from_addr: &quot;virantha&#64;gmail.com&quot;
+mail_to_list:
+    - &quot;virantha&#64;gmail.com&quot;
+    - &quot;person2&#64;gmail.com&quot;
+</pre>
+</div>
+</div>
+<div class="section" id="advanced-options">
+<h2>Advanced options</h2>
+<div class="section" id="fine-tuning-tesseract-ghostscript-others">
+<h3>Fine-tuning Tesseract/Ghostscript/others</h3>
+<p>You can specify Tesseract and Ghostscript executable locations manually, as
+well as the number of concurrent processes allowed during preprocessing and
+tesseract.  Use the following in your configuration file:</p>
+<pre class="literal-block">
+tesseract:
+    binary: &quot;/usr/bin/tesseract&quot;
+    threads: 8
+
+ghostscript:
+    binary: &quot;/usr/local/bin/gs&quot;
+
+preprocess:
+    threads: 8
+</pre>
+</div>
+<div class="section" id="handling-disk-time-outs">
+<h3>Handling disk time-outs</h3>
+<p>If you need to increase the time interval (default 3 seconds) between new
+document scans when pypdfocr is watching a directory, you can specify the following
+option in the configuration file:</p>
+<pre class="literal-block">
+watch:
+    scan_interval: 6
+</pre>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<div class="section" id="using-pip">
+<h3>Using pip</h3>
+<p>PyPDFOCR is available in PyPI, so you can just run:</p>
+<pre class="literal-block">
+pip install pypdfocr
+</pre>
+<p>Please note that some of the 3rd-party libraries required by PyPDFOCR wiill
+require some build tools, especially on a default Ubuntu system.  If you run
+into any issues using pip install, you may want to install the
+following packages on Ubuntu and try again:</p>
+<ul class="simple">
+<li>gcc</li>
+<li>libjpeg-dev</li>
+<li>zlib-bin</li>
+<li>zlib1g-dev</li>
+<li>python-dev</li>
+</ul>
+<p>For those on <strong>Windows</strong>, because it's such a pain to get all the PIL
+and PDF dependencies installed, I've gone ahead and made an executable
+called
+<a class="reference external" href="https://github.com/virantha/pypdfocr/blob/master/dist/pypdfocr.exe?raw=true">pypdfocr.exe</a></p>
+<p>You still need to install Tesseract, GhostScript, etc. as detailed below in
+the external dependencies list.</p>
+</div>
+<div class="section" id="manual-install">
+<h3>Manual install</h3>
+<p>Clone the source directly from github (you need to have git installed):</p>
+<pre class="literal-block">
+git clone https://github.com/virantha/pypdfocr.git
+</pre>
+<p>Then, install the following third-party python libraries:</p>
+<ul class="simple">
+<li>Pillow (Python Imaging Library) <a class="reference external" href="https://pillow.readthedocs.org/en/3.1.x/">https://pillow.readthedocs.org/en/3.1.x/</a></li>
+<li>ReportLab (PDF generation library)
+<a class="reference external" href="http://www.reportlab.com/opensource/">http://www.reportlab.com/opensource/</a></li>
+<li>Watchdog (Cross-platform fhlesystem events monitoring)
+<a class="reference external" href="https://pypi.python.org/pypi/watchdog">https://pypi.python.org/pypi/watchdog</a></li>
+<li>PyPDF2 (Pure python pdf library)</li>
+</ul>
+<p>These can all be installed via pip:</p>
+<pre class="literal-block">
+pip install Pillow
+pip install reportlab
+pip install watchdog
+pip install pypdf2
+</pre>
+<p>You will also need to install the external dependencies listed below.</p>
+</div>
+<div class="section" id="external-dependencies">
+<h3>External Dependencies</h3>
+<p>PyPDFOCR relies on the following (free) programs being installed and in
+the path:</p>
+<ul class="simple">
+<li>Tesseract OCR software <a class="reference external" href="https://code.google.com/p/tesseract-ocr/">https://code.google.com/p/tesseract-ocr/</a></li>
+<li>GhostScript <a class="reference external" href="http://www.ghostscript.com/">http://www.ghostscript.com/</a></li>
+<li>ImageMagick <a class="reference external" href="http://www.imagemagick.org/">http://www.imagemagick.org/</a></li>
+<li>Poppler <a class="reference external" href="http://poppler.freedesktop.org/">http://poppler.freedesktop.org/</a>  (<a class="reference external" href="http://sourceforge.net/projects/poppler-win32/">Windows</a>)</li>
+</ul>
+<p>Poppler is only required if you want pypdfocr to figure out the original PDF resolution
+automatically; just make sure you have <tt class="docutils literal">pdfimages</tt> in your path.   Note that the
+<a class="reference external" href="http://www.foolabs.com/xpdf/download.html">xpdf</a> provided <tt class="docutils literal">pdfimages</tt> does not work for this,
+because it does not support the <tt class="docutils literal"><span class="pre">-list</span></tt> option to list the table of images in a PDF file.</p>
+<p>On Mac OS X, you can install these using homebrew:</p>
+<pre class="literal-block">
+brew install tesseract
+brew install ghostscript
+brew install poppler
+brew install imagemagick
+</pre>
+<p>On Windows, please use the installers provided on their download pages.</p>
+<p>** Important ** Tesseract version 3.02.02 or newer required
+(apparently 3.02.01-6 and possibly others do not work due to a hocr
+output format change that I'm not planning to address). On Ubuntu, you
+may need to compile and install it manually by following <a class="reference external" href="http://miphol.com/muse/2013/05/install-tesseract-ocr-on-ubunt.html">these
+instructions</a></p>
+<p>Also note that if you want Tesseract to recognize rotated documents (upside down, or rotated 90 degrees)
+then you need to find your tessdata directory and do the following:</p>
+<pre class="literal-block">
+cd /usr/local/share/tessdata
+cp eng.traineddata osd.traineddata
+</pre>
+<p><tt class="docutils literal">osd</tt> stands for Orientation and Script Detection, so you need to copy the .traineddata
+for whatever language you want to scan in as <tt class="docutils literal">osd.traineddata</tt>.  If you don't do this step,
+then any landscape document will produce garbage</p>
+</div>
+</div>
+<div class="section" id="disclaimer">
+<h2>Disclaimer</h2>
+<p>While test coverage is at 84% right now, Sphinx docs generation is at an
+early stage. The software is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="/category/pypdfocr.html">PyPDFOCR</a></p>
+    <p>Tags:
+      <a href="/tag/ocr.html">ocr</a>,      <a href="/tag/pdf.html">pdf</a>,      <a href="/tag/python.html">python</a>,      <a href="/tag/tesseract.html">tesseract</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha N. Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+    <script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        var script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+    </script>
+
+</body>
+</html>

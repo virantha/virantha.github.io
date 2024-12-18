@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="evernote, python, tech">
+
+  <title>
+Creating new notes and attaching files using Evernote's Python API | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Mon 04 November 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/11/04/creating-new-notes-and-attaching-files-using-evernotes-python-api/" class="nohover">Creating new notes and attaching files using Evernote's Python API</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-right">
+<img alt="Documents to Evernote" src="/images/2013/cloud.jpg" />
+</div>
+<p>I managed to piece together how to attach a new PDF file to an Evernote
+note using their Python API, so I thought it might be useful to have a
+post that has all of this information together in one place. &nbsp;I've put
+together a complete example that will:</p>
+<ol class="arabic simple">
+<li>Authenticate to Evernote using a developer token (Oauth2 is a topic
+for another day)</li>
+<li>Check if a notebook exists; if not, it will create it for you.</li>
+<li>Create a new note in the notebook</li>
+<li>Attach a PDF file to that note (including calculating the necessary
+MD5 hash)</li>
+<li>Upload the new note</li>
+</ol>
+<p>The complete file is shown at the end of this post, and I'll go through
+each function separately in the next sections.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#imports" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Imports</a></li>
+<li><a class="reference internal" href="#authentication" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Authentication</a></li>
+<li><a class="reference internal" href="#handle-notebooks" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Handle notebooks</a></li>
+<li><a class="reference internal" href="#create-the-new-note-with-attachment" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Create the new note with attachment</a></li>
+<li><a class="reference internal" href="#uploading-the-note" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Uploading the note</a></li>
+<li><a class="reference internal" href="#complete-example" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Complete example</a></li>
+</ul>
+</div>
+<div class="section" id="imports">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Imports</a></h2>
+<p>Here's the complete set of imports that took me a while to track down,
+even from Evernote's own examples:</p>
+<p>[gist:id=7294365,file=_imports.py]</p>
+</div>
+<div class="section" id="authentication">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Authentication</a></h2>
+<p>And here's how to do the authentication using a developer token (Go to
+the following places to get a token: <a class="reference external" href="https://sandbox.evernote.com/api/DeveloperToken.action">Sandbox evernote server</a> or <a class="reference external" href="https://www.evernote.com/api/DeveloperToken.action">Production Evernote server</a></p>
+<p>[gist:id=7294365,file=_auth.py]</p>
+<p>The important thing is to keep the EvernoteClient object around in
+<tt class="docutils literal">self.client</tt>, as this will proved the authenticated access to the
+note stores.</p>
+</div>
+<div class="section" id="handle-notebooks">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Handle notebooks</a></h2>
+<p>The next step is to check whether the required notebook is available,
+or if we need to make it. See the _check_and_make_notebook function.</p>
+<p>[gist:id=7294365,file=_notebook.py]</p>
+<p>We use the <tt class="docutils literal">get_note_store</tt> API call to get all the
+notebooks, and return a dict with the notebook name mapping to the
+notebook, in function <tt class="docutils literal">_get_notebooks</tt>. Then, if the desired
+notebook is present, we update the stack (in Evernote, a notebook can be
+in a collection called a &quot;stack&quot; of notebooks) and return the notebook
+pointer. If not, we create a new notebook using the <tt class="docutils literal">Types.Notebook()</tt>
+call, and store it using the <tt class="docutils literal">createNotebook</tt> API call in the
+<tt class="docutils literal">note_store</tt>.</p>
+</div>
+<div class="section" id="create-the-new-note-with-attachment">
+<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Create the new note with attachment</a></h2>
+<p>Next is the real meat of this example, where we create the note with
+the attachment:</p>
+<p>[gist:id=7294365,file=_note.py]</p>
+<p>We create a new note using <tt class="docutils literal">Types.Note()</tt>, and set its containing
+notebook using the <tt class="docutils literal">GUID</tt> of the notebook. We then start setting the
+contents of the note using the Evernote markup language. All the text
+and attachment links must be inside the &quot;en-note&quot; tag. The content is
+then built up as follows:</p>
+<ul class="simple">
+<li>Read in the PDF file to attach</li>
+<li>Calculate the MD5 hash</li>
+<li>Create a new Data container for Evernote and store the hash, size,
+and data from the file</li>
+<li>Create a link to this file to insert into the content of the note</li>
+<li>Create a <tt class="docutils literal">Resource</tt> type to hold the PDF <tt class="docutils literal">Data</tt>, and put it into
+a <tt class="docutils literal">Resource</tt> list</li>
+<li>Append the resource list to the note</li>
+<li>Return this newly formed note</li>
+</ul>
+</div>
+<div class="section" id="uploading-the-note">
+<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Uploading the note</a></h2>
+<p>The final step is to upload the note:</p>
+<p>[gist:id=7294365,file=_upload.py]</p>
+</div>
+<div class="section" id="complete-example">
+<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Complete example</a></h2>
+<p>[gist:id=7294365,file=evernote_pdf_upload.py]</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/evernote.html">evernote</a>,      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/tech.html">tech</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/11/04/creating-new-notes-and-attaching-files-using-evernotes-python-api/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

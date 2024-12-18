@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="python, resume, docx">
+
+  <title>
+OneResumé - Usage Guide | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Tue 07 April 2015 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/" class="nohover">OneResumé - Usage Guide</a></h1>
+  </div>
+  <div class="article_text">
+    <p>OneResumé is a data-driven resumé generator for text and Microsoft Word
+documents.  Write your resumé content in <a class="reference external" href="http://en.wikipedia.org/wiki/YAML">YAML</a> and quickly and easily generate
+multiple versions and formats of your resumé using this program.</p>
+<ul class="simple">
+<li>Free and open-source software: ASL2 license</li>
+<li>Blog: <a class="reference external" href="http://virantha.com/category/oneresume.html">http://virantha.com/category/oneresume.html</a></li>
+<li>Documentation: <a class="reference external" href="http://virantha.github.io/one_resume/html">http://virantha.github.io/one_resume/html</a></li>
+<li>Source: <a class="reference external" href="https://github.com/virantha/one_resume">https://github.com/virantha/one_resume</a></li>
+</ul>
+<div class="section" id="features">
+<h2>Features</h2>
+<ul class="simple">
+<li>Keep your resumé content in simple text files and automatically generate
+different versions of your resumés in multiple formats (currently supports
+generating text and Microsoft Word .docx format resumés)</li>
+<li>Allows you to break up your resumé content into multiple files, so you can
+pick and choose the sections you want for each generated version. For
+example, if you want one resumé with your publications, but want to skip them
+for a shorter version, you can maintain the publications list in a separate
+input file, and keep both generated resumés synchronized with the other
+content.</li>
+<li>Plugin architecture, so you can easily extend to other formats (LaTex coming soon)</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2>Usage:</h2>
+<p>OneResumé can be run in single resumé mode, or batch mode (in order to generate multiple different resumés in one go).  The former usage is shown
+below:</p>
+<pre class="literal-block">
+one_resume.py single -t template_filename -y resumé_content_filename -o output_filename -f Text
+</pre>
+<p>The <tt class="docutils literal"><span class="pre">-f</span></tt> option is the format you want to use, currently either <tt class="docutils literal">Text</tt> or <tt class="docutils literal">Word</tt>.  The templates and content files
+will be discussed in the next section.</p>
+<p>If you want to run in batch mode:</p>
+<pre class="literal-block">
+one_resume.py batch -c config.yml
+</pre>
+<p>The <tt class="docutils literal">config.yml</tt> configuration file is a <a class="reference external" href="http://en.wikipedia.org/wiki/YAML">YAML</a> file structured as follows:</p>
+<div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé1.yaml</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Word</span>
+<span class="w">        </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé-template1.docx</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generated/Resumé_standard.docx</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé1.yaml</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Text</span>
+<span class="w">        </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé-template1.txt</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generated/Resumé_standard.txt</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé1.yml</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Word</span>
+<span class="w">        </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé-template-short.docx</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generated/Resumé_short.docx</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé-jobseeker.yml</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Word</span>
+<span class="w">        </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sources/resumé-template-jobseeker.docx</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generated/Resumé_jobseeker.docx</span>
+</pre></div>
+<p>In this example, we are generating 4 different resumés, 3 of which are Word format, and 1 of which is text.  Three of them
+use the same resumé content, with one of them presumably using that content to generate a shortened version (with a different template file).
+The fourth one uses a customized resumé content, perhaps with different wording, to generate a specialized resumé.</p>
+<p>Now, let's take a look at how the resumé content and output text files are structured.</p>
+<div class="section" id="writing-resume-content">
+<h3>Writing Resumé Content</h3>
+<p>Resumé content is written using the <a class="reference external" href="http://en.wikipedia.org/wiki/YAML">YAML</a> format.  The content is broken up into sections, with each section consisting of a list (can be just a single item list)
+of content.  The example below is pretty self-explanatory:</p>
+<div class="highlight"><pre><span></span><span class="nt">contact</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">S. Holmes</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">221B Baker Street, St Marylebone, London, England</span>
+<span class="w">        </span><span class="nt">phone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">        </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sherlock@holmesconsulting.com</span>
+<span class="w">        </span><span class="nt">www</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://www.gotcrime.com</span>
+
+<span class="nt">skills</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">        </span><span class="nt">skill_list</span><span class="p">:</span><span class="w">  </span><span class="p p-Indicator">&gt;</span>
+<span class="w">            </span><span class="no">Crime solving, cigarette-ash classification, crypto-analysis, disguise</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Past</span>
+<span class="w">        </span><span class="nt">skill_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">            </span><span class="no">Fencing, violin</span>
+
+<span class="nt">education</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">degree</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BA</span>
+<span class="w">        </span><span class="nt">university</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Christ Church College</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Oxford, England</span>
+<span class="w">        </span><span class="nt">field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chemistry</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1876</span>
+<span class="w">        </span><span class="nt">gpa</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">degree</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MA</span>
+<span class="w">        </span><span class="nt">university</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sidney Sussex</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cambridge</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1878</span>
+<span class="w">        </span><span class="nt">field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Criminology</span>
+<span class="w">        </span><span class="nt">gpa</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.9</span>
+
+<span class="nt">experience</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Baker Street Detectives</span>
+<span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">London</span>
+<span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Consulting Detective</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1880</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">1903&quot;</span>
+<span class="w">        </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">            </span><span class="no">Brought several notorious criminals to justice.  Supported the intelligence services and recovered key</span>
+<span class="w">            </span><span class="no">government property.</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beekeeping Solutions</span>
+<span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sussex Downs</span>
+<span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beekeeper</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1904-1914&quot;</span>
+<span class="w">        </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">            </span><span class="no">Made honey.</span>
+</pre></div>
+<p>You can also split the content up into several different files.  For example, the top level file could just be written as:</p>
+<div class="highlight"><pre><span></span><span class="nt">contact</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">S. Holmes</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">221B Baker Street, St Marylebone, London, England</span>
+<span class="w">        </span><span class="nt">phone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">        </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sherlock@holmesconsulting.com</span>
+<span class="w">        </span><span class="nt">www</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://www.gotcrime.com</span>
+
+<span class="nt">skills</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_skills.yml</span>
+
+<span class="nt">education</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_education.yml</span>
+
+<span class="nt">experience</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_experience.yml</span>
+</pre></div>
+</div>
+<div class="section" id="writing-templates-for-text-resumes">
+<h3>Writing Templates for Text Resumés</h3>
+<p>The text resumé generator uses the <a class="reference external" href="http://www.makotemplates.org">Mako</a> templating engine.  Here's an example template that can be used to output
+the above data content into a text file:</p>
+<div class="highlight"><pre><span></span><span class="o">%</span> <span class="k">for</span> <span class="n">contact</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;contact&quot;</span><span class="p">]:</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;phone&#39;</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;www&#39;</span><span class="p">]}</span>
+<span class="o">%</span> <span class="n">endfor</span>
+<span class="o">=========================================</span>
+
+<span class="n">SKILLS</span><span class="p">:</span>
+<span class="o">-------</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;skills&quot;</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">skill</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]}:</span>
+    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">skill</span><span class="p">[</span><span class="s1">&#39;skill_list&#39;</span><span class="p">])}</span>
+<span class="o">%</span> <span class="n">endfor</span>
+
+<span class="n">EDUCATION</span><span class="p">:</span>
+<span class="o">----------</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">]}</span> <span class="kn">from</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;university&#39;</span><span class="p">]}</span> <span class="ow">in</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]})</span>
+<span class="o">%</span> <span class="n">endfor</span>
+
+<span class="n">EXPERIENCE</span><span class="p">:</span>
+<span class="o">----------</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;experience&#39;</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]})</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]},</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]}</span>
+  <span class="o">-----------------------------------</span>
+    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">])}</span>
+
+<span class="o">%</span> <span class="n">endfor</span>
+</pre></div>
+<p>The main things to note are:</p>
+<ul class="simple">
+<li>The resume content from the YAML file is stored as a dictionary in <tt class="docutils literal">d</tt>.</li>
+<li>Each top-level entry in this dictionary is a list that can be iterated over using Mako syntax.</li>
+<li>There is a helper function called <tt class="docutils literal">s._wrap</tt> that can be used to indent some text with the
+given number of spaces.</li>
+</ul>
+<p>Using this template, and the data content above, would yield the following text:</p>
+<pre class="literal-block">
+S. Holmes
+12-3456
+sherlock&#64;holmesconsulting.com
+http://www.gotcrime.com
+=========================================
+
+SKILLS:
+-------
+  Current:
+    Crime solving, cigarette-ash classification, crypto-analysis, disguise
+  Past:
+    Fencing, violin
+
+EDUCATION:
+----------
+  BA from Christ Church College in Chemistry (1876)
+  MA from Sidney Sussex in Criminology (1878)
+
+EXPERIENCE:
+----------
+  Consulting Detective (1880 to 1903)
+  Baker Street Detectives, London
+  -----------------------------------
+    Brought several notorious criminals to justice.  Supported the
+    intelligence services and recovered key government property.
+
+  Beekeeper (1904-1914)
+  Beekeeping Solutions, Sussex Downs
+  -----------------------------------
+    Made honey.
+</pre>
+</div>
+<div class="section" id="writing-templates-for-word-resumes">
+<h3>Writing Templates for Word Resumés</h3>
+<p>Word templates are just regular <tt class="docutils literal">.docx</tt> files. Please note that you cannot use the old
+Word 97 <tt class="docutils literal">.doc</tt> format.    You can format it however you want, including bullets and styles.  However, tables
+are <em>not</em> supported at this time.  Here's some simple content you might type into a word document to generate
+a resume from the above YAML:</p>
+<pre class="literal-block">
+[!Contact]
+
+&lt;[name]
+[email]
+[www]
+[phone]
+&gt;
+
+[Experience]
+&lt;[company] – [location] [date]
+[position]
+[summary]
+&gt;
+[Education]
+&lt;[degree] ([university]) in [field] [date]
+&gt;
+[Skills|Mad Skillls]
+&lt;[type] – [skill_list]&gt;
+</pre>
+<p>The syntax is as follows:</p>
+<ul class="simple">
+<li>Section and item names are enclosed in brackets (<tt class="docutils literal">[</tt> and <tt class="docutils literal">]</tt>)</li>
+<li>Looping over sections is done using the <tt class="docutils literal">&lt;</tt> character for starting the loop, and <tt class="docutils literal">&gt;</tt> for closing the loop</li>
+<li>Any section name with a <tt class="docutils literal">!</tt> preceding it will not generate the section text (for instance, no text <tt class="docutils literal">Contact</tt> will appear in the generated resume).</li>
+<li>Using a <tt class="docutils literal">|</tt> symbol in a section header will use the proceeding text instead of the section name in the outputted resume. So, the final section above will be rendered with a title of <tt class="docutils literal">Mad Skills</tt> instead of <tt class="docutils literal">Skills</tt>.</li>
+</ul>
+<p>Here's a screenshot of the template .docx (you can also find this in the <a class="reference external" href="https://github.com/virantha/one_resume/blob/master/examples/resume.docx?raw=true">repository</a>):</p>
+<img alt="Word resume template" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_template.png" style="width: 679px;" />
+<p>And, running OneResumé on it will generate the following:</p>
+<img alt="Word resume output" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_output.png" style="width: 679px;" />
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<p>Please note that the lxml python library requires a C compiler.  On Mac OS X, you need to make
+sure you have XCode plus the the XCode command line utilities installed:</p>
+<pre class="literal-block">
+$ xcode-select --install
+</pre>
+<p>Then, it's simply a matter of:</p>
+<pre class="literal-block">
+$ pip install one_resume
+</pre>
+</div>
+<div class="section" id="disclaimer">
+<h2>Disclaimer</h2>
+<p>The software is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/oneresume.html">OneResume</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/resume.html">resume</a>,      <a href="https://virantha.com/tag/docx.html">docx</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - FundsGather</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/fundsgather.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2016-10-13T12:16:00-04:00</updated><entry><title>FundsGather -- A starter framework for scraping financial information</title><link href="https://virantha.com/2016/10/13/funds-gather-framework-for-scraping-financial-information/" rel="alternate"></link><published>2016-10-13T12:16:00-04:00</published><updated>2016-10-13T12:16:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2016-10-13:/2016/10/13/funds-gather-framework-for-scraping-financial-information/</id><summary type="html">&lt;p&gt;Currently, this program supports downloading transactions from Maryland's 529 College Savings plans and exporting to QIF, for import into your financial software like Quicken,
+Banktivity, or MoneyDance.  An OFX/QFX plugin is also in the works.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Free and open-source software: ASL2 license&lt;/li&gt;
+&lt;li&gt;Blog: &lt;a class="reference external" href="http://virantha.com/category/projects/funds_gather"&gt;http://virantha.com/category/projects/funds_gather&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Documentation …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Currently, this program supports downloading transactions from Maryland's 529 College Savings plans and exporting to QIF, for import into your financial software like Quicken,
+Banktivity, or MoneyDance.  An OFX/QFX plugin is also in the works.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Free and open-source software: ASL2 license&lt;/li&gt;
+&lt;li&gt;Blog: &lt;a class="reference external" href="http://virantha.com/category/projects/funds_gather"&gt;http://virantha.com/category/projects/funds_gather&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Documentation: &lt;a class="reference external" href="http://virantha.github.io/funds_gather/html"&gt;http://virantha.github.io/funds_gather/html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Source: &lt;a class="reference external" href="https://github.com/virantha/funds_gather"&gt;https://github.com/virantha/funds_gather&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="features"&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Import from web account of Maryland 529 College Savings of all accounts tied to user.&lt;/li&gt;
+&lt;li&gt;Export to QIF file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Right now, the functionality is fairly rudimentary, but I intend to develop this more in the months to come.  Here's my todo list:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Export to QFX/OFX (depending on what my financial software supports, it would be easier to write a plugin for XML compliant format)&lt;/li&gt;
+&lt;li&gt;Import other types of transactions (right now, only buys are supported)&lt;/li&gt;
+&lt;li&gt;Import other web sites&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usage"&gt;
+&lt;h2&gt;Usage:&lt;/h2&gt;
+&lt;p&gt;See help for now:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$ funds_gather -h
+
+Usage:
+    funds_gather.py [options] &amp;lt;username&amp;gt; &amp;lt;password&amp;gt; all
+    funds_gather.py [options] &amp;lt;username&amp;gt; &amp;lt;password&amp;gt; (download|qif)...
+    funds_gather.py --conf=FILE
+    funds_gather.py -h
+
+Arguments:
+    username    Login name
+    password    Login password
+    all         Run all steps in the flow (download,qif)
+    download    Download all transactions from accounts
+    qif         Save downloaded transactions to qif
+
+Options:
+    -h --help        show this message
+    -v --verbose     show more information
+    -d --debug       show even more information
+    --version        show version
+    --out=FILE       output filename [default: out.qif]
+    --conf=FILE      load options from file
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;pre class="literal-block"&gt;
+$ pip install funds_gather
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="disclaimer"&gt;
+&lt;h2&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;The software is distributed on an &amp;quot;AS IS&amp;quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="FundsGather"></category><category term="qif"></category><category term="financial"></category><category term="python"></category><category term="scraping"></category></entry></feed>

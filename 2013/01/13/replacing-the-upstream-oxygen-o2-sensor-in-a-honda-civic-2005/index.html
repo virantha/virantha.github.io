@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="diy">
+
+  <title>
+Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005 | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Sun 13 January 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/" class="nohover">Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005</a></h1>
+  </div>
+  <div class="article_text">
+    <p>This is not quite my normal tech post, but I thought this might help
+other folks needing to change the O2 sensor in this particular model.
+There's some conflicting and incomplete information out on the web for
+this relatively simple task, so hopefully this will clarify things a
+bit.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#diagnosis" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Diagnosis</a></li>
+<li><a class="reference internal" href="#parts-required" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Parts required</a></li>
+<li><a class="reference internal" href="#replacement" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Replacement</a></li>
+</ul>
+</div>
+<div class="section" id="diagnosis">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Diagnosis</a></h2>
+<p>The check engine light came on in my wife's car, and I finally got a
+chance to buy an OBD-II sensor. &nbsp;I ended up going with the <a class="reference external" href="http://www.amazon.com/gp/product/B005NLQAHS/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=virantha-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005NLQAHS">BAFX ELM 327
+Bluetooth OBD2 scan tool</a><img alt="image0" src="http://www.assoc-amazon.com/e/ir?t=virantha-20&amp;l=as2&amp;o=1&amp;a=B005NLQAHS" />. This tool had decent reviews, was
+under $25, and could connect via bluetooth to an old android tablet I
+had lying around. This scanner pairs up easily with the free Andoid app
+called <a class="reference external" href="https://play.google.com/store/apps/details?id=org.prowl.torquefree">&quot;Torque Lite&quot;</a>, which can read the error out of the car's
+engine-control-unit (ECU) and reset it.</p>
+<p>When I got this hooked up (the OBD-II port is under the dash on the
+driver's side, coming out from the right side above the accelerator
+pedal), the code reported using Torque was:</p>
+<pre class="literal-block">
+P0135 &quot;O2 sensor heater circuit &nbsp;bank 1 sensor 1&quot;
+</pre>
+<p>A quick internet search yielded the information that this was the
+upstream sensor.
+[ref]
+The Civic '05 has two sensors, the upstream (located on the engine
+block), and the downstream (after the catalytic converter, and accessed
+from underneath the car). This post only refers to the <strong>upstream one</strong>.
+This is actually a wide-band fuel/air ratio sensor, so it's somewhat
+pricey to replace compared to a regular narrow-band O2 sensor.
+[/ref]</p>
+</div>
+<div class="section" id="parts-required">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Parts required</a></h2>
+<p>With the problem identified, I just had to replace the O2 sensor.</p>
+<ol><ol class="arabic">
+<li><p class="first"><strong>Replacement Sensor</strong>: The OEM part for this is manufactured by
+Denso. &nbsp;You can find a replacement (at the time of writing) at
+Amazon.com for less the $100, the cheapest I could find online
+[ref]`Rock Auto`_ is also a good source[/ref]:</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B000C5UFVM/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000C5UFVM&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B000C5UFVM.01._SCMZZZZZZZ_.jpg"/>Denso 234-9005 Oxygen Sensor for the Civic LX</a></div><p>Note that this part does&nbsp;<strong>not</strong> work in the EX model, which
+requires the 234-9017:</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00122EENE/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00122EENE&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00122EENE.01._SCMZZZZZZZ_.jpg"/>Denso 234-9017 Oxygen Sensor for the Civic EX</a></div><p>Be careful with box stores like Autozone that give you the wrong part
+numbers for this car.</p>
+</li>
+<li><p class="first"><strong>Oxygen sensor socket:</strong>This is a special socket with a slot down
+the side that lets you slide the O2 sensor wire &nbsp;through it. &nbsp;I ended
+up getting this one from amazon for $25 that fits the 7/8&quot;
+sensor.</p>
+<blockquote>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00062ZK5M/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00062ZK5M&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00062ZK5M.01._SCMZZZZZZZ_.jpg"/>Socket</a></div></blockquote>
+</li>
+<li><p class="first"><strong>Ratcheting socket wrench 3/8&quot;:</strong> To fit the above socket; had this
+lying around in my toolbox.</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B001FOQH2K/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B001FOQH2K&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B001FOQH2K.01._SCMZZZZZZZ_.jpg"/>Wrench</a></div></li>
+<li><p class="first"><strong>Penetrating oil:</strong>Essential to have some kind of penetrating oil
+to loosen up the old sensor. I cheaped out and just used some WD-40 I
+had lying around, but you could use something like this:</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00200MR8Q/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00200MR8Q&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00200MR8Q.01._SCMZZZZZZZ_.jpg"/>Liquid Wrench</a></div></li>
+<li><p class="first"><strong>Gloves and protective eyewear:</strong>Never hurts to be safe.</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B001D1FV72/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B001D1FV72&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B001D1FV72.01._SCMZZZZZZZ_.jpg"/>CLC gloves</a></div><div><a class="amazon" href="http://www.amazon.com/gp/product/B000RKQ1NI/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000RKQ1NI&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B000RKQ1NI.01._SCMZZZZZZZ_.jpg"/>Eyewear</a></div></li>
+</ol>
+</ol></div>
+<div class="section" id="replacement">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Replacement</a></h2>
+<ol class="arabic">
+<li><p class="first">Apply some penetrating oil to the sensor</p>
+</li>
+<li><p class="first">Examine the wiring harness while you wait for the sensor to loosen
+up. &nbsp;The wire from the sensor clips into a socket, and both are
+attached via a metal tab to the frame.</p>
+</li>
+<li><p class="first">Disconnecting the old sensor wiring harness
+was the most difficult part of this whole task, given that I'd never
+done this before, and also the least documented piece.</p>
+<div class="figure align-left" style="width: 80%">
+<img alt="Oxygen sensor layout" src="/images/2013/o2sensor.jpg" />
+</div>
+</li>
+<li><p class="first">The first step is to pry the wire clip and socket off this metal
+clip. &nbsp;Push the little tab shown in the picture up towards the wire
+clip (you may hear a slight click) [green arrow], and then start
+wiggling the clip off the metal tab [red arrow]. &nbsp;Go slow; the metal
+will usually have oxidized, and you don't want to yank too hard in
+case it comes loose quickly and you end up stressing the wiring
+coming from the ECU.</p>
+</li>
+<li><p class="first">Once the wire clip and socket are free from the metal tab, you need
+to remove the clip from the socket. &nbsp;Push down on the far end of the
+top of the socket [blue arrow], and pull the clip out slowly [purple
+arrow]. &nbsp;This part should come out fairly easily; if it doesn't, that
+means you're not pushing the tab on the socket correctly to release
+the clip properly.</p>
+</li>
+<li><p class="first">Now, you're free to use the socket to remove the old O2 sensor. &nbsp;Turn
+counter-clockwise to loosen, and then use your hands to rotate the
+remainder and pull out the sensor, being careful not to damage the
+threads.</p>
+</li>
+<li><p class="first">Put anti-seize grease (included with your sensor) on the threads of
+the new O2 sensor, then thread it in by hand, finally tightening
+using the socket (Not super tight like a tire lugnut, but fairly
+tight)</p>
+</li>
+<li><p class="first">Connect the new wiring clip to the socket, and slide the whole wiring
+harness back on to the metal clip (you should hear a slight click).
+&nbsp;Make sure the wire doesn't touch the engine block after attaching.</p>
+</li>
+<li><p class="first">You're done! &nbsp;Clear out the error code using the OBD II tool, and
+start your engine and drive away with the satisfaction of having
+learned a little bit about your car and saved a few hundred
+dollars.[ref]You may have some slight burning smell for a little
+while as the WD-40 and/or the anti-seize grease excess burns
+off[/ref]</p>
+</li>
+</ol>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/diy.html">DIY</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/diy.html">diy</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

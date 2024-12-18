@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="bluetooth, shopping, tech">
+
+  <title>
+Bluetooth headset with dedicated mute button | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Wed 03 July 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/07/03/bluetooth-headset-with-dedicated-mute-button/" class="nohover">Bluetooth headset with dedicated mute button</a></h1>
+  </div>
+  <div class="article_text">
+    <p>I typically spend several hours a day on conference calls, and I really
+miss my old blackberry that used to have a dedicated mute button. The
+iPhone touch button on the phone screen is just not quick enough to
+quickly jump in and out of a meeting in a noisy environment.</p>
+<p>Which brings me to my next point; why is it so difficult to find a
+decent bluetooth headset these days that make it easy to mute the mic
+when on a call? I really liked my <a class="amazon" href="http://www.amazon.com/gp/product/B002JIMZU4?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Plantronics Discovery 975 Bluetooth Headset</a> for
+its comfort and unobtrusive style, but it was a pain to mute a call; I'm
+not sure what kind of usability study was done when they decided a
+"long" press on the single volume button was the mute/unmute control.</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B002JIMZU4/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B002JIMZU4&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B002JIMZU4.01._SCMZZZZZZZ_.jpg"/>Plantronics Discovery 975</a><script>
+                $(document).ready( function () { 
+                    $('#headsets').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div><p>So here's my recent research on a replacement headset with a usable mute
+feature:</p>
+<table border="1" class="docutils pretty compact stripe cell-border" id="headsets">
+<caption>Headset Comparison</caption>
+
+<thead valign="bottom">
+<tr><th class="head">Headset</th>
+<th class="head">Price</th>
+<th class="head">Mute</th>
+<th class="head">Features</th>
+<th class="head">User complaints</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B0092KJ9BU/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0092KJ9BU&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B0092KJ9BU.01._SCMZZZZZZZ_.jpg"/>Plantronics Voyager Legend</a></div></div></td>
+<td>$80</td>
+<td>Y</td>
+<td>Sensor to answer call when placed on head</td>
+<td>Users complain noise-cancelling distorts voice, non-standard charging cable</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00JLVNF2O/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00JLVNF2O&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00JLVNF2O.01._SCMZZZZZZZ_.jpg"/>Plantronics Voyager Edge</a></div></div></td>
+<td>$118</td>
+<td>Y</td>
+<td>Bluetooth 4.0, HD Voice support, motion sensor</td>
+<td>Expensive</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00BWG4TUI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00BWG4TUI&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00BWG4TUI.01._SCMZZZZZZZ_.jpg"/>Jabra MOTION</a></div></div></td>
+<td>$100</td>
+<td>Y</td>
+<td>Motion sensor - Turns off when out of ear, pick it up and answers call</td>
+<td>Touch controls for volume not very sensitive; not very convenient to place on ear</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B008X0TBKO/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B008X0TBKO&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B008X0TBKO.01._SCMZZZZZZZ_.jpg"/>Jabra SUPREME</a></div></div></td>
+<td>$90</td>
+<td>Y</td>
+<td>Micro-usb charger</td>
+<td>Call quality, noise cancelling average</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B0041D81WQ/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0041D81WQ&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B0041D81WQ.01._SCMZZZZZZZ_.jpg"/>Motorola OASIS</a></div></div></td>
+<td>~$50</td>
+<td>Y</td>
+<td>Cheaper</td>
+<td>Older headset; Bluetooth 2.0, no ADP; Sound quality low</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B005LISQ0W/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005LISQ0W&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B005LISQ0W.01._SCMZZZZZZZ_.jpg"/>Bose Series 2</a></div></div></td>
+<td>$150</td>
+<td>N*</td>
+<td>Loud volume; good noise-cancelling</td>
+<td>Left or right versions; low battery life</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B005PVXKC4/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005PVXKC4&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B005PVXKC4.01._SCMZZZZZZZ_.jpg"/>Motorola ELITE</a></div></div></td>
+<td>$70</td>
+<td>N*</td>
+<td>Unobtrusive</td>
+<td>Older</td>
+</tr>
+<tr><td><div class="first last"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00DQ5RHK2/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00DQ5RHK2&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00DQ5RHK2.01._SCMZZZZZZZ_.jpg"/>Plantronics M165 Marque 2</a></div></div></td>
+<td>$40</td>
+<td>N*</td>
+<td>Most affordable option</td>
+<td>Newer model, but sound quality low</td>
+</tr>
+</tbody>
+</table>
+<p>* Hold vol+/- simultaneously to mute</p>
+<p>I decided to try out the Voyager Legend, and see if the call quality is
+good enough; I'll keep this updated with my experiences.</p>
+<p><img alt="image1" src="http://ir-na.amazon-adsystem.com/e/ir?t=virantha-20&amp;l=as2&amp;o=1&amp;a=B002JIMZU4"/></p>
+<p><em>Update: 7/16/13
+*Well, I got my Plantronics Voyager Legend today along with a dash of
+reality on what companies fob on us these days as "products".  While the
+fit and feel of the headset was good, the sound quality when paired with
+my iPhone 5 was quite simply atrocious.  It's hard to describe, but my
+voice just sounds chopped up and distorted on the other end.  What's
+strange is that the music streaming sounds fine, but the voice
+transmission is just awful, non-understandable, and robotic sounding.
+ And this in a perfectly quiet environment with a full charge and my
+phone in line of sight less than a foot away; firmware was also
+up-to-date according to Plantronics' myheadset updated. *</em> I'm packing
+this up and sending it back right away**.  Sorry, Plantronics, I was
+expecting better from you after the Discovery 925/975 series; if you
+can't get the basic audio quality up to par on voice on a headset, then
+why bother?</p>
+<p>I already ordered the Jabra Supreme to replace it.</p>
+<div class="section" id="jabra-supreme-update">
+<h2>Jabra Supreme update</h2>
+<p>Well, after about a week of using it, I'm happy with the Jabra Supreme.
+The sound quality on calls is good, the mute button works, and it's very
+comfortable on the ear. The earbud, surprisingly, is unlike most others
+that sit inside your ear close to your ear-canal; instead, the Jabra
+Supreme rests against the outside of your ear. It's also nice to just
+fold in the boom mic and have the headset turn off.</p>
+</div>
+<div class="section" id="jabra-motion-update-dec-2014">
+<h2>Jabra Motion Update (Dec 2014)</h2>
+<p>I've also been using this now for the past year or so, after finding it on
+sale.  I'd say that quality wise it's very similar to the Supreme, but the fit
+is a little better.  I also think that battery standby is much better; the
+supreme would always be out of battery after being turned off for a week or
+two, with the Motion never having this issue. It is a litle bit more annoying
+to put on, and I don't think I would recommend it for smaller ears because the
+portion that fits between your ear and head is rather thick.  I do find it more
+stable on my ear once I get it on, however.</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/shopping.html">Shopping</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/bluetooth.html">bluetooth</a>,      <a href="https://virantha.com/tag/shopping.html">shopping</a>,      <a href="https://virantha.com/tag/tech.html">tech</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/07/03/bluetooth-headset-with-dedicated-mute-button/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="tech, python, word">
+
+  <title>
+Reading and writing Microsoft Word docx files with Python | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Fri 16 August 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/08/16/reading-and-writing-microsoft-word-docx-files-with-python/" class="nohover">Reading and writing Microsoft Word docx files with Python</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-right">
+<img alt="skip_better python" src="/images/2013/python_scaled.png" style="width: 250px;" />
+</div>
+<p>I've been wanting to script simple text scanning and substitution in
+Microsoft Word documents for a while now, and after a little digging, it
+turns out, it's fairly straight-forward to read and edit .docx (OpenXML)
+or the <a class="reference external" href="http://www.ecma-international.org/publications/standards/Ecma-376.htm">ECMA-376</a> original standard, and now under ISO as <a class="reference external" href="http://www.iso.org/iso/catalogue_detail?csnumber=51463">ISO/IEC
+29500</a>. Although I couldn't find a general python library that provides
+a nice API for this, I was thankfully able to follow the examples in the
+<a class="reference external" href="https://github.com/mikemaccana/python-docx">python-docx</a> to understand what was going on and get my script done.
+In this post, I'll describe the structure of this file format and how to
+access it easily in python.</p>
+<p>I've also used these techniques in my other project, <a class="reference external" href="https://virantha.com/2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/">OneResumé</a>, a data-driven
+resume generator for MS Word documents.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#getting-the-text-content" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Getting the text content</a></li>
+<li><a class="reference internal" href="#word-xml-document-structure" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Word XML document structure</a></li>
+<li><a class="reference internal" href="#complications-in-the-xml" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Complications in the XML</a></li>
+<li><a class="reference internal" href="#extracting-text" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Extracting text</a></li>
+<li><a class="reference internal" href="#modifying-text" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Modifying text</a></li>
+<li><a class="reference internal" href="#saving-the-edited-word-file" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Saving the edited word file</a></li>
+<li><a class="reference internal" href="#summary" id="toc-entry-7">7&nbsp;&nbsp;&nbsp;Summary</a></li>
+</ul>
+</div>
+<div class="section" id="getting-the-text-content">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Getting the text content</a></h2>
+<p>At its heart, a docx file is just a zip file (try running unzip on it!)
+containing a bunch of well defined XML and collateral files. The main
+textual content and structure is defined in the following XML file:</p>
+<pre class="literal-block">
+word/document.xml
+</pre>
+<p>So the first step is to read this zip container and get the xml:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">def</span> <span class="nf">get_word_xml</span><span class="p">(</span><span class="n">docx_filename</span><span class="p">):</span>
+   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">docx_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="nb">zip</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+      <span class="n">xml_content</span> <span class="o">=</span> <span class="nb">zip</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">xml_content</span>
+</pre></div>
+<p>Next, we need to parse this string containing XML into a usable tree.
+For this, we use the lxml package (pip install lxml):</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+
+<span class="k">def</span> <span class="nf">get_xml_tree</span><span class="p">(</span><span class="n">xml_string</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml_string</span><span class="p">)</span>
+</pre></div>
+<p>And now you have the tree. Let's take a look at how this XML is
+structured.</p>
+</div>
+<div class="section" id="word-xml-document-structure">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Word XML document structure</a></h2>
+<p>For a basic document that consists of paragraphs of text with some
+styles/formatting applied, the XML structure is fairly straightforward.
+&nbsp;Here's the example document:</p>
+<div class="figure">
+<img alt="Example word doc" src="/images/2013/Word.png" />
+</div>
+<p>And here's the resulting xml in word/document.xml (you can get this by
+simply doing</p>
+<div class="highlight"><pre><span></span><span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">xmltree</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:document</span><span class="w"> </span><span class="na">xmlns:wpc=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas&quot;</span><span class="w"> </span><span class="na">xmlns:mo=</span><span class="s">&quot;http://schemas.microsoft.com/office/mac/office/2008/main&quot;</span><span class="w"> </span><span class="na">xmlns:mc=</span><span class="s">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span><span class="w"> </span><span class="na">xmlns:mv=</span><span class="s">&quot;urn:schemas-microsoft-com:mac:vml&quot;</span><span class="w"> </span><span class="na">xmlns:o=</span><span class="s">&quot;urn:schemas-microsoft-com:office:office&quot;</span><span class="w"> </span><span class="na">xmlns:r=</span><span class="s">&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span><span class="w"> </span><span class="na">xmlns:m=</span><span class="s">&quot;http://schemas.openxmlformats.org/officeDocument/2006/math&quot;</span><span class="w"> </span><span class="na">xmlns:v=</span><span class="s">&quot;urn:schemas-microsoft-com:vml&quot;</span><span class="w"> </span><span class="na">xmlns:wp14=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing&quot;</span><span class="w"> </span><span class="na">xmlns:wp=</span><span class="s">&quot;http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing&quot;</span><span class="w"> </span><span class="na">xmlns:w10=</span><span class="s">&quot;urn:schemas-microsoft-com:office:word&quot;</span><span class="w"> </span><span class="na">xmlns:w=</span><span class="s">&quot;http://schemas.openxmlformats.org/wordprocessingml/2006/main&quot;</span><span class="w"> </span><span class="na">xmlns:w14=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordml&quot;</span><span class="w"> </span><span class="na">xmlns:wpg=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingGroup&quot;</span><span class="w"> </span><span class="na">xmlns:wpi=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingInk&quot;</span><span class="w"> </span><span class="na">xmlns:wne=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2006/wordml&quot;</span><span class="w"> </span><span class="na">xmlns:wps=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingShape&quot;</span><span class="w"> </span><span class="na">mc:Ignorable=</span><span class="s">&quot;w14 wp14&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:body&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00192975&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:pPr&gt;</span>
+<span class="w">        </span><span class="nt">&lt;w:pStyle</span><span class="w"> </span><span class="na">w:val=</span><span class="s">&quot;Heading1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/w:pPr&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">        </span><span class="nt">&lt;w:t&gt;</span>Test<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">        </span><span class="nt">&lt;w:t&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span>fox<span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:sectPr</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidSect=</span><span class="s">&quot;00192975&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:pgSz</span><span class="w"> </span><span class="na">w:w=</span><span class="s">&quot;12240&quot;</span><span class="w"> </span><span class="na">w:h=</span><span class="s">&quot;15840&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:pgMar</span><span class="w"> </span><span class="na">w:top=</span><span class="s">&quot;1440&quot;</span><span class="w"> </span><span class="na">w:right=</span><span class="s">&quot;1800&quot;</span><span class="w"> </span><span class="na">w:bottom=</span><span class="s">&quot;1440&quot;</span><span class="w"> </span><span class="na">w:left=</span><span class="s">&quot;1800&quot;</span><span class="w"> </span><span class="na">w:header=</span><span class="s">&quot;720&quot;</span><span class="w"> </span><span class="na">w:footer=</span><span class="s">&quot;720&quot;</span><span class="w"> </span><span class="na">w:gutter=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:cols</span><span class="w"> </span><span class="na">w:space=</span><span class="s">&quot;720&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:docGrid</span><span class="w"> </span><span class="na">w:linePitch=</span><span class="s">&quot;360&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/w:sectPr&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:body&gt;</span>
+<span class="nt">&lt;/w:document&gt;</span>
+</pre></div>
+<p>Some salient points:</p>
+<ul class="simple">
+<li>The top tag is &lt;w:document&gt;, followed by the &lt;w:body&gt; tag</li>
+<li>The body is then split up into paragraphs, demarcated by &lt;w:p&gt;</li>
+<li>Each paragraph may contain paragraph styles</li>
+<li>Within each paragraph, there also exist runs of content &lt;w:r&gt;</li>
+<li>These runs then end up having text blocks inside them, with the text
+enclosed by &lt;w:t&gt; tags</li>
+<li>Multiple pieces of text can be contained within a run &lt;w:r&gt; tag</li>
+</ul>
+<p>The last point is not immediately apparent, but consider what happened
+when I edited the file in the next section.</p>
+</div>
+<div class="section" id="complications-in-the-xml">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Complications in the XML</a></h2>
+<p>Let's edit the docx to uppercase the 'fox' into 'FOX' and look at the
+XML contents:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">&quot;5192A87F&quot;</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">&quot;77777777&quot;</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;004C173F&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t&gt;</span>FOX<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="nt">&lt;/w:p&gt;</span>
+</pre></div>
+<p>MS Word has now split up the previously single piece of text inside
+one run, into 3 separate runs of text, with some meta-data (probably to
+keep track of undo actions). So, any of your text parsing and
+substitution needs to take into account the fact that your contiguous
+text may in fact be split up into separate sub-trees in the XML file.
+Also, see below what happens when I now bold the 'FOX':</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">&quot;5192A87F&quot;</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">&quot;77777777&quot;</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;004C173F&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:rPr&gt;</span>
+<span class="w">       </span><span class="nt">&lt;w:b/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/w:rPr&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t&gt;</span>FOX<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
+<span class="nt">&lt;/w:p&gt;</span>
+</pre></div>
+<p>Notice that now there is a format tag inside your run tag as well.</p>
+</div>
+<div class="section" id="extracting-text">
+<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Extracting text</a></h2>
+<p>lxml has some nice functions for traversing the XML tree, but I usually
+had to wrap these in my own iterators to get the most functionality. For
+instance, here's a class-based iterator that will traverse every node
+given a starting node ''my_etree'', and return every text node and it's
+containing text.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_itertext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_etree</span><span class="p">):</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Iterator to go through xml tree&#39;s text nodes&quot;&quot;&quot;</span>
+     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">my_etree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_element_is</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">):</span>
+             <span class="k">yield</span> <span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_check_element_is</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">type_char</span><span class="p">):</span>
+     <span class="n">word_schema</span> <span class="o">=</span> <span class="s1">&#39;http://schemas.openxmlformats.org/wordprocessingml/2006/main&#39;</span>
+     <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">word_schema</span><span class="p">,</span><span class="n">type_char</span><span class="p">)</span>
+</pre></div>
+<p>So, in order to get all the text out of the document, you could use the
+earlier function to get the xml tree and then iterate over it like this:</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">xml_from_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_word_xml</span><span class="p">(</span><span class="n">wod_filename</span><span class="p">)</span>
+<span class="n">xml_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xml_tree</span><span class="p">(</span><span class="n">xml_from_file</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">txt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_itertext</span><span class="p">(</span><span class="n">xml_tree</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">txt</span>
+</pre></div>
+</div>
+<div class="section" id="modifying-text">
+<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Modifying text</a></h2>
+<p>Here's a quick example on how to modify the XML tree to change the Word
+content. In one of my other project's (that I'll blog about soon) I
+needed to replace special pieces of text with some other text (think of
+it as a mail-merge or a templating function). I define a special piece
+of text as being enclosed inside square brackets like [my_tag] in my
+original Word document. Now, the problem is that this tag could be split
+among multiple XML nodes because of the way Word splits up runs of text.
+So, to make my text-substitution function easier, I go through the XML
+tree and collapse all these tags into a single text node first. I can do
+this without too much worry because I know there will never be any
+special formatting or structures inside the brackets. So here's my
+function that does it:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_join_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_etree</span><span class="p">):</span>
+        <span class="n">chars</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">openbrac</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">node</span><span class="p">,</span><span class="n">text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_itertext</span><span class="p">(</span><span class="n">my_etree</span><span class="p">):</span>
+            <span class="c1"># Scan through every node with text</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="c1"># Go through each node&#39;s text character by character</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;[&#39;</span><span class="p">:</span>
+                    <span class="n">openbrac</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Within a tag</span>
+                    <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Tag was opened in this node</span>
+                    <span class="n">openbrac_node</span> <span class="o">=</span> <span class="n">node</span> <span class="c1"># Save ptr to open bracket containing node</span>
+                    <span class="n">chars</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span> <span class="s1">&#39;]&#39;</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">openbrac</span>
+                    <span class="k">if</span> <span class="n">inside_openbrac_node</span><span class="p">:</span>
+                        <span class="c1"># Open and close inside same node, no need to do anything</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Open bracket in earlier node, now it&#39;s closed</span>
+                        <span class="c1"># So append all the chars we&#39;ve encountered since the openbrac_node &#39;[&#39;</span>
+                        <span class="c1"># to the openbrac_node</span>
+                        <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)</span>
+                        <span class="n">openbrac_node</span><span class="o">.</span><span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
+                        <span class="c1"># Also, don&#39;t forget to remove the characters seen so far from current node</span>
+                        <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="n">openbrac</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Normal text character</span>
+                    <span class="k">if</span> <span class="n">openbrac</span> <span class="ow">and</span> <span class="n">inside_openbrac_node</span><span class="p">:</span>
+                        <span class="c1"># No need to copy text</span>
+                        <span class="k">pass</span>
+                    <span class="k">elif</span> <span class="n">openbrac</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inside_openbrac_node</span><span class="p">:</span>
+                        <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># outside of a open/close</span>
+                        <span class="k">pass</span>
+           <span class="k">if</span> <span class="n">openbrac</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inside_openbrac_node</span><span class="p">:</span>
+                <span class="c1"># Went through all text that is part of an open bracket/close bracket</span>
+                <span class="c1"># in other nodes</span>
+                <span class="c1"># need to remove this text completely</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<div class="section" id="saving-the-edited-word-file">
+<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Saving the edited word file</a></h2>
+<p>Now, if you want to save this modified content, you just need to extract
+all the files in the docx, overwrite the content file, and then zip it
+back up:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_write_and_close_docx</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_content</span><span class="p">,</span> <span class="n">output_filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Create a temp directory, expand the original docx zip.</span>
+<span class="sd">            Write the modified xml to word/document.xml</span>
+<span class="sd">            Zip it up as the new docx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">zipfile</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">xmlstr</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span> <span class="p">(</span><span class="n">xml_content</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xmlstr</span><span class="p">)</span>
+
+        <span class="c1"># Get a list of all the files in the original docx zipfile</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zipfile</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+        <span class="c1"># Now, create the new zip file and add all the filex into the archive</span>
+        <span class="n">zip_copy_filename</span> <span class="o">=</span> <span class="n">output_filename</span>
+        <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_copy_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">docx</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+                <span class="n">docx</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span><span class="n">filename</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># Clean up the temp dir</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#toc-entry-7">7&nbsp;&nbsp;&nbsp;Summary</a></h2>
+<p>Done! I hope I've helped explain how to get a the contents of MS Word
+docx file and do some simple modifications to it.
+Again, if you need more examples on how to process .docx files, please check
+out how I've used these methods to implement a data-driven resume generator
+called <a class="reference external" href="https://virantha.com/2015/04/07/oneresume-a-data-driven-resume-generator-for-microsoft-word/">OneResumé</a> for multiple file formats including MS Word.</p>
+<p>Until then, happy coding!</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/tech.html">tech</a>,      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/word.html">word</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/08/16/reading-and-writing-microsoft-word-docx-files-with-python/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

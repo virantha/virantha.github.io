@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="LEAF, Nissan">
+
+  <title>
+[UPDATED] Reverse engineering the remote control protocol for the Nissan LEAF (the new Nissan EV protocol) | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Thu 07 April 2016 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2016/04/07/updated-reverse-engineering-nissan-connect-ev-protocol/" class="nohover">[UPDATED] Reverse engineering the remote control protocol for the Nissan LEAF (the new Nissan EV protocol)</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is an update to my <a class="reference external" href="https://virantha.com/2016/01/12/reverse-engineering-nissan-connect-ev-protocol/">earlier post on the Nissan Leaf remote telematics</a>.  Nissan
+had taken their API offline in February 2016 to address <a class="reference external" href="http://www.troyhunt.com/2016/02/controlling-vehicle-features-of-nissan.html?m=1">the security
+vulnerabilities</a>,
+and this post details how to connect to the new API that went into place in
+early April.</p>
+</div>
+<div class="section" id="nissan-connect-ev">
+<h2>1&nbsp;&nbsp;&nbsp;Nissan Connect EV</h2>
+<p>Most of this updated login information is courtesy of users on the MyNissanLeaf portal and specifically <a class="reference external" href="http://www.mynissanleaf.com/viewtopic.php?f=31&amp;t=2214&amp;start=110#p457263">this post</a>
+The new endpoints are now rooted at '<a class="reference external" href="https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/">https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/</a>' instead of '<a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/</a>', and all accesses are now
+POST requests.</p>
+<div class="section" id="initial-login-to-nissan-servers">
+<h3>1.1&nbsp;&nbsp;&nbsp;Initial login to Nissan servers</h3>
+<p>The initial login is now a two step process.</p>
+<div class="section" id="request-an-encryption-key">
+<h4>1.1.1&nbsp;&nbsp;&nbsp;Request an encryption key</h4>
+<p>First, you need to call InitialApp.php with the parameter <tt class="docutils literal">initial_app_string</tt> set to <tt class="docutils literal">geORNtsZe5I4lRGjG9GZiA</tt> (taken from analyzing the iOS app traffic).</p>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA&quot;</span> <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/InitialApp.php&quot;</span></tt></blockquote>
+<p>This returns an encryption key in the parameter <tt class="docutils literal">baseprm</tt></p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;baseprm&quot;</span><span class="p">:</span><span class="s2">&quot;uyI5Dj9g8VCOFDnBRUbr3g&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="initial-logon-request">
+<h4>1.1.2&nbsp;&nbsp;&nbsp;Initial logon request</h4>
+<p>Once you have the encryption key, you need to use it to encrypt the user's NissanConnect password using Blowfish ECB with PKCS5Padding.  The encrypted key
+is then Base64 encoded, and then also urlencoded before being used in the login API request.   Here's some sample Python code to show what needs to be done, assuming
+you have the pycrypto library installed.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">Blowfish</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="k">def</span> <span class="nf">pad_string</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">new_str</span> <span class="o">=</span> <span class="nb">str</span>
+    <span class="n">pad_chars</span> <span class="o">=</span> <span class="mi">8</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">%</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pad_chars</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pad_chars</span><span class="p">):</span>
+            <span class="n">new_str</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pad_chars</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_str</span>
+
+<span class="n">plaintext</span> <span class="o">=</span> <span class="s2">&quot;YOURPASSWORD&quot;</span>
+
+<span class="n">crypt_obj</span> <span class="o">=</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;uyI5Dj9g8VCOFDnBRUbr3g&#39;</span><span class="p">,</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="n">crypt_obj</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">pad_string</span><span class="p">(</span><span class="n">plaintext</span><span class="p">))</span>
+
+<span class="nb">print</span> <span class="s2">&quot;Plaintext: &quot;</span> <span class="o">+</span> <span class="n">plaintext</span>
+<span class="nb">print</span> <span class="s2">&quot;Blowfish Cyphertext: &quot;</span> <span class="o">+</span> <span class="n">ciphertext</span>
+<span class="nb">print</span> <span class="s2">&quot;Blowfish base64: &quot;</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+</pre></div>
+<p>The base64 encoded string can then be used in the following API call:</p>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA&amp;UserId=YOUREMAIL&quot;</span> <span class="pre">--data-urlencode</span> &quot;Password=YOURBASE64PASSWORD&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/UserLoginRequest.php&quot;</span></tt></blockquote>
+<p>If successful, you will get back the following JSON, where <tt class="docutils literal">custom_sessionid</tt> is what you'll be using for subsequent requests.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXX&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;VehicleInfoList&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;VehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;charger20066&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLeaf&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;telematicsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;vehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;charger20066&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLeaf&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;telematicsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;custom_sessionid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;vehicle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;profile&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;gdcUserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;gdcPassword&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;encAuthToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;dcmId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ACCEPTED&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;statusDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sep 24, 2015 12:00 AM&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;EncAuthToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;CustomerInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;UserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Timezone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;America/New_York&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;RegionCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NNA&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;OwnerId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;VehicleImage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/content/language/default/images/img/ph_car.jpg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;UserVehicleBoundDurationSec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;946771200&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;VehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;VIN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;DCMID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;SIMID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;NAVIID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;EncryptedNAVIID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;MSN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;LastVehicleLoginTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;UserVehicleBoundTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2015-09-24T18:10:06Z&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;LastDCMUseTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  7, 2016 12:27 PM&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;UserInfoRevisionNo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="request-current-status">
+<h3>1.2&nbsp;&nbsp;&nbsp;Request current status</h3>
+<p>Request the current battery status (not necessarily the latest, but whatever is cached from the last update on Nissan's server), using the urlencoded <tt class="docutils literal">custom_session_id</tt></p>
+<blockquote>
+curl --data &quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot; --data-urlencode &quot;custom_sessionid=XXXXXXXXXX&quot; -X POST &quot;<a class="reference external" href="https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php">https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php</a>&quot;</blockquote>
+<p>Response:</p>
+<div class="highlight"><pre><span></span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="nt">&quot;BatteryStatusRecords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nt">&quot;OperationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
+<span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 05:57 PM&quot;</span><span class="p">,</span>
+<span class="nt">&quot;BatteryStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;BatteryChargingStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NORMAL_CHARGING&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;BatteryCapacity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmountWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmountkWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="p">},</span>
+<span class="nt">&quot;PluginState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CONNECTED&quot;</span><span class="p">,</span>
+<span class="nt">&quot;CruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;110760.0&quot;</span><span class="p">,</span>
+<span class="nt">&quot;CruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;112320.0&quot;</span><span class="p">,</span>
+<span class="nt">&quot;TimeRequiredToFull200_6kW&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;HourRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;MinutesRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30&quot;</span>
+<span class="p">},</span>
+<span class="nt">&quot;NotificationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/04/06 21:58&quot;</span><span class="p">,</span>
+<span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/04/06 21:57&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="update-status">
+<h3>1.3&nbsp;&nbsp;&nbsp;Update status</h3>
+<p>Ask for an update from the car:</p>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckRequest.php&quot;</span></tt></blockquote>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;resultKey&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXXX&quot;</span><span class="p">}</span><span class="err">%</span>
+</pre></div>
+<p>The resultKey can be used to poll for when the updated value is available:</p>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckResultRequest.php&quot;</span></tt></blockquote>
+<p>If it's not ready yet:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">}</span>
+</pre></div>
+<p>Once status is updated, you get:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;operationResult&quot;</span><span class="p">:</span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeStamp&quot;</span><span class="p">:</span><span class="s2">&quot;2016-02-20 20:29:33&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOn&quot;</span><span class="p">:</span><span class="s2">&quot;129712.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOff&quot;</span><span class="p">:</span><span class="s2">&quot;133584.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;currentChargeLevel&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chargeMode&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CHARGING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pluginState&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;charging&quot;</span><span class="p">:</span><span class="s2">&quot;NO&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chargeStatus&quot;</span><span class="p">:</span><span class="s2">&quot;CT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;batteryDegradation&quot;</span><span class="p">:</span><span class="s2">&quot;11&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;batteryCapacity&quot;</span><span class="p">:</span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeRequiredToFull&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200_6kW&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="remote-climate-control">
+<h3>1.4&nbsp;&nbsp;&nbsp;Remote Climate Control</h3>
+<div class="section" id="get-current-ac-status">
+<h4>1.4.1&nbsp;&nbsp;&nbsp;Get current AC status</h4>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/remoteACRecordsRequest.php&quot;</span></tt></blockquote>
+<p>Response:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;RemoteACRecords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;OperationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FINISH&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 07:19 PM&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;RemoteACOperation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;STOP&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;ACStartStopDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 07:19 PM&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;CruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;152880.0&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;CruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;157248.0&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;ACStartStopURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;PluginState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;ACDurationBatterySec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;900&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;ACDurationPluggedSec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7200&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="turn-on-ac">
+<h4>1.4.2&nbsp;&nbsp;&nbsp;Turn on AC</h4>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRequest.php&quot;</span></tt></blockquote>
+<p>Response:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;virantha@gmail.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resultKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXXXXXX&quot;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Use the <tt class="docutils literal">resultKey</tt> to get the status of the AC request:</p>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRsult.php&quot;</span></tt></blockquote>
+<p>If the status is not ready yet:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Once the AC is turned on, the following response will be sent:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;operationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;START_BATTERY&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;acContinueTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;104720.0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;109208.0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timeStamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-04-07 16:47:41&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hvacStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ON&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="turn-off-ac">
+<h4>1.4.3&nbsp;&nbsp;&nbsp;Turn off AC</h4>
+<blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteOffRequest.php&quot;</span></tt></blockquote>
+<p>The response checking is identical to the AC on request.</p>
+</div>
+</div>
+</div>
+<div class="section" id="to-be-continued">
+<h2>2&nbsp;&nbsp;&nbsp;to be continued....</h2>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/leaf.html">LEAF</a>,      <a href="https://virantha.com/tag/nissan.html">Nissan</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2016/04/07/updated-reverse-engineering-nissan-connect-ev-protocol/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

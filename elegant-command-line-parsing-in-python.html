@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet/less" type="text/css" href="/theme/css/style.less">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha N. Ekanayake">
+  <meta name="description" content="Technical writings by Virantha N. Ekanayake">
+
+
+
+<meta name="keywords" content="python, docopt, schema, yaml">
+
+  <title>
+Elegant command line parsing in Python using docopt, schema, and yaml | Virantha's Blog  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="">
+      </a>
+      <h2><a href="" class="nohover">Virantha N. Ekanayake</a></h2>
+      <p>
+        <form style="display: inline;" action="/search.html">
+            <div style="float: center;" id="tipue_focus"><input type="text" name="q" id="tipue_search_input">
+            <input class='hide' type="button" id="tipue_search_button" onclick="this.form.submit();"></div>
+        </form>
+      
+      </p>
+      <div>
+          <ul>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">You can add links in your config file</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">Another social link</span><i class="fa fa-external-link-square "></i></a></li>
+            <br>
+            <li><a href="https://getpelican.com/" target="_blank">Pelican<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://www.python.org/" target="_blank">Python.org<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file<i class="fa fa-external-link-square "></i></a></li>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="">Home</a> &#124; 
+            <ul>
+                <li><a href='/index.html'>All posts</a></li>
+                <li><a href='/'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="/category/tech.html"> Tech notes </a> </li>
+                <li><a href="/category/snippets.html"> Snippets </a> </li>
+                <li><a href="/category/diy.html"> DIY </a> </li>
+                <li><a href="/category/shopping.html"> Shopping </a> </li>
+
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Thu 23 June 2016 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="/elegant-command-line-parsing-in-python.html" class="nohover">Elegant command line parsing in Python using docopt, schema, and yaml</a></h1>
+  </div>
+  <div class="article_text">
+    <p>Both for my work and personal use, I tend to develop many command-line Python
+scripts that are very data-driven and configurable.  In Python, it's pretty
+trivial to use argparse to support complex argument and option structures, and
+then use the integration with configparser to allow one to write files that
+capture specific option/configuration values for posterity.  Unfortunately, the
+syntax of argparse and configparser tend to be pretty verbose, and incremental
+changes after weeks or months long development gaps can be error prone.  In addition,
+I find the <tt class="docutils literal">ini</tt> syntax of configparser rather limiting.</p>
+<p>In the past year, I've switched over completely to using <a class="reference external" href="http://docopt.org">docopt</a>, where you
+write the example usage and options in a string inside your script, and it
+builds the command-line invocation parser for you automatically.  This is an
+incredibly powerful and concise way to write a self-documenting option parser.
+Then, you combine that with a data validation library like <a class="reference external" href="https://pypi.python.org/pypi/schema">schema</a> to check the
+incoming options, and use <a class="reference external" href="http://pyyaml.org">yaml</a> to allow for options to be supplied from a text
+file, and you're pretty much in option parsing nirvana.</p>
+<p>In this post, I'll go through a script I wrote recently that implements a very
+common pattern for anyone in an engineering field:</p>
+<ul class="simple">
+<li>Take a file that defines an engineering simulation</li>
+<li>Additionally, take another input file that specifies a set of parameters that define different simulation scenarios</li>
+<li>Generate all possible combinations of parameter values</li>
+<li>For each combination, emit the simulation file with the specific parameters</li>
+<li>Execute an external simulator on the simulation file</li>
+<li>Parse the results and log the results in a CSV file</li>
+</ul>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#running-parametrized-spice-simulations" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Running parametrized SPICE simulations</a></li>
+<li><a class="reference internal" href="#setting-up-the-options" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Setting up the options</a></li>
+<li><a class="reference internal" href="#validating-options-with-schema" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Validating options with schema</a></li>
+<li><a class="reference internal" href="#using-a-configuration-file-to-supply-options" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Using a configuration file to supply options</a></li>
+<li><a class="reference internal" href="#loading-in-the-parameters" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Loading in the parameters</a></li>
+<li><a class="reference internal" href="#generating-and-running-the-scenarios" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Generating and running the scenarios</a></li>
+<li><a class="reference internal" href="#logging-the-results-and-complete-script" id="toc-entry-7">7&nbsp;&nbsp;&nbsp;Logging the results and complete script</a></li>
+</ul>
+</div>
+<div class="section" id="running-parametrized-spice-simulations">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Running parametrized SPICE simulations</a></h2>
+<p>For the purposes of this example, I'm going to walk-through a simple script that I've
+developed to do parameter exploration of a digital circuit using SPICE (hspice).
+The input is a simple spice deck that's a <a class="reference external" href="http://www.makotemplates.org">Mako</a> template, and the parameters are
+specified in a YAML file.  The script does simulation and logging of results as
+two separate flow steps (so you could, for example, re-write the results file based
+on a previously run set of simulations).</p>
+<p>Here's the spice file written as a Mako template.  Notice that all the parameters are within the <tt class="docutils literal"><span class="pre">${...}</span></tt> blocks.  We're really not
+using any of the advanced features of the templating language (like
+conditionals or loops, or even arbitrary python), but it's available if you
+need to make more complex simulation files.</p>
+<pre class="code spice literal-block">
+<span class="o">*</span><span class="w">
+</span><span class="p">.</span><span class="nx">temp</span><span class="w"> </span><span class="err">$</span><span class="p">{</span><span class="nx">temp</span><span class="p">}</span><span class="w">
+</span><span class="p">.</span><span class="nx">option</span><span class="w"> </span><span class="nx">brief</span><span class="p">=</span><span class="mi">1</span><span class="w">
+</span><span class="p">.</span><span class="nx">lib</span><span class="w"> </span><span class="err">'</span><span class="nx">LIBBFILE</span><span class="p">.</span><span class="nx">l</span><span class="err">'</span><span class="w"> </span><span class="err">$</span><span class="p">{</span><span class="nx">corner</span><span class="p">}</span><span class="w">
+
+</span><span class="nx">vvdd</span><span class="w"> </span><span class="nx">vdd</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">$</span><span class="p">{</span><span class="nx">vdd</span><span class="p">}</span><span class="w">
+
+</span><span class="p">.</span><span class="nx">subckt</span><span class="w"> </span><span class="nx">xinv</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">out</span><span class="w">
+</span><span class="nx">xmp</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">vdd</span><span class="w"> </span><span class="nx">vdd</span><span class="w"> </span><span class="nx">pfet</span><span class="w"> </span><span class="nx">w</span><span class="p">=</span><span class="mi">20</span><span class="w"> </span><span class="nx">l</span><span class="p">=</span><span class="mi">2</span><span class="w">
+</span><span class="nx">xmn</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">nfet</span><span class="w"> </span><span class="nx">w</span><span class="p">=</span><span class="mi">10</span><span class="w"> </span><span class="nx">l</span><span class="p">=</span><span class="mi">2</span><span class="w">
+</span><span class="p">.</span><span class="nx">ends</span><span class="w"> </span><span class="nx">xinv</span><span class="w">
+
+
+</span><span class="nx">xinv_t</span><span class="w"> </span><span class="nx">qf</span><span class="w"> </span><span class="nx">qt</span><span class="w"> </span><span class="nx">xinv</span><span class="w">
+
+</span><span class="p">.</span><span class="nx">meas</span><span class="w"> </span><span class="nx">tran</span><span class="w"> </span><span class="nx">StaticCurrentVdd</span><span class="w"> </span><span class="nx">avg</span><span class="w"> </span><span class="nx">i</span><span class="p">(</span><span class="nx">vdd</span><span class="p">)</span><span class="w"> </span><span class="nx">from</span><span class="p">=</span><span class="mi">1</span><span class="nx">n</span><span class="w"> </span><span class="nx">to</span><span class="p">=</span><span class="mi">3</span><span class="nx">n</span><span class="w">
+</span><span class="p">.</span><span class="nx">meas</span><span class="w"> </span><span class="nx">tran</span><span class="w"> </span><span class="nx">StaticSupplyPowerVdd</span><span class="w"> </span><span class="nx">PARAM</span><span class="p">=</span><span class="err">'</span><span class="o">-</span><span class="nx">StaticCurrentVdd</span><span class="o">*</span><span class="err">$</span><span class="p">{</span><span class="nx">vdd</span><span class="p">}</span><span class="err">'</span><span class="w">
+
+</span><span class="p">.</span><span class="nx">tran</span><span class="w"> </span><span class="m-Double">0.005</span><span class="nx">ns</span><span class="w"> </span><span class="mi">3</span><span class="nx">ns</span><span class="w"> </span><span class="nx">sweep</span><span class="w"> </span><span class="nx">monte</span><span class="p">=</span><span class="mi">1000</span>
+</pre>
+<p>So, we have the following list of parameters that need to be supplied to this simulation file:</p>
+<ul class="simple">
+<li><em>temp</em> - Circuit simulation temperature</li>
+<li><em>corner</em> - Device/transistor corner (e.g. typical, fast, slow, etc)</li>
+<li><em>vdd</em> - Simulation voltage</li>
+</ul>
+<p>We'll define these in another file using the YAML syntax like so:</p>
+<pre class="code yaml literal-block">
+<span class="nt">temp</span><span class="p">:</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">85</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">125</span><span class="w">
+</span><span class="nt">vdd</span><span class="p">:</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">0.6</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">0.8</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">1.0</span><span class="w">
+</span><span class="nt">corner</span><span class="p">:</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">TT</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">FF</span><span class="w">
+    </span><span class="p-Indicator">-</span><span class="w"> </span><span class="l-Scalar-Plain">SS</span>
+</pre>
+<p>Here, we've defined values for the different parameters, and we'd like to
+simulate every single combination of these.  So, for example, <tt class="docutils literal">temp=125,
+vdd=0.6, corner=SS</tt> would be one possible substitution into the simulation
+file.</p>
+</div>
+<div class="section" id="setting-up-the-options">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Setting up the options</a></h2>
+<p>First, let's start by setting up the usage of this script using <a class="reference external" href="http://docopt.org">docopt</a>.</p>
+<!-- :: spice/code_docopt.py
+:lexer: python -->
+<p>Here's the beauty of docopt: the entire options parsing is defined in the string at the start of the file.
+If you just type <tt class="docutils literal">simulate.py <span class="pre">-h</span></tt>, you'll get the following output:</p>
+<div class="highlight"><pre><span></span>Usage:
+                simulate.py [options] PARAMFILE SPICEDECK all
+                simulate.py [options] PARAMFILE SPICEDECK (sim|log)...
+
+                simulate.py -h
+
+Arguments:
+                PARAMFILE   YAML file with variables to iterate over
+                SPICEDECK   Mako templated spice deck
+                all         Run all steps in the flow
+                sim         Run the simulations
+                log         Just collate the available results into one file
+
+Options:
+                -h --help        show this message
+                -v --verbose     show more information
+                --rundir=PATH    set path for running simulations in [default: runs]
+                --resultsfile=FILE  set filename for writing results to [default: index.txt]
+</pre></div>
+<p>The script is setup to take in the parameter file (with all the values defined), followed by the simulation spice
+template file, followed by the flow step we want to run (either all, or one or more of sim/log).  You can also
+optionally set the run directory and the name of the resultsfile.  Here's the output with a valid command line:</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>virantha@virantha-macbook-243&gt;<span class="w"> </span>python<span class="w"> </span>code_sim.py<span class="w"> </span>params.yml<span class="w"> </span>sim.sp<span class="w"> </span>all
+<span class="o">{</span><span class="s1">&#39;--help&#39;</span>:<span class="w"> </span>False,
+<span class="w"> </span><span class="s1">&#39;--resultsfile&#39;</span>:<span class="w"> </span><span class="s1">&#39;index.txt&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;--rundir&#39;</span>:<span class="w"> </span><span class="s1">&#39;runs&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;--verbose&#39;</span>:<span class="w"> </span>False,
+<span class="w"> </span><span class="s1">&#39;PARAMFILE&#39;</span>:<span class="w"> </span><span class="s1">&#39;params.yml&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;SPICEDECK&#39;</span>:<span class="w"> </span><span class="s1">&#39;sim.sp&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;all&#39;</span>:<span class="w"> </span>True,
+<span class="w"> </span><span class="s1">&#39;log&#39;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w"> </span><span class="s1">&#39;sim&#39;</span>:<span class="w"> </span><span class="m">0</span><span class="o">}</span>
+</pre></div>
+<p>And all the arguments are parsed into a nice dictionary!  One idiosyncracy is that the way we've defined sim/log
+as one or more optional keywords, we end up with a counter for each keyword.  So, for example, if we specified
+<tt class="docutils literal">sim</tt> as a flow step, then <tt class="docutils literal">all: False, sim: 1</tt> would appear in our <tt class="docutils literal">args</tt> dictionary.</p>
+</div>
+<div class="section" id="validating-options-with-schema">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Validating options with schema</a></h2>
+<p>Now, let's do some rudimentary checking of the user supplied options.  For example, it would be nice
+to make sure that the parameter and spice template file actually exist and are readable, so let's add those
+checks using <a class="reference external" href="https://pypi.python.org/pypi/schema">schema</a> to validate our dictionary:</p>
+<!-- :: spice/code_schema.py
+:lexer: python -->
+<p>We've made sure <tt class="docutils literal">PARAMFILE</tt> is a file and we've opened and converted it into a file handle, since we'll
+be passing that into the yaml loader in the next step.  Next, we've just checked that the spice simulation
+file exists; no need to open it since we'll just be passing that off to the Mako template engine in a later
+step.</p>
+<p>Very simple, and you can read on the schema docs to add more complex checking of your options.</p>
+</div>
+<div class="section" id="using-a-configuration-file-to-supply-options">
+<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Using a configuration file to supply options</a></h2>
+<p>Now, let's add in configparser type functionality, except we'll use the yaml syntax for more flexibility.</p>
+<!-- :: spice/code_conffile.py
+:lexer: python -->
+<p>Now, we can supply options from a configuration file (which takes priority) in YAML format like so:</p>
+<div class="highlight"><pre><span></span><span class="nt">--verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="nt">SPICEDECK</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sim2.sp</span>
+</pre></div>
+<p>Let's call this file <tt class="docutils literal">conf.yml</tt>, and now we'll get the following:</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span>virantha@virantha-macbook-243&gt;<span class="w"> </span>python<span class="w"> </span>simulate.py<span class="w"> </span>params.yml<span class="w"> </span>sim.sp<span class="w"> </span>all<span class="w"> </span>--conf<span class="o">=</span>conf.yml
+<span class="o">{</span><span class="s1">&#39;--help&#39;</span>:<span class="w"> </span>False,
+<span class="w"> </span><span class="s1">&#39;--resultsfile&#39;</span>:<span class="w"> </span><span class="s1">&#39;index.txt&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;--rundir&#39;</span>:<span class="w"> </span><span class="s1">&#39;runs&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;--verbose&#39;</span>:<span class="w"> </span>True,
+<span class="w"> </span><span class="s1">&#39;PARAMFILE&#39;</span>:<span class="w"> </span><span class="s1">&#39;params.yml&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;SPICEDECK&#39;</span>:<span class="w"> </span><span class="s1">&#39;sim2.sp&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;all&#39;</span>:<span class="w"> </span>True,
+<span class="w"> </span><span class="s1">&#39;log&#39;</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w"> </span><span class="s1">&#39;sim&#39;</span>:<span class="w"> </span><span class="m">0</span><span class="o">}</span>
+</pre></div>
+<p>Note that the configuration file values take precedence over the command line (you could see this <a class="reference external" href="https://github.com/docopt/docopt/blob/master/examples/config_file_example.py">example</a>
+to make the command-line take precedence instead).  We've also put in a check to catch any typos in the conf
+file by erroring out if an option not specified in the docopt is found.</p>
+</div>
+<div class="section" id="loading-in-the-parameters">
+<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Loading in the parameters</a></h2>
+<p>Next, let's add in some more option processing and load in the parameters for each simulation scenario from
+the <tt class="docutils literal">PARAMFILE</tt> argument.</p>
+<!-- :: spice/code_paramfile.py
+:lexer: python -->
+<p>Notice that we've defined a <a class="reference external" href="http://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts">custom loader</a> for reading in the parameter yaml, so that we can keep everything
+in an OrderedDict that keeps the same order as present in the YAML file.  While not strictly necessary,
+this makes the simulation order predictable for the user.</p>
+</div>
+<div class="section" id="generating-and-running-the-scenarios">
+<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Generating and running the scenarios</a></h2>
+<p>Now, we'll introduce a generator function that will yield scenarios based on the parameter values.  This
+funtion, <tt class="docutils literal">_get_spice_run</tt> uses Python's built-in itertools product function to generate the cross-product
+of all the parameter values.  Each combination of parameter values is then provided as a <em>context</em> to
+Mako to substitute into the template simulation file (spice deck).  The <tt class="docutils literal">run</tt> method just iterates over
+this generator function, and calls the <tt class="docutils literal">run_sim</tt> method to run the simulator on each scenario.</p>
+<!-- :: spice/code_final.py
+:lexer: python -->
+</div>
+<div class="section" id="logging-the-results-and-complete-script">
+<h2><a class="toc-backref" href="#toc-entry-7">7&nbsp;&nbsp;&nbsp;Logging the results and complete script</a></h2>
+<p>Now, we just introduce some results parsing and outputting to a CSV file for the <tt class="docutils literal">log</tt> flow step, which
+gives us our complete script.  Notice that the results CSV output is completely data-driven and based on the
+context dictionary provided for each scenario.</p>
+<!-- :: spice/code_final2.py
+:lexer: python -->
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="/tag/python.html">python</a>,      <a href="/tag/docopt.html">docopt</a>,      <a href="/tag/schema.html">schema</a>,      <a href="/tag/yaml.html">yaml</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha N. Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+    <script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        var script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+    </script>
+
+</body>
+</html>

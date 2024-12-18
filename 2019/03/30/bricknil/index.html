@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="tech, bricknil, python, curio, async, bluetoothle, lego">
+
+  <title>
+BrickNil - Control LEGO Bluetooth Sensors and Motors with Python | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Sat 30 March 2019 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2019/03/30/bricknil/" class="nohover">BrickNil - Control LEGO Bluetooth Sensors and Motors with Python</a></h1>
+  </div>
+  <div class="article_text">
+    <p>BrickNil <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[*]</a> provides an easy way to connect to and program LEGO® Bluetooth hubs (including the
+PoweredUp Passenger Train <a class="reference external" href="https://www.amazon.com/gp/product/B07CC37F63/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07CC37F63">60197</a> and Cargo Train <a class="reference external" href="https://www.amazon.com/gp/product/B07C39LCZ9/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07C39LCZ9">60198</a> sets, and the Lego
+Duplo Steam Train <a class="reference external" href="https://www.amazon.com/gp/product/B07BK6M2WC/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07BK6M2WC">10874</a> and Cargo Train <a class="reference external" href="https://www.amazon.com/gp/product/B07BK6KQR6/ref=as_li_tl?ie=UTF8&amp;tag=virantha-20&amp;camp=1789&amp;creative=9325&amp;linkCode=as2&amp;creativeASIN=B07BK6KQR6">10875</a> ) using Python on OS X and
+Linux. This work was inspired by this <a class="reference external" href="https://www.eurobricks.com/forum/index.php?/forums/topic/162288-powered-up-a-tear-down/">EuroBricks</a> thread and the NodeJS
+<a class="reference external" href="https://github.com/nathankellenicki/node-poweredup">Powered-Up</a> library. Unlike the official apps available from LEGO, BrickNil
+allows you to control multiple hubs with a single program, which lets you
+easily scale to programming large interactive systems.</p>
+<p>BrickNil requires modern Python (designed and tested for 3.7) and uses asynchronous
+event programming built on top of the <a class="reference external" href="http://curio.readthedocs.io">Curio</a> async library.  As an aside, the choice of
+async library is fairly arbitrary; and enabling another library such as <cite>asyncio</cite> or <cite>Trio</cite>
+should be straightforward.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="simple">
+<li><a class="reference internal" href="#features" id="toc-entry-1">Features</a></li>
+<li><a class="reference internal" href="#more-documentation" id="toc-entry-2">More documentation</a></li>
+</ul>
+<script>
+                $(document).ready( function () { 
+                    $('#components').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
+<p>An example BrickNil program for controlling the Train motor speed is shown below:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">curio</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">bricknil</span> <span class="kn">import</span> <span class="n">attach</span><span class="p">,</span> <span class="n">start</span>
+<span class="kn">from</span> <span class="nn">bricknil.hub</span> <span class="kn">import</span> <span class="n">PoweredUpHub</span>
+<span class="kn">from</span> <span class="nn">bricknil.sensor</span> <span class="kn">import</span> <span class="n">TrainMotor</span>
+
+<span class="nd">@attach</span><span class="p">(</span><span class="n">TrainMotor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'motor'</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Train</span><span class="p">(</span><span class="n">PoweredUpHub</span><span class="p">):</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># Repeat this control two times</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor</span><span class="o">.</span><span class="n">ramp_speed</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="mi">5000</span><span class="p">)</span> <span class="c1"># Ramp speed to 80 over 5 seconds</span>
+            <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor</span><span class="o">.</span><span class="n">ramp_speed</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># Brake to 0 over 1 second</span>
+            <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">system</span><span class="p">():</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">Train</span><span class="p">(</span><span class="s1">'My train'</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">start</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+</pre></div>
+<ul class="simple">
+<li>Free and open-source software: ASL2 license</li>
+<li>Documentation: <a class="reference external" href="http://virantha.github.io/bricknil">http://virantha.github.io/bricknil</a></li>
+<li>Source: <a class="reference external" href="https://github.com/virantha/bricknil">https://github.com/virantha/bricknil</a></li>
+</ul>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label"/><col/></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[*]</a></td><td>BrickNil's name comes from the word "Nil" (නිල්) in <a class="reference external" href="https://en.wikipedia.org/wiki/Sinhalese_language">Sinhala</a> which means Blue (as in Bluetooth)</td></tr>
+</tbody>
+</table>
+<div class="section" id="features">
+<h2><a class="toc-backref" href="#toc-entry-1">Features</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Fully supports Python asynchronous keywords and coroutines</dt>
+<dd><ul class="first last">
+<li>Allows expressive concurrent programming using async/await syntax</li>
+<li>The current implementation uses the async library <a class="reference external" href="http://curio.readthedocs.io">Curio</a> by David Beazley</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Cross-platform</dt>
+<dd><ul class="first last">
+<li>Uses the Adafruit Bluefruit BluetoothLE library for Mac OS X</li>
+<li>Uses the Bleak Bluetooth library for Linux and Win10; also tested on Raspberry Pi.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Supports the following LEGO® Bluetooth components:</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This site may receive a commission (at no cost to you) if you buy an item through an affiliate link on this page.</p>
+</div>
+<table border="1" class="docutils pretty compact stripe cell-border" id="components">
+<caption>Lego components supported</caption>
+
+<thead valign="bottom">
+<tr><th class="head">Peripheral</th>
+<th class="head">Price</th>
+<th class="head">Sets</th>
+<th class="head">Support</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>PoweredUp Hub (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FHub-88009">88009</a>)</td>
+<td>$50</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60197</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60198</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B07BMGR1FN?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">76112</a></td>
+<td>LED color, Button, Current, Voltage sensor</td>
+</tr>
+<tr><td>PoweredUp Train Motor (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FTrain-Motor-88011">88011</a>)</td>
+<td>$14</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60197</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60198</a></td>
+<td>Motor</td>
+</tr>
+<tr><td>PoweredUp Remote (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FRemote-Control-88010">88010</a>)</td>
+<td>$23</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B07CC37F63?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60197</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B07C39LCZ9?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">60198</a></td>
+<td>Remote buttons</td>
+</tr>
+<tr><td>PoweredUp Light (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FLight-88005">88005</a>)</td>
+<td>$10</td>
+<td><a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FLight-88005">88005</a></td>
+<td>Brightness</td>
+</tr>
+<tr><td>Boost Hub (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FMove-Hub-88006">88006</a>)</td>
+<td>$80</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">17101</a></td>
+<td>Motors, Tilt, LED, Button, Current, Voltage sensors</td>
+</tr>
+<tr><td>Boost Vision Sensor (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FColor-Distance-Sensor-88007">88007</a>)</td>
+<td>$14</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">17101</a></td>
+<td>Color, distance, count</td>
+</tr>
+<tr><td>Boost External Motor (<a class="reference external" href="https://click.linksynergy.com/deeplink?id=seuBib7H7fY&amp;mid=13923&amp;murl=http%3A%2F%2Fshop.lego.com%2Fen-US%2Fproduct%2FMedium-Linear-Motor-88008">88008</a>)</td>
+<td>$17</td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B06Y6JCTKH?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">17101</a></td>
+<td>Motor speed, position</td>
+</tr>
+<tr><td>Duplo Train Base</td>
+<td> </td>
+<td><a class="amazon" href="http://www.amazon.com/gp/product/B07BK6M2WC?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">10874</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B07BK6KQR6?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">10875</a></td>
+<td>Motor, speedometer, color, distance, speaker, voltage</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="more-documentation">
+<h2><a class="toc-backref" href="#toc-entry-2">More documentation</a></h2>
+<p>For more examples and documentation, please see the <a class="reference external" href="http://virantha.github.io/bricknil">project website</a></p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/bricknil.html">Bricknil</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/tech.html">tech</a>,      <a href="https://virantha.com/tag/bricknil.html">bricknil</a>,      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/curio.html">curio</a>,      <a href="https://virantha.com/tag/async.html">async</a>,      <a href="https://virantha.com/tag/bluetoothle.html">bluetoothle</a>,      <a href="https://virantha.com/tag/lego.html">lego</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2019/03/30/bricknil/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

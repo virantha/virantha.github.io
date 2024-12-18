@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet/less" type="text/css" href="/theme/css/style.less">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha N. Ekanayake">
+  <meta name="description" content="Technical writings by Virantha N. Ekanayake">
+
+
+
+<meta name="keywords" content="ocr, pdf, python, tesseract">
+
+  <title>
+PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract | Virantha's Blog  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="">
+      </a>
+      <h2><a href="" class="nohover">Virantha N. Ekanayake</a></h2>
+      <p>
+        <form style="display: inline;" action="/search.html">
+            <div style="float: center;" id="tipue_focus"><input type="text" name="q" id="tipue_search_input">
+            <input class='hide' type="button" id="tipue_search_button" onclick="this.form.submit();"></div>
+        </form>
+      
+      </p>
+      <div>
+          <ul>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">You can add links in your config file</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="#" target="_blank"><span class="ext-links">Another social link</span><i class="fa fa-external-link-square "></i></a></li>
+            <br>
+            <li><a href="https://getpelican.com/" target="_blank">Pelican<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://www.python.org/" target="_blank">Python.org<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2<i class="fa fa-external-link-square "></i></a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file<i class="fa fa-external-link-square "></i></a></li>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="">Home</a> &#124; 
+            <ul>
+                <li><a href='/index.html'>All posts</a></li>
+                <li><a href='/'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="/category/tech.html"> Tech notes </a> </li>
+                <li><a href="/category/snippets.html"> Snippets </a> </li>
+                <li><a href="/category/diy.html"> DIY </a> </li>
+                <li><a href="/category/shopping.html"> Shopping </a> </li>
+
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Mon 22 July 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs.html" class="nohover">PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-right">
+<img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;" />
+</div>
+<p>Updates:</p>
+<blockquote>
+<ul class="simple">
+<li>Anytime -&nbsp;<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">Get the latest updates on PyPDFOCR</a></li>
+<li>10/28/13 - Adds uploading to Evernote notebooks based on
+keywords!</li>
+<li>10/25/13 - Supports filing to directories based on keyword search</li>
+<li>10/22/13 - Now on PyPI, so you can just do &quot;pip install
+pypdfocr&quot;! (For windows, I still recommend downloading my
+prebuilt .exe as written below)</li>
+<li>10/21/13 - Script can watch a directory for new pdfs and
+automatically run ocr on them!</li>
+</ul>
+</blockquote>
+<p>On a <a class="reference external" href="http://virantha.com/2012/10/25/getting-rid-of-paper-clutter/">previous post</a>, I've discussed how I've become a fan of
+<a class="amazon" href="http://www.amazon.com/gp/product/?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20"></a> device to reduce the pile
+of paper in my office. &nbsp;I've been wanting to script more of the flow,
+and the one stumbling block has been the optical character recognition
+phase that makes the scanned PDF searchable. In this post, I'll detail
+my experience in using a free OCR engine from HP/Google called Tesseract
+to handle the PDF OCR conversion.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents</a></p>
+<ul class="simple">
+<li><a class="reference internal" href="#tesseract-ocr" id="toc-entry-1">Tesseract OCR</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
+<li><a class="reference internal" href="#installation" id="toc-entry-3">Installation</a></li>
+<li><a class="reference internal" href="#how-scripting-tesseract-for-pdf-to-pdf-conversion-works" id="toc-entry-4">How Scripting Tesseract for PDF to PDF conversion works</a></li>
+</ul>
+</div>
+<div class="section" id="tesseract-ocr">
+<h2><a class="toc-backref" href="#toc-entry-1">Tesseract OCR</a></h2>
+<p>The ScanSnap ships with a free version of <a class="amazon" href="http://www.amazon.com/gp/product/?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20"></a>, an excellent piece of OCR
+software; unfortunately any scripting ability requires a pricey upgrade
+to the Pro version. &nbsp;A short search later, I found the most popular
+open/free solution out there: <a class="reference external" href="https://code.google.com/p/tesseract-ocr/">Tesseract-OCR</a>. &nbsp;I had looked at this a
+while ago when the text-recognition quality seemed lacking, but version
+3.x has improved significantly.</p>
+<p>However, simply downloading Tesseract and running it doesn't lead to a
+very usable solution, as I frustratingly found out. &nbsp;The software only
+takes image files (like TIFF or JPG) as input, and produces either a
+text file or a HOCR html file as output. &nbsp;Even a web search did not
+bring up any ready-built scripts to have Tesseract take a PDF as an
+input and output the OCR'ed PDF. &nbsp;So, with the help of a HOCR to pdf
+script I found from google, I wrote up my own script called PyPDFOCR.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#toc-entry-2">Usage</a></h2>
+<p>Once you have PyPDFOCR instaled, it's as simple as typing:</p>
+<pre class="literal-block">
+python pypdfocr.py filename.pdf
+</pre>
+<p>This will generate a corresponding filename_ocr.pdf</p>
+<p>Please see the
+<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a>&nbsp;for all the
+features.</p>
+</div>
+<div class="section" id="installation">
+<h2><a class="toc-backref" href="#toc-entry-3">Installation</a></h2>
+<p>This script does have a bunch of external dependencies (all free/open
+source). So far, I've verified it runs on Mac OS X (10.7; probably other
+versions too) and Windows 7 64-bit.</p>
+<p>Please see
+the&nbsp;<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a>&nbsp;for
+installation instructions.</p>
+</div>
+<div class="section" id="how-scripting-tesseract-for-pdf-to-pdf-conversion-works">
+<h2><a class="toc-backref" href="#toc-entry-4">How Scripting Tesseract for PDF to PDF conversion works</a></h2>
+<p>Here's how this script works:</p>
+<ul class="simple">
+<li>Using Ghostscript, convert the input PDF into a multi-page tiff image</li>
+<li>Using Ghostscript, convert the input PDF into multiple jpeg images.
+Required to work around a compression issue in the ReportLab PDF
+generation.</li>
+<li>Using Tesseract, convert the multi-page tiff into a OCR
+representation called HOCR (html based open standard on describing
+every recognized word location on a page)</li>
+<li>Build the output PDF using the multiple jpeg images, while parsing
+the HOCR file and generating text on each page in an invisible font</li>
+</ul>
+<p>Special thanks to the folks at google who wrote&nbsp;<a class="reference external" href="https://code.google.com/p/hocr-tools/source/browse/hocr-pdf">hocr-pdf.py</a>&nbsp;(Apache
+license 2.0)) that showed me how to use the hocr format; I basically
+only had to add multi-page support for this part of the flow.</p>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="/category/pypdfocr.html">PyPDFOCR</a></p>
+    <p>Tags:
+      <a href="/tag/ocr.html">ocr</a>,      <a href="/tag/pdf.html">pdf</a>,      <a href="/tag/python.html">python</a>,      <a href="/tag/tesseract.html">tesseract</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha N. Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+    <script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        var script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+    </script>
+
+</body>
+</html>

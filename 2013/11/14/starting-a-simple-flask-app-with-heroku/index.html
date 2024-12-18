@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="flask, heroku, python, tech">
+
+  <title>
+Starting a simple Flask app with Heroku | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Thu 14 November 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/11/14/starting-a-simple-flask-app-with-heroku/" class="nohover">Starting a simple Flask app with Heroku</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-right">
+<img alt="Flask and Heroku" src="/images/2013/python_flask_cloud_scaled.jpg"/>
+<script>
+                $(document).ready( function () { 
+                    $('#unknown_0').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
+<p>Inspired by <a class="reference external" href="http://shea.io/lightweight-python-apps-with-flask-twitter-bootstrap-and-heroku/">this article</a> on Python Weekly, I thought I'd look into
+deploying a simple hello world application to Heroku, built on the Flask
+micro framework.</p>
+<p>Here's my workflow:</p>
+<ul>
+<li><p class="first">Create a new directory and Python virtualenv (make sure
+virtualenvwrapper is installed!):</p>
+<pre class="literal-block">
+cd ~/dev
+mkdir proj
+cd proj
+mkvirtualenv proj
+</pre>
+</li>
+<li><p class="first">At this point, I usually edit my virtualenv proj/bin/postactivate
+script to cd into proj, since I usually have multiple projects going
+on at the same time.</p>
+<pre class="literal-block">
+#!/bin/tcsh
+# This hook is run after this virtualenv is activated.
+cd ~/dev/proj
+</pre>
+</li>
+<li><p class="first">Next, install the dependencies:</p>
+<ol class="arabic simple">
+<li>pip install flask</li>
+<li><a class="reference external" href="https://www.heroku.com">Get a Heroku account</a></li>
+<li>Install the <a class="reference external" href="https://toolbelt.heroku.com">Heroku tools</a>. This gives you the command-line
+`heroku` tool to deploy and run your web app</li>
+</ol>
+</li>
+<li><p class="first">Create the following hello.py web server:</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_0"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">"Hello world!"</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"PORT"</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+<p><p>Line 11 where we define `port` is very important for
+running on Heroku. The default port of 5000 that a Flask app starts
+on does not work for a Heroku deployment. Instead, you need to get
+the PORT environment variable (that is set in each Heroku deployment
+environment, or dyno) and start the app listening on that port. For
+running locally for testing, if there is no PORT variable, then we
+use 5000</p>
+</p></li>
+<li><p class="first">Test your Flask install by running this webserver:</p>
+<pre class="literal-block">
+python hello.py
+</pre>
+<p>You should see this in your terminal:</p>
+<pre class="literal-block">
+* Running on http://0.0.0.0:5000/
+</pre>
+<p>Now, navigate to localhost:5000 in your browser and make sure you
+can see "hello world" printed
+out in the browser window.</p>
+</li>
+<li><p class="first"><strong>Files needed to deploy to Heroku</strong>: Now we're going to add some
+files that are required to help Heroku deploy your Flask powered
+web-app to its system:</p>
+<ol class="arabic">
+<li><p class="first"><strong>Python requirements file</strong>: Run the following to output a list
+of all your installed python packages</p>
+<pre class="literal-block">
+pip freeze &gt;! requirements.txt
+</pre>
+<p>This should generate a file like the following (note, if you did
+not have a clean python package installation environment, you may
+have more packages listed below):</p>
+<pre class="literal-block">
+Flask==0.10.1
+Jinja2==2.7.1
+MarkupSafe==0.18
+Werkzeug==0.9.4
+itsdangerous==0.23
+wsgiref==0.1.2
+</pre>
+<p><p>Although it's usually good practice to change the `==` to
+`&gt;=`, so that you're not tied to one particular version of a
+package, we'll leave this file as it is now.</p>
+</p></li>
+<li><p class="first"><strong>Procfile file</strong>: This is required for Heroku to <a class="reference external" href="https://devcenter.heroku.com/articles/procfile">deploy</a> your
+app. Use the following:</p>
+<pre class="literal-block">
+web: python dealscraper/hello.py
+</pre>
+<p><p>You can test this by running ``foreman web`` and making sure
+your web server starts up again.</p>
+</p></li>
+</ol>
+</li>
+<li><p class="first"><strong>Deploy to the cloud!</strong>:
+You can now deploy your webserver to Heroku and have it run by
+them. Use the following commands to setup the deployment for the
+first time:</p>
+<pre class="literal-block">
+git init
+git add hello.py requirements.txt Procfile
+git commit -m "Initial commit"
+heroku create
+heroku apps:rename proj
+git push heroku master
+</pre>
+<p>Note that when you run ``heroku create`` it gives your app a
+random name like "serene-meadow-3827", so we want to rename it to our
+project name. If all goes well, the first time you do the create, it
+will ask your for your Heroku login and password, and then when you
+go the git push, it should show something like the following:</p>
+<pre class="literal-block">
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 472 bytes | 0 bytes/s, done.
+Total 4 (delta 1), reused 0 (delta 0)
+
+-----&gt; Python app detected
+-----&gt; No runtime.txt provided; assuming python-2.7.4.
+-----&gt; Using Python runtime (python-2.7.4)
+-----&gt; Installing dependencies using Pip (1.3.1)
+       Cleaning up...
+-----&gt; Discovering process types
+       Procfile declares types -&gt; web
+
+-----&gt; Compiled slug size: 28.4MB
+-----&gt; Launching... done, v5
+       http://proj.herokuapp.com deployed to Heroku
+
+To git@heroku.com:proj.git
+   0ed96f3..dcd13ba  master -&gt; master
+</pre>
+<p><p>Whenever you want to deploy a change in your code, just do the
+``git commit -m "Message"`` and ``git push heroku master`` to
+push your changes to the Heroku infrastructure and restart your
+server.</p>
+</p></li>
+<li><p class="first">Now, run <tt class="docutils literal">heroku ps:scale web=1</tt> to set your server to use one dyno
+or instance. You can check the status of your instance by doing
+<tt class="docutils literal">heroku ps</tt> which should yield</p>
+<pre class="literal-block">
+Scaling web dynos... done, now running 1
+</pre>
+<p>Check that your process is running by doing ``heroku ps`` which
+might yield something like:</p>
+<pre class="literal-block">
+=== web (1X): `python hello.py`
+web.1: up 2013/11/14 15:58:28 (~ 22s ago)
+</pre>
+<p><p>You can check the server logs by doing ``heroku logs``</p>
+</p></li>
+<li><p class="first"><strong>Test the server</strong>: Just go to <a class="reference external" href="http://proj.herokuapp.com">http://proj.herokuapp.com</a> to see your
+web server in action!</p>
+</li>
+</ul>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/flask.html">flask</a>,      <a href="https://virantha.com/tag/heroku.html">heroku</a>,      <a href="https://virantha.com/tag/python.html">python</a>,      <a href="https://virantha.com/tag/tech.html">tech</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/11/14/starting-a-simple-flask-app-with-heroku/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

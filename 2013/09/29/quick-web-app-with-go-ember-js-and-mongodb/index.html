@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="ember, go, javascript, mongodb, tech">
+
+  <title>
+Quick web app with Go, Ember.js, and MongoDB | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Sun 29 September 2013 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2013/09/29/quick-web-app-with-go-ember-js-and-mongodb/" class="nohover">Quick web app with Go, Ember.js, and MongoDB</a></h1>
+  </div>
+  <div class="article_text">
+    <div class="figure align-left" style="width: 236px">
+<img alt="skip_better Screenshot" src="/images/2013/kittens_app_screenshot_scaled.png" style="width: 236px;"/>
+<script>
+                $(document).ready( function () { 
+                    $('#unknown_0').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_1').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_2').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_3').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_4').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_5').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_6').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_7').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script><script>
+                $(document).ready( function () { 
+                    $('#unknown_8').DataTable( { layout:
+                     {
+                        topStart: null,
+                        topEnd: null,
+                        bottom: null,
+                        bottomStart: 'info',
+                        bottomEnd: 'paging'
+                        }
+                    }); 
+                    } );</script></div>
+<p>As part of my recent foray into the <a class="reference external" href="http://golang.org/">Go</a> language, I stumbled across
+this excellent example by Nerdyworm <a class="reference external" href="http://nerdyworm.com/blog/2013/05/21/building-an-app-with-ember-dot-js-and-go/">part 1</a>, <a class="reference external" href="http://nerdyworm.com/blog/2013/05/24/building-an-app-with-ember-dot-js-and-go-part-2/">part 2</a>, <a class="reference external" href="http://nerdyworm.com/blog/2013/05/27/building-an-app-with-ember-dot-js-and-go-part-3/">part 3</a> that
+shows how to build a small web application using the <a class="reference external" href="http://emberjs.com/">ember.js</a>
+javascript framework and Go providing the backend server. I took this
+example, fixed up some incompatibilites with the latest version of
+ember-data.js, and added support for a backing store using MongoDB. You
+can find all the code for this at my <a class="reference external" href="http://github.com/virantha/kittens_ember_go">github</a>, while I describe some of
+the more interesting stuff below.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#getting-started" id="toc-entry-1">1   Getting started</a><ul class="auto-toc">
+<li><a class="reference internal" href="#get-my-code" id="toc-entry-2">1.1   Get my code</a></li>
+<li><a class="reference internal" href="#depedencies" id="toc-entry-3">1.2   Depedencies</a><ul class="auto-toc">
+<li><a class="reference internal" href="#mongodb" id="toc-entry-4">1.2.1   MongoDB</a></li>
+<li><a class="reference internal" href="#gorilla" id="toc-entry-5">1.2.2   Gorilla</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-we-re-going-to-be-building" id="toc-entry-6">2   What we're going to be building</a><ul class="auto-toc">
+<li><a class="reference internal" href="#running-the-app" id="toc-entry-7">2.1   Running the app</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-discussion" id="toc-entry-8">3   Code discussion</a><ul class="auto-toc">
+<li><a class="reference internal" href="#the-backend-go-server-server-mongo-go" id="toc-entry-9">3.1   The Backend Go Server (server_mongo.go)</a><ul class="auto-toc">
+<li><a class="reference internal" href="#main" id="toc-entry-10">3.1.1   Main</a></li>
+<li><a class="reference internal" href="#globals-and-types" id="toc-entry-11">3.1.2   Globals and types</a></li>
+<li><a class="reference internal" href="#the-handlers" id="toc-entry-12">3.1.3   The handlers</a><ul class="auto-toc">
+<li><a class="reference internal" href="#create-a-kitten" id="toc-entry-13">3.1.3.1   Create a kitten</a></li>
+<li><a class="reference internal" href="#display-the-kittens" id="toc-entry-14">3.1.3.2   Display the kittens</a></li>
+<li><a class="reference internal" href="#delete-a-kitten" id="toc-entry-15">3.1.3.3   Delete a kitten</a></li>
+<li><a class="reference internal" href="#update-a-kitten-name" id="toc-entry-16">3.1.3.4   Update a kitten name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#frontend-ember-js-app" id="toc-entry-17">3.2   Frontend ember.js app</a><ul class="auto-toc">
+<li><a class="reference internal" href="#html-output-template" id="toc-entry-18">3.2.1   HTML output template</a></li>
+<li><a class="reference internal" href="#ember-js-application" id="toc-entry-19">3.2.2   Ember.js application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#toc-entry-1">1   Getting started</a></h2>
+<div class="section" id="get-my-code">
+<h3><a class="toc-backref" href="#toc-entry-2">1.1   Get my code</a></h3>
+<div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/virantha/kittens_ember_go.git
+<span class="nb">cd</span><span class="w"> </span>kittens_ember_go
+setenv<span class="w"> </span>GOPATH<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/go/src
+</pre></div>
+</div>
+<div class="section" id="depedencies">
+<h3><a class="toc-backref" href="#toc-entry-3">1.2   Depedencies</a></h3>
+<p>I'm assuming you have Go already installed:</p>
+<div class="section" id="mongodb">
+<h4><a class="toc-backref" href="#toc-entry-4">1.2.1   MongoDB</a></h4>
+<p>Follow the instructions at <a class="reference external" href="http://docs.mongodb.org/manual/installation/">Mongo</a> to install for your platform. Make
+sure you can start the Mongo server afterwards and insert some records
+into a test database to validate your install.</p>
+<p>Then, you need to install the Go driver for Mongodb. First, you need to
+get <a class="reference external" href="http://docs.mongodb.org/manual/installation/">Canonical's Bazaar</a> revision control system. Make sure you can
+type ''bzr'' at the command-line to verify install. Then, run the
+following command to install <a class="reference external" href="http://labix.org/mgo">Mgo</a></p>
+<pre class="literal-block">
+# Install mgo, the mongodb driver for go
+# Make sure your GOPATH is set as above
+go get labix.org/v2/mgo
+</pre>
+</div>
+<div class="section" id="gorilla">
+<h4><a class="toc-backref" href="#toc-entry-5">1.2.2   Gorilla</a></h4>
+<p>Install this muxing package for Go:</p>
+<pre class="literal-block">
+go get github.com/gorilla/mux
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="what-we-re-going-to-be-building">
+<h2><a class="toc-backref" href="#toc-entry-6">2   What we're going to be building</a></h2>
+<p>We'll build a small web application that you can open directly in your
+browser. It will do exactly what Nerdyworm built in his original, except
+that this version adds data persistence in a database. The app presents
+the following interface:</p>
+<div class="figure">
+<img alt="Screenshot of kittens app" src="/images/2013/kittens_app_screenshot.png"/>
+</div>
+<p>It will let you create a "kitten", linking
+to a random kitten image.  You can then either edit the kitten name, or
+delete the kitten, with all kittens stored in the backing MongoDB
+database.  The web interface is done in Ember.js, and Go provides the
+web-server/database access.</p>
+<div class="section" id="running-the-app">
+<h3><a class="toc-backref" href="#toc-entry-7">2.1   Running the app</a></h3>
+<dl class="docutils">
+<dt>Once you have everything installed, you can just do the following to start</dt>
+<dd>the server:</dd>
+</dl>
+<pre class="literal-block">
+cd site
+go run ../go/src/github.com/virantha/server_mongo.go
+</pre>
+<p>Then navigate to <a class="reference external" href="http://localhost:8081/#/create">http://localhost:8081</a></p>
+</div>
+</div>
+<div class="section" id="code-discussion">
+<h2><a class="toc-backref" href="#toc-entry-8">3   Code discussion</a></h2>
+<p>First, I'll discuss the server-side Go program that accesses the Mongo
+database and provides JSON objects for the front-end. That's not to say
+the client-side is not interesting; quite the contrary, it's pretty
+impressive what one can do with ember.js, but most of that has already
+been covered in Nerdyworm's posts.</p>
+<div class="section" id="the-backend-go-server-server-mongo-go">
+<h3><a class="toc-backref" href="#toc-entry-9">3.1   The Backend Go Server (server_mongo.go)</a></h3>
+<p>The server is just one single go file; here's the list of imports:</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_0"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s">"net/http"</span>
+<span class="w">  </span><span class="s">"log"</span>
+<span class="w">  </span><span class="s">"github.com/gorilla/mux"</span>
+<span class="w">  </span><span class="s">"encoding/json"</span>
+<span class="w">  </span><span class="s">"math/rand"</span>
+<span class="w">  </span><span class="s">"fmt"</span>
+<span class="w">  </span><span class="s">"labix.org/v2/mgo"</span>
+<span class="w">  </span><span class="s">"labix.org/v2/mgo/bson"</span>
+<span class="p">)</span>
+</pre></div></td></tr></table></div>
+<div class="section" id="main">
+<h4><a class="toc-backref" href="#toc-entry-10">3.1.1   Main</a></h4>
+<p>Here's the main function where we set up the URL routes for the
+application, connect to the database, and start the web server.</p>
+<p>Lines 6 to 12 setup the routes for "getting" kittens for display,
+"creating" a new kitten, "updating" an existing kitten, and "deleting" a
+kitten. This is all unchanged from the original source code.</p>
+<p>Lines 16 to 20 are new, and handle the MongoDB connection. We open a new
+session and then connect to the kittens collection. These are global
+variables for this app, explained in the next section.</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_1"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span>
+
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Starting Server"</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mux</span><span class="p">.</span><span class="nx">NewRouter</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/api/kittens"</span><span class="p">,</span><span class="w"> </span><span class="nx">KittensHandler</span><span class="p">).</span><span class="nx">Methods</span><span class="p">(</span><span class="s">"GET"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/api/kittens"</span><span class="p">,</span><span class="w"> </span><span class="nx">CreateKittenHandler</span><span class="p">).</span><span class="nx">Methods</span><span class="p">(</span><span class="s">"POST"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/api/kittens/{id}"</span><span class="p">,</span><span class="w"> </span><span class="nx">UpdateKittenHandler</span><span class="p">).</span><span class="nx">Methods</span><span class="p">(</span><span class="s">"PUT"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/api/kittens/{id}"</span><span class="p">,</span><span class="w"> </span><span class="nx">DeleteKittenHandler</span><span class="p">).</span><span class="nx">Methods</span><span class="p">(</span><span class="s">"DELETE"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">"/api/"</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">"."</span><span class="p">)))</span>
+
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Starting mongo db session"</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">session</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Dial</span><span class="p">(</span><span class="s">"localhost"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">panic</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">session</span><span class="p">.</span><span class="nx">SetMode</span><span class="p">(</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Monotonic</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">collection</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s">"Kittens"</span><span class="p">).</span><span class="nx">C</span><span class="p">(</span><span class="s">"kittens"</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Listening on 8080"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="globals-and-types">
+<h4><a class="toc-backref" href="#toc-entry-11">3.1.2   Globals and types</a></h4>
+<p>Here's the list of custom types defined for our application. First, we
+have the database pointers to the session and collection.</p>
+<p>Then we have the struct for a single Kitten, which contains an Id of
+type ObjectId (used as unique identifier in the MongoDB), the name of
+the kitten, and a string with the URL for the picture. Note the string
+literals (the backticks are just to avoid backslashing the
+double-quotes) at the end of each member type that specifies a <strong>tag</strong>
+for each member that will be used as a name for JSON or BSON
+representations instead of the member name. Also note how we can use
+_id for the BSON representation for mongo (which is the default unique
+identifier in Mongo for each element), while still keeping id for the
+JSON, and capitalized Id for making it an exported member in Go.</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_2"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">session</span><span class="w"> </span><span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Session</span>
+<span class="w">    </span><span class="nx">collection</span><span class="w"> </span><span class="o">*</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Collection</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Kitten</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Id</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectId</span><span class="w"> </span><span class="s">`bson:"_id" json:"id"`</span>
+<span class="w">    </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:"name"`</span>
+<span class="w">    </span><span class="nx">Picture</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:"picture"`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">KittenJSON</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Kitten</span><span class="w"> </span><span class="nx">Kitten</span><span class="w"> </span><span class="s">`json:"kitten"`</span>
+<span class="p">}</span>
+
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">KittensJSON</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Kittens</span><span class="w"> </span><span class="p">[]</span><span class="nx">Kitten</span><span class="w"> </span><span class="s">`json:"kittens"`</span>
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="the-handlers">
+<h4><a class="toc-backref" href="#toc-entry-12">3.1.3   The handlers</a></h4>
+<p>We have a set of 4 handlers for each of the actions the client-side
+application might send our way:</p>
+<div class="section" id="create-a-kitten">
+<h5><a class="toc-backref" href="#toc-entry-13">3.1.3.1   Create a kitten</a></h5>
+<p>In lines 5 to 9, we decode the incoming kitten from JSON. Next, in lines
+10 to 15, we pick a random image width/height and to get the
+corresponding kitten image from placekitten.com.</p>
+<p>Finally, in linees 19 to 26, we create a new Id, and insert this kitten
+instance into our database, after which we return a JSON object of the
+kitten to render in the client.</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_3"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">CreateKittenHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">kittenJSON</span><span class="w"> </span><span class="nx">KittenJSON</span>
+
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">).</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">kittenJSON</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">kitten</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">kittenJSON</span><span class="p">.</span><span class="nx">Kitten</span>
+
+<span class="w">    </span><span class="c1">// Generate a random dimension for the kitten</span>
+<span class="w">    </span><span class="nx">width</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">400</span>
+<span class="w">    </span><span class="nx">height</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">Int</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">400</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">100</span><span class="p">}</span>
+<span class="w">    </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">Picture</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">"http://placekitten.com/%d/%d"</span><span class="p">,</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Store the new kitten in the database</span>
+<span class="w">    </span><span class="c1">// First, let's get a new id</span>
+<span class="w">    </span><span class="nx">obj_id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">NewObjectId</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">Id</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">obj_id</span>
+
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">collection</span><span class="p">.</span><span class="nx">Insert</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">kitten</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Inserted new kitten %s with name %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">j</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">KittenJSON</span><span class="p">{</span><span class="nx">Kitten</span><span class="p">:</span><span class="w"> </span><span class="nx">kitten</span><span class="p">})</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span><span class="w"> </span><span class="s">"application/json"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="display-the-kittens">
+<h5><a class="toc-backref" href="#toc-entry-14">3.1.3.2   Display the kittens</a></h5>
+<p>Here, we just return an array of kitten objects from the database for
+display in the client. We iterate through the kittens collection and
+build up a local slice of kittens (I admit, this is pretty inefficient
+and we'd probably want to cache this in a real application) that then
+gets marshaled into JSON for display.</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_4"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">KittensHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Let's build up the kittens slice</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">mykittens</span><span class="w"> </span><span class="p">[]</span><span class="nx">Kitten</span>
+
+<span class="w">    </span><span class="nx">iter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">collection</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="kc">nil</span><span class="p">).</span><span class="nx">Iter</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Kitten</span><span class="p">{}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">iter</span><span class="p">.</span><span class="nx">Next</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">mykittens</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">mykittens</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span><span class="w"> </span><span class="s">"application/json"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">j</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">KittensJSON</span><span class="p">{</span><span class="nx">Kittens</span><span class="p">:</span><span class="w"> </span><span class="nx">mykittens</span><span class="p">})</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">panic</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Provided json"</span><span class="p">)</span>
+
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="delete-a-kitten">
+<h5><a class="toc-backref" href="#toc-entry-15">3.1.3.3   Delete a kitten</a></h5>
+<p>This is probably the most trivial to write. The only "gotcha" (if you
+can even call it that) is to convert the incoming string id into an
+actual ObjectId object for lookup in the MongoDB.</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_5"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">DeleteKittenHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Grab the kitten's id from the incoming url</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">vars</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mux</span><span class="p">.</span><span class="nx">Vars</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">vars</span><span class="p">[</span><span class="s">"id"</span><span class="p">]</span>
+
+<span class="w">    </span><span class="c1">// Remove it from database</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">collection</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">"_id"</span><span class="p">:</span><span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectIdHex</span><span class="p">(</span><span class="nx">id</span><span class="p">)})</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Could not find kitten %s to delete"</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)}</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusNoContent</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="update-a-kitten-name">
+<h5><a class="toc-backref" href="#toc-entry-16">3.1.3.4   Update a kitten name</a></h5>
+<p>Again, pretty straightforward:</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_6"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">UpdateKittenHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="c1">// Grab the kitten's id from the incoming url</span>
+<span class="w">    </span><span class="nx">vars</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mux</span><span class="p">.</span><span class="nx">Vars</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">id</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">ObjectIdHex</span><span class="p">(</span><span class="nx">vars</span><span class="p">[</span><span class="s">"id"</span><span class="p">])</span>
+
+<span class="w">    </span><span class="c1">// Decode the incoming kitten json</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">kittenJSON</span><span class="w"> </span><span class="nx">KittenJSON</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">).</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">kittenJSON</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)}</span>
+
+<span class="w">    </span><span class="c1">// Update the database</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">collection</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">"_id"</span><span class="p">:</span><span class="nx">id</span><span class="p">},</span>
+<span class="w">             </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">"name"</span><span class="p">:</span><span class="nx">kittenJSON</span><span class="p">.</span><span class="nx">Kitten</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+<span class="w">                    </span><span class="s">"_id"</span><span class="p">:</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span>
+<span class="w">                    </span><span class="s">"picture"</span><span class="p">:</span><span class="w"> </span><span class="nx">kittenJSON</span><span class="p">.</span><span class="nx">Kitten</span><span class="p">.</span><span class="nx">Picture</span><span class="p">,</span>
+<span class="w">                    </span><span class="p">})</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Updated kitten %s name to %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">kittenJSON</span><span class="p">.</span><span class="nx">Kitten</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusNoContent</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></td></tr></table></div>
+<p>And that's pretty much it for the back-end server. Go is pretty concise!</p>
+</div>
+</div>
+</div>
+<div class="section" id="frontend-ember-js-app">
+<h3><a class="toc-backref" href="#toc-entry-17">3.2   Frontend ember.js app</a></h3>
+<div class="section" id="html-output-template">
+<h4><a class="toc-backref" href="#toc-entry-18">3.2.1   HTML output template</a></h4>
+<p>First, here's the html that the ember framework will write into. A lot
+of it is just boilerplate and there's nothing really new here from the
+original source that's been discussed by nerdyworm:</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_7"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Kittens<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"css/normalize.css"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"css/style.css"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span><span class="p">&gt;</span>
+<span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"container"</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Create</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">own</span><span class="w"> </span><span class="nx">kitten</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">ul</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"nav nav-tabs"</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{{</span><span class="err">#</span><span class="nx">linkTo</span><span class="w"> </span><span class="s1">'index'</span><span class="p">}}</span><span class="nx">Index</span><span class="p">{{</span><span class="err">/linkTo}}&lt;/li&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{{</span><span class="err">#</span><span class="nx">linkTo</span><span class="w"> </span><span class="s1">'create'</span><span class="p">}}</span><span class="nx">Create</span><span class="p">{{</span><span class="err">/linkTo}}&lt;/li&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/ul&gt;</span>
+<span class="w">  </span><span class="p">{{</span><span class="nx">outlet</span><span class="p">}}</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"index"</span><span class="p">&gt;</span>
+<span class="o">&lt;</span><span class="nx">ul</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"thumbnails"</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">{{</span><span class="err">#</span><span class="nx">each</span><span class="w"> </span><span class="nx">controller</span><span class="p">}}</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">li</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"span3"</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"thumbnail"</span><span class="o">&gt;</span>
+<span class="w">          </span><span class="o">&lt;</span><span class="nx">img</span><span class="w"> </span><span class="p">{{</span><span class="nx">bindAttr</span><span class="w"> </span><span class="nx">src</span><span class="o">=</span><span class="s2">"picture"</span><span class="p">}}</span><span class="o">/&gt;</span>
+<span class="w">          </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"caption"</span><span class="o">&gt;</span>
+<span class="w">              </span><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+<span class="w">              </span><span class="p">{{</span><span class="err">#</span><span class="nx">linkTo</span><span class="w"> </span><span class="s1">'edit'</span><span class="w"> </span><span class="k">this</span><span class="p">}}</span><span class="nx">Edit</span><span class="p">{{</span><span class="err">/linkTo}}</span>
+<span class="w">              </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="p">{{</span><span class="nx">action</span><span class="w"> </span><span class="nx">deleteKitten</span><span class="w"> </span><span class="k">this</span><span class="p">}}</span><span class="o">&gt;</span><span class="nx">Delete</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<span class="w">          </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+<span class="w">    </span><span class="p">{{</span><span class="err">/each}}</span>
+<span class="o">&lt;</span><span class="err">/ul&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"_form"</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">form</span><span class="w"> </span><span class="p">{{</span><span class="nx">action</span><span class="w"> </span><span class="nx">save</span><span class="w"> </span><span class="nx">on</span><span class="o">=</span><span class="s2">"submit"</span><span class="p">}}</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"form-inline"</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="p">{{</span><span class="nx">input</span><span class="w"> </span><span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span><span class="w"> </span><span class="nx">value</span><span class="o">=</span><span class="nx">name</span><span class="p">}}</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">type</span><span class="o">=</span><span class="s2">"submit"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn btn-primary"</span><span class="o">&gt;</span><span class="nx">Save</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/form&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"create"</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Create</span><span class="w"> </span><span class="nx">kitten</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<span class="w">    </span><span class="p">{{</span><span class="nx">partial</span><span class="w"> </span><span class="s1">'form'</span><span class="p">}}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"edit"</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Edit</span><span class="w"> </span><span class="nx">kitten</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<span class="w">    </span><span class="p">{{</span><span class="nx">partial</span><span class="w"> </span><span class="s1">'form'</span><span class="p">}}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"js/lib/jquery.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"js/lib/handlebars.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"js/lib/ember.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"js/lib/ember-data.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"js/app_kittens.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div></td></tr></table></div>
+</div>
+<div class="section" id="ember-js-application">
+<h4><a class="toc-backref" href="#toc-entry-19">3.2.2   Ember.js application</a></h4>
+<p>Now, here is the actual client-side logic that's been updated to work
+with the latest version of ember and ember-data:</p>
+<div class="highlight"><table class="highlighttable pretty compact stripe cell-border" id="unknown_8"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">Store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DS</span><span class="p">.</span><span class="nx">Store</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">revision</span><span class="o">:</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">Kitten</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DS</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'string'</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">picture</span><span class="o">:</span><span class="w"> </span><span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'string'</span><span class="p">),</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">KittenAdapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DS</span><span class="p">.</span><span class="nx">RESTAdapter</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">namespace</span><span class="o">:</span><span class="w"> </span><span class="s1">'api'</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">IndexRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">'kitten'</span><span class="p">);</span>
+<span class="w">        </span><span class="p">},</span>
+
+<span class="w">        </span><span class="nx">actions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">deleteKitten</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">kitten</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">deleteRecord</span><span class="p">();</span>
+<span class="w">                </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Add some routes</span>
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">'create'</span><span class="p">);</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">'edit'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'/edit/:kitten_id'</span><span class="p">});</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Add a controller to dispatch create commands</span>
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">CreateController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Controller</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">actions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">save</span><span class="o">:</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">kitten</span><span class="w"> </span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">createRecord</span><span class="p">(</span><span class="s1">'kitten'</span><span class="p">);</span>
+<span class="w">                </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">));</span>
+<span class="w">                </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">this</span><span class="p">.</span><span class="nx">transitionToRoute</span><span class="p">(</span><span class="s1">'index'</span><span class="p">);</span>
+<span class="w">                    </span><span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="nx">App</span><span class="p">.</span><span class="nx">EditController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">ObjectController</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">actions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">save</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">kitten</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'model'</span><span class="p">);</span>
+<span class="w">                </span><span class="nx">kitten</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">this</span><span class="p">.</span><span class="nx">transitionToRoute</span><span class="p">(</span><span class="s1">'index'</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="p">})();</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/tech.html">Tech</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/ember.html">ember</a>,      <a href="https://virantha.com/tag/go.html">go</a>,      <a href="https://virantha.com/tag/javascript.html">javascript</a>,      <a href="https://virantha.com/tag/mongodb.html">mongodb</a>,      <a href="https://virantha.com/tag/tech.html">tech</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2013/09/29/quick-web-app-with-go-ember-js-and-mongodb/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>

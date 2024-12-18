@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - ScanPDF</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/scanpdf.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2014-03-30T23:13:00-04:00</updated><entry><title>ScanPDF - Usage guide</title><link href="https://virantha.com/2014/03/30/scanpdf-usage-guide/" rel="alternate"></link><published>2014-03-30T23:13:00-04:00</published><updated>2014-03-30T23:13:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-03-30:/2014/03/30/scanpdf-usage-guide/</id><summary type="html">&lt;p&gt;If you're looking for a simple way to use a multi-page scanner and get your
+document into a PDF in Linux without any proprietary or commercial software,
+then ScanPDF might be the solution.  I wrote it to quickly take the Linux SANE
+scanner system output image files, and process them …&lt;/p&gt;</summary><content type="html">&lt;p&gt;If you're looking for a simple way to use a multi-page scanner and get your
+document into a PDF in Linux without any proprietary or commercial software,
+then ScanPDF might be the solution.  I wrote it to quickly take the Linux SANE
+scanner system output image files, and process them into usable PDFs.  By
+usable, I mean PDFs that maintain their original scanned resolution, omit blank
+pages (if you're scanning in duplex mode, for example), preserve color unless
+the original is greyscale/black and white, in which case they are intelligently
+down-converted to B/W PDFs to save space.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Free and open-source software: ASL2 license&lt;/li&gt;
+&lt;li&gt;Documentation: &lt;a class="reference external" href="http://virantha.github.io/scanpdf/html"&gt;http://virantha.github.io/scanpdf/html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Source: &lt;a class="reference external" href="https://github.com/virantha/scanpdf"&gt;https://github.com/virantha/scanpdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="features"&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Uses SANE/scanadf to automatically scan to multi-page compressed PDFs&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://virantha.github.io/scanpdf/html"&gt;Integrates with ScanBd&lt;/a&gt; to respond to hardware button presses&lt;/li&gt;
+&lt;li&gt;Automatically removes blank pages.&lt;/li&gt;
+&lt;li&gt;Scans in color, and automatically down-converts into 1-bit B/W image for text/greyscale images&lt;/li&gt;
+&lt;li&gt;Auto-crops to the proper page size.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="usage"&gt;
+&lt;h2&gt;Usage:&lt;/h2&gt;
+&lt;p&gt;The simplest way to use this is:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+scanpdf scan pdf &amp;lt;pdffile&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;This will first perform the scan, and then the conversion to PDF.  If you want
+to split up the scan and the PDF conversion into two separate invocations (for
+reasons clarified below), then you can do:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+scanpdf --tmpdir=tmp scan
+scanpdf --tmpdir=tmp pdf &amp;lt;pdffile&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;One reason for the separation might be if you want to keep scanning documents
+(very quick) while the post-processing (slower) for the PDF conversion is
+taking place in the background.   For instance, if you're using the hardware
+button on the scanner to initiate scans (as detailed in &lt;a class="reference external" href="http://virantha.com/2014/03/17/one-touch-scanning-with-fujitsu-scansnap-in-linux/"&gt;this&lt;/a&gt; document), then
+you want to return immediately after the scan instead of waiting for the full
+conversion to PDF has taken place.&lt;/p&gt;
+&lt;p&gt;You can optionally use the following switches to control if you're putting pages face up or face down in the auto
+document feeder, if you want to skip the blank page processing, adjust the blank page detection threshold, or add
+additional post-processing using &lt;a class="reference external" href="http://unpaper.berlios.de"&gt;unpaper&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+--dpi=&amp;lt;dpi&amp;gt;                 DPI to scan in [default: 300]
+--face-up=&amp;lt;true/false&amp;gt;      Face-up scanning [default: True]
+--keep-blanks               Don't check for and remove blank pages
+--blank-threshold=&amp;lt;ths&amp;gt;     Percentage of white to be marked as blank [default: 0.97]
+--post-process              Run unpaper to deskew/clean up
+&lt;/pre&gt;
+&lt;p&gt;Right now, I'm assuming this is getting called via ScanBD, so I don't have the option to manually specify the
+scanner.  If you really want to use this standalone, for now, please just set the &lt;tt class="docutils literal"&gt;SCANBD_DEVICE&lt;/tt&gt; environment
+variable to your scanner device name before running this script.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;pre class="literal-block"&gt;
+$ pip install scanpdf
+&lt;/pre&gt;
+&lt;p&gt;Requires ImageMagick and SANE to be installed, for the command line tools:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;convert&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;identify&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;ps2pdf&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;scanadf&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Also requires epstopdf.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="disclaimer"&gt;
+&lt;h2&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;The software is distributed on an &amp;quot;AS IS&amp;quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="ScanPDF"></category><category term="scan"></category><category term="pdf"></category><category term="python"></category></entry></feed>

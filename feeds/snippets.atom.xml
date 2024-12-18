@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Virantha Namal Ekanayake - Snippets</title><link href="https://virantha.com/" rel="alternate"></link><link href="https://virantha.com/feeds/snippets.atom.xml" rel="self"></link><id>https://virantha.com/</id><updated>2014-05-21T13:12:00-04:00</updated><entry><title>Installing Ubuntu 14.04 LTS (Trusty Tahir) VM on a XenServer 6.2 host</title><link href="https://virantha.com/2014/05/21/ubuntu-14-04-trusty-on-xenserver-62/" rel="alternate"></link><published>2014-05-21T13:12:00-04:00</published><updated>2014-05-21T13:12:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-05-21:/2014/05/21/ubuntu-14-04-trusty-on-xenserver-62/</id><summary type="html">&lt;p&gt;I had a hard time getting Xenserver 6.2 to install a new VM with the latest
+long-term-support version of Ubuntu (14.04).  The process documented below, pieced together from
+several posts, leads to a fairly straight-forward install.&lt;/p&gt;
+&lt;div class="section" id="fix-your-pygrub-on-the-xenserver-host"&gt;
+&lt;h2&gt;Fix your pygrub on the Xenserver host&lt;/h2&gt;
+&lt;p&gt;Based on &lt;a class="reference external" href="http://ubuntuforums.org/showthread.php?t=2216358&amp;amp;page=2&amp;amp;p=13006428#post13006428"&gt;this post&lt;/a&gt;, do …&lt;/p&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I had a hard time getting Xenserver 6.2 to install a new VM with the latest
+long-term-support version of Ubuntu (14.04).  The process documented below, pieced together from
+several posts, leads to a fairly straight-forward install.&lt;/p&gt;
+&lt;div class="section" id="fix-your-pygrub-on-the-xenserver-host"&gt;
+&lt;h2&gt;Fix your pygrub on the Xenserver host&lt;/h2&gt;
+&lt;p&gt;Based on &lt;a class="reference external" href="http://ubuntuforums.org/showthread.php?t=2216358&amp;amp;page=2&amp;amp;p=13006428#post13006428"&gt;this post&lt;/a&gt;, do the following:&lt;/p&gt;
+&lt;ol class="arabic"&gt;
+&lt;li&gt;&lt;p class="first"&gt;Login as root on your Xenserver host (dom0):&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Edit the file &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/usr/lib/python2.4/site-packages/grub/GrubConf.py&lt;/span&gt;&lt;/tt&gt;.&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last"&gt;
+&lt;li&gt;&lt;p class="first"&gt;Change line 428 from:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+if arg.strip() == &amp;quot;${saved_entry}&amp;quot;:
+&lt;/pre&gt;
+&lt;p&gt;into:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+if arg.strip() == &amp;quot;${saved_entry}&amp;quot; or arg.strip() == &amp;quot;${next_entry}&amp;quot;:
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Apparently this is patched in the xenserver sources, but no idea why there's no update to the release yet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="create-a-new-vm-template-for-xencenter"&gt;
+&lt;h2&gt;Create a new VM template for XenCenter&lt;/h2&gt;
+&lt;p&gt;Now, &lt;a class="reference external" href="http://invalidlogic.com/2012/05/01/deploying-ubuntu-12-04-on-xenserver-made-easy/"&gt;make a new template&lt;/a&gt;
+that you can use in XenCenter to create a Ubuntu &lt;tt class="docutils literal"&gt;Trusty&lt;/tt&gt; VM.&lt;/p&gt;
+&lt;ol class="arabic"&gt;
+&lt;li&gt;&lt;p class="first"&gt;Login as root on your Xenserver host (dom0):&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;Execute the following 3 commands:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+TEMPLATE_UUID=`xe template-list name-label=&amp;quot;Ubuntu Lucid Lynx 10.04 (64-bit)&amp;quot; params=uuid --minimal`
+NEW_TEMPLATE_UUID=`xe vm-clone uuid=$TEMPLATE_UUID new-name-label=&amp;quot;Ubuntu Trusty 14.04 (64-bit)&amp;quot;`
+xe template-param-set other-config:default_template=true other-config:debian-release=trusty uuid=$NEW_TEMPLATE_UUID
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class="section" id="create-the-vm-from-template-using-xencenter"&gt;
+&lt;h2&gt;Create the VM from template using XenCenter&lt;/h2&gt;
+&lt;p&gt;Now, run XenCenter on a Windows box, and go to &lt;tt class="docutils literal"&gt;VM &lt;span class="pre"&gt;-&amp;gt;&lt;/span&gt; New VM&lt;/tt&gt;, and scroll down to this new template you created:&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Something" src="/images/2014/ubuntu-xenserver/templateview.png" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Next, when, prompted for install media, use the following URL:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;a class="reference external" href="http://us.archive.ubuntu.com/ubuntu"&gt;http://us.archive.ubuntu.com/ubuntu&lt;/a&gt;&lt;/blockquote&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Something" src="/images/2014/ubuntu-xenserver/installmedia.png" /&gt;
+&lt;/div&gt;
+&lt;p&gt;And follow the remaining steps in the normal way.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Snippets"></category><category term="virtualization"></category><category term="linux"></category></entry><entry><title>Changing tab stops in Vim</title><link href="https://virantha.com/2014/05/12/existing-tab-stop-manipulation-in-vim/" rel="alternate"></link><published>2014-05-12T09:46:00-04:00</published><updated>2014-05-12T09:46:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-05-12:/2014/05/12/existing-tab-stop-manipulation-in-vim/</id><summary type="html">&lt;p&gt;I normally use spaces in my files instead of tabs for indentation, with 4 being my default indent width.  Sometimes, I need
+to change this on existing files to 2, so for the most part, the following sequence works.  First,&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+set ts=4 sts=4 noet
+retab!
+&lt;/pre&gt;
+&lt;p&gt;This changes every …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I normally use spaces in my files instead of tabs for indentation, with 4 being my default indent width.  Sometimes, I need
+to change this on existing files to 2, so for the most part, the following sequence works.  First,&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+set ts=4 sts=4 noet
+retab!
+&lt;/pre&gt;
+&lt;p&gt;This changes every 4-space to a tab, then retabs (exclamation point is important).&lt;/p&gt;
+&lt;p&gt;Then, change the tabs into spaces:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+set ts=2 sts=2 et
+retab!
+&lt;/pre&gt;
+&lt;p&gt;You can also setup your vimrc to have certain files like HTML use a different tabstop than  your regular files:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+autocmd FileType html :setlocal sw=2 ts=2 sts=2
+&lt;/pre&gt;
+</content><category term="Snippets"></category><category term="vim"></category></entry><entry><title>Setting up Google Oauth2 API</title><link href="https://virantha.com/2014/05/08/setting-up-new-project-using-google-oauth2-api/" rel="alternate"></link><published>2014-05-08T11:46:00-04:00</published><updated>2014-05-08T11:46:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-05-08:/2014/05/08/setting-up-new-project-using-google-oauth2-api/</id><summary type="html">&lt;p class="first last"&gt;This documents the steps necessary to enable Google Oauth in your web application for authentication.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;This documents the steps necessary to enable Google Oauth in your web application for authentication.&lt;/p&gt;
+&lt;p&gt;Go to &lt;a class="reference external" href="https://console.developers.google.com/project"&gt;https://console.developers.google.com/project&lt;/a&gt; and following the steps below:&lt;/p&gt;
+&lt;ol class="arabic"&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Create your project&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page1.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Enter project name/id&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page2.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Go to APIs &amp;amp; auth&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page3.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Click on credentials&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page4.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Create a new client id in the Oauth section&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page5.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;As a web application, fill in where the request will be coming in from to Google, as well as the callback URL so Google can send you the auth token.&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page6.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;Now, use the Client ID for your application (if you're doing this server side, you may need the Client Secret as well).  Finally, don't forget to go to the Consent Screen.&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page7.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;And make sure there is something in the project name field (otherwise the google authentication window will give your user a very cryptic error message):&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last figure"&gt;
+&lt;img alt="Something" src="/images/2014/google-oauth/page8.jpg" /&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content><category term="Snippets"></category><category term="oauth"></category></entry><entry><title>Getting around Xcode 5.1 clang -mno-fused-madd error</title><link href="https://virantha.com/2014/03/24/clang-mavericks-error-workaround/" rel="alternate"></link><published>2014-03-24T15:21:00-04:00</published><updated>2014-03-24T15:21:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-03-24:/2014/03/24/clang-mavericks-error-workaround/</id><summary type="html">&lt;p&gt;Recently updated to Xcode 5.1 on my Mavericks install, and when I went to update a few Python PyPI packages
+like reportlab and fabric, I started hitting this error on the compile step:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
+&lt;/pre&gt;
+&lt;p&gt;After a little bit of googling, it seems like the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently updated to Xcode 5.1 on my Mavericks install, and when I went to update a few Python PyPI packages
+like reportlab and fabric, I started hitting this error on the compile step:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+clang: error: unknown argument: '-mno-fused-madd' [-Wunused-command-line-argument-hard-error-in-future]
+&lt;/pre&gt;
+&lt;p&gt;After a little bit of googling, it seems like the workaround for now is to do the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;ARCHFLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-Wno-error&lt;span class="o"&gt;=&lt;/span&gt;unused-command-line-argument-hard-error-in-future&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;reportlab&lt;span class="w"&gt; &lt;/span&gt;fabric
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that if you've already tried to install a package that had some C extensions for speedups that did not compile,
+yet the non-spedup version did install, then run the following command to reinstall it with the above ARCHFLAGS
+prefix [ref]Credit to &lt;a class="reference external" href="http://stackoverflow.com/questions/19548957/can-i-force-pip-to-reinstall-the-current-version"&gt;this post&lt;/a&gt; [/ref]:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--upgrade&lt;span class="w"&gt; &lt;/span&gt;--reinstall&lt;span class="w"&gt; &lt;/span&gt;PACKAGE
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="Snippets"></category><category term="python"></category></entry><entry><title>Font rendering fix in Chrome</title><link href="https://virantha.com/2014/03/11/font-rendering-fix-chrome/" rel="alternate"></link><published>2014-03-11T11:26:00-04:00</published><updated>2014-03-11T11:26:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-03-11:/2014/03/11/font-rendering-fix-chrome/</id><content type="html">&lt;p&gt;Seems like there was a reason Chrome rendered the text on this web page rather poorly at first go:
+See &lt;a class="reference external" href="http://tanookisuitlabs.com/your-fonts-look-bad-in-chrome-heres-the-fix/"&gt;this&lt;/a&gt; page, but basically you need to set the anti-aliasing for Chrome:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;-webkit-font-smoothing&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;antialiased&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="Snippets"></category><category term="snippet"></category><category term="web"></category></entry><entry><title>Pound reverse proxy and simpler URLs for webapps (Sickbeard, Plex, CouchPotato, Headphones, SABNZBD)</title><link href="https://virantha.com/2014/03/08/pound-reverse-proxy-easy-to-use-hostnames/" rel="alternate"></link><published>2014-03-08T21:46:00-05:00</published><updated>2014-03-08T21:46:00-05:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2014-03-08:/2014/03/08/pound-reverse-proxy-easy-to-use-hostnames/</id><summary type="html">&lt;p&gt;I run a plethora of local web applications that each listen on different ports, and
+I wanted to simplify their URLs so I could just type a hostname to access them:&lt;/p&gt;
+&lt;table border="1" class="docutils" id="hostnames"&gt;
+&lt;caption&gt;Hostname mapping&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Application&lt;/th&gt;
+&lt;th class="head"&gt;Default URL&lt;/th&gt;
+&lt;th class="head"&gt;Desired URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;Sickbeard&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://linux-server:8081"&gt;http://linux-server:8081&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://sickbeard"&gt;http://sickbeard&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SabNZBD&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://linux-server:8080"&gt;http://linux-server:8080&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://sabnzbd"&gt;http://sabnzbd …&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</summary><content type="html">&lt;p&gt;I run a plethora of local web applications that each listen on different ports, and
+I wanted to simplify their URLs so I could just type a hostname to access them:&lt;/p&gt;
+&lt;table border="1" class="docutils" id="hostnames"&gt;
+&lt;caption&gt;Hostname mapping&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;col width="33%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Application&lt;/th&gt;
+&lt;th class="head"&gt;Default URL&lt;/th&gt;
+&lt;th class="head"&gt;Desired URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;Sickbeard&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://linux-server:8081"&gt;http://linux-server:8081&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://sickbeard"&gt;http://sickbeard&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SabNZBD&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://linux-server:8080"&gt;http://linux-server:8080&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://sabnzbd"&gt;http://sabnzbd&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Nagios&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://fw:1008/nagios"&gt;http://fw:1008/nagios&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://nagios"&gt;http://nagios&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Plex Media Server&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://media-server:32400/web"&gt;http://media-server:32400/web&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a class="reference external" href="http://plex"&gt;http://plex&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;&lt;br /&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Turns out, this is really simple to do by installing &lt;a class="reference external" href="http://www.apsis.ch/pound"&gt;Pound&lt;/a&gt;, but it took me some time
+to piece together how to configure it for Plex and Nagios, which have both a
+port number and a path mapping.  Basically, the recipe is that you first
+redirect the URL path portion, and then you do the host/port redirect. Plex has
+an &lt;a class="reference external" href="http://blog.spike.cx/post/54333726677/plex-media-server-web-proxy-fix"&gt;additional issue with some javascript&lt;/a&gt; in the web interface that causes a
+loop unless you put in a rule to detect a particular header text
+(&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;X-Plex-Device-Name&lt;/span&gt;&lt;/tt&gt;) to avoid remapping the &lt;tt class="docutils literal"&gt;/web&lt;/tt&gt; portion of the URL.&lt;/p&gt;
+&lt;p&gt;Here's my &lt;tt class="docutils literal"&gt;pound.cfg&lt;/tt&gt; configuration file for future reference (obviously, this requires
+that you've set up your DNS/hosts to point all the aliases like sickbeard, plex, etc. to
+whatever host is running pound)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="na"&gt;ListenHTTP&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Address 192.168.9.1&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Port 80&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*sickbeard.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address linux-server&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 8081&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*sabnzbd.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address linux-server&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 8080&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*couchpotato.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address linux-server&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 5050&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*headphones.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address linux-server&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 8181&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# Following two services for plex&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*plex.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadDeny &amp;quot;X-Plex-Device-Name&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;URL &amp;quot;^/$&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;Redirect &amp;quot;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s"&gt;//plex/web&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*plex.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address media-server&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 32400&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# NAGIOS&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*nagios.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;URL &amp;quot;^/$&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;Redirect &amp;quot;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s"&gt;//nagios/nagios&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;HeadRequire &amp;quot;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;.*nagios.*&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;BackEnd&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Address fw&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="na"&gt;Port 1008&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;End&lt;/span&gt;
+
+&lt;span class="na"&gt;End&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="Snippets"></category><category term="snippet"></category></entry><entry><title>Using Calibre to manage my e-books</title><link href="https://virantha.com/2012/10/23/using-calibre-to-manage-my-e-books/" rel="alternate"></link><published>2012-10-23T19:18:00-04:00</published><updated>2012-10-23T19:18:00-04:00</updated><author><name>virantha</name></author><id>tag:virantha.com,2012-10-23:/2012/10/23/using-calibre-to-manage-my-e-books/</id><summary type="html">&lt;p&gt;I decided to start using &lt;a class="reference external" href="http://calibre-ebook.com/"&gt;Calibre&lt;/a&gt;as my main ebook management
+program. &amp;nbsp;I've been using it for online content from publications like
+the Economist and The New Yorker for a while now, but it's become
+increasingly difficult to manage my entire e-book library, having
+acquired several hundred books from Amazon …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I decided to start using &lt;a class="reference external" href="http://calibre-ebook.com/"&gt;Calibre&lt;/a&gt;as my main ebook management
+program. &amp;nbsp;I've been using it for online content from publications like
+the Economist and The New Yorker for a while now, but it's become
+increasingly difficult to manage my entire e-book library, having
+acquired several hundred books from Amazon over the course of the last 5
+years since the original Kindle came out.&lt;/p&gt;
+&lt;p&gt;While I love the Kindle for travel and being being able to read
+outdoors, its interface leaves much to be desired for organizing one's
+content. &amp;nbsp;So, I decided this morning to switch over to Calibre to manage
+my needs; I think it has matured and become fast enough now to be useful
+for everyday use. &amp;nbsp;The trick, however, is to get Amazon's DRM (.azw)
+into Calibre. &amp;nbsp;It turns out, there's a very easy way now with Calibre's
+built-in plugin system and the plugins here:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://apprenticealf.wordpress.com/2012/09/10/calibre-plugins-the-simplest-option-for-removing-most-ebook-drm/"&gt;https://apprenticealf.wordpress.com/2012/09/10/calibre-plugins-the-simplest-option-for-removing-most-ebook-drm/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I followed these instructions after downloading the actual tools from
+this page:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://apprenticealf.wordpress.com/2012/09/10/drm-removal-tools-for-ebooks/"&gt;https://apprenticealf.wordpress.com/2012/09/10/drm-removal-tools-for-ebooks/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Then it was a matter of going into my Kindle Reader for the PC, and
+(rather irritatingly) individually clicking download on all my ebooks,
+and dropping the .azw files from &amp;quot;Libraries -&amp;gt; Documents -&amp;gt; My Kindle
+Content&amp;quot; into Calibre. &amp;nbsp;A metadata and cover art update later, my e-book
+library is complete:&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="My Calibre library" src="/images/2013/mycalibre1.jpg" /&gt;
+&lt;p class="caption"&gt;My Calibre library, after import and metadata addition&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Snippets"></category><category term="ebooks"></category></entry></feed>

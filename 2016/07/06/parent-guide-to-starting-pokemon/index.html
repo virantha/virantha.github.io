@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="https://virantha.com/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif|Ubuntu+Mono">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <!---
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/theme/tipuesearch/tipuesearch.css">
+  -->
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Virantha Ekanayake">
+  <meta name="description" content="Technical writings by Virantha Ekanayake">
+
+  <link rel="author" href="https://plus.google.com/+ViranthaEkanayake/?rel=author">
+
+
+<meta name="keywords" content="pokemon">
+
+  <title>
+Getting started with the Pokemon Trading Card Game (TCG) for parents | Virantha Namal Ekanayake  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45383503-1', 'virantha.com');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="https://virantha.com">
+        <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
+      </a>
+      <h2><a href="https://virantha.com" class="nohover">Virantha Ekanayake</a></h2>
+      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      
+      <div>
+          <ul>
+
+
+            <li><a data-email="moc.liamg@ahtnariv:otliam" title="You need javascript enabled to view this email" href="#" class="ext-links email" target="_blank">Email<i class="fa fa-envelope"></i></a></li>
+
+
+
+            
+            <li><a href="https://twitter.com/virantha" target="_blank"><span class="ext-links">Twitter</span><i class="fa fa-twitter "></i></a></li>
+
+
+
+            
+            <li><a href="https://www.linkedin.com/pub/virantha-ekanayake/1a/a4b/56" target="_blank"><span class="ext-links">Linkedin</span><i class="fa fa-external-link-square "></i></a></li>
+
+
+
+            
+            <li><a href="https://github.com/virantha" target="_blank"><span class="ext-links">GitHub</span><i class="fa fa-github "></i></a></li>
+            <br>
+        </div>
+<p>
+<!-- AddThis Button BEGIN -->
+<div class="sharing addthis_toolbox addthis_default_style addthis_16x16_style">
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_google_plusone_share"></a>
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_hackernews"></a>
+    <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+</p>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+<!-- AddThis Button END -->
+        
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      
+      </p>
+<div class='nav-class'>
+
+    <ul>
+        <li>
+            <a id='head' href="https://virantha.com">Home</a> &#124; 
+            <ul>
+                <li><a href='https://virantha.com/blog.html'>All posts</a></li>
+                <li><a href='https://virantha.com/tags.html'>Tags</a></li>
+            </ul>
+        </li>
+                <li><a href=#'>Projects</a>
+                <ul>                        <li><a href="https://virantha.com/category/pypdfocr.html"> PyPDFOCR </a> </li>
+                        <li><a href="https://virantha.com/category/airframe.html"> AirFrame </a> </li>
+                        <li><a href="https://virantha.com/category/scanpdf.html"> ScanPDF </a> </li>
+                        <li><a href="https://virantha.com/category/oneresume.html"> OneResumé </a> </li>
+                        <li><a href="https://virantha.com/category/fundsgather.html"> FundsGather </a> </li>
+                        <li><a href="https://virantha.com/category/photokeeper.html"> PhotoKeeper </a> </li>
+                        <li><a href="https://virantha.com/category/bricknil.html"> BrickNil </a> </li>
+                </ul>
+                </li>
+                <li><a href="https://virantha.com/category/tech.html"> Tech notes </a> </li>
+                <li><a href="https://virantha.com/category/snippets.html"> Snippets </a> </li>
+                <li><a href="https://virantha.com/category/diy.html"> DIY </a> </li>
+                <li><a href="https://virantha.com/category/shopping.html"> Shopping </a> </li>
+                    <!--
+                    <div class="stork-wrapper-edible">
+                        <input data-stork="federalist-edible" class="stork-input" />
+                        <div data-stork="federalist-edible-output" class="stork-output"></div>
+                    </div>
+                    -->
+                    
+    </ul>
+</div>
+<p>Posted
+ by virantha
+on Wed 06 July 2016 </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="https://virantha.com/2016/07/06/parent-guide-to-starting-pokemon/" class="nohover">Getting started with the Pokemon Trading Card Game (TCG) for parents</a></h1>
+  </div>
+  <div class="article_text">
+    <p>Growing up, I missed the window where Pokemon and its associated card game were
+hugely popular; I suppose my parents caught a lucky break, but then again,
+they did have to deal with my Transformers and GoBot toys all over the house!</p>
+<p>As of 2016, I'm not sure if Pokemon is going through a resurgence or not, but
+if any of you have
+younger school-age offspring like I do, then you may have heard a lot of begging for
+learning Pokemon and collecting cards.  Things finally came to a head around my son's
+birthday this year, and I had to give in and start looking into this strange and unfamiliar
+universe.</p>
+<p>The first challenge is, because it's several decades old, the Pokemon trading card game
+has evolved considerably, having sprouted dozens of themes, expansions, and characters.  There's
+even a tablet app that lets you play a digital version of the game for free, but my children already get enough
+screen time and encouraging this digital playing was the last thing I wanted.
+The second challenge is, there isn't really a 'getting started' guide for parents that would ease
+one into purchasing the proper cards to learn the rules with a 5 or 6 year old, without investing
+a whole lot of time, research, and money.  After a few false steps, here are my thoughts on making this
+as painless as possible.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title"><a class="reference internal" href="#top">Table of Contents</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#your-first-purchase" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Your first purchase</a></li>
+<li><a class="reference internal" href="#getting-in-some-virtual-training" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Getting in some virtual training</a></li>
+<li><a class="reference internal" href="#expanding-your-deck" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Expanding your deck</a></li>
+<li><a class="reference internal" href="#organizing-your-child-s-cards" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Organizing your child's cards</a></li>
+<li><a class="reference internal" href="#next-steps" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Next steps</a></li>
+</ul>
+</div>
+<div class="section" id="your-first-purchase">
+<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Your first purchase</a></h2>
+<p>Just buy the following starter deck (Trainer Kit)  from Amazon:</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B01AAUSDVM/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01AAUSDVM&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01AAUSDVM.01._SCMZZZZZZZ_.jpg"/>Pokemon TCG: XY Trainer Kit - Pikachu Libre and Suicune</a></div><p>It's less than $10 so you can inexpensively decide if Pokemon is something you
+want to introduce at home.  The kit
+comes with a printed sheet of <a class="reference external" href="http://www.pokemon.com/us/pokemon-tcg/rules">rules to the game</a>, a plastic
+coin for flipping, a game mat that shows where the different piles of cards
+should go, game markers, and has a simplified set of 60 cards that are
+pre-arranged and split into two 30-card decks for two players.  Even better, it
+comes with a detailed walk-through that will get you through several rounds of
+play; after spending about 15 minutes on this, I was ready to go through it and
+teach it to my son.  After you do this walk-through, you can shuffle the decks
+and then play several 'real' games.</p>
+<p>Once you've gotten familiar with the mechanics of the game, then the real fun begins.
+The actual game consists of each player having 60 cards each, so you'll need to purchase
+more cards to have a two-player game at home that reflects the real game. (You can, of course,
+use the cards you already have as a single player 60-card deck)</p>
+</div>
+<div class="section" id="getting-in-some-virtual-training">
+<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Getting in some virtual training</a></h2>
+<p>At this point, if you have an iPad or Android tablet lying around, and you have
+some spare time, you should probably download the free Pokemon TCG <a class="reference external" href="https://itunes.apple.com/us/app/pokemon-tcg-online/id841098932?mt=8">iOS</a> or
+<a class="reference external" href="https://play.google.com/store/apps/details?id=com.pokemon.pokemontcg&amp;hl=en">Android</a>
+app and play some games on your tablet.  This way, you can see the full game
+mechanics for yourself and observe some of the strategy and complexity that
+begins to emerge.  You'll have to go to Pokemon's web site and register for an
+account to get the most out of this (although the app does let you play as a
+guest).  I wouldn't recommend letting your kids play with the apps at this
+stage, although you can create child accounts down the road with access
+controls.</p>
+</div>
+<div class="section" id="expanding-your-deck">
+<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Expanding your deck</a></h2>
+<p>Now, on to buying more cards so you can get a full set of two 60-card decks.</p>
+<p>Although you can buy what are called 'booster packs' which contain 10 random character/training cards, at this
+stage, it's much better to invest in one of the following:</p>
+<ul>
+<li><p class="first"><strong>Theme packs</strong>: Each theme pack comes with a complete 60-card deck that you can use immediately to play with another person.
+Here are a few of the more recent ones that you could look into (for about $12 to $16 each).  You could buy one of these
+and immediately begin playing the full game with you child.</p>
+<ul>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B01CJKRKP6/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01CJKRKP6&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01CJKRKP6.01._SCMZZZZZZZ_.jpg"/>XY-Fates Collide Theme Deck</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B01A0ZSAM4/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01A0ZSAM4&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01A0ZSAM4.01._SCMZZZZZZZ_.jpg"/>XY Break Point Theme Deck</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B01ABAHULK/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01ABAHULK&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01ABAHULK.01._SCMZZZZZZZ_.jpg"/>Geninja and Luxray double pack (120 cards)</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B01E653HKO/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01E653HKO&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01E653HKO.01._SCMZZZZZZZ_.jpg"/>Zygarde and Lugia double pack (120 cards)</a></div></div></li>
+</ul>
+</li>
+<li><p class="first"><strong>Elite Trainer Box</strong>: There are basically gift boxes that come with a nice box to organize your cards, ~8 packs of boosters (10 cards each),
+and about 45 energy cards (which are included in theme decks, but not in booster packs). They also come with competition-legal
+plastic/acrylic dice and markers (nice upgrades to the cardboard ones you got in the starter pack).  They also contain card sleeves
+to protect your more expensive/powerful cards.  These boxes are quite a bit more
+expensive at list price (~$50), but Amazon has them on sale for a little over $30, which actually makes the price per card around 26 cents,
+about the same as buying a theme deck at list price.  Here's a selection of the most recent trainer boxes:</p>
+<ul>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B01BCRP8ME/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01BCRP8ME&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B01BCRP8ME.01._SCMZZZZZZZ_.jpg"/>XY-Fates Collide Elite Trainer Box</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B017WVBLOI/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B017WVBLOI&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B017WVBLOI.01._SCMZZZZZZZ_.jpg"/>XY Break Point Elite Trainer Box</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B016BIQ0ZS/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B016BIQ0ZS&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B016BIQ0ZS.01._SCMZZZZZZZ_.jpg"/>XY Breakthrough Elite Trainer Box</a></div></div></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="organizing-your-child-s-cards">
+<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Organizing your child's cards</a></h2>
+<p>Once you start getting more and more decks and booster packs, you'll need a way to keep them organized.
+There seem to be two main ways people store them: in special card boxes (like a card catalog or recipe card box),
+or in clear poket pages kept in a binder.  The latter seems a little tedious for all but your most precious and/or
+rare cards with pretty foil artwork.  So, I'd recomend the following: Keep your decks and booster cards in a travel box,
+and keep a binder for special cards.</p>
+<ul>
+<li><p class="first"><strong>Card storage boxes</strong>:</p>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00WFJJWM6/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00WFJJWM6&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00WFJJWM6.01._SCMZZZZZZZ_.jpg"/>Caseling hard case</a></div></li>
+<li><p class="first"><strong>Binder</strong>:</p>
+<ul class="simple">
+<li>Pocket pages: <a class="amazon" href="http://www.amazon.com/gp/product/B005HIOVOG?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Ultra Pro 25 Pages with 9 slots per page</a></li>
+<li>Binder:<ul>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00H4E6QI0?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Pokemon 2-inch 3-ring binder</a></li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B014R11CK4?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Charizard 2-inch 3-ring binder</a></li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00X2VIN5I?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Pikachu 2-inch 3-ring binder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="next-steps">
+<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Next steps</a></h2>
+<p>I'll keep this updated as a I keep learning more (haven't even talked about EX cards, Mega cards, BREAK cards, etc!)  but here are a few resources to follow:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.pokemon.com/us/pokemon-tcg/">Official Pokemon site</a></li>
+<li><a class="reference external" href="https://geekdad.com/2014/06/guide-to-pokemon-deck-building/">Parent's guide to Pokemon deck building</a></li>
+<li><a class="reference external" href="http://bulbapedia.bulbagarden.net/wiki/List_of_Pokémon_Trading_Card_Game_expansions">Chronology of Pokemon deck releases</a></li>
+</ul>
+</div>
+
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="https://virantha.com/category/shopping.html">Shopping</a></p>
+    <p>Tags:
+      <a href="https://virantha.com/tag/pokemon.html">pokemon</a>    </p>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533983e96da03f48"></script>
+    <script type="text/javascript">
+        var addthis_config = addthis_config||{};
+        addthis_config.data_track_addressbar = false;
+        addthis_config.data_track_clickback = false;
+    </script>
+    <!-- AddThis Button END -->
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2016/07/06/parent-guide-to-starting-pokemon/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = 'https://virantha.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; Virantha Ekanayake. Built using <a href="https://getpelican.com" target="_blank">Pelican</a>. Modified <a href='https://github.com/virantha/pelican-svbhack'>svbhack</a> theme, based on <a href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">theme</a> by Carey Metcalfe</p>
+    </div>
+  </main>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      var e = document.querySelectorAll(".email");
+      for (var i = 0; i < e.length; i++) {
+        e[i].href = e[i].getAttribute("data-email").split("").reverse().join("");
+        e[i].removeAttribute("data-email");
+        e[i].removeAttribute("title");
+        e[i].removeAttribute("class");
+        e[i].setAttribute("class","ext-links");
+      }
+
+      $.get("https://ipinfo.io", function (response) {
+        //$("#country").html(response.country);
+        //response.country = "CA";
+        var country_codes = { 
+            "GB": { "id" : "virantha-uk-21", "url" : "www.amazon.co.uk"},
+            "CA": { "id" : "virantha-ca-20", "url" : "www.amazon.ca"},
+            "DE": { "id" : "virantha-de-21", "url" : "www.amazon.de"},
+            "FR": { "id" : "viranthacom0c-21", "url" : "www.amazon.fr"},
+            "ES": { "id" : "viranthaco0b5-21", "url" : "www.amazon.es"},
+            "IT": { "id" : "viranthacom02-21", "url" : "www.amazon.it"}
+        } 
+        if (response.country in country_codes) {
+                
+            var e = document.querySelectorAll(".amazon");
+            for (var i = 0; i < e.length; i++) {
+                e[i].href = e[i].href.replace("www.amazon.com", country_codes[response.country]["url"]);
+                e[i].href = e[i].href.replace("virantha-20", country_codes[response.country]["id"]);
+                e[i].setAttribute("class","amazn");
+             }
+        }
+        }, "jsonp"); 
+    };
+  </script>
+
+
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "https://virantha.com/search-index.st");
+</script>
+</body>
+</html>
