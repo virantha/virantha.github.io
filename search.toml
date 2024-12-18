@@ -251,3 +251,6 @@ title = "Getting rid of paper clutter"
 path = "2012/10/23/using-calibre-to-manage-my-e-books/index.html"
 url = "/2012/10/23/using-calibre-to-manage-my-e-books/"
 title = "Using Calibre to manage my e-books"
+
+[output]
+excerpts_per_result = 1

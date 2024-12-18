@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Part 1 - Building a Fast Event-Driven Simulator for Concurrent Systems of Hardwa
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -149,24 +153,24 @@ event-driven programming in Python using the <a class="reference external" href=
 async/await semantics in Python 3.4+ (although I will take advantage of some
 cool new 3.6 features to simplify my code).</p>
 <p>In Part 1, we'll quickly build a simulation framework, which
-will then be enhanced and optimized into a &quot;proper&quot; framework in <a class="reference external" href="https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/">Part 2</a>.  I intend
+will then be enhanced and optimized into a "proper" framework in <a class="reference external" href="https://virantha.github.io/2017/09/27/hardware-simulation-using-curio-2/">Part 2</a>.  I intend
 to finish up in <a class="reference external" href="https://virantha.github.io/2017/09/28/hardware-simulation-using-curio-3/">Part 3</a> with a set of concrete examples on how to use it to simulate
 your own message-passing hardware systems that can solve interesting problems.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#background" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></li>
-<li><a class="reference internal" href="#describing-hardware-using-communicating-processes" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Describing hardware using communicating processes</a></li>
-<li><a class="reference internal" href="#building-the-simulator" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Building the Simulator</a><ul class="auto-toc">
-<li><a class="reference internal" href="#the-process-class" id="toc-entry-4">3.1&nbsp;&nbsp;&nbsp;The Process class</a></li>
-<li><a class="reference internal" href="#the-channel-class" id="toc-entry-5">3.2&nbsp;&nbsp;&nbsp;The Channel class</a></li>
+<li><a class="reference internal" href="#background" id="toc-entry-1">1   Background</a></li>
+<li><a class="reference internal" href="#describing-hardware-using-communicating-processes" id="toc-entry-2">2   Describing hardware using communicating processes</a></li>
+<li><a class="reference internal" href="#building-the-simulator" id="toc-entry-3">3   Building the Simulator</a><ul class="auto-toc">
+<li><a class="reference internal" href="#the-process-class" id="toc-entry-4">3.1   The Process class</a></li>
+<li><a class="reference internal" href="#the-channel-class" id="toc-entry-5">3.2   The Channel class</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-the-system" id="toc-entry-6">4&nbsp;&nbsp;&nbsp;Running the system</a></li>
+<li><a class="reference internal" href="#running-the-system" id="toc-entry-6">4   Running the system</a></li>
 </ul>
 </div>
 <div class="section" id="background">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Background</a></h2>
 <p>First, some background on what I'll be describing:
 In graduate school and in my startup, we built hardware using asynchronous
 digital logic, and used a high-level abstraction called Communicating Hardware
@@ -187,7 +191,7 @@ I was really just looking for something that provided a coroutine based
 event-loop, something that Curio provides quite naturally.</p>
 </div>
 <div class="section" id="describing-hardware-using-communicating-processes">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Describing hardware using communicating processes</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Describing hardware using communicating processes</a></h2>
 <p>Let's try to nail down some terminology.</p>
 <ul class="simple">
 <li><strong>Process</strong> - This represents a piece of processing or code that's being executed sequentially.</li>
@@ -207,14 +211,14 @@ single buffer has two ports, with L being the input port, and R being the
 output port.  All the buffer does is receive a value on L, store it in <em>x</em>, and then send
 it out on R.  We can then construct a <strong>system</strong> of these buffers that implement a
 linear pipeline by connecting the adjacent R and L ports with <em>channels</em>.</p>
-<div class="figure align-center">
-<img alt="Linear buffers" src="/images/2017/chp/buf.png" />
+<div class="figure align-center" style="width: 836px; height: auto; max-width: 100%;">
+<img alt="Linear buffers" src="/images/2017/chp/buf.png" style="width: 836px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="building-the-simulator">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Building the Simulator</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Building the Simulator</a></h2>
 <div class="section" id="the-process-class">
-<h3><a class="toc-backref" href="#toc-entry-4">3.1&nbsp;&nbsp;&nbsp;The Process class</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">3.1   The Process class</a></h3>
 <p>First thing, let's start with a simple class to represent a <em>Process</em> (reminder
 that all code I'm writing probably <strong>requires Python 3.6</strong>)</p>
 <pre class="code python literal-block">
@@ -228,13 +232,13 @@ that all code I'm writing probably <strong>requires Python 3.6</strong>)</p>
 </span>        <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
-</span>        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span>        <span class="k">return</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
-</span>        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">('</span><span class="si">{}</span><span class="s2">')&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <span class="k">return</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">('</span><span class="si">{}</span><span class="s2">')"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span><span class="w">
-</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">m</span><span class="p">))</span>
+</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">m</span><span class="p">))</span>
 </pre>
 <p>Nothing too crazy here; just a constructor that keeps track of a unique process id for
 every single Process that's created, plus some utility functions to create nice
@@ -253,13 +257,13 @@ are faster, cleaner to read, and just plain awesome once you start using them.</
 </span>        <span class="n">Process</span><span class="o">.</span><span class="n">next_id</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
-</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
-</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')&quot;</span><span class="w">
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">('</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')"</span><span class="w">
 
 </span>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span><span class="w">
-</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre>
 <p>Look at that, interpolation of code inside strings!</p>
 <p>Alright, now let's create a Process subclass that actually does something
@@ -278,10 +282,10 @@ number of times.</p>
 
 </span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
 </span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">):</span><span class="w">
-</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sending </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="w">
 </span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_chan</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span><span class="w">
-</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sent </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
-</span>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;terminated&quot;</span><span class="p">)</span>
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sent </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="w">
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">"terminated"</span><span class="p">)</span>
 </pre>
 <p>The constructor lets us set the value and sequence length to output, and the
 <em>connect</em> rather naively just connects the passed in channel to an instance variable.
@@ -312,9 +316,9 @@ on a value.</p>
 </span>            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
 </span>                <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_chan</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
 </span>                <span class="n">tok_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="w">
-</span>                <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>                <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="w">
 </span>        <span class="k">except</span> <span class="n">CancelledError</span><span class="p">:</span><span class="w">
-</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tok_count</span><span class="si">}</span><span class="s2"> tokens received&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tok_count</span><span class="si">}</span><span class="s2"> tokens received"</span><span class="p">)</span><span class="w">
 
 </span><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span><span class="w">
 
@@ -328,8 +332,8 @@ on a value.</p>
 </span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
 </span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
 </span>            <span class="n">tok</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">l_chan</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span><span class="w">
-</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
-</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sending </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"received </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="w">
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sending </span><span class="si">{</span><span class="n">tok</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="w">
 </span>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_chan</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
 </pre>
 <p>One new thing here is how we receive data from an <tt class="docutils literal">async</tt> method.  The
@@ -342,7 +346,7 @@ process is terminated by the environment (which it will be, since otherwise
 it will just hang waiting for more input).</p>
 </div>
 <div class="section" id="the-channel-class">
-<h3><a class="toc-backref" href="#toc-entry-5">3.2&nbsp;&nbsp;&nbsp;The Channel class</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-5">3.2   The Channel class</a></h3>
 <p>One more thing before we can make our first attempt at simulating a system of
 processes: We need a way to implement the communication channels.  Luckily, Curio has
 a built-in Queue type that's explicitly designed for this kind of communication.</p>
@@ -374,7 +378,7 @@ is available).  Once the <em>recv</em> is done, it's important to call the
 </div>
 </div>
 <div class="section" id="running-the-system">
-<h2><a class="toc-backref" href="#toc-entry-6">4&nbsp;&nbsp;&nbsp;Running the system</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">4   Running the system</a></h2>
 <p>Now we have all the initial pieces available to put together a complete simulation
 of a linear pipeline of buffers with its environment.  Here's our first version of the code:</p>
 <pre class="code python literal-block">

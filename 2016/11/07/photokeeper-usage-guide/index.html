@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ PhotoKeeper: Usage guide | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -218,8 +222,8 @@ photokeeper SRC_DIR TGT_DIR dedupe file
 <h3><a class="toc-backref" href="#toc-entry-5">Upload files to Flickr</a></h3>
 <p>First, go to Flickr and get a private key at <a class="reference external" href="http://www.flickr.com/services/api/misc.api_keys.html">http://www.flickr.com/services/api/misc.api_keys.html</a></p>
 <p>Then, create a directory from where you will start photokeeper, and create a file called flickr_api.yaml:</p>
-<div class="highlight"><pre><span></span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR_API_KEY&quot;</span>
-<span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR_API_SECRET&quot;</span>
+<div class="highlight"><pre><span></span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR_API_KEY"</span>
+<span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="s">"YOUR_API_SECRET"</span>
 </pre></div>
 <p>Now, use the following command:</p>
 <pre class="literal-block">
@@ -266,7 +270,7 @@ $ pip install photokeeper -->
 </div>
 <div class="section" id="disclaimer">
 <h2><a class="toc-backref" href="#toc-entry-8">Disclaimer</a></h2>
-<p>The software is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+<p>The software is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
 </div>
 

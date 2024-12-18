@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Reverse engineering the remote control protocol for the Nissan LEAF (the new Nis
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -142,7 +146,7 @@ on Tue 12 January 2016 </p>
   </div>
   <div class="article_text">
     <div class="section" id="nissan-connect-ev">
-<h2>1&nbsp;&nbsp;&nbsp;Nissan Connect EV</h2>
+<h2>1   Nissan Connect EV</h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><em>Update April 2016</em>:  Nissan has updated their API calls to actually use the user login information to authenticate instead of just the VIN.
@@ -155,7 +159,7 @@ services, and they appear to be combining it with their general telematics inter
 REST endpoint and I could find scant documentation on this, so I decided to try my hand at reverse-engineering what the new Nissan EV application is doing.</p>
 </div>
 <div class="section" id="older-api">
-<h2>2&nbsp;&nbsp;&nbsp;Older API</h2>
+<h2>2   Older API</h2>
 <p>The following pages and threads have an outdated API:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.mynissanleaf.com/viewtopic.php?f=27&amp;t=2214&amp;start=70">http://www.mynissanleaf.com/viewtopic.php?f=27&amp;t=2214&amp;start=70</a></li>
@@ -168,9 +172,9 @@ take (possibly, I was using the wrong type of headers).</p>
 Connect app using a man-in-the-middle-proxy.</p>
 </div>
 <div class="section" id="first-steps-to-analyzing-the-nissan-ev-network-traffic">
-<h2>3&nbsp;&nbsp;&nbsp;First steps to analyzing the Nissan EV network traffic</h2>
+<h2>3   First steps to analyzing the Nissan EV network traffic</h2>
 <div class="section" id="installing-the-proxy-to-view-the-nissan-ev-ios-app-headers">
-<h3>3.1&nbsp;&nbsp;&nbsp;Installing the proxy to view the Nissan EV iOS app headers</h3>
+<h3>3.1   Installing the proxy to view the Nissan EV iOS app headers</h3>
 <p>I followed the instructions on using <a class="reference external" href="http://jasdev.me/intercepting-ios-traffic/">mitmproxy here</a>.</p>
 <p>Of course, just doing:</p>
 <blockquote>
@@ -178,345 +182,345 @@ pip install mitmproxy</blockquote>
 <p>unfortunately did not work on my mac running El Capitan, so I had to diagnose the following errors:</p>
 <ul class="simple">
 <li>lxml compilation failed, so I realized I had to reinstall the xcode command line tools after upgrading to El Capitan by doing <cite>xcode-select --install</cite></li>
-<li>Then, it couldn't find the openssl headers to install the crytography package.   So I had to read up on how El Capitan had <a class="reference external" href="https://github.com/pyca/cryptography/issues/2350">deprecated the standard openssl headers</a>. tldr; run <cite>env LDFLAGS=&quot;-L$(brew --prefix openssl)/lib&quot; CFLAGS=&quot;-I$(brew --prefix openssl)/include&quot; pip install mitmproxy</cite></li>
+<li>Then, it couldn't find the openssl headers to install the crytography package.   So I had to read up on how El Capitan had <a class="reference external" href="https://github.com/pyca/cryptography/issues/2350">deprecated the standard openssl headers</a>. tldr; run <cite>env LDFLAGS="-L$(brew --prefix openssl)/lib" CFLAGS="-I$(brew --prefix openssl)/include" pip install mitmproxy</cite></li>
 </ul>
 <p>Then, it was a matter of running <cite>mitmproxy</cite> and setting my iOS device to use a manual proxy on port 8080 pointing to my mac.  Then, you browse to the mitm.it using safari and install the
 appropriate certificate for your device.  Then I launched the Nissan EV application and started looking at the traffic. (note to self, in order to copy text from the mitmproxy screen,
 you need to hold <cite>fn+option</cite> down as you select)</p>
 </div>
 <div class="section" id="rest-requests">
-<h3>3.2&nbsp;&nbsp;&nbsp;REST requests</h3>
+<h3>3.2   REST requests</h3>
 <p>The request/responses appear to be pretty straight-forward.  On my initial reading, curiously, it seems like you just need the constant DCMID and VIN fields from the
 login for subsequent requests.  There doesn't appear to be any session based authentication token used.</p>
 <div class="section" id="initial-login-to-nissan-servers">
-<h4>3.2.1&nbsp;&nbsp;&nbsp;Initial login to Nissan servers</h4>
+<h4>3.2.1   Initial login to Nissan servers</h4>
 <p>Initial logon request, where USERID is your Nissan Portal login (email address) and USERPASSWORD is the accompanying password:</p>
 <blockquote>
 <a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/UserLoginRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=&amp;VIN=&amp;tz=&amp;UserId=USERID&amp;Password=USERPASSWORD">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/UserLoginRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=&amp;VIN=&amp;tz=&amp;UserId=USERID&amp;Password=USERPASSWORD</a></blockquote>
 <p>Results in:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;CustomerInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;Country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;OwnerId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;RegionCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NNA&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Timezone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;America/New_York&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;UserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;UserVehicleBoundDurationSec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;946771200&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;VehicleImage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/content/language/default/ima</span>
-<span class="s2">                &quot;</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">&quot;: {</span>
-<span class="s2">                        &quot;</span><span class="err">DCMID</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">E</span><span class="kc">n</span><span class="err">cryp</span><span class="kc">te</span><span class="err">dNAVIID</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXXXXXXX</span>
-<span class="w">                        </span><span class="nt">&quot;LastDCMUseTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan 12, 2016 03:37 PM&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;LastVehicleLoginTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;MSN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;NAVIID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SIMID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXXXXXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;UserVehicleBoundTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2015-09-24T18:10:</span>
-<span class="s2">                        &quot;</span><span class="err">VIN</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="nt">"CustomerInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"Country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en-US"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXX"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"OwnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXX"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"RegionCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NNA"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXX"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"UserVehicleBoundDurationSec"</span><span class="p">:</span><span class="w"> </span><span class="s2">"946771200"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"VehicleImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/content/language/default/ima</span>
+<span class="s2">                "</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">": {</span>
+<span class="s2">                        "</span><span class="err">DCMID</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">E</span><span class="kc">n</span><span class="err">cryp</span><span class="kc">te</span><span class="err">dNAVIID</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXXXXXXX</span>
+<span class="w">                        </span><span class="nt">"LastDCMUseTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jan 12, 2016 03:37 PM"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"LastVehicleLoginTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"MSN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXXXXXXX"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"NAVIID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXXXX"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SIMID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXXXXXXXXXXX"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"UserVehicleBoundTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:10:</span>
+<span class="s2">                        "</span><span class="err">VIN</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">"</span>
 <span class="s2">                }</span>
 <span class="s2">        },</span>
-<span class="s2">        &quot;</span><span class="err">E</span><span class="kc">n</span><span class="err">cAu</span><span class="kc">t</span><span class="err">hToke</span><span class="kc">n</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">        &quot;</span><span class="err">UserI</span><span class="kc">nf</span><span class="err">oRevisio</span><span class="kc">n</span><span class="err">No</span><span class="s2">&quot;: &quot;</span><span class="mi">1</span><span class="s2">&quot;,</span>
-<span class="s2">        &quot;</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">oLis</span><span class="kc">t</span><span class="s2">&quot;: {</span>
-<span class="s2">                &quot;</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">&quot;: [</span>
+<span class="s2">        "</span><span class="err">E</span><span class="kc">n</span><span class="err">cAu</span><span class="kc">t</span><span class="err">hToke</span><span class="kc">n</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><span class="s2">",</span>
+<span class="s2">        "</span><span class="err">UserI</span><span class="kc">nf</span><span class="err">oRevisio</span><span class="kc">n</span><span class="err">No</span><span class="s2">": "</span><span class="mi">1</span><span class="s2">",</span>
+<span class="s2">        "</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">oLis</span><span class="kc">t</span><span class="s2">": {</span>
+<span class="s2">                "</span><span class="err">VehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">": [</span>
 <span class="s2">                        {</span>
-<span class="s2">                                &quot;</span><span class="err">charger</span><span class="mi">20066</span><span class="s2">&quot;: &quot;</span><span class="kc">false</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">&quot;: &quot;</span><span class="err">VLea</span><span class="kc">f</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="kc">tele</span><span class="err">ma</span><span class="kc">t</span><span class="err">icsE</span><span class="kc">na</span><span class="err">bled</span><span class="s2">&quot;: &quot;</span><span class="kc">true</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="err">vi</span><span class="kc">n</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">&quot;</span>
+<span class="s2">                                "</span><span class="err">charger</span><span class="mi">20066</span><span class="s2">": "</span><span class="kc">false</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">": "</span><span class="err">VLea</span><span class="kc">f</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="kc">tele</span><span class="err">ma</span><span class="kc">t</span><span class="err">icsE</span><span class="kc">na</span><span class="err">bled</span><span class="s2">": "</span><span class="kc">true</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="err">vi</span><span class="kc">n</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">"</span>
 <span class="s2">                        }</span>
 <span class="s2">                ],</span>
-<span class="s2">                &quot;</span><span class="err">vehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">&quot;: [</span>
+<span class="s2">                "</span><span class="err">vehicleI</span><span class="kc">nf</span><span class="err">o</span><span class="s2">": [</span>
 <span class="s2">                        {</span>
-<span class="s2">                                &quot;</span><span class="err">charger</span><span class="mi">20066</span><span class="s2">&quot;: &quot;</span><span class="kc">false</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">&quot;: &quot;</span><span class="err">VLea</span><span class="kc">f</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="kc">tele</span><span class="err">ma</span><span class="kc">t</span><span class="err">icsE</span><span class="kc">na</span><span class="err">bled</span><span class="s2">&quot;: &quot;</span><span class="kc">true</span><span class="s2">&quot;,</span>
-<span class="s2">                                &quot;</span><span class="err">vi</span><span class="kc">n</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">&quot;</span>
+<span class="s2">                                "</span><span class="err">charger</span><span class="mi">20066</span><span class="s2">": "</span><span class="kc">false</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">": "</span><span class="err">VLea</span><span class="kc">f</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="kc">tele</span><span class="err">ma</span><span class="kc">t</span><span class="err">icsE</span><span class="kc">na</span><span class="err">bled</span><span class="s2">": "</span><span class="kc">true</span><span class="s2">",</span>
+<span class="s2">                                "</span><span class="err">vi</span><span class="kc">n</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXX</span><span class="s2">"</span>
 <span class="s2">                        }</span>
 <span class="s2">                ]</span>
 <span class="s2">        },</span>
-<span class="s2">        &quot;</span><span class="err">message</span><span class="s2">&quot;: &quot;</span><span class="err">success</span><span class="s2">&quot;,</span>
-<span class="s2">        &quot;</span><span class="err">sessio</span><span class="kc">n</span><span class="err">Id</span><span class="s2">&quot;: &quot;</span><span class="mi">43978</span><span class="kc">f</span><span class="mi">5</span><span class="err">b</span><span class="mf">-e45</span><span class="err">c</span><span class="mi">-498</span><span class="err">c</span><span class="mi">-</span><span class="err">a</span><span class="mf">9e5-</span><span class="err">be</span><span class="mf">85e59</span><span class="err">d</span><span class="kc">f</span><span class="mi">3</span><span class="err">dc</span><span class="s2">&quot;,</span>
-<span class="s2">        &quot;</span><span class="err">s</span><span class="kc">tatus</span><span class="s2">&quot;: 200,</span>
-<span class="s2">        &quot;</span><span class="err">vehicle</span><span class="s2">&quot;: {</span>
-<span class="s2">                &quot;</span><span class="err">pro</span><span class="kc">f</span><span class="err">ile</span><span class="s2">&quot;: {</span>
-<span class="s2">                        &quot;</span><span class="err">dcmId</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">e</span><span class="kc">n</span><span class="err">cAu</span><span class="kc">t</span><span class="err">hToke</span><span class="kc">n</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXXXXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">gdcPassword</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">gdcUserId</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXX</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">s</span><span class="kc">tatus</span><span class="s2">&quot;: &quot;</span><span class="err">ACCEPTED</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">s</span><span class="kc">tatus</span><span class="err">Da</span><span class="kc">te</span><span class="s2">&quot;: &quot;</span><span class="err">Sep</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="mi">2015</span><span class="w"> </span><span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">AM</span><span class="s2">&quot;,</span>
-<span class="s2">                        &quot;</span><span class="err">vi</span><span class="kc">n</span><span class="s2">&quot;: &quot;</span><span class="err">XXXXXXXXXXXXXXXXX&quot;</span>
+<span class="s2">        "</span><span class="err">message</span><span class="s2">": "</span><span class="err">success</span><span class="s2">",</span>
+<span class="s2">        "</span><span class="err">sessio</span><span class="kc">n</span><span class="err">Id</span><span class="s2">": "</span><span class="mi">43978</span><span class="kc">f</span><span class="mi">5</span><span class="err">b</span><span class="mf">-e45</span><span class="err">c</span><span class="mi">-498</span><span class="err">c</span><span class="mi">-</span><span class="err">a</span><span class="mf">9e5-</span><span class="err">be</span><span class="mf">85e59</span><span class="err">d</span><span class="kc">f</span><span class="mi">3</span><span class="err">dc</span><span class="s2">",</span>
+<span class="s2">        "</span><span class="err">s</span><span class="kc">tatus</span><span class="s2">": 200,</span>
+<span class="s2">        "</span><span class="err">vehicle</span><span class="s2">": {</span>
+<span class="s2">                "</span><span class="err">pro</span><span class="kc">f</span><span class="err">ile</span><span class="s2">": {</span>
+<span class="s2">                        "</span><span class="err">dcmId</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">e</span><span class="kc">n</span><span class="err">cAu</span><span class="kc">t</span><span class="err">hToke</span><span class="kc">n</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXXXXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">gdcPassword</span><span class="s2">": "</span><span class="err">XXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">gdcUserId</span><span class="s2">": "</span><span class="err">XXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="kc">n</span><span class="err">ick</span><span class="kc">na</span><span class="err">me</span><span class="s2">": "</span><span class="err">XXXXXXXXX</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">s</span><span class="kc">tatus</span><span class="s2">": "</span><span class="err">ACCEPTED</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">s</span><span class="kc">tatus</span><span class="err">Da</span><span class="kc">te</span><span class="s2">": "</span><span class="err">Sep</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="mi">2015</span><span class="w"> </span><span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="w"> </span><span class="err">AM</span><span class="s2">",</span>
+<span class="s2">                        "</span><span class="err">vi</span><span class="kc">n</span><span class="s2">": "</span><span class="err">XXXXXXXXXXXXXXXXX"</span>
 <span class="err">                }</span>
 <span class="err">        }</span>
 <span class="err">}</span>
 </pre></div>
 </div>
 <div class="section" id="request-current-status">
-<h4>3.2.2&nbsp;&nbsp;&nbsp;Request current status</h4>
+<h4>3.2.2   Request current status</h4>
 <p>Request an update on the battery status:</p>
 <blockquote>
 <a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusRecordsRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TimeFrom=2015-09-24T18:10:06">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusRecordsRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TimeFrom=2015-09-24T18:10:06</a></blockquote>
 <p>Response:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;BatteryStatusRecords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;BatteryStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;BatteryCapacity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;BatteryChargingStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NOT_CHARGING&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;BatteryRemainingAmount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;11&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;BatteryRemainingAmountWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;BatteryRemainingAmountkWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="nt">"BatteryStatusRecords"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"BatteryStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"BatteryCapacity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"BatteryChargingStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_CHARGING"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"BatteryRemainingAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"BatteryRemainingAmountWH"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"BatteryRemainingAmountkWH"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;CruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;133840.0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;CruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;122368.0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;NotificationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/01/12 15:37&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan 12, 2016 10:37 AM&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;OperationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;PluginState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/01/12 15:37&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;TimeRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;HourRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;MinutesRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30&quot;</span>
+<span class="w">                </span><span class="nt">"CruisingRangeAcOff"</span><span class="p">:</span><span class="w"> </span><span class="s2">"133840.0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"CruisingRangeAcOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"122368.0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"NotificationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/01/12 15:37"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"OperationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jan 12, 2016 10:37 AM"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"OperationResult"</span><span class="p">:</span><span class="w"> </span><span class="s2">"START"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"PluginState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_CONNECTED"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"TargetDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/01/12 15:37"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"TimeRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"HourRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"MinutesRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;TimeRequiredToFull200&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;HourRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;MinutesRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">                </span><span class="nt">"TimeRequiredToFull200"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"HourRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"MinutesRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;TimeRequiredToFull200_6kW&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;HourRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;MinutesRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">                </span><span class="nt">"TimeRequiredToFull200_6kW"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"HourRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"MinutesRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="update-status">
-<h4>3.2.3&nbsp;&nbsp;&nbsp;Update status</h4>
+<h4>3.2.3   Update status</h4>
 <p>Ask for an update from the car:</p>
 <blockquote>
 <a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusCheckRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusCheckRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York</a></blockquote>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;resultKey&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXXX&quot;</span><span class="p">}</span><span class="err">%</span>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="nt">"userId"</span><span class="p">:</span><span class="s2">"XXXXXX"</span><span class="p">,</span><span class="nt">"vin"</span><span class="p">:</span><span class="s2">"XXXXXXXXX"</span><span class="p">,</span><span class="nt">"resultKey"</span><span class="p">:</span><span class="s2">"XXXXXXXXXX"</span><span class="p">}</span><span class="err">%</span>
 </pre></div>
 <p>The resultKey can be used to poll for when the updated value is available:</p>
 <blockquote>
 <a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusCheckResultRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;resultKey=XXXXXXX">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/BatteryStatusCheckResultRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;resultKey=XXXXXXX</a></blockquote>
 <p>If it's not ready yet:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">}</span>
 </pre></div>
 <p>Once status is updated, you get:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;operationResult&quot;</span><span class="p">:</span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;timeStamp&quot;</span><span class="p">:</span><span class="s2">&quot;2016-02-20 20:29:33&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOn&quot;</span><span class="p">:</span><span class="s2">&quot;129712.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOff&quot;</span><span class="p">:</span><span class="s2">&quot;133584.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;currentChargeLevel&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;chargeMode&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CHARGING&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;pluginState&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;charging&quot;</span><span class="p">:</span><span class="s2">&quot;NO&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;chargeStatus&quot;</span><span class="p">:</span><span class="s2">&quot;CT&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;batteryDegradation&quot;</span><span class="p">:</span><span class="s2">&quot;11&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;batteryCapacity&quot;</span><span class="p">:</span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200_6kW&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"operationResult"</span><span class="p">:</span><span class="s2">"START"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"timeStamp"</span><span class="p">:</span><span class="s2">"2016-02-20 20:29:33"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cruisingRangeAcOn"</span><span class="p">:</span><span class="s2">"129712.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cruisingRangeAcOff"</span><span class="p">:</span><span class="s2">"133584.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"currentChargeLevel"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"chargeMode"</span><span class="p">:</span><span class="s2">"NOT_CHARGING"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"pluginState"</span><span class="p">:</span><span class="s2">"NOT_CONNECTED"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"charging"</span><span class="p">:</span><span class="s2">"NO"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"chargeStatus"</span><span class="p">:</span><span class="s2">"CT"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"batteryDegradation"</span><span class="p">:</span><span class="s2">"11"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"batteryCapacity"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull200"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull200_6kW"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="get-various-formats">
-<h4>3.2.4&nbsp;&nbsp;&nbsp;Get various formats</h4>
+<h4>3.2.4   Get various formats</h4>
 <p>Here some misc requests:</p>
 <ul>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/GetRegionSetting.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;Country=USA&amp;cartype=15MY">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/GetRegionSetting.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;Country=USA&amp;cartype=15MY</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ABOUT_THE_APP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;APP_NOTICE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;CONTACT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;CUSTOMER_SUPPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;ROADSIDE_ASSISTANCE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">"ABOUT_THE_APP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"APP_NOTICE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"CONTACT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"CUSTOMER_SUPPORT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"ROADSIDE_ASSISTANCE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;CUSTOMER_SUPPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1-877-664-2738&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;DRIVING_HELP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.ev.nissanconnect.jp/EV/mycar/driving_help&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;DRIVING_RECORDS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ECO_DRIVE_EVALUATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ECO_TREE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ELECTRICITY_RATE_SIMULATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ELECTRICITY_USAGE_RECORDS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ELECTRIC_REDIRECT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.ev.nissanconnect.jp/gw-redirect/gdc/auth-redirect.php&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;FORGOT_PASSWORD&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://owners.nissanusa.com/nowners/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;HOME&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;NEW_REGISTRATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://owners.nissanusa.com/nowners/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;NOTIFICATIONS_HISTORY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;NOTIFICATION_DETAIL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;BATTERY_HEATER_NOTIFICATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">"CUSTOMER_SUPPORT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-877-664-2738"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"DRIVING_HELP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.ev.nissanconnect.jp/EV/mycar/driving_help"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"DRIVING_RECORDS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ECO_DRIVE_EVALUATION"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ECO_TREE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ELECTRICITY_RATE_SIMULATION"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ELECTRICITY_USAGE_RECORDS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ELECTRIC_REDIRECT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.ev.nissanconnect.jp/gw-redirect/gdc/auth-redirect.php"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"FORGOT_PASSWORD"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://owners.nissanusa.com/nowners/"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"HOME"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"NEW_REGISTRATION"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://owners.nissanusa.com/nowners/"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"NOTIFICATIONS_HISTORY"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"NOTIFICATION_DETAIL"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"BATTERY_HEATER_NOTIFICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;BATTERY_STATUS_NOTIFICATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">                </span><span class="nt">"BATTERY_STATUS_NOTIFICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;CHARGE_START/FINISH_NOTIFICATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">                </span><span class="nt">"CHARGE_START/FINISH_NOTIFICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;CHARGE_STOP_ALERT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">                </span><span class="nt">"CHARGE_STOP_ALERT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;CLIMATE_CONTROL_START/STOP_NOTIFICATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">                </span><span class="nt">"CLIMATE_CONTROL_START/STOP_NOTIFICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;ELECTRICITY_COST_NOTIFICATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">                </span><span class="nt">"ELECTRICITY_COST_NOTIFICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="nt">&quot;MAINTENANCE_ALERT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">                </span><span class="nt">"MAINTENANCE_ALERT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="w">         </span><span class="p">},</span>
-<span class="w">         </span><span class="nt">&quot;MY_CAR_FINDER&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                 </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">         </span><span class="nt">"MY_CAR_FINDER"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                 </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="w">         </span><span class="p">},</span>
-<span class="w">         </span><span class="nt">&quot;UNPLUGGED_STATUS_ALERT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                 </span><span class="nt">&quot;Frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Push&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;SMS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                 </span><span class="nt">&quot;Visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">         </span><span class="nt">"UNPLUGGED_STATUS_ALERT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                 </span><span class="nt">"Frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Push"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                 </span><span class="nt">"Visible"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">         </span><span class="p">}</span>
 <span class="w"> </span><span class="p">},</span>
-<span class="w"> </span><span class="nt">&quot;NOTIFICATION_SETTINGS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;PATH_VIEWER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;PRIVACY_LINK&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://m.nissanusa.com/privacy&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;REGIONAL_RANKINGS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;REMOTE_CHARGE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;REMOTE_CLIMATE_CONTROL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;ROADSIDE_ASSISTANCE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1-800-801-6161&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;ROUTE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;ROUTE_PLANNER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://routepln.its-mo.com/RoutePlanner&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;RegionCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NNA&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;UPDATEATSTARTUP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;USER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;VEHICLE_SWAP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;WORLD_RANKINGS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;Wh&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Wh&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w"> </span><span class="nt">"NOTIFICATION_SETTINGS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"PATH_VIEWER"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"PRIVACY_LINK"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.nissanusa.com/privacy"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"REGIONAL_RANKINGS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"REMOTE_CHARGE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"REMOTE_CLIMATE_CONTROL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"ROADSIDE_ASSISTANCE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-800-801-6161"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"ROUTE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"ROUTE_PLANNER"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://routepln.its-mo.com/RoutePlanner"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"RegionCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NNA"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"UPDATEATSTARTUP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"USER"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"VEHICLE_SWAP"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"WORLD_RANKINGS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"Wh"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wh"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TargetDate=2016-01-12&amp;type=Y/m&amp;lg=en-US">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TargetDate=2016-01-12&amp;type=Y/m&amp;lg=en-US</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;DisplayDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan/2016&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-01-12&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"DisplayDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jan/2016"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"TargetDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-12"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/GetCountrySetting.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/GetCountrySetting.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;setting&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;Australia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Austria&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Belgium&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Canada&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Cyprus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Czech Rep&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Denmark&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Estonia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Finland&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;France&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Germany&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Greece&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Guadeloupe&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Hungary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Iceland&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Ireland&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Israel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Italy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Japan&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Latvia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Lithuania&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Luxembourg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Malta&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Martinique&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Monaco&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Netherlands&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Norway&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Poland&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Portugal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Reunion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Slovakia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Slovenia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Spain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Sweden&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;Switzerland&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;The United States&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;United Kingdom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"setting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"Australia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Austria"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Belgium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Canada"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Cyprus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Czech Rep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Denmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Estonia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Finland"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"France"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Germany"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Greece"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Guadeloupe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Hungary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Iceland"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Ireland"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Israel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Italy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Japan"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Latvia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Lithuania"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Luxembourg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Malta"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Martinique"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Monaco"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Netherlands"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Norway"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Poland"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Portugal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Reunion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Slovakia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Slovenia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Spain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Sweden"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Switzerland"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"The United States"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"United Kingdom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/app_notice/AppNoticeRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;DeviceType=ios&amp;DeviceTime=2016-01-12%2010:43&amp;UserId=XXXXXXX">https://gdcportalgw.its-mo.com/app_notice/AppNoticeRequest.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;DeviceType=ios&amp;DeviceTime=2016-01-12%2010:43&amp;UserId=XXXXXXX</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;AppNotice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"AppNotice"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?TargetDate=2016-01-12%2010:37&amp;type=updateTime&amp;lg=en-US">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?TargetDate=2016-01-12%2010:37&amp;type=updateTime&amp;lg=en-US</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;DisplayDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan 12, 2016 10:37 AM&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-01-12 10:37&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"DisplayDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jan 12, 2016 10:37 AM"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"TargetDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-12 10:37"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
 <li><p class="first"><a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TargetDate=2016-01-12%2010:37&amp;type=updateTime&amp;lg=en-US">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/dateformat.php?RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXXXXXXXXXX&amp;VIN=XXXXXXXXXXXXXXXXX&amp;tz=America/New_York&amp;TargetDate=2016-01-12%2010:37&amp;type=updateTime&amp;lg=en-US</a></p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;DisplayDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan 12, 2016 10:37 AM&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-01-12 10:37&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">        </span><span class="nt">"DisplayDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jan 12, 2016 10:37 AM"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"TargetDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-12 10:37"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
 <span class="p">}</span>
 </pre></div>
 </li>
@@ -525,7 +529,7 @@ login for subsequent requests.  There doesn't appear to be any session based aut
 </div>
 </div>
 <div class="section" id="to-be-continued">
-<h2>4&nbsp;&nbsp;&nbsp;to be continued....</h2>
+<h2>4   to be continued....</h2>
 </div>
 
   </div>

@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ PyPDFOCR - Guide to Usage | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -153,9 +157,9 @@ keyword matching that you specify</li>
 </ul>
 <p>More links:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://virantha.com/category/pypdfocr.html">Blog &#64; virantha.com</a></li>
-<li><a class="reference external" href="http://virantha.github.com/pypdfocr/html">Documentation &#64; gitpages</a></li>
-<li><a class="reference external" href="https://www.github.com/virantha/pypdfocr">Source &#64; github</a></li>
+<li><a class="reference external" href="http://virantha.com/category/pypdfocr.html">Blog @ virantha.com</a></li>
+<li><a class="reference external" href="http://virantha.github.com/pypdfocr/html">Documentation @ gitpages</a></li>
+<li><a class="reference external" href="https://www.github.com/virantha/pypdfocr">Source @ github</a></li>
 </ul>
 <div class="section" id="usage">
 <h2>Usage:</h2>
@@ -211,9 +215,9 @@ pypdfocr filename.pdf -f -c config.yaml -n
 file. It determines where your OCR'ed PDFs (and optionally, the original
 scanned PDF) are placed after processing. An example is given below:</p>
 <pre class="literal-block">
-target_folder: &quot;docs/filed&quot;
-default_folder: &quot;docs/filed/manual_sort&quot;
-original_move_folder: &quot;docs/originals&quot;
+target_folder: "docs/filed"
+default_folder: "docs/filed/manual_sort"
+original_move_folder: "docs/originals"
 
 folders:
     finances:
@@ -234,7 +238,7 @@ will happen in sub-directories under this directory.</p>
 associated with them. In this example, we have three filing directories
 (finances, travl, receipts), and some associated keywords for each
 filing directory. For example, if your OCR'ed PDF contains the phrase
-&quot;american express&quot; (in any upper/lower case), it will be filed into
+"american express" (in any upper/lower case), it will be filed into
 <tt class="docutils literal">docs/filed/finances</tt></p>
 <p>The <tt class="docutils literal">default_folder</tt> is where the OCR'ed PDF is moved to if there is
 no keyword match.</p>
@@ -276,13 +280,13 @@ pypdfocr -w watch_directory -e -c config.yaml
 <h4>Evernote filing configuration file</h4>
 <p>The config file shown above only needs to change slightly. The folders
 section is completely unchanged, but note that <tt class="docutils literal">target_folder</tt> is the
-name of your &quot;Notebook stack&quot; in Evernote, and the <tt class="docutils literal">default_folder</tt>
+name of your "Notebook stack" in Evernote, and the <tt class="docutils literal">default_folder</tt>
 should just be the default Evernote upload notebook name.</p>
 <pre class="literal-block">
-target_folder: &quot;evernote_stack&quot;
-default_folder: &quot;default&quot;
-original_move_folder: &quot;docs/originals&quot;
-evernote_developer_token: &quot;YOUR_TOKEN&quot;
+target_folder: "evernote_stack"
+default_folder: "default"
+original_move_folder: "docs/originals"
+evernote_developer_token: "YOUR_TOKEN"
 
 folders:
     finances:
@@ -305,13 +309,13 @@ folders:
 it. You need to first specify the following lines in the configuration
 file and then use the <tt class="docutils literal"><span class="pre">-m</span></tt> option when invoking <tt class="docutils literal">pypdfocr</tt>:</p>
 <pre class="literal-block">
-mail_smtp_server: &quot;smtp.gmail.com:587&quot;
-mail_smtp_login: &quot;virantha&#64;gmail.com&quot;
-mail_smtp_password: &quot;PASSWORD&quot;
-mail_from_addr: &quot;virantha&#64;gmail.com&quot;
+mail_smtp_server: "smtp.gmail.com:587"
+mail_smtp_login: "virantha@gmail.com"
+mail_smtp_password: "PASSWORD"
+mail_from_addr: "virantha@gmail.com"
 mail_to_list:
-    - &quot;virantha&#64;gmail.com&quot;
-    - &quot;person2&#64;gmail.com&quot;
+    - "virantha@gmail.com"
+    - "person2@gmail.com"
 </pre>
 </div>
 </div>
@@ -324,11 +328,11 @@ well as the number of concurrent processes allowed during preprocessing and
 tesseract.  Use the following in your configuration file:</p>
 <pre class="literal-block">
 tesseract:
-    binary: &quot;/usr/bin/tesseract&quot;
+    binary: "/usr/bin/tesseract"
     threads: 8
 
 ghostscript:
-    binary: &quot;/usr/local/bin/gs&quot;
+    binary: "/usr/local/bin/gs"
 
 preprocess:
     threads: 8
@@ -436,7 +440,7 @@ then any landscape document will produce garbage</p>
 <div class="section" id="disclaimer">
 <h2>Disclaimer</h2>
 <p>While test coverage is at 84% right now, Sphinx docs generation is at an
-early stage. The software is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+early stage. The software is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
 </div>
 

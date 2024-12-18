@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Using Calibre to manage my e-books | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -142,17 +146,17 @@ on Tue 23 October 2012 </p>
   </div>
   <div class="article_text">
     <p>I decided to start using <a class="reference external" href="http://calibre-ebook.com/">Calibre</a>as my main ebook management
-program. &nbsp;I've been using it for online content from publications like
+program.  I've been using it for online content from publications like
 the Economist and The New Yorker for a while now, but it's become
 increasingly difficult to manage my entire e-book library, having
 acquired several hundred books from Amazon over the course of the last 5
 years since the original Kindle came out.</p>
 <p>While I love the Kindle for travel and being being able to read
 outdoors, its interface leaves much to be desired for organizing one's
-content. &nbsp;So, I decided this morning to switch over to Calibre to manage
+content.  So, I decided this morning to switch over to Calibre to manage
 my needs; I think it has matured and become fast enough now to be useful
-for everyday use. &nbsp;The trick, however, is to get Amazon's DRM (.azw)
-into Calibre. &nbsp;It turns out, there's a very easy way now with Calibre's
+for everyday use.  The trick, however, is to get Amazon's DRM (.azw)
+into Calibre.  It turns out, there's a very easy way now with Calibre's
 built-in plugin system and the plugins here:</p>
 <p><a class="reference external" href="https://apprenticealf.wordpress.com/2012/09/10/calibre-plugins-the-simplest-option-for-removing-most-ebook-drm/">https://apprenticealf.wordpress.com/2012/09/10/calibre-plugins-the-simplest-option-for-removing-most-ebook-drm/</a></p>
 <p>I followed these instructions after downloading the actual tools from
@@ -160,11 +164,11 @@ this page:</p>
 <p><a class="reference external" href="https://apprenticealf.wordpress.com/2012/09/10/drm-removal-tools-for-ebooks/">https://apprenticealf.wordpress.com/2012/09/10/drm-removal-tools-for-ebooks/</a></p>
 <p>Then it was a matter of going into my Kindle Reader for the PC, and
 (rather irritatingly) individually clicking download on all my ebooks,
-and dropping the .azw files from &quot;Libraries -&gt; Documents -&gt; My Kindle
-Content&quot; into Calibre. &nbsp;A metadata and cover art update later, my e-book
+and dropping the .azw files from "Libraries -&gt; Documents -&gt; My Kindle
+Content" into Calibre.  A metadata and cover art update later, my e-book
 library is complete:</p>
-<div class="figure">
-<img alt="My Calibre library" src="/images/2013/mycalibre1.jpg" />
+<div class="figure" style="width: 1294px; height: auto; max-width: 100%;">
+<img alt="My Calibre library" src="/images/2013/mycalibre1.jpg" style="width: 1294px; height: auto; max-width: 100%;"/>
 <p class="caption">My Calibre library, after import and metadata addition</p>
 </div>
 

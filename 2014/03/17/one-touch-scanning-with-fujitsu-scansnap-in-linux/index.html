@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ One-touch scan enabling in Ubuntu Linux for the Fujitsu ScanSnap S1500 | Viranth
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -144,10 +148,10 @@ on Mon 17 March 2014 </p>
     <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#building-scanbd" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Building Scanbd</a></li>
-<li><a class="reference internal" href="#configuring-scanbd" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Configuring Scanbd</a></li>
-<li><a class="reference internal" href="#custom-scan-script" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Custom scan script</a></li>
-<li><a class="reference internal" href="#starting-scanbd-as-a-service" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Starting Scanbd as a service</a></li>
+<li><a class="reference internal" href="#building-scanbd" id="toc-entry-1">1   Building Scanbd</a></li>
+<li><a class="reference internal" href="#configuring-scanbd" id="toc-entry-2">2   Configuring Scanbd</a></li>
+<li><a class="reference internal" href="#custom-scan-script" id="toc-entry-3">3   Custom scan script</a></li>
+<li><a class="reference internal" href="#starting-scanbd-as-a-service" id="toc-entry-4">4   Starting Scanbd as a service</a></li>
 </ul>
 </div>
 <p>Here's how I managed to get Linux to recognise scan button presses on the
@@ -158,7 +162,7 @@ minimal setup needed to get this built, based on instructions on the web
 <a class="reference external" href="http://thehomeserverhandbook.com/2012/03/03/scanbd_part1">here</a>, followed by updated
 info that I pieced together on getting this enabled that didin't require xinetd, etc.</p>
 <div class="section" id="building-scanbd">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Building Scanbd</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Building Scanbd</a></h2>
 <p>First, as root (<tt class="docutils literal">sudo su -</tt>), install the following packages to allow you to compile Scanbd:</p>
 <div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
 apt-get<span class="w"> </span>install<span class="w"> </span>libconfuse-dev<span class="w"> </span>libusb-dev<span class="w"> </span>libudev-dev<span class="w"> </span>libdbus-1-dev<span class="w"> </span>dbus<span class="w"> </span>libsane-dev
@@ -176,7 +180,7 @@ make<span class="w"> </span>install
 </pre></div>
 </div>
 <div class="section" id="configuring-scanbd">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Configuring Scanbd</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Configuring Scanbd</a></h2>
 <p>Scanbd is now installed into <tt class="docutils literal">/usr/local/sbin/scanbd</tt>, and its configuration files are in
 <tt class="docutils literal">/usr/local/etc/scanbd</tt>.  Follow similar instructions to <a class="reference external" href="https://wiki.archlinux.org/index.php/Scanner_Button_Daemon">ArchLinux</a>.</p>
 <div class="highlight"><pre><span></span>cp<span class="w"> </span>-R<span class="w"> </span>/etc/sane.d<span class="w"> </span>/usr/local/etc/scanbd
@@ -195,17 +199,17 @@ localhost
 to detect and start listening to your scanner.</p>
 </div>
 <div class="section" id="custom-scan-script">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Custom scan script</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Custom scan script</a></h2>
 <p>The default script that gets executed when the button is pushed simply logs a message to syslog.  (the script is
 <tt class="docutils literal">/usr/local/etc/scanbd/test.script</tt>). If you look in <tt class="docutils literal">/usr/local/etc/scanbd/scanbd.conf</tt>, you can set test.script
 to your own shell script.  Here's my trigger script that is called <tt class="docutils literal">scanadf.script</tt>:</p>
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;scanbd: </span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;Begin of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">&quot;</span>
+logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">"scanbd: </span><span class="nv">$0</span><span class="s2">"</span><span class="w"> </span><span class="s2">"Begin of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">"</span>
 
-<span class="nv">mydate</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BLAH&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print strftime(&quot;%Y%m%d_%H%M%S&quot;) }&#39;</span><span class="k">)</span>
+<span class="nv">mydate</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"BLAH"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{ print strftime("%Y%m%d_%H%M%S") }'</span><span class="k">)</span>
 scanpdf<span class="w"> </span>--dpi<span class="o">=</span><span class="m">300</span><span class="w"> </span>-d<span class="w"> </span>scan<span class="w"> </span>pdf<span class="w"> </span>/home/virantha/scans/scan_<span class="si">${</span><span class="nv">mydate</span><span class="si">}</span>.pdf<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/output.log
 
-logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;scanbd: </span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;End   of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">&quot;</span>
+logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">"scanbd: </span><span class="nv">$0</span><span class="s2">"</span><span class="w"> </span><span class="s2">"End   of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">"</span>
 </pre></div>
 <p>First, it logs the start of the scan to the syslog, and then it gets the current date using awk/strftime
 to use for the final pdf filename, and calls my <tt class="docutils literal">scanpdf</tt> python program that handles all the scanning/post processing
@@ -214,26 +218,26 @@ to pdf.  You can find <a class="reference external" href="http://virantha.github
 take some time, blocking the button response until it's done.  A better way would be to spawn a background job to
 do this instead:</p>
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;scanbd: </span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;Begin of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">&quot;</span>
+logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">"scanbd: </span><span class="nv">$0</span><span class="s2">"</span><span class="w"> </span><span class="s2">"Begin of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">"</span>
 
-<span class="nv">mydate</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BLAH&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print strftime(&quot;%Y%m%d_%H%M%S&quot;) }&#39;</span><span class="k">)</span>
-<span class="nv">myfile</span><span class="o">=</span><span class="s2">&quot;/home/virantha/scans/scan_</span><span class="si">${</span><span class="nv">mydate</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+<span class="nv">mydate</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"BLAH"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{ print strftime("%Y%m%d_%H%M%S") }'</span><span class="k">)</span>
+<span class="nv">myfile</span><span class="o">=</span><span class="s2">"/home/virantha/scans/scan_</span><span class="si">${</span><span class="nv">mydate</span><span class="si">}</span><span class="s2">.pdf"</span>
 
 scanpdf<span class="w"> </span>--dpi<span class="o">=</span><span class="m">300</span><span class="w"> </span>--tmpdir<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">mydate</span><span class="si">}</span><span class="w"> </span>scan
 scanpdf<span class="w"> </span>--dpi<span class="o">=</span><span class="m">300</span><span class="w"> </span>--tmpdir<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">mydate</span><span class="si">}</span><span class="w"> </span>pdf<span class="w"> </span><span class="si">${</span><span class="nv">myfile</span><span class="si">}</span><span class="w"> </span><span class="p">&amp;</span>
 
-logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;scanbd: </span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;End   of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">&quot;</span>
+logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">"scanbd: </span><span class="nv">$0</span><span class="s2">"</span><span class="w"> </span><span class="s2">"End   of </span><span class="nv">$SCANBD_ACTION</span><span class="s2"> for device </span><span class="nv">$SCANBD_DEVICE</span><span class="s2">"</span>
 </pre></div>
 <p>This way, as soon as the paper is out of the scanner, you can load the next job and hit the scan button immediately;
 the long-running post-processing job is run in the background.</p>
 </div>
 <div class="section" id="starting-scanbd-as-a-service">
-<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Starting Scanbd as a service</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">4   Starting Scanbd as a service</a></h2>
 <p>Ubuntu uses upstart, so just create a conf file in /etc/init/scanbd like so:</p>
 <div class="highlight"><pre><span></span><span class="c1"># Scanbd</span>
 
-<span class="na">description &quot;Scanbd service&quot;</span>
-<span class="na">author &quot;Virantha Ekanayake&quot;</span>
+<span class="na">description "Scanbd service"</span>
+<span class="na">author "Virantha Ekanayake"</span>
 
 <span class="c1"># When to start the service</span>
 <span class="na">start on runlevel [2345]</span>

@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ An Example Provisioning of HACKT on a Centos 7 VM using Vagrant and Ansible | Vi
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -148,7 +152,7 @@ past but had forgotten some of the syntax, so I decided to write a simple playbo
 as document some of the build details required for <a class="reference external" href="https://github.com/fangism/hackt/">HACKT</a>.  Some of the details on using Ansible locally on a Vagrant
 VM weren't also immediately obvious to me, so this is also an attempt to collate that information for future reference.</p>
 <div class="section" id="install-vagrant-and-ansible">
-<h2>1&nbsp;&nbsp;&nbsp;Install Vagrant and Ansible</h2>
+<h2>1   Install Vagrant and Ansible</h2>
 <p>Vagrant is a nice way to bring up a virtual machine (running through
 VirtualBox, for example) from predefined 'boxes'
 very easily.  Ansible is a separate provisioning system that lets you easily,
@@ -162,7 +166,7 @@ which is a really lightweight way to do it.</p>
 straight-forward to get up and running.</p>
 </div>
 <div class="section" id="get-the-vanilla-virtual-machine-up">
-<h2>2&nbsp;&nbsp;&nbsp;Get the vanilla virtual machine up</h2>
+<h2>2   Get the vanilla virtual machine up</h2>
 <p>First, just go to a directory where you will be keeping all the files needed to build your
 server.  Then, within that directory, do the following:</p>
 <div class="highlight"><pre><span></span>vagrant<span class="w"> </span>init
@@ -174,7 +178,7 @@ a pre-built CentOS 7 system from the <a class="reference external" href="https:/
 <p>Next, we want to configure and provision our VM that will be brought up from this downloaded image.  So,
 edit your Vagrantfile, remove all the crud, and insert the following lines:</p>
 <div class="highlight"><pre><span></span><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">config</span><span class="o">|</span>
-<span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;centos/7&quot;</span>
+<span class="w">    </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"centos/7"</span>
 <span class="k">end</span>
 </pre></div>
 <p>Now, run the following command to start your VM:</p>
@@ -186,14 +190,14 @@ edit your Vagrantfile, remove all the crud, and insert the following lines:</p>
 </pre></div>
 </div>
 <div class="section" id="getting-ansible-provisioning-working">
-<h2>3&nbsp;&nbsp;&nbsp;Getting Ansible Provisioning working</h2>
+<h2>3   Getting Ansible Provisioning working</h2>
 <p>To enable Ansible provisioning inside your , add the following lines to your <tt class="docutils literal">Vagrantfile</tt>:</p>
 <div class="highlight"><pre><span></span><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">config</span><span class="o">|</span>
-<span class="w">      </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;centos/7&quot;</span>
+<span class="w">      </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"centos/7"</span>
 
-<span class="w">      </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">&quot;ansible_local&quot;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">ansible</span><span class="o">|</span>
-<span class="w">          </span><span class="n">ansible</span><span class="o">.</span><span class="n">provisioning_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/home/vagrant/sync&quot;</span>
-<span class="w">          </span><span class="n">ansible</span><span class="o">.</span><span class="n">playbook</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;playbook.yml&quot;</span>
+<span class="w">      </span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span><span class="w"> </span><span class="s2">"ansible_local"</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">ansible</span><span class="o">|</span>
+<span class="w">          </span><span class="n">ansible</span><span class="o">.</span><span class="n">provisioning_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/home/vagrant/sync"</span>
+<span class="w">          </span><span class="n">ansible</span><span class="o">.</span><span class="n">playbook</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"playbook.yml"</span>
 <span class="w">      </span><span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
@@ -206,7 +210,7 @@ directory, but when Vagrant brings up the VM, it will rsync this file to your
 install and run Ansible inside the VM.</p>
 <p>Next, we'll build up the <tt class="docutils literal">playbook.yml</tt> file step by step.</p>
 <div class="section" id="connection-setting">
-<h3>3.1&nbsp;&nbsp;&nbsp;Connection setting</h3>
+<h3>3.1   Connection setting</h3>
 <p>At the top of the file is the connection setings:</p>
 <div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
@@ -215,24 +219,24 @@ install and run Ansible inside the VM.</p>
 <p>This is all that is needed to run the provisioning locally on the VM.</p>
 </div>
 <div class="section" id="setup-some-variables">
-<h3>3.2&nbsp;&nbsp;&nbsp;Setup some variables</h3>
+<h3>3.2   Setup some variables</h3>
 <div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">src_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/vagrant/src</span>
-<span class="w">    </span><span class="nt">hackt_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/hackt&quot;</span>
+<span class="w">    </span><span class="nt">hackt_dir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/hackt"</span>
 </pre></div>
 </div>
 <div class="section" id="start-the-tasks-section-and-update-packages">
-<h3>3.3&nbsp;&nbsp;&nbsp;Start the tasks section and update packages</h3>
+<h3>3.3   Start the tasks section and update packages</h3>
 <div class="highlight"><pre><span></span><span class="nt">tasks</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Update yum</span>
 <span class="w">    </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name=* state=latest</span>
 <span class="w">    </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install packages</span>
-<span class="w">    </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name=&quot;{{ item }}&quot; state=present</span>
+<span class="w">    </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name="{{ item }}" state=present</span>
 <span class="w">    </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">with_items</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;@Development</span><span class="nv"> </span><span class="s">tools&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"@Development</span><span class="nv"> </span><span class="s">tools"</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guile</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libtool-ltdl-devel</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wget</span>
@@ -242,10 +246,10 @@ install and run Ansible inside the VM.</p>
 can reprovision any number of times and it will keep a consistent state, as well as only
 running commands that will end up modifying the current state.</p>
 <p>The other tricky thing here is the quotes when installing packages, especially the syntax
-for the &quot;Development tools&quot; group.</p>
+for the "Development tools" group.</p>
 </div>
 <div class="section" id="downgrading-bison-version">
-<h3>3.4&nbsp;&nbsp;&nbsp;Downgrading Bison version</h3>
+<h3>3.4   Downgrading Bison version</h3>
 <p><a class="reference external" href="https://github.com/fangism/hackt/">HACKT</a>, as of this writing, seems to have issues with Bison 2.7 on CentOS7.  The work-around for now
 is to downgrade to version 2.3.
 First, we <tt class="docutils literal">yum remove bison</tt>, download version 2.3, build, and then install it.</p>
@@ -263,9 +267,9 @@ First, we <tt class="docutils literal">yum remove bison</tt>, download version 2
 <span class="w">  </span><span class="nt">unarchive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src={{ src_dir }}/bison-2.3.tar.gz dest={{ src_dir }}</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and install new bison</span>
-<span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">  </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/bison-2.3&quot;</span>
+<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/bison-2.3"</span>
 <span class="w">  </span><span class="nt">with_items</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./configure</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make</span>
@@ -273,7 +277,7 @@ First, we <tt class="docutils literal">yum remove bison</tt>, download version 2
 </pre></div>
 </div>
 <div class="section" id="building-hackt">
-<h3>3.5&nbsp;&nbsp;&nbsp;Building HACKT</h3>
+<h3>3.5   Building HACKT</h3>
 <p>Next, we clone the <a class="reference external" href="https://github.com/fangism/hackt/">HACKT</a> repository and checkout a specific snapshot, bootstrap, configure, and make.</p>
 <p>The bootstrap step has a <tt class="docutils literal">creates</tt> arg in it that doesn't rerun it if the <tt class="docutils literal">configure</tt> script is already
 there.</p>
@@ -287,23 +291,23 @@ warnings in the current gcc.</p>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bootstrap HACKT</span>
 <span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./bootstrap</span>
 <span class="w">  </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">      </span><span class="nt">creates</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}/configure&quot;</span>
+<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">      </span><span class="nt">creates</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}/configure"</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build HACKT</span>
-<span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">  </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">      </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">      </span><span class="nt">creates</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/hackt</span>
 <span class="w">  </span><span class="nt">with_items</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">env CXXFLAGS=&#39;-Wno-error&#39; ./configure</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">env CXXFLAGS='-Wno-error' ./configure</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo make install</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="final-steps-and-other-tips">
-<h2>4&nbsp;&nbsp;&nbsp;Final steps and other tips</h2>
+<h2>4   Final steps and other tips</h2>
 <p>And that's basically it, for a very simple provisioning system.  Ansible has some really cool
 features that we haven't touched on here, and it's probably a good idea to breakdown the playbook
 into a more hierarchical structure.  But for now, here's the complete playbook:</p>
@@ -313,7 +317,7 @@ into a more hierarchical structure.  But for now, here's the complete playbook:<
 
 <span class="w">  </span><span class="nt">vars</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">src_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/vagrant/src</span>
-<span class="w">      </span><span class="nt">hackt_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/hackt&quot;</span>
+<span class="w">      </span><span class="nt">hackt_dir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/hackt"</span>
 
 <span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Update yum</span>
@@ -321,10 +325,10 @@ into a more hierarchical structure.  But for now, here's the complete playbook:<
 <span class="w">      </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install packages</span>
-<span class="w">      </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name=&quot;{{ item }}&quot; state=present</span>
+<span class="w">      </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name="{{ item }}" state=present</span>
 <span class="w">      </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">with_items</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;@Development</span><span class="nv"> </span><span class="s">tools&quot;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"@Development</span><span class="nv"> </span><span class="s">tools"</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guile</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libtool-ltdl-devel</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wget</span>
@@ -344,9 +348,9 @@ into a more hierarchical structure.  But for now, here's the complete playbook:<
 <span class="w">      </span><span class="nt">unarchive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src={{ src_dir }}/bison-2.3.tar.gz dest={{ src_dir }}</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and install new bison</span>
-<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/bison-2.3&quot;</span>
+<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">src_dir</span><span class="nv"> </span><span class="s">}}/bison-2.3"</span>
 <span class="w">      </span><span class="nt">with_items</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./configure</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make</span>
@@ -360,21 +364,21 @@ into a more hierarchical structure.  But for now, here's the complete playbook:<
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bootstrap HACKT</span>
 <span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./bootstrap</span>
 <span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">          </span><span class="nt">creates</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}/configure&quot;</span>
+<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">          </span><span class="nt">creates</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}/configure"</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build HACKT</span>
-<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">          </span><span class="nt">chdir</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">hackt_dir</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">      </span><span class="nt">with_items</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">env CXXFLAGS=&#39;-Wno-error&#39; ./configure</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">env CXXFLAGS='-Wno-error' ./configure</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo make install</span>
 </pre></div>
 <p>Some further useful commands and tips are below.</p>
 <div class="section" id="utility-commands">
-<h3>4.1&nbsp;&nbsp;&nbsp;Utility commands</h3>
+<h3>4.1   Utility commands</h3>
 <ul class="simple">
 <li><em>vagrant suspend</em> - Shuts down but saves state on the disk</li>
 <li><em>vagrant resume</em>  - Resumes the suspended VM</li>
@@ -385,10 +389,10 @@ into a more hierarchical structure.  But for now, here's the complete playbook:<
 </ul>
 </div>
 <div class="section" id="sharing-files">
-<h3>4.2&nbsp;&nbsp;&nbsp;Sharing files</h3>
+<h3>4.2   Sharing files</h3>
 <p>I wasn't able to get the NFS shares working, but just stuck to the simple rsync option where a directory
 on the host can be copied to your VM on bootup/reload.  Just add the following line to your Vagrantfile:</p>
-<div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span><span class="w"> </span><span class="s2">&quot;share&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/share/dev&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rsync&quot;</span>
+<div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span><span class="w"> </span><span class="s2">"share"</span><span class="p">,</span><span class="w"> </span><span class="s2">"/share/dev"</span><span class="p">,</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s2">"rsync"</span>
 </pre></div>
 <p>This will copy your <tt class="docutils literal">share/</tt> subdirectory to the VM's <tt class="docutils literal">/share/dev</tt> directory</p>
 </div>

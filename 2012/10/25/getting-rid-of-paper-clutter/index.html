@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Getting rid of paper clutter | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -147,37 +151,37 @@ on Thu 25 October 2012 </p>
 package for how I do everything described in this article</p>
 </div>
 <div class="figure align-right" style="width: 50%">
-<img alt="skip_better Picture" src="/images/2012/picture2life_05067_original.jpg" style="width: 90%;" />
+<img alt="skip_better Picture" src="/images/2012/picture2life_05067_original.jpg" style="width: 90%;"/>
 </div>
 <p>I've tried to go paperless for a long time now, but the overhead of
 starting my laptop, scanning, importing, and the filing in a folder
 always made me go back to just keeping stacks of paper around. But now
 I've finally found a solution that works well enough that I haven't
-abandoned it after a few months. &nbsp;The key is a stand-alone scanner that
+abandoned it after a few months.  The key is a stand-alone scanner that
 does OCR, converts to PDF, and then uploads to Evernote automatically.
 Details below:</p>
 <div class="section" id="hardware-required">
 <h2>Hardware required</h2>
 <ol class="arabic simple">
-<li><a class="reference external" href="http://www.amazon.com/gp/product/B001V9LQH0/ref=as_li_tf_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B001V9LQH0&amp;linkCode=as2&amp;tag=virantha-20">Fujitsu ScanSnap 1500</a>&nbsp;- This was the game-changer; it's a little
+<li><a class="reference external" href="http://www.amazon.com/gp/product/B001V9LQH0/ref=as_li_tf_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B001V9LQH0&amp;linkCode=as2&amp;tag=virantha-20">Fujitsu ScanSnap 1500</a> - This was the game-changer; it's a little
 pricey but after having gone through a bunch of inferior flat-bed and
 Neatworks scanners, this stand-alone scanner really makes things
 simple.</li>
-<li>Dedicated PC running on your network - &nbsp;You could just use your
-laptop, but &nbsp;I have a bunch of different desktops running file
+<li>Dedicated PC running on your network -  You could just use your
+laptop, but  I have a bunch of different desktops running file
 servers etc that makes things simpler</li>
 </ol>
 </div>
 <div class="section" id="software-required">
-<h2>&nbsp;Software required</h2>
+<h2> Software required</h2>
 <ol class="arabic simple">
-<li><a class="reference external" href="http://evernote.com">Evernote</a>&nbsp;- I'm a big fan of this service, and use it for all my
-notes/receipts/documents/lists. &nbsp;Get the premium service, it's
+<li><a class="reference external" href="http://evernote.com">Evernote</a> - I'm a big fan of this service, and use it for all my
+notes/receipts/documents/lists.  Get the premium service, it's
 definitely worth it!</li>
 <li>Abby FineReader for OCR (this ships with the Fujitsu ScanSnap)</li>
 <li>Download a program that can watch a folder for file changes and run a
-script. &nbsp;Since the server I'm using at home runs Windows, I
-use&nbsp;<a class="reference external" href="http://www.guidingtech.com/9861/automate-folder-actions-windows-watch-4-folder/">Watch 4 Folder</a>, but this should be much easier on Mac OS X.</li>
+script.  Since the server I'm using at home runs Windows, I
+use <a class="reference external" href="http://www.guidingtech.com/9861/automate-folder-actions-windows-watch-4-folder/">Watch 4 Folder</a>, but this should be much easier on Mac OS X.</li>
 </ol>
 </div>
 <div class="section" id="workflow-scripts">
@@ -186,23 +190,23 @@ use&nbsp;<a class="reference external" href="http://www.guidingtech.com/9861/aut
 <li>Setup up a profile on your ScanSnap image scanner that scans to Abby
 FineReader (OCR that comes with the software) and does a searchable
 PDF, that writes the file to a specific folder which I'll refer to as
-&quot;Incoming&quot;. &nbsp;The raw scan will first show up as
-&quot;YYYY_MM_DD_HH_MM_SS.pdf&quot;, and once Abby finishes the OCR in the
-background, it will replace it&nbsp;with
-&quot;YYYY_MM_DD_HH_MM_SS_OCR.pdf&quot;</li>
-<li>Setup the following batch file &quot;move.bat&quot;. &nbsp;This will watch the
-&quot;Incoming&quot; folder for any file ending with &quot;_OCR.pdf&quot;, wait 5
-minutes, and then copy it to a folder called &quot;To evernote&quot;</li>
+"Incoming".  The raw scan will first show up as
+"YYYY_MM_DD_HH_MM_SS.pdf", and once Abby finishes the OCR in the
+background, it will replace it with
+"YYYY_MM_DD_HH_MM_SS_OCR.pdf"</li>
+<li>Setup the following batch file "move.bat".  This will watch the
+"Incoming" folder for any file ending with "_OCR.pdf", wait 5
+minutes, and then copy it to a folder called "To evernote"</li>
 </ul>
 <div class="line-block">
-<div class="line">[ccw lang=&quot;dos&quot; width=&quot;100%&quot; strict=&quot;true&quot;]</div>
+<div class="line">[ccw lang="dos" width="100%" strict="true"]</div>
 <div class="line-block">
 <div class="line">set noext=%file:~1,-9%</div>
-<div class="line">set ocr=&quot;%noext%_OCR.pdf&quot;</div>
+<div class="line">set ocr="%noext%_OCR.pdf"</div>
 <div class="line">IF EXIST %ocr% (</div>
-<div class="line">echo &quot;Found %ocr%! Waiting 5 minutes before doing anything&quot;</div>
+<div class="line">echo "Found %ocr%! Waiting 5 minutes before doing anything"</div>
 <div class="line">PING 1.1.1.1 -n 1 -w 300000 &gt;NUL</div>
-<div class="line">move %ocr% &quot;c:\users\virantha\Documents\ScanSnap\To evernote&quot;</div>
+<div class="line">move %ocr% "c:\users\virantha\Documents\ScanSnap\To evernote"</div>
 <div class="line">)</div>
 <div class="line">exit</div>
 <div class="line">[/cc]</div>
@@ -210,17 +214,17 @@ minutes, and then copy it to a folder called &quot;To evernote&quot;</li>
 </div>
 <ul class="simple">
 <li>Since we want multiple instances of this batch file running, we need
-to create another batch file &quot;start.bat&quot; to invoke this as a process:</li>
-<li>[cc lang=&quot;dos&quot;]&nbsp;start c:\Users\virantha\Documents\move.bat %1
+to create another batch file "start.bat" to invoke this as a process:</li>
+<li>[cc lang="dos"] start c:\Users\virantha\Documents\move.bat %1
 [/cc]</li>
 <li>Configure Watch 4 Folder to run at startup minimized, and monitor
-your &quot;Incoming&quot; folder for any changes, and then execute &quot;start.bat&quot;</li>
-<li>Configure Evernote &quot;Tools -&gt; Import Folders&quot; and add your &quot;To
-evernote&quot; directory to the list of folders Evernote watches for file
+your "Incoming" folder for any changes, and then execute "start.bat"</li>
+<li>Configure Evernote "Tools -&gt; Import Folders" and add your "To
+evernote" directory to the list of folders Evernote watches for file
 imports.</li>
-<li>You're done! &nbsp;One press on your scanner, and your OCR'ed PDF
+<li>You're done!  One press on your scanner, and your OCR'ed PDF
 documents will arrive in your Evernote default notebook in a few
-minutes. &nbsp;You can then use evernote search to find whatever you need
+minutes.  You can then use evernote search to find whatever you need
 at a later date even if you don't bother to file these new notes.</li>
 </ul>
 </div>

@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Installing Ubuntu 14.04 LTS (Trusty Tahir) VM on a XenServer 6.2 host | Virantha
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -155,11 +159,11 @@ several posts, leads to a fairly straight-forward install.</p>
 <dd><ul class="first last">
 <li><p class="first">Change line 428 from:</p>
 <pre class="literal-block">
-if arg.strip() == &quot;${saved_entry}&quot;:
+if arg.strip() == "${saved_entry}":
 </pre>
 <p>into:</p>
 <pre class="literal-block">
-if arg.strip() == &quot;${saved_entry}&quot; or arg.strip() == &quot;${next_entry}&quot;:
+if arg.strip() == "${saved_entry}" or arg.strip() == "${next_entry}":
 </pre>
 </li>
 </ul>
@@ -178,8 +182,8 @@ that you can use in XenCenter to create a Ubuntu <tt class="docutils literal">Tr
 </li>
 <li><p class="first">Execute the following 3 commands:</p>
 <pre class="literal-block">
-TEMPLATE_UUID=`xe template-list name-label=&quot;Ubuntu Lucid Lynx 10.04 (64-bit)&quot; params=uuid --minimal`
-NEW_TEMPLATE_UUID=`xe vm-clone uuid=$TEMPLATE_UUID new-name-label=&quot;Ubuntu Trusty 14.04 (64-bit)&quot;`
+TEMPLATE_UUID=`xe template-list name-label="Ubuntu Lucid Lynx 10.04 (64-bit)" params=uuid --minimal`
+NEW_TEMPLATE_UUID=`xe vm-clone uuid=$TEMPLATE_UUID new-name-label="Ubuntu Trusty 14.04 (64-bit)"`
 xe template-param-set other-config:default_template=true other-config:debian-release=trusty uuid=$NEW_TEMPLATE_UUID
 </pre>
 </li>
@@ -188,14 +192,14 @@ xe template-param-set other-config:default_template=true other-config:debian-rel
 <div class="section" id="create-the-vm-from-template-using-xencenter">
 <h2>Create the VM from template using XenCenter</h2>
 <p>Now, run XenCenter on a Windows box, and go to <tt class="docutils literal">VM <span class="pre">-&gt;</span> New VM</tt>, and scroll down to this new template you created:</p>
-<div class="figure">
-<img alt="Something" src="/images/2014/ubuntu-xenserver/templateview.png" />
+<div class="figure" style="width: 826px; height: auto; max-width: 100%;">
+<img alt="Something" src="/images/2014/ubuntu-xenserver/templateview.png" style="width: 826px; height: auto; max-width: 100%;"/>
 </div>
 <p>Next, when, prompted for install media, use the following URL:</p>
 <blockquote>
 <a class="reference external" href="http://us.archive.ubuntu.com/ubuntu">http://us.archive.ubuntu.com/ubuntu</a></blockquote>
-<div class="figure">
-<img alt="Something" src="/images/2014/ubuntu-xenserver/installmedia.png" />
+<div class="figure" style="width: 820px; height: auto; max-width: 100%;">
+<img alt="Something" src="/images/2014/ubuntu-xenserver/installmedia.png" style="width: 820px; height: auto; max-width: 100%;"/>
 </div>
 <p>And follow the remaining steps in the normal way.</p>
 </div>

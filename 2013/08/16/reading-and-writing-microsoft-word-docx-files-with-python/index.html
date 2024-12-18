@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Reading and writing Microsoft Word docx files with Python | Virantha Namal Ekana
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -142,7 +146,7 @@ on Fri 16 August 2013 </p>
   </div>
   <div class="article_text">
     <div class="figure align-right">
-<img alt="skip_better python" src="/images/2013/python_scaled.png" style="width: 250px;" />
+<img alt="skip_better python" src="/images/2013/python_scaled.png" style="width: 250px;"/>
 </div>
 <p>I've been wanting to script simple text scanning and substitution in
 Microsoft Word documents for a while now, and after a little digging, it
@@ -158,17 +162,17 @@ resume generator for MS Word documents.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#getting-the-text-content" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Getting the text content</a></li>
-<li><a class="reference internal" href="#word-xml-document-structure" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Word XML document structure</a></li>
-<li><a class="reference internal" href="#complications-in-the-xml" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Complications in the XML</a></li>
-<li><a class="reference internal" href="#extracting-text" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Extracting text</a></li>
-<li><a class="reference internal" href="#modifying-text" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Modifying text</a></li>
-<li><a class="reference internal" href="#saving-the-edited-word-file" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Saving the edited word file</a></li>
-<li><a class="reference internal" href="#summary" id="toc-entry-7">7&nbsp;&nbsp;&nbsp;Summary</a></li>
+<li><a class="reference internal" href="#getting-the-text-content" id="toc-entry-1">1   Getting the text content</a></li>
+<li><a class="reference internal" href="#word-xml-document-structure" id="toc-entry-2">2   Word XML document structure</a></li>
+<li><a class="reference internal" href="#complications-in-the-xml" id="toc-entry-3">3   Complications in the XML</a></li>
+<li><a class="reference internal" href="#extracting-text" id="toc-entry-4">4   Extracting text</a></li>
+<li><a class="reference internal" href="#modifying-text" id="toc-entry-5">5   Modifying text</a></li>
+<li><a class="reference internal" href="#saving-the-edited-word-file" id="toc-entry-6">6   Saving the edited word file</a></li>
+<li><a class="reference internal" href="#summary" id="toc-entry-7">7   Summary</a></li>
 </ul>
 </div>
 <div class="section" id="getting-the-text-content">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Getting the text content</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Getting the text content</a></h2>
 <p>At its heart, a docx file is just a zip file (try running unzip on it!)
 containing a bunch of well defined XML and collateral files. The main
 textual content and structure is defined in the following XML file:</p>
@@ -181,7 +185,7 @@ word/document.xml
 <span class="k">def</span> <span class="nf">get_word_xml</span><span class="p">(</span><span class="n">docx_filename</span><span class="p">):</span>
    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">docx_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
       <span class="nb">zip</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-      <span class="n">xml_content</span> <span class="o">=</span> <span class="nb">zip</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">)</span>
+      <span class="n">xml_content</span> <span class="o">=</span> <span class="nb">zip</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'word/document.xml'</span><span class="p">)</span>
    <span class="k">return</span> <span class="n">xml_content</span>
 </pre></div>
 <p>Next, we need to parse this string containing XML into a usable tree.
@@ -195,41 +199,41 @@ For this, we use the lxml package (pip install lxml):</p>
 structured.</p>
 </div>
 <div class="section" id="word-xml-document-structure">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Word XML document structure</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Word XML document structure</a></h2>
 <p>For a basic document that consists of paragraphs of text with some
 styles/formatting applied, the XML structure is fairly straightforward.
-&nbsp;Here's the example document:</p>
-<div class="figure">
-<img alt="Example word doc" src="/images/2013/Word.png" />
+ Here's the example document:</p>
+<div class="figure" style="width: 577px; height: auto; max-width: 100%;">
+<img alt="Example word doc" src="/images/2013/Word.png" style="width: 577px; height: auto; max-width: 100%;"/>
 </div>
 <p>And here's the resulting xml in word/document.xml (you can get this by
 simply doing</p>
 <div class="highlight"><pre><span></span><span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">xmltree</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
-<div class="highlight"><pre><span></span><span class="nt">&lt;w:document</span><span class="w"> </span><span class="na">xmlns:wpc=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas&quot;</span><span class="w"> </span><span class="na">xmlns:mo=</span><span class="s">&quot;http://schemas.microsoft.com/office/mac/office/2008/main&quot;</span><span class="w"> </span><span class="na">xmlns:mc=</span><span class="s">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span><span class="w"> </span><span class="na">xmlns:mv=</span><span class="s">&quot;urn:schemas-microsoft-com:mac:vml&quot;</span><span class="w"> </span><span class="na">xmlns:o=</span><span class="s">&quot;urn:schemas-microsoft-com:office:office&quot;</span><span class="w"> </span><span class="na">xmlns:r=</span><span class="s">&quot;http://schemas.openxmlformats.org/officeDocument/2006/relationships&quot;</span><span class="w"> </span><span class="na">xmlns:m=</span><span class="s">&quot;http://schemas.openxmlformats.org/officeDocument/2006/math&quot;</span><span class="w"> </span><span class="na">xmlns:v=</span><span class="s">&quot;urn:schemas-microsoft-com:vml&quot;</span><span class="w"> </span><span class="na">xmlns:wp14=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing&quot;</span><span class="w"> </span><span class="na">xmlns:wp=</span><span class="s">&quot;http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing&quot;</span><span class="w"> </span><span class="na">xmlns:w10=</span><span class="s">&quot;urn:schemas-microsoft-com:office:word&quot;</span><span class="w"> </span><span class="na">xmlns:w=</span><span class="s">&quot;http://schemas.openxmlformats.org/wordprocessingml/2006/main&quot;</span><span class="w"> </span><span class="na">xmlns:w14=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordml&quot;</span><span class="w"> </span><span class="na">xmlns:wpg=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingGroup&quot;</span><span class="w"> </span><span class="na">xmlns:wpi=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingInk&quot;</span><span class="w"> </span><span class="na">xmlns:wne=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2006/wordml&quot;</span><span class="w"> </span><span class="na">xmlns:wps=</span><span class="s">&quot;http://schemas.microsoft.com/office/word/2010/wordprocessingShape&quot;</span><span class="w"> </span><span class="na">mc:Ignorable=</span><span class="s">&quot;w14 wp14&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:document</span><span class="w"> </span><span class="na">xmlns:wpc=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"</span><span class="w"> </span><span class="na">xmlns:mo=</span><span class="s">"http://schemas.microsoft.com/office/mac/office/2008/main"</span><span class="w"> </span><span class="na">xmlns:mc=</span><span class="s">"http://schemas.openxmlformats.org/markup-compatibility/2006"</span><span class="w"> </span><span class="na">xmlns:mv=</span><span class="s">"urn:schemas-microsoft-com:mac:vml"</span><span class="w"> </span><span class="na">xmlns:o=</span><span class="s">"urn:schemas-microsoft-com:office:office"</span><span class="w"> </span><span class="na">xmlns:r=</span><span class="s">"http://schemas.openxmlformats.org/officeDocument/2006/relationships"</span><span class="w"> </span><span class="na">xmlns:m=</span><span class="s">"http://schemas.openxmlformats.org/officeDocument/2006/math"</span><span class="w"> </span><span class="na">xmlns:v=</span><span class="s">"urn:schemas-microsoft-com:vml"</span><span class="w"> </span><span class="na">xmlns:wp14=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing"</span><span class="w"> </span><span class="na">xmlns:wp=</span><span class="s">"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"</span><span class="w"> </span><span class="na">xmlns:w10=</span><span class="s">"urn:schemas-microsoft-com:office:word"</span><span class="w"> </span><span class="na">xmlns:w=</span><span class="s">"http://schemas.openxmlformats.org/wordprocessingml/2006/main"</span><span class="w"> </span><span class="na">xmlns:w14=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordml"</span><span class="w"> </span><span class="na">xmlns:wpg=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup"</span><span class="w"> </span><span class="na">xmlns:wpi=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordprocessingInk"</span><span class="w"> </span><span class="na">xmlns:wne=</span><span class="s">"http://schemas.microsoft.com/office/word/2006/wordml"</span><span class="w"> </span><span class="na">xmlns:wps=</span><span class="s">"http://schemas.microsoft.com/office/word/2010/wordprocessingShape"</span><span class="w"> </span><span class="na">mc:Ignorable=</span><span class="s">"w14 wp14"</span><span class="nt">&gt;</span>
 <span class="w">  </span><span class="nt">&lt;w:body&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00192975&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00192975"</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">"00450526"</span><span class="nt">&gt;</span>
 <span class="w">      </span><span class="nt">&lt;w:pPr&gt;</span>
-<span class="w">        </span><span class="nt">&lt;w:pStyle</span><span class="w"> </span><span class="na">w:val=</span><span class="s">&quot;Heading1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;w:pStyle</span><span class="w"> </span><span class="na">w:val=</span><span class="s">"Heading1"</span><span class="nt">/&gt;</span>
 <span class="w">      </span><span class="nt">&lt;/w:pPr&gt;</span>
 <span class="w">      </span><span class="nt">&lt;w:r&gt;</span>
 <span class="w">        </span><span class="nt">&lt;w:t&gt;</span>Test<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">      </span><span class="nt">&lt;/w:r&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">"00450526"</span><span class="nt">&gt;</span>
 <span class="w">      </span><span class="nt">&lt;w:r&gt;</span>
 <span class="w">        </span><span class="nt">&lt;w:t&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span>fox<span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">      </span><span class="nt">&lt;/w:r&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">"00450526"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="w"> </span><span class="na">w:name=</span><span class="s">"_GoBack"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/w:p&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:sectPr</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidSect=</span><span class="s">&quot;00192975&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:pgSz</span><span class="w"> </span><span class="na">w:w=</span><span class="s">&quot;12240&quot;</span><span class="w"> </span><span class="na">w:h=</span><span class="s">&quot;15840&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:pgMar</span><span class="w"> </span><span class="na">w:top=</span><span class="s">&quot;1440&quot;</span><span class="w"> </span><span class="na">w:right=</span><span class="s">&quot;1800&quot;</span><span class="w"> </span><span class="na">w:bottom=</span><span class="s">&quot;1440&quot;</span><span class="w"> </span><span class="na">w:left=</span><span class="s">&quot;1800&quot;</span><span class="w"> </span><span class="na">w:header=</span><span class="s">&quot;720&quot;</span><span class="w"> </span><span class="na">w:footer=</span><span class="s">&quot;720&quot;</span><span class="w"> </span><span class="na">w:gutter=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:cols</span><span class="w"> </span><span class="na">w:space=</span><span class="s">&quot;720&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;w:docGrid</span><span class="w"> </span><span class="na">w:linePitch=</span><span class="s">&quot;360&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:sectPr</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRPr=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidSect=</span><span class="s">"00192975"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:pgSz</span><span class="w"> </span><span class="na">w:w=</span><span class="s">"12240"</span><span class="w"> </span><span class="na">w:h=</span><span class="s">"15840"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:pgMar</span><span class="w"> </span><span class="na">w:top=</span><span class="s">"1440"</span><span class="w"> </span><span class="na">w:right=</span><span class="s">"1800"</span><span class="w"> </span><span class="na">w:bottom=</span><span class="s">"1440"</span><span class="w"> </span><span class="na">w:left=</span><span class="s">"1800"</span><span class="w"> </span><span class="na">w:header=</span><span class="s">"720"</span><span class="w"> </span><span class="na">w:footer=</span><span class="s">"720"</span><span class="w"> </span><span class="na">w:gutter=</span><span class="s">"0"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:cols</span><span class="w"> </span><span class="na">w:space=</span><span class="s">"720"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;w:docGrid</span><span class="w"> </span><span class="na">w:linePitch=</span><span class="s">"360"</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/w:sectPr&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:body&gt;</span>
 <span class="nt">&lt;/w:document&gt;</span>
@@ -248,20 +252,20 @@ enclosed by &lt;w:t&gt; tags</li>
 when I edited the file in the next section.</p>
 </div>
 <div class="section" id="complications-in-the-xml">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Complications in the XML</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Complications in the XML</a></h2>
 <p>Let's edit the docx to uppercase the 'fox' into 'FOX' and look at the
 XML contents:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">&quot;5192A87F&quot;</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">&quot;77777777&quot;</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">"5192A87F"</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">"77777777"</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">"00450526"</span><span class="nt">&gt;</span>
 <span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;004C173F&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"004C173F"</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;w:t&gt;</span>FOX<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="w"> </span><span class="na">w:name=</span><span class="s">"_GoBack"</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="nt">/&gt;</span>
 <span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
 <span class="nt">&lt;/w:p&gt;</span>
 </pre></div>
@@ -271,41 +275,41 @@ keep track of undo actions). So, any of your text parsing and
 substitution needs to take into account the fact that your contiguous
 text may in fact be split up into separate sub-trees in the XML file.
 Also, see below what happens when I now bold the 'FOX':</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">&quot;5192A87F&quot;</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">&quot;77777777&quot;</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">&quot;00450526&quot;</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">&quot;00450526&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;w:p</span><span class="w"> </span><span class="na">w14:paraId=</span><span class="s">"5192A87F"</span><span class="w"> </span><span class="na">w14:textId=</span><span class="s">"77777777"</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidRDefault=</span><span class="s">"00450526"</span><span class="w"> </span><span class="na">w:rsidP=</span><span class="s">"00450526"</span><span class="nt">&gt;</span>
 <span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>The<span class="w"> </span>quick<span class="w"> </span>brown<span class="w"> </span><span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">&quot;004C173F&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:r</span><span class="w"> </span><span class="na">w:rsidR=</span><span class="s">"004C173F"</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;w:rPr&gt;</span>
 <span class="w">       </span><span class="nt">&lt;w:b/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/w:rPr&gt;</span>
 <span class="w">    </span><span class="nt">&lt;w:t&gt;</span>FOX<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">w:name=</span><span class="s">&quot;_GoBack&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkStart</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="w"> </span><span class="na">w:name=</span><span class="s">"_GoBack"</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;w:bookmarkEnd</span><span class="w"> </span><span class="na">w:id=</span><span class="s">"0"</span><span class="nt">/&gt;</span>
 <span class="w">  </span><span class="nt">&lt;w:r&gt;</span>
-<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
+<span class="w">    </span><span class="nt">&lt;w:t</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span><span class="w"> </span>jumped<span class="w"> </span>over<span class="w"> </span>the<span class="w"> </span>lazy<span class="w"> </span>dog.<span class="nt">&lt;/w:t&gt;</span>
 <span class="w">  </span><span class="nt">&lt;/w:r&gt;</span>
 <span class="nt">&lt;/w:p&gt;</span>
 </pre></div>
 <p>Notice that now there is a format tag inside your run tag as well.</p>
 </div>
 <div class="section" id="extracting-text">
-<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Extracting text</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">4   Extracting text</a></h2>
 <p>lxml has some nice functions for traversing the XML tree, but I usually
 had to wrap these in my own iterators to get the most functionality. For
 instance, here's a class-based iterator that will traverse every node
 given a starting node ''my_etree'', and return every text node and it's
 containing text.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_itertext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_etree</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Iterator to go through xml tree&#39;s text nodes&quot;&quot;&quot;</span>
+<span class="w">     </span><span class="sd">"""Iterator to go through xml tree's text nodes"""</span>
      <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">my_etree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
-         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_element_is</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_element_is</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s1">'t'</span><span class="p">):</span>
              <span class="k">yield</span> <span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_check_element_is</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">type_char</span><span class="p">):</span>
-     <span class="n">word_schema</span> <span class="o">=</span> <span class="s1">&#39;http://schemas.openxmlformats.org/wordprocessingml/2006/main&#39;</span>
-     <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;{</span><span class="si">%s</span><span class="s1">}</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">word_schema</span><span class="p">,</span><span class="n">type_char</span><span class="p">)</span>
+     <span class="n">word_schema</span> <span class="o">=</span> <span class="s1">'http://schemas.openxmlformats.org/wordprocessingml/2006/main'</span>
+     <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">'{</span><span class="si">%s</span><span class="s1">}</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">word_schema</span><span class="p">,</span><span class="n">type_char</span><span class="p">)</span>
 </pre></div>
 <p>So, in order to get all the text out of the document, you could use the
 earlier function to get the xml tree and then iterate over it like this:</p>
@@ -317,7 +321,7 @@ earlier function to get the xml tree and then iterate over it like this:</p>
 </pre></div>
 </div>
 <div class="section" id="modifying-text">
-<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Modifying text</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">5   Modifying text</a></h2>
 <p>Here's a quick example on how to modify the XML tree to change the Word
 content. In one of my other project's (that I'll blog about soon) I
 needed to replace special pieces of text with some other text (think of
@@ -338,24 +342,24 @@ function that does it:</p>
         <span class="k">for</span> <span class="n">node</span><span class="p">,</span><span class="n">text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_itertext</span><span class="p">(</span><span class="n">my_etree</span><span class="p">):</span>
             <span class="c1"># Scan through every node with text</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-                <span class="c1"># Go through each node&#39;s text character by character</span>
-                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;[&#39;</span><span class="p">:</span>
+                <span class="c1"># Go through each node's text character by character</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">'['</span><span class="p">:</span>
                     <span class="n">openbrac</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Within a tag</span>
                     <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Tag was opened in this node</span>
                     <span class="n">openbrac_node</span> <span class="o">=</span> <span class="n">node</span> <span class="c1"># Save ptr to open bracket containing node</span>
                     <span class="n">chars</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span> <span class="s1">&#39;]&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span> <span class="s1">']'</span><span class="p">:</span>
                     <span class="k">assert</span> <span class="n">openbrac</span>
                     <span class="k">if</span> <span class="n">inside_openbrac_node</span><span class="p">:</span>
                         <span class="c1"># Open and close inside same node, no need to do anything</span>
                         <span class="k">pass</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># Open bracket in earlier node, now it&#39;s closed</span>
-                        <span class="c1"># So append all the chars we&#39;ve encountered since the openbrac_node &#39;[&#39;</span>
+                        <span class="c1"># Open bracket in earlier node, now it's closed</span>
+                        <span class="c1"># So append all the chars we've encountered since the openbrac_node '['</span>
                         <span class="c1"># to the openbrac_node</span>
-                        <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)</span>
-                        <span class="n">openbrac_node</span><span class="o">.</span><span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
-                        <span class="c1"># Also, don&#39;t forget to remove the characters seen so far from current node</span>
+                        <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">']'</span><span class="p">)</span>
+                        <span class="n">openbrac_node</span><span class="o">.</span><span class="n">text</span> <span class="o">+=</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
+                        <span class="c1"># Also, don't forget to remove the characters seen so far from current node</span>
                         <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
                     <span class="n">openbrac</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">False</span>
@@ -373,26 +377,26 @@ function that does it:</p>
                 <span class="c1"># Went through all text that is part of an open bracket/close bracket</span>
                 <span class="c1"># in other nodes</span>
                 <span class="c1"># need to remove this text completely</span>
-                <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">""</span>
             <span class="n">inside_openbrac_node</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 <div class="section" id="saving-the-edited-word-file">
-<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Saving the edited word file</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">6   Saving the edited word file</a></h2>
 <p>Now, if you want to save this modified content, you just need to extract
 all the files in the docx, overwrite the content file, and then zip it
 back up:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_write_and_close_docx</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_content</span><span class="p">,</span> <span class="n">output_filename</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Create a temp directory, expand the original docx zip.</span>
+<span class="w">        </span><span class="sd">""" Create a temp directory, expand the original docx zip.</span>
 <span class="sd">            Write the modified xml to word/document.xml</span>
 <span class="sd">            Zip it up as the new docx</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">zipfile</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span><span class="s1">&#39;word/document.xml&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span><span class="s1">'word/document.xml'</span><span class="p">),</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">xmlstr</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span> <span class="p">(</span><span class="n">xml_content</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xmlstr</span><span class="p">)</span>
 
@@ -400,7 +404,7 @@ back up:</p>
         <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zipfile</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
         <span class="c1"># Now, create the new zip file and add all the filex into the archive</span>
         <span class="n">zip_copy_filename</span> <span class="o">=</span> <span class="n">output_filename</span>
-        <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_copy_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">docx</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_copy_filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">docx</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
                 <span class="n">docx</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span><span class="n">filename</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
 
@@ -409,7 +413,7 @@ back up:</p>
 </pre></div>
 </div>
 <div class="section" id="summary">
-<h2><a class="toc-backref" href="#toc-entry-7">7&nbsp;&nbsp;&nbsp;Summary</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-7">7   Summary</a></h2>
 <p>Done! I hope I've helped explain how to get a the contents of MS Word
 docx file and do some simple modifications to it.
 Again, if you need more examples on how to process .docx files, please check

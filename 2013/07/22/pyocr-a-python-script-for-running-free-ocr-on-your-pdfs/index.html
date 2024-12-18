@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract | Virantha 
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -142,25 +146,25 @@ on Mon 22 July 2013 </p>
   </div>
   <div class="article_text">
     <div class="figure align-right">
-<img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;" />
+<img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;"/>
 </div>
 <p>Updates:</p>
 <blockquote>
 <ul class="simple">
-<li>Anytime -&nbsp;<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">Get the latest updates on PyPDFOCR</a></li>
+<li>Anytime - <a class="reference external" href="http://virantha.github.io/pypdfocr/html/">Get the latest updates on PyPDFOCR</a></li>
 <li>10/28/13 - Adds uploading to Evernote notebooks based on
 keywords!</li>
 <li>10/25/13 - Supports filing to directories based on keyword search</li>
-<li>10/22/13 - Now on PyPI, so you can just do &quot;pip install
-pypdfocr&quot;! (For windows, I still recommend downloading my
+<li>10/22/13 - Now on PyPI, so you can just do "pip install
+pypdfocr"! (For windows, I still recommend downloading my
 prebuilt .exe as written below)</li>
 <li>10/21/13 - Script can watch a directory for new pdfs and
 automatically run ocr on them!</li>
 </ul>
 </blockquote>
 <p>On a <a class="reference external" href="http://virantha.com/2012/10/25/getting-rid-of-paper-clutter/">previous post</a>, I've discussed how I've become a fan of
-<a class="amazon" href="http://www.amazon.com/gp/product/B00ATZ9QMO?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Fujitsu's ScanSnap</a> device to reduce the pile
-of paper in my office. &nbsp;I've been wanting to script more of the flow,
+<a class="amazon" href="http://www.amazon.com/gp/product/B00ATZ9QMO?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Fujitsu's ScanSnap</a> device to reduce the pile
+of paper in my office.  I've been wanting to script more of the flow,
 and the one stumbling block has been the optical character recognition
 phase that makes the scanned PDF searchable. In this post, I'll detail
 my experience in using a free OCR engine from HP/Google called Tesseract
@@ -176,18 +180,18 @@ to handle the PDF OCR conversion.</p>
 </div>
 <div class="section" id="tesseract-ocr">
 <h2><a class="toc-backref" href="#toc-entry-1">Tesseract OCR</a></h2>
-<p>The ScanSnap ships with a free version of <a class="amazon" href="http://www.amazon.com/gp/product/B005S7ZMXA?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Abbyy FineReader</a>, an excellent piece of OCR
+<p>The ScanSnap ships with a free version of <a class="amazon" href="http://www.amazon.com/gp/product/B005S7ZMXA?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Abbyy FineReader</a>, an excellent piece of OCR
 software; unfortunately any scripting ability requires a pricey upgrade
-to the Pro version. &nbsp;A short search later, I found the most popular
-open/free solution out there: <a class="reference external" href="https://code.google.com/p/tesseract-ocr/">Tesseract-OCR</a>. &nbsp;I had looked at this a
+to the Pro version.  A short search later, I found the most popular
+open/free solution out there: <a class="reference external" href="https://code.google.com/p/tesseract-ocr/">Tesseract-OCR</a>.  I had looked at this a
 while ago when the text-recognition quality seemed lacking, but version
 3.x has improved significantly.</p>
 <p>However, simply downloading Tesseract and running it doesn't lead to a
-very usable solution, as I frustratingly found out. &nbsp;The software only
+very usable solution, as I frustratingly found out.  The software only
 takes image files (like TIFF or JPG) as input, and produces either a
-text file or a HOCR html file as output. &nbsp;Even a web search did not
+text file or a HOCR html file as output.  Even a web search did not
 bring up any ready-built scripts to have Tesseract take a PDF as an
-input and output the OCR'ed PDF. &nbsp;So, with the help of a HOCR to pdf
+input and output the OCR'ed PDF.  So, with the help of a HOCR to pdf
 script I found from google, I wrote up my own script called PyPDFOCR.</p>
 </div>
 <div class="section" id="usage">
@@ -198,7 +202,7 @@ python pypdfocr.py filename.pdf
 </pre>
 <p>This will generate a corresponding filename_ocr.pdf</p>
 <p>Please see the
-<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a>&nbsp;for all the
+<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a> for all the
 features.</p>
 </div>
 <div class="section" id="installation">
@@ -207,7 +211,7 @@ features.</p>
 source). So far, I've verified it runs on Mac OS X (10.7; probably other
 versions too) and Windows 7 64-bit.</p>
 <p>Please see
-the&nbsp;<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a>&nbsp;for
+the <a class="reference external" href="http://virantha.github.io/pypdfocr/html/">documentation</a> for
 installation instructions.</p>
 </div>
 <div class="section" id="how-scripting-tesseract-for-pdf-to-pdf-conversion-works">
@@ -224,7 +228,7 @@ every recognized word location on a page)</li>
 <li>Build the output PDF using the multiple jpeg images, while parsing
 the HOCR file and generating text on each page in an invisible font</li>
 </ul>
-<p>Special thanks to the folks at google who wrote&nbsp;<a class="reference external" href="https://code.google.com/p/hocr-tools/source/browse/hocr-pdf">hocr-pdf.py</a>&nbsp;(Apache
+<p>Special thanks to the folks at google who wrote <a class="reference external" href="https://code.google.com/p/hocr-tools/source/browse/hocr-pdf">hocr-pdf.py</a> (Apache
 license 2.0)) that showed me how to use the hocr format; I basically
 only had to add multi-page support for this part of the flow.</p>
 </div>

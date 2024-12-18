@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ OneResumé - Usage Guide | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -255,7 +259,7 @@ of content.  The example below is pretty self-explanatory:</p>
 <span class="w">        </span><span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Baker Street Detectives</span>
 <span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">London</span>
 <span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Consulting Detective</span>
-<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1880</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">1903&quot;</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">"1880</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">1903"</span>
 <span class="w">        </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
 <span class="w">            </span><span class="no">Brought several notorious criminals to justice.  Supported the intelligence services and recovered key</span>
 <span class="w">            </span><span class="no">government property.</span>
@@ -264,7 +268,7 @@ of content.  The example below is pretty self-explanatory:</p>
 <span class="w">        </span><span class="nt">company</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beekeeping Solutions</span>
 <span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sussex Downs</span>
 <span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beekeeper</span>
-<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1904-1914&quot;</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="s">"1904-1914"</span>
 <span class="w">        </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
 <span class="w">            </span><span class="no">Made honey.</span>
 </pre></div>
@@ -288,34 +292,34 @@ of content.  The example below is pretty self-explanatory:</p>
 <h3>Writing Templates for Text Resumés</h3>
 <p>The text resumé generator uses the <a class="reference external" href="http://www.makotemplates.org">Mako</a> templating engine.  Here's an example template that can be used to output
 the above data content into a text file:</p>
-<div class="highlight"><pre><span></span><span class="o">%</span> <span class="k">for</span> <span class="n">contact</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;contact&quot;</span><span class="p">]:</span>
-<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]}</span>
-<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;phone&#39;</span><span class="p">]}</span>
-<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]}</span>
-<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">&#39;www&#39;</span><span class="p">]}</span>
+<div class="highlight"><pre><span></span><span class="o">%</span> <span class="k">for</span> <span class="n">contact</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">"contact"</span><span class="p">]:</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]}</span>
+<span class="err">$</span><span class="p">{</span><span class="n">contact</span><span class="p">[</span><span class="s1">'www'</span><span class="p">]}</span>
 <span class="o">%</span> <span class="n">endfor</span>
 <span class="o">=========================================</span>
 
 <span class="n">SKILLS</span><span class="p">:</span>
 <span class="o">-------</span>
-<span class="o">%</span> <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;skills&quot;</span><span class="p">]:</span>
-  <span class="err">$</span><span class="p">{</span><span class="n">skill</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]}:</span>
-    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">skill</span><span class="p">[</span><span class="s1">&#39;skill_list&#39;</span><span class="p">])}</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">"skills"</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">skill</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]}:</span>
+    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">skill</span><span class="p">[</span><span class="s1">'skill_list'</span><span class="p">])}</span>
 <span class="o">%</span> <span class="n">endfor</span>
 
 <span class="n">EDUCATION</span><span class="p">:</span>
 <span class="o">----------</span>
-<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]:</span>
-  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">]}</span> <span class="kn">from</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;university&#39;</span><span class="p">]}</span> <span class="ow">in</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]})</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">'education'</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'degree'</span><span class="p">]}</span> <span class="kn">from</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'university'</span><span class="p">]}</span> <span class="ow">in</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'field'</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]})</span>
 <span class="o">%</span> <span class="n">endfor</span>
 
 <span class="n">EXPERIENCE</span><span class="p">:</span>
 <span class="o">----------</span>
-<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;experience&#39;</span><span class="p">]:</span>
-  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]})</span>
-  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]},</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]}</span>
+<span class="o">%</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">'experience'</span><span class="p">]:</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'position'</span><span class="p">]}</span> <span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]})</span>
+  <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'company'</span><span class="p">]},</span> <span class="err">$</span><span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s1">'location'</span><span class="p">]}</span>
   <span class="o">-----------------------------------</span>
-    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">])}</span>
+    <span class="err">$</span><span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">_wrap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">e</span><span class="p">[</span><span class="s1">'summary'</span><span class="p">])}</span>
 
 <span class="o">%</span> <span class="n">endfor</span>
 </pre></div>
@@ -330,7 +334,7 @@ given number of spaces.</li>
 <pre class="literal-block">
 S. Holmes
 12-3456
-sherlock&#64;holmesconsulting.com
+sherlock@holmesconsulting.com
 http://www.gotcrime.com
 =========================================
 
@@ -394,9 +398,9 @@ a resume from the above YAML:</p>
 <li>Using a <tt class="docutils literal">|</tt> symbol in a section header will use the proceeding text instead of the section name in the outputted resume. So, the final section above will be rendered with a title of <tt class="docutils literal">Mad Skills</tt> instead of <tt class="docutils literal">Skills</tt>.</li>
 </ul>
 <p>Here's a screenshot of the template .docx (you can also find this in the <a class="reference external" href="https://github.com/virantha/one_resume/blob/master/examples/resume.docx?raw=true">repository</a>):</p>
-<img alt="Word resume template" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_template.png" style="width: 679px;" />
+<img alt="Word resume template" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_template.png" style="width: 679px;"/>
 <p>And, running OneResumé on it will generate the following:</p>
-<img alt="Word resume output" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_output.png" style="width: 679px;" />
+<img alt="Word resume output" class="align-center" src="https://raw.githubusercontent.com/virantha/one_resume/master/images/word_output.png" style="width: 679px;"/>
 </div>
 </div>
 <div class="section" id="installation">
@@ -413,7 +417,7 @@ $ pip install one_resume
 </div>
 <div class="section" id="disclaimer">
 <h2>Disclaimer</h2>
-<p>The software is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+<p>The software is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
 </div>
 

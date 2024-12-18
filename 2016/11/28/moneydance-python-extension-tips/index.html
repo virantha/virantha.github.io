@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ How to use Python to generate extensions with a GUI for Moneydance 2017 | Virant
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -161,26 +165,26 @@ the APIs.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of contents</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#pop-up-a-simple-frame-with-a-button" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Pop up a simple frame with a button</a></li>
-<li><a class="reference internal" href="#importing-python-files" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Importing Python files</a></li>
-<li><a class="reference internal" href="#import-jar-files" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Import JAR files</a></li>
-<li><a class="reference internal" href="#persisting-data-in-your-secure-moneydance-file" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Persisting data in your secure moneydance file</a></li>
-<li><a class="reference internal" href="#bundling-python-into-a-moneydance-java-extension" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Bundling Python into a Moneydance Java Extension</a><ul class="auto-toc">
-<li><a class="reference internal" href="#install-the-developer-kit" id="toc-entry-6">5.1&nbsp;&nbsp;&nbsp;Install the Developer Kit</a></li>
-<li><a class="reference internal" href="#download-the-jython-standalone-jar" id="toc-entry-7">5.2&nbsp;&nbsp;&nbsp;Download the Jython Standalone .jar</a></li>
-<li><a class="reference internal" href="#modify-build-xml" id="toc-entry-8">5.3&nbsp;&nbsp;&nbsp;Modify build.xml</a></li>
-<li><a class="reference internal" href="#modify-main-java" id="toc-entry-9">5.4&nbsp;&nbsp;&nbsp;Modify Main.java</a></li>
-<li><a class="reference internal" href="#python-extension" id="toc-entry-10">5.5&nbsp;&nbsp;&nbsp;Python extension</a></li>
-<li><a class="reference internal" href="#compiling" id="toc-entry-11">5.6&nbsp;&nbsp;&nbsp;Compiling</a></li>
+<li><a class="reference internal" href="#pop-up-a-simple-frame-with-a-button" id="toc-entry-1">1   Pop up a simple frame with a button</a></li>
+<li><a class="reference internal" href="#importing-python-files" id="toc-entry-2">2   Importing Python files</a></li>
+<li><a class="reference internal" href="#import-jar-files" id="toc-entry-3">3   Import JAR files</a></li>
+<li><a class="reference internal" href="#persisting-data-in-your-secure-moneydance-file" id="toc-entry-4">4   Persisting data in your secure moneydance file</a></li>
+<li><a class="reference internal" href="#bundling-python-into-a-moneydance-java-extension" id="toc-entry-5">5   Bundling Python into a Moneydance Java Extension</a><ul class="auto-toc">
+<li><a class="reference internal" href="#install-the-developer-kit" id="toc-entry-6">5.1   Install the Developer Kit</a></li>
+<li><a class="reference internal" href="#download-the-jython-standalone-jar" id="toc-entry-7">5.2   Download the Jython Standalone .jar</a></li>
+<li><a class="reference internal" href="#modify-build-xml" id="toc-entry-8">5.3   Modify build.xml</a></li>
+<li><a class="reference internal" href="#modify-main-java" id="toc-entry-9">5.4   Modify Main.java</a></li>
+<li><a class="reference internal" href="#python-extension" id="toc-entry-10">5.5   Python extension</a></li>
+<li><a class="reference internal" href="#compiling" id="toc-entry-11">5.6   Compiling</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="pop-up-a-simple-frame-with-a-button">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Pop up a simple frame with a button</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Pop up a simple frame with a button</a></h2>
 <p>Here's a simple script based off the Moneydance template that will pop-up a frame with a scrollable list of the names of the current accounts.</p>
-<div class="figure">
-<img alt="Popup" src="https://virantha.github.io/images/moneydance/popup.png" />
+<div class="figure" style="width: 1368px; height: auto; max-width: 100%;">
+<img alt="Popup" src="https://virantha.github.io/images/moneydance/popup.png" style="width: 1368px; height: auto; max-width: 100%;"/>
 </div>
 <p>Keep in mind that in Moneydance developer terminology an account can be either
 a top-level user account like 'Checking' or a <em>Category</em>.</p>
@@ -189,16 +193,16 @@ and conciseness of Jython married with access to Moneydance internals in the few
 <p>[gist:id=5ace1fa44a2e1156e8542523596124f1,file=1-simple-moneydance-popup.py]</p>
 <p>To get this installed, simply open Moneydance 2017 (previous versions will not work) and select <tt class="docutils literal">Python Scripting</tt> from the <tt class="docutils literal">Windows</tt> menu.
 This will pop-up the Python interface where you'll do the following:</p>
-<div class="figure">
-<img alt="Installing the extension" src="https://virantha.github.io/images/moneydance/install.png" />
+<div class="figure" style="width: 1368px; height: auto; max-width: 100%;">
+<img alt="Installing the extension" src="https://virantha.github.io/images/moneydance/install.png" style="width: 1368px; height: auto; max-width: 100%;"/>
 </div>
 <p>If all goes well, in the <tt class="docutils literal">Extensions</tt> menu you will see a new item called <tt class="docutils literal">Test popup</tt>.  If you select this, then the sample
 code will run and generate the popup.</p>
 </div>
 <div class="section" id="importing-python-files">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Importing Python files</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Importing Python files</a></h2>
 <p>If you want to import code from another local file, you need to append the location of your script to sys.path before doing the import in your top-level script:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span> <span class="ow">and</span> <span class="n">__package__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span> <span class="ow">and</span> <span class="n">__package__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">search_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">search_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">search_path</span><span class="p">)</span>
@@ -216,7 +220,7 @@ your module right after the import:</p>
 code into multiple files.</p>
 </div>
 <div class="section" id="import-jar-files">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Import JAR files</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Import JAR files</a></h2>
 <p>This took me a long time to figure out.  If
 you need to use a third-party Java library supplied as a JAR, I've so far found
 two ways to do this:</p>
@@ -235,30 +239,30 @@ example, I was trying to use a third-party Swing layout library called
 <a class="reference external" href="http://www.miglayout.com">MigLayout</a>).  You can read more about this <a class="reference external" href="http://stackoverflow.com/questions/3015059/jython-classpath-sys-path-and-jdbc-drivers">here</a>,
 but here's the code you need to insert at the top of your script.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">loadJar</span><span class="p">(</span><span class="n">jarFile</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;load a jar at runtime using the system Classloader (needed for JDBC)</span>
+<span class="w">        </span><span class="sd">'''load a jar at runtime using the system Classloader (needed for JDBC)</span>
 <span class="sd">        adapted from http://forum.java.sun.com/thread.jspa?threadID=300557</span>
 <span class="sd">        Author: Steve (SG) Langer Jan 2007 translated the above Java to Jython</span>
 <span class="sd">        Reference: https://wiki.python.org/jython/JythonMonthly/Articles/January2007/3</span>
 <span class="sd">        Author: seansummers@gmail.com simplified and updated for jython-2.5.3b3+</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        '''</span>
         <span class="kn">from</span> <span class="nn">java</span> <span class="kn">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">lang</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">jarFile</span><span class="p">)</span><span class="o">.</span><span class="n">toURL</span><span class="p">()</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">jarFile</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="n">net</span><span class="o">.</span><span class="n">URL</span> <span class="k">else</span> <span class="n">jarFile</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">URLClassLoader</span><span class="o">.</span><span class="n">getDeclaredMethod</span><span class="p">(</span><span class="s1">&#39;addURL&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">net</span><span class="o">.</span><span class="n">URL</span><span class="p">])</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">URLClassLoader</span><span class="o">.</span><span class="n">getDeclaredMethod</span><span class="p">(</span><span class="s1">'addURL'</span><span class="p">,</span> <span class="p">[</span><span class="n">net</span><span class="o">.</span><span class="n">URL</span><span class="p">])</span>
         <span class="n">m</span><span class="o">.</span><span class="n">accessible</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">m</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">lang</span><span class="o">.</span><span class="n">ClassLoader</span><span class="o">.</span><span class="n">getSystemClassLoader</span><span class="p">(),</span> <span class="p">[</span><span class="n">u</span><span class="p">])</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span> <span class="ow">and</span> <span class="n">__package__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span> <span class="ow">and</span> <span class="n">__package__</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">search_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
-        <span class="n">loadJar</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">search_path</span><span class="p">,</span> <span class="s1">&#39;miglayout.jar&#39;</span><span class="p">))</span>
+        <span class="n">loadJar</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">search_path</span><span class="p">,</span> <span class="s1">'miglayout.jar'</span><span class="p">))</span>
 
 <span class="kn">from</span> <span class="nn">java</span> <span class="kn">import</span> <span class="n">lang</span>
-<span class="n">MigLayout</span> <span class="o">=</span> <span class="n">lang</span><span class="o">.</span><span class="n">Class</span><span class="o">.</span><span class="n">forName</span><span class="p">(</span><span class="s1">&#39;net.miginfocom.swing.MigLayout&#39;</span><span class="p">)</span>
+<span class="n">MigLayout</span> <span class="o">=</span> <span class="n">lang</span><span class="o">.</span><span class="n">Class</span><span class="o">.</span><span class="n">forName</span><span class="p">(</span><span class="s1">'net.miginfocom.swing.MigLayout'</span><span class="p">)</span>
 </pre></div>
 <p>Now, the MigLayout class is available for use just like an import.  Note that this assumes the
 .jar file is in the same location as your top-level script (<tt class="docutils literal">search_path</tt>)</p>
 </div>
 <div class="section" id="persisting-data-in-your-secure-moneydance-file">
-<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Persisting data in your secure moneydance file</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">4   Persisting data in your secure moneydance file</a></h2>
 <p>If your extension needs to persist or save data to a file between sessions, there's an easy way
 to do it through Moneydance's <tt class="docutils literal">LocalStorage</tt> API.  This basically gives you programmatic access
 to the currently open and encrypted .moneydance file that stores your user information, providing
@@ -269,19 +273,19 @@ a secure place to store things like passwords and pins.</p>
 <span class="kn">from</span> <span class="nn">java.io</span> <span class="kn">import</span> <span class="n">FileNotFoundException</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 
-<span class="n">my_data_object</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;anything&#39;</span><span class="p">:</span> <span class="s1">&#39;whatever&#39;</span><span class="p">}</span>
+<span class="n">my_data_object</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'anything'</span><span class="p">:</span> <span class="s1">'whatever'</span><span class="p">}</span>
 <span class="n">root_account</span> <span class="o">=</span> <span class="n">moneydance</span><span class="o">.</span><span class="n">getRootAccount</span><span class="p">()</span>
 <span class="n">local_storage</span> <span class="o">=</span> <span class="n">root_account</span><span class="o">.</span><span class="n">getBook</span><span class="p">()</span><span class="o">.</span><span class="n">getLocalStorage</span><span class="p">()</span>
 
 <span class="c1"># Save a file</span>
-<span class="n">ostr</span> <span class="o">=</span> <span class="n">local_storage</span><span class="o">.</span><span class="n">openFileForWriting</span><span class="p">(</span><span class="s1">&#39;test.pickle&#39;</span><span class="p">)</span>
+<span class="n">ostr</span> <span class="o">=</span> <span class="n">local_storage</span><span class="o">.</span><span class="n">openFileForWriting</span><span class="p">(</span><span class="s1">'test.pickle'</span><span class="p">)</span>
 <span class="n">save_file</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">ostr</span><span class="p">)</span>
 <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_data_object</span><span class="p">,</span> <span class="n">save_file</span><span class="p">)</span>
 <span class="n">save_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="c1"># Open the file</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">istr</span> <span class="o">=</span> <span class="n">local_storage</span><span class="o">.</span><span class="n">openFileForReading</span><span class="p">(</span><span class="s1">&#39;test.pickle&#39;</span><span class="p">)</span>
+    <span class="n">istr</span> <span class="o">=</span> <span class="n">local_storage</span><span class="o">.</span><span class="n">openFileForReading</span><span class="p">(</span><span class="s1">'test.pickle'</span><span class="p">)</span>
     <span class="n">load_file</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">istr</span><span class="p">)</span>
     <span class="n">my_data_object</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_file</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">FileNotFoundException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -291,7 +295,7 @@ a secure place to store things like passwords and pins.</p>
 </pre></div>
 </div>
 <div class="section" id="bundling-python-into-a-moneydance-java-extension">
-<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Bundling Python into a Moneydance Java Extension</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">5   Bundling Python into a Moneydance Java Extension</a></h2>
 <p>One thing you may notice is that installing Python extensions in this way only
 keeps your extension around while Moneydance is running.  If you quit and
 restart, then you have to reinstall the extension, which is probably a current
@@ -301,7 +305,7 @@ Java (including <a class="reference external" href="http://blog.smartbear.com/pr
 standard Moneydance .mxt extension and deploy it through the regular (and
 persistent) extension manager.</p>
 <div class="section" id="install-the-developer-kit">
-<h3><a class="toc-backref" href="#toc-entry-6">5.1&nbsp;&nbsp;&nbsp;Install the Developer Kit</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-6">5.1   Install the Developer Kit</a></h3>
 <p>These instructions assume you're able to get the Java extension development kit
 downloaded and running.  The example found <a class="reference external" href="http://infinitekind.com/developer">on the Developer page</a> under 'Download Developer's Kit' is quite
 easy to get running.  All you need is the JDK and the Ant build system (if
@@ -327,7 +331,7 @@ pop up a list of your accounts.</p>
 modify it slightly as discussed in the following to allow Python extensions.</p>
 </div>
 <div class="section" id="download-the-jython-standalone-jar">
-<h3><a class="toc-backref" href="#toc-entry-7">5.2&nbsp;&nbsp;&nbsp;Download the Jython Standalone .jar</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-7">5.2   Download the Jython Standalone .jar</a></h3>
 <p>In order to build extensions with Python, we need to add the Jython runtime to
 each extension (since it's currently not bundled with Moneydance).  Go to
 <a class="reference external" href="http://www.jython.org/downloads.html">the Jython downloads page</a> and get the
@@ -335,7 +339,7 @@ each extension (since it's currently not bundled with Moneydance).  Go to
 directory.</p>
 </div>
 <div class="section" id="modify-build-xml">
-<h3><a class="toc-backref" href="#toc-entry-8">5.3&nbsp;&nbsp;&nbsp;Modify build.xml</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-8">5.3   Modify build.xml</a></h3>
 <p>We're going to slightly modify the supplied build.xml as shown below:</p>
 <p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=build.xml]</p>
 <p>First, around line 26 we add our <tt class="docutils literal">jython.jar</tt> include, and then we add a python
@@ -345,7 +349,7 @@ the extension in the next section.</p>
 <p>Go ahead and replace your build.xml with this file.</p>
 </div>
 <div class="section" id="modify-main-java">
-<h3><a class="toc-backref" href="#toc-entry-9">5.4&nbsp;&nbsp;&nbsp;Modify Main.java</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-9">5.4   Modify Main.java</a></h3>
 <p>Now, we'll modify the main Java file for the extension to support arbitrary
 Python extensions like so:</p>
 <p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=Main.java]</p>
@@ -376,7 +380,7 @@ command) to our Python extension.</li>
 <p>That's it!</p>
 </div>
 <div class="section" id="python-extension">
-<h3><a class="toc-backref" href="#toc-entry-10">5.5&nbsp;&nbsp;&nbsp;Python extension</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-10">5.5   Python extension</a></h3>
 <p>The Python extension is hardly changed from the original that we discussed above:</p>
 <p>[gist:id=4464c7be4dc40cfe66dc3658059cdc31,file=pyextension.py]</p>
 <p>The only change is I added a parameter to the <tt class="docutils literal">initialize</tt> method called <em>from_java</em>, which if set to True, will prevent
@@ -386,7 +390,7 @@ just compile the java extension for deployment.</p>
 <p>Just put this file in <tt class="docutils literal">src/com/moneydance/modules/features/myextension/python</tt> (new python subdirectory).</p>
 </div>
 <div class="section" id="compiling">
-<h3><a class="toc-backref" href="#toc-entry-11">5.6&nbsp;&nbsp;&nbsp;Compiling</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-11">5.6   Compiling</a></h3>
 <p>Just run <tt class="docutils literal">ant myextension</tt> again from your <tt class="docutils literal">src</tt> directory and this should rebuild the extension.  And there you go, a Python extension bundled into a .mxt file that can
 be installed inside Moneydance permanently!</p>
 </div>

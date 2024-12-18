@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Blog | Virantha Namal Ekanayake  </title>
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -122,180 +126,66 @@ Blog | Virantha Namal Ekanayake  </title>
     </header>
 
 <article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>23 <span>Jul</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/">PyPDFOCR - Guide to Usage</a>
-    </h1>
+  <div class="article_text page_text">
+            <div class='recent-articles'>
+            <div class='title_box'>List of posts</div>
+                <div class='date-recent'> 07/23/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/07/23/pypdfocr-a-python-script-for-running-free-ocr-on-your-pdfs/" title="Permalink to PyPDFOCR - Guide to Usage"> 
+                    PyPDFOCR - Guide to Usage 
+                    </a>
+                </div>
+                <div class='date-recent'> 07/22/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/" title="Permalink to PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract"> 
+                    PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract 
+                    </a>
+                </div>
+                <div class='date-recent'> 07/3/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/07/03/bluetooth-headset-with-dedicated-mute-button/" title="Permalink to Bluetooth headset with dedicated mute button"> 
+                    Bluetooth headset with dedicated mute button 
+                    </a>
+                </div>
+                <div class='date-recent'> 04/20/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/04/20/python-auto-sort-of-ocred-pdfs/" title="Permalink to Python auto sort of OCR'ed PDFs"> 
+                    Python auto sort of OCR'ed PDFs 
+                    </a>
+                </div>
+                <div class='date-recent'> 03/1/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/03/01/better-vim-for-python/" title="Permalink to Better VIM for Python"> 
+                    Better VIM for Python 
+                    </a>
+                </div>
+                <div class='date-recent'> 01/13/13 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/" title="Permalink to Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005"> 
+                    Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005 
+                    </a>
+                </div>
+                <div class='date-recent'> 11/2/12 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2012/11/02/class-based-decorators-in-python/" title="Permalink to Class-based decorators in Python"> 
+                    Class-based decorators in Python 
+                    </a>
+                </div>
+                <div class='date-recent'> 10/25/12 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2012/10/25/getting-rid-of-paper-clutter/" title="Permalink to Getting rid of paper clutter"> 
+                    Getting rid of paper clutter 
+                    </a>
+                </div>
+                <div class='date-recent'> 10/23/12 </div>
+                <div class='title-recent'> 
+                   <a href="https://virantha.github.io/2012/10/23/using-calibre-to-manage-my-e-books/" title="Permalink to Using Calibre to manage my e-books"> 
+                    Using Calibre to manage my e-books 
+                    </a>
+                </div>
+            </div>
   </div>
-  <div class="article_text">
-    <ul class="simple">
-<li>Take a scanned PDF file and run OCR on it (using the Tesseract OCR
-software from Google), generating a searchable PDF</li>
-<li>Optionally, watch a folder for incoming scanned PDFs and
-automatically run OCR on them</li>
-<li>Optionally, file the scanned PDFs into directories based on simple
-keyword matching that you specify …</li></ul>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>22 <span>Jul</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/07/22/pyocr-a-python-script-for-running-free-ocr-on-your-pdfs/">PyPDFOCR - A Python Script for Free OCR on Your PDFs using Tesseract</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <div class="figure align-right">
-<img alt="skip_better dictionary" src="/images/2013/dictionary_scaled.jpeg" style="width: 250px;" />
-</div>
-<p>Updates:</p>
-<blockquote>
-<ul class="simple">
-<li>Anytime -&nbsp;<a class="reference external" href="http://virantha.github.io/pypdfocr/html/">Get the latest updates on PyPDFOCR</a></li>
-<li>10/28/13 - Adds uploading to Evernote notebooks based on
-keywords!</li>
-<li>10/25/13 - Supports filing to directories based on keyword search</li>
-<li>10/22/13 - Now on PyPI, so you can just do &quot;pip install
-pypdfocr&quot;! (For windows, I still recommend downloading …</li></ul></blockquote>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>03 <span>Jul</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/07/03/bluetooth-headset-with-dedicated-mute-button/">Bluetooth headset with dedicated mute button</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>I typically spend several hours a day on conference calls, and I really
-miss my old blackberry that used to have a dedicated mute button. The
-iPhone touch button on the phone screen is just not quick enough to
-quickly jump in and out of a meeting in a noisy …</p>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>20 <span>Apr</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/04/20/python-auto-sort-of-ocred-pdfs/">Python auto sort of OCR'ed PDFs</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>I'd <a class="reference external" href="http://virantha.com/2012/10/25/getting-rid-of-paper-clutter/">previously written about</a> how I was using a <a class="amazon" href="http://www.amazon.com/gp/product/B00ATZ9QMO?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Fujitsu ScanSnap 1500</a> to reduce paper clutter
-and move to a paperless workflow at home.  So far, this system has been
-working great for me, with every scanned document getting OCR'ed and
-uploaded to my default Evernote notebook as a searchable …</p>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>01 <span>Mar</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/03/01/better-vim-for-python/">Better VIM for Python</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>As someone who spends a large fraction of their day editing text and
-code, I've often thought about just investing a few days learning the
-more advanced time-saving features of my text-editor, VIM.
-Unfortunately, &quot;a few days&quot; just doesn't happen, and the few times I did
-learn some new tips …</p>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>13 <span>Jan</span></p>
-        </div>
-        <a href="https://virantha.github.io/2013/01/13/replacing-the-upstream-oxygen-o2-sensor-in-a-honda-civic-2005/">Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>This is not quite my normal tech post, but I thought this might help
-other folks needing to change the O2 sensor in this particular model.
-There's some conflicting and incomplete information out on the web for
-this relatively simple task, so hopefully this will clarify things a
-bit.</p>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title"><a class="reference internal" href="#top">Table …</a></p></div>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>02 <span>Nov</span></p>
-        </div>
-        <a href="https://virantha.github.io/2012/11/02/class-based-decorators-in-python/">Class-based decorators in Python</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>I recently started using decorators in python (2.7) to clean up some
-existing code, and one big hurdle I had to surmount was the dearth of
-accurate information on using class-based decorators. The few examples I
-found were quite buggy, and it seemed that most people did not use …</p>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>25 <span>Oct</span></p>
-        </div>
-        <a href="https://virantha.github.io/2012/10/25/getting-rid-of-paper-clutter/">Getting rid of paper clutter</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A lot of this information is deprecated now.  Please see my PyPDFOCR
-package for how I do everything described in this article</p>
-</div>
-<div class="figure align-right" style="width: 50%">
-<img alt="skip_better Picture" src="/images/2012/picture2life_05067_original.jpg" style="width: 90%;" />
-</div>
-<p>I've tried to go paperless for a long time now, but the overhead of
-starting my laptop, scanning, importing, and the filing in a folder
-always made …</p>
-  </div>
-</article>
-<hr />
-<article>
-    <h1>
-    <div class="article_title">
-        <div class="date">
-            <p>23 <span>Oct</span></p>
-        </div>
-        <a href="https://virantha.github.io/2012/10/23/using-calibre-to-manage-my-e-books/">Using Calibre to manage my e-books</a>
-    </h1>
-  </div>
-  <div class="article_text">
-    <p>I decided to start using <a class="reference external" href="http://calibre-ebook.com/">Calibre</a>as my main ebook management
-program. &nbsp;I've been using it for online content from publications like
-the Economist and The New Yorker for a while now, but it's become
-increasingly difficult to manage my entire e-book library, having
-acquired several hundred books from Amazon …</p>
-  </div>
-</article>
+  </article>
 
 
 <footer style="clear:both;">

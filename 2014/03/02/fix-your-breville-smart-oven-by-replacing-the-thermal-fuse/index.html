@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Fix your Breville Smart Oven by replacing the thermal fuse | Virantha Namal Ekan
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -141,8 +145,8 @@ on Sun 02 March 2014 </p>
     <h1><a href="https://virantha.github.io/2014/03/02/fix-your-breville-smart-oven-by-replacing-the-thermal-fuse/" class="nohover">Fix your Breville Smart Oven by replacing the thermal fuse</a></h1>
   </div>
   <div class="article_text">
-    <div class="figure align-right">
-<img alt="Breville Smart Oven BOV 450XL" src="/images/2014/breville/breville.jpg" />
+    <div class="figure align-right" style="width: 256px; height: auto; max-width: 100%;">
+<img alt="Breville Smart Oven BOV 450XL" src="/images/2014/breville/breville.jpg" style="width: 256px; height: auto; max-width: 100%;"/>
 </div>
 <p>In this post, I'll dicuss how I was able to quickly and inexpensively replace
 the thermal fuse on our Breville digital toaster oven.  There were a few
@@ -168,15 +172,15 @@ misuse of this information.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#background" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></li>
-<li><a class="reference internal" href="#fixing-the-fuse" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Fixing the fuse</a><ul class="auto-toc">
-<li><a class="reference internal" href="#tools-requireed" id="toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Tools requireed</a></li>
-<li><a class="reference internal" href="#replacement-fuse" id="toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Replacement fuse</a></li>
-<li><a class="reference internal" href="#replacement-procedure" id="toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Replacement procedure</a><ul class="auto-toc">
-<li><a class="reference internal" href="#remove-screws" id="toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Remove screws</a></li>
-<li><a class="reference internal" href="#pry-open-back-panel" id="toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Pry open back panel</a></li>
-<li><a class="reference internal" href="#disassemble-fuse-assembly-bracket" id="toc-entry-8">2.3.3&nbsp;&nbsp;&nbsp;Disassemble fuse assembly bracket</a></li>
-<li><a class="reference internal" href="#replace-fuse-in-assembly" id="toc-entry-9">2.3.4&nbsp;&nbsp;&nbsp;Replace fuse in assembly</a></li>
+<li><a class="reference internal" href="#background" id="toc-entry-1">1   Background</a></li>
+<li><a class="reference internal" href="#fixing-the-fuse" id="toc-entry-2">2   Fixing the fuse</a><ul class="auto-toc">
+<li><a class="reference internal" href="#tools-requireed" id="toc-entry-3">2.1   Tools requireed</a></li>
+<li><a class="reference internal" href="#replacement-fuse" id="toc-entry-4">2.2   Replacement fuse</a></li>
+<li><a class="reference internal" href="#replacement-procedure" id="toc-entry-5">2.3   Replacement procedure</a><ul class="auto-toc">
+<li><a class="reference internal" href="#remove-screws" id="toc-entry-6">2.3.1   Remove screws</a></li>
+<li><a class="reference internal" href="#pry-open-back-panel" id="toc-entry-7">2.3.2   Pry open back panel</a></li>
+<li><a class="reference internal" href="#disassemble-fuse-assembly-bracket" id="toc-entry-8">2.3.3   Disassemble fuse assembly bracket</a></li>
+<li><a class="reference internal" href="#replace-fuse-in-assembly" id="toc-entry-9">2.3.4   Replace fuse in assembly</a></li>
 </ul>
 </li>
 </ul>
@@ -184,7 +188,7 @@ misuse of this information.</p>
 </ul>
 </div>
 <div class="section" id="background">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Background</a></h2>
 <p>A little more than 4 months after our purchase, with light duty of
 ~2-3 cycles of toasting bread every day, the Breville just refused to power on one day.
 After verifying there was no cord/outlet issue, I did some google searches and
@@ -197,20 +201,20 @@ seemed like a common failure mode.</p>
 <a class="reference external" href="http://www.fixya.com/support/t11821265-breville_bov650xl_will_not_power">post where someone replaced the 650XL fuse</a></p>
 </div>
 <div class="section" id="fixing-the-fuse">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Fixing the fuse</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Fixing the fuse</a></h2>
 <div class="section" id="tools-requireed">
-<h3><a class="toc-backref" href="#toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Tools requireed</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-3">2.1   Tools requireed</a></h3>
 <ul class="simple">
 <li>Philips screwdriver</li>
-<li><a class="amazon" href="http://www.amazon.com/gp/product/B00FZPDG1K?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Wire cutters</a></li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00FZPDG1K?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Wire cutters</a></li>
 <li>Plastic pry tool</li>
-<li><a class="amazon" href="http://www.amazon.com/gp/product/B0002STTSY?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Crimp tool</a> (best) or needle-nose pliers (acceptable)</li>
-<li><a class="amazon" href="http://www.amazon.com/gp/product/B00F0CF5SA?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Crimp terminals</a></li>
-<li><a class="amazon" href="http://www.amazon.com/gp/product/B000EVYGZA?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">Digital multimeter</a> or continuity checker (nice-to-have)</li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B0002STTSY?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Crimp tool</a> (best) or needle-nose pliers (acceptable)</li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B00F0CF5SA?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Crimp terminals</a></li>
+<li><a class="amazon" href="http://www.amazon.com/gp/product/B000EVYGZA?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">Digital multimeter</a> or continuity checker (nice-to-have)</li>
 </ul>
 </div>
 <div class="section" id="replacement-fuse">
-<h3><a class="toc-backref" href="#toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Replacement fuse</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">2.2   Replacement fuse</a></h3>
 <p>There are two options to getting a replacement part:</p>
 <ol class="arabic">
 <li><p class="first">Get the entire fuse assembly (basically a long wire with a heat-resistant wrap, plus a thermal fuse and mounting bracket) for ~$5 plus shipping:</p>
@@ -226,7 +230,7 @@ Amazon.com:</p>
 <ul>
 <li><p class="first"><a class="reference external" href="http://www.radioshack.com/product/index.jsp?productId=2102788">Radio Shack</a> - 443F 10A-rated fuse.</p>
 </li>
-<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B0087ZRIAA/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B0087ZRIAA&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B0087ZRIAA.01._SCMZZZZZZZ_.jpg"/>Metal TF 216 Celsius Cutoff Fuse</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B0087ZRIAA/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0087ZRIAA&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B0087ZRIAA.01._SCMZZZZZZZ_.jpg"/>Metal TF 216 Celsius Cutoff Fuse</a></div></div></li>
 </ul>
 </blockquote>
 <p>The latter is an exact temperature replacement for the 420F fuse in my 450XL, while
@@ -236,33 +240,33 @@ in the store.  You will also need some <a class="reference external" href="http:
 </ol>
 </div>
 <div class="section" id="replacement-procedure">
-<h3><a class="toc-backref" href="#toc-entry-5">2.3&nbsp;&nbsp;&nbsp;Replacement procedure</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-5">2.3   Replacement procedure</a></h3>
 <div class="section" id="remove-screws">
-<h4><a class="toc-backref" href="#toc-entry-6">2.3.1&nbsp;&nbsp;&nbsp;Remove screws</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-6">2.3.1   Remove screws</a></h4>
 <p>Make sure your oven is unplugged, place it front panel down on a counter, so you can get
 easy access to the screws in the back.  Remove all of them ~2 dozen, as shown in the
 picture below:</p>
-<div class="figure">
-<img alt="back" src="/images/2014/breville/breville_back.jpg" />
+<div class="figure" style="width: 675px; height: auto; max-width: 100%;">
+<img alt="back" src="/images/2014/breville/breville_back.jpg" style="width: 675px; height: auto; max-width: 100%;"/>
 </div>
 <p>Next, remove all the screws on the bottom feet of the oven, as well as two screws on the bottom sides. (sorry, no picture here)  Remove the plastic feet from the front.  I could not
 figure out a way to remove the rear feet as there appeared to be a rivet holding
 them in place, but YMMV.</p>
 </div>
 <div class="section" id="pry-open-back-panel">
-<h4><a class="toc-backref" href="#toc-entry-7">2.3.2&nbsp;&nbsp;&nbsp;Pry open back panel</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-7">2.3.2   Pry open back panel</a></h4>
 <p>Slowly slide the back panel down and to the right, without snapping off the feet in the process (maybe there's a better way to do this, but all you need is access to the left
 side of the oven where the power cord goes into the fuse).</p>
-<div class="figure">
-<img alt="open" src="/images/2014/breville/breville_open.jpg" />
+<div class="figure" style="width: 675px; height: auto; max-width: 100%;">
+<img alt="open" src="/images/2014/breville/breville_open.jpg" style="width: 675px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="disassemble-fuse-assembly-bracket">
-<h4><a class="toc-backref" href="#toc-entry-8">2.3.3&nbsp;&nbsp;&nbsp;Disassemble fuse assembly bracket</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-8">2.3.3   Disassemble fuse assembly bracket</a></h4>
 <p>The white assembly is on the left side, and you'll need to remove two phillips screws to
 disengage from the inner oven wall.  Pull it out of the bracket as shown below:</p>
-<div class="figure">
-<img alt="open" src="/images/2014/breville/breville_bracket.jpg" />
+<div class="figure" style="width: 675px; height: auto; max-width: 100%;">
+<img alt="open" src="/images/2014/breville/breville_bracket.jpg" style="width: 675px; height: auto; max-width: 100%;"/>
 </div>
 <p>At this point, it's probably a good idea to use a multi-meter and test for lack of
 continuity across the two ends of the wired assembly, to verify that the fuse is in fact
@@ -271,10 +275,10 @@ blown.</p>
 replace just the fuse in the next section.</p>
 </div>
 <div class="section" id="replace-fuse-in-assembly">
-<h4><a class="toc-backref" href="#toc-entry-9">2.3.4&nbsp;&nbsp;&nbsp;Replace fuse in assembly</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-9">2.3.4   Replace fuse in assembly</a></h4>
 <p>If you slide back the white plastic sheath, you'll see the thermal fuse underneath:</p>
-<div class="figure">
-<img alt="fuse" src="/images/2014/breville/breville_fuse.jpg" />
+<div class="figure" style="width: 675px; height: auto; max-width: 100%;">
+<img alt="fuse" src="/images/2014/breville/breville_fuse.jpg" style="width: 675px; height: auto; max-width: 100%;"/>
 </div>
 <p>Now, just cut off the old fuse with the crimp connectors on either side, making
 sure to remember which side is marked black, and connect your new fuse with

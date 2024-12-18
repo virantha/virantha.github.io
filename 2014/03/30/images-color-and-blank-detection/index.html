@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Detecting color vs greyscale and blank pages during scanning | Virantha Namal Ek
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -142,7 +146,7 @@ on Sun 30 March 2014 </p>
   </div>
   <div class="article_text">
     <p>Recently, I <a class="reference external" href="http://virantha.com/category/scanpdf.html">needed</a> a way to detect if a color scanned image was actually color or just contained greyscale/BW
-content.  I also wanted to detect if an image was &quot;blank&quot;, or just a continuous shade of one color.  I couldn't
+content.  I also wanted to detect if an image was "blank", or just a continuous shade of one color.  I couldn't
 really find a simple solution on the web, so I pieced together my own using ImageMagick, as described below.  I
 am not an image processing person by any means, but these quick hacks worked well in practice for my needs.</p>
 <div class="section" id="detecting-color-vs-greyscale">
@@ -195,17 +199,17 @@ convert IMAGE -colors 8 -depth 8 -format %c histogram:info:-
 </pre>
 <p>And here's my python code for parsing it (you can find this being used in <a class="reference external" href="https://github.com/virantha/scanpdf/blob/master/scanpdf/scanpdf.py">scanpdf</a>).  Note that I just use all
 the colors instead of limiting it to the top N.</p>
-<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;convert </span><span class="si">%s</span><span class="s2"> -colors 8 -depth 8 -format </span><span class="si">%%</span><span class="s2">c histogram:info:-&quot;</span> <span class="o">%</span> <span class="n">filename</span>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="s2">"convert </span><span class="si">%s</span><span class="s2"> -colors 8 -depth 8 -format </span><span class="si">%%</span><span class="s2">c histogram:info:-"</span> <span class="o">%</span> <span class="n">filename</span>
 <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<span class="n">mLine</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;\s*(?P&lt;count&gt;\d+):\s*\(\s*(?P&lt;R&gt;\d+),\s*(?P&lt;G&gt;\d+),\s*(?P&lt;B&gt;\d+).+&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">mLine</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"""\s*(?P&lt;count&gt;\d+):\s*\(\s*(?P&lt;R&gt;\d+),\s*(?P&lt;G&gt;\d+),\s*(?P&lt;B&gt;\d+).+"""</span><span class="p">)</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">out</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
     <span class="n">matchLine</span> <span class="o">=</span> <span class="n">mLine</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">matchLine</span><span class="p">:</span>
-        <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">),</span>
-                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">),</span>
-                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">),</span>
-                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">),</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'count'</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'R'</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'G'</span><span class="p">),</span>
+                     <span class="n">matchLine</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'B'</span><span class="p">),</span>
                      <span class="p">)</span>
                 <span class="p">]</span>
         <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
@@ -230,7 +234,7 @@ the colors instead of limiting it to the top N.</p>
 <p>For this, I originally started off with <a class="reference external" href="http://dave.frop.net/blank_page_detection_command_line_imagemagick">post</a>
 and used the following command line:</p>
 <pre class="literal-block">
-convert %s -shave 1%x1%  -format &quot;%[fx:mean]&quot; info:
+convert %s -shave 1%x1%  -format "%[fx:mean]" info:
 </pre>
 <p>For a BW image (with one channel), This returns the average white value after
 trimming off the edges of the image. So if the percentage is &gt;0.97, I would say
@@ -244,13 +248,13 @@ just look at the standard deviation of each channel and if it's higher than a
 threshold, I mark it as a non-blank page.  I use the ImageMagick <tt class="docutils literal">identify
 <span class="pre">-verbose</span></tt> tool to get this value:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_blank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;identify -verbose </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">filename</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="s1">'identify -verbose </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="n">filename</span>
     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">mStdDev</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;\s*standard deviation:\s*\d+\.\d+\s*\((?P&lt;percent&gt;\d+\.\d+)\).*&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="n">mStdDev</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"""\s*standard deviation:\s*\d+\.\d+\s*\((?P&lt;percent&gt;\d+\.\d+)\).*"""</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
         <span class="n">match</span> <span class="o">=</span> <span class="n">mStdDev</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
-            <span class="n">stdev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;percent&#39;</span><span class="p">))</span>
+            <span class="n">stdev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'percent'</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">stdev</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="kc">True</span>

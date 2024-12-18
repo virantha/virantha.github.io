@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Example of how to authenticate using Oauth2 in Ember.js using Implicit Grant (cl
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -151,47 +155,47 @@ whole authentication infrastructure will stay on the client.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#what-we-re-building" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;What we're building</a></li>
-<li><a class="reference internal" href="#getting-the-code-and-running-it" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Getting the code and running it</a><ul class="auto-toc">
-<li><a class="reference internal" href="#pre-requisites" id="toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Pre-requisites</a></li>
-<li><a class="reference internal" href="#source-code" id="toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Source code</a></li>
+<li><a class="reference internal" href="#what-we-re-building" id="toc-entry-1">1   What we're building</a></li>
+<li><a class="reference internal" href="#getting-the-code-and-running-it" id="toc-entry-2">2   Getting the code and running it</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pre-requisites" id="toc-entry-3">2.1   Pre-requisites</a></li>
+<li><a class="reference internal" href="#source-code" id="toc-entry-4">2.2   Source code</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#code-discussion" id="toc-entry-5">3&nbsp;&nbsp;&nbsp;Code discussion</a><ul class="auto-toc">
-<li><a class="reference internal" href="#ember-index-html" id="toc-entry-6">3.1&nbsp;&nbsp;&nbsp;Ember index.html</a></li>
-<li><a class="reference internal" href="#ember-app-js" id="toc-entry-7">3.2&nbsp;&nbsp;&nbsp;Ember app.js</a><ul class="auto-toc">
-<li><a class="reference internal" href="#initialize" id="toc-entry-8">3.2.1&nbsp;&nbsp;&nbsp;Initialize</a></li>
-<li><a class="reference internal" href="#define-routes" id="toc-entry-9">3.2.2&nbsp;&nbsp;&nbsp;Define routes</a></li>
-<li><a class="reference internal" href="#simpleauth-boiler-plate" id="toc-entry-10">3.2.3&nbsp;&nbsp;&nbsp;SimpleAuth boiler-plate</a></li>
-<li><a class="reference internal" href="#oauth2-authenticator" id="toc-entry-11">3.2.4&nbsp;&nbsp;&nbsp;Oauth2 Authenticator</a></li>
+<li><a class="reference internal" href="#code-discussion" id="toc-entry-5">3   Code discussion</a><ul class="auto-toc">
+<li><a class="reference internal" href="#ember-index-html" id="toc-entry-6">3.1   Ember index.html</a></li>
+<li><a class="reference internal" href="#ember-app-js" id="toc-entry-7">3.2   Ember app.js</a><ul class="auto-toc">
+<li><a class="reference internal" href="#initialize" id="toc-entry-8">3.2.1   Initialize</a></li>
+<li><a class="reference internal" href="#define-routes" id="toc-entry-9">3.2.2   Define routes</a></li>
+<li><a class="reference internal" href="#simpleauth-boiler-plate" id="toc-entry-10">3.2.3   SimpleAuth boiler-plate</a></li>
+<li><a class="reference internal" href="#oauth2-authenticator" id="toc-entry-11">3.2.4   Oauth2 Authenticator</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#summary" id="toc-entry-12">3.3&nbsp;&nbsp;&nbsp;Summary</a></li>
+<li><a class="reference internal" href="#summary" id="toc-entry-12">3.3   Summary</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="what-we-re-building">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;What we're building</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   What we're building</a></h2>
 <p>I'm going to use a toy example that displays a list of events to an authenticated user.
 When you first go to the app, it will show you nothing:</p>
-<div class="figure">
-<img alt="Logged out view" src="/images/2014/ember-oauth/loggedout.jpg" />
+<div class="figure" style="width: 789px; height: auto; max-width: 100%;">
+<img alt="Logged out view" src="/images/2014/ember-oauth/loggedout.jpg" style="width: 789px; height: auto; max-width: 100%;"/>
 </div>
 <p>Any attempt to access it without being authenticated will redirect to the login
 page, which will pop-up a window to enter your Google credentials.</p>
-<div class="figure">
-<img alt="Login page" src="/images/2014/ember-oauth/login_page.jpg" />
+<div class="figure" style="width: 789px; height: auto; max-width: 100%;">
+<img alt="Login page" src="/images/2014/ember-oauth/login_page.jpg" style="width: 789px; height: auto; max-width: 100%;"/>
 </div>
 <p>Once the credentials are entered succesfully, the app will automatically redirect to your events list.</p>
-<div class="figure">
-<img alt="Logged in view" src="/images/2014/ember-oauth/loggedin.jpg" />
+<div class="figure" style="width: 789px; height: auto; max-width: 100%;">
+<img alt="Logged in view" src="/images/2014/ember-oauth/loggedin.jpg" style="width: 789px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="getting-the-code-and-running-it">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Getting the code and running it</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Getting the code and running it</a></h2>
 <div class="section" id="pre-requisites">
-<h3><a class="toc-backref" href="#toc-entry-3">2.1&nbsp;&nbsp;&nbsp;Pre-requisites</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-3">2.1   Pre-requisites</a></h3>
 <p>This method relies on a couple of great third-party extensions for Ember, which do all the heavy lifting
 in my example.</p>
 <ol class="arabic simple">
@@ -202,7 +206,7 @@ with Oauth2 services like Google or Facebook.</li>
 </ol>
 </div>
 <div class="section" id="source-code">
-<h3><a class="toc-backref" href="#toc-entry-4">2.2&nbsp;&nbsp;&nbsp;Source code</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">2.2   Source code</a></h3>
 <p>You can find the source on <a class="reference external" href="https://github.com/virantha/ember-oauth-example">github</a>.  Just
 <cite>git clone</cite> this repository, and start a simple web server in that directory and you should be good
 to go.  For example, if you're on a Mac, you can just do:</p>
@@ -216,30 +220,30 @@ providing authentication tokens to localhost.</p>
 </div>
 </div>
 <div class="section" id="code-discussion">
-<h2><a class="toc-backref" href="#toc-entry-5">3&nbsp;&nbsp;&nbsp;Code discussion</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">3   Code discussion</a></h2>
 <div class="section" id="ember-index-html">
-<h3><a class="toc-backref" href="#toc-entry-6">3.1&nbsp;&nbsp;&nbsp;Ember index.html</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-6">3.1   Ember index.html</a></h3>
 <p>The html is pretty trivial, but here's a quick walk through:</p>
 <div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Events<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/x-handlebars&quot;</span><span class="p">&gt;</span>
-<span class="o">&lt;</span><span class="nx">nav</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;navbar navbar-default&quot;</span><span class="w"> </span><span class="nx">role</span><span class="o">=</span><span class="s2">&quot;navigation&quot;</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;container-fluid&quot;</span><span class="o">&gt;</span>
-<span class="w">            </span><span class="o">&lt;</span><span class="nx">ul</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;nav navbar-nav&quot;</span><span class="o">&gt;</span>
-<span class="w">                </span><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{{</span><span class="err">#</span><span class="nx">link</span><span class="o">-</span><span class="nx">to</span><span class="w"> </span><span class="s1">&#39;events&#39;</span><span class="p">}}</span><span class="nx">List</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">Events</span><span class="p">{{</span><span class="err">/link-to}}&lt;/li&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span><span class="p">&gt;</span>
+<span class="o">&lt;</span><span class="nx">nav</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"navbar navbar-default"</span><span class="w"> </span><span class="nx">role</span><span class="o">=</span><span class="s2">"navigation"</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"container-fluid"</span><span class="o">&gt;</span>
+<span class="w">            </span><span class="o">&lt;</span><span class="nx">ul</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"nav navbar-nav"</span><span class="o">&gt;</span>
+<span class="w">                </span><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{{</span><span class="err">#</span><span class="nx">link</span><span class="o">-</span><span class="nx">to</span><span class="w"> </span><span class="s1">'events'</span><span class="p">}}</span><span class="nx">List</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">Events</span><span class="p">{{</span><span class="err">/link-to}}&lt;/li&gt;</span>
 <span class="w">            </span><span class="o">&lt;</span><span class="err">/ul&gt;</span>
 <span class="w">                    </span><span class="p">{{</span><span class="err">#</span><span class="k">if</span><span class="w"> </span><span class="nx">session</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">}}</span>
-<span class="w">                        </span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="s1">&#39;invalidateSession&#39;</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;btn btn-danger navbar-btn navbar-left&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="nx">Logout</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
-<span class="w">                        </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s1">&#39;navbar-right&#39;</span><span class="o">&gt;</span><span class="nx">Logged</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">{{</span><span class="nx">session</span><span class="p">.</span><span class="nx">userFn</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="nx">session</span><span class="p">.</span><span class="nx">userLn</span><span class="p">}}</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/p</span>
+<span class="w">                        </span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="s1">'invalidateSession'</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn btn-danger navbar-btn navbar-left"</span><span class="w"> </span><span class="o">&gt;</span><span class="nx">Logout</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+<span class="w">                        </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s1">'navbar-right'</span><span class="o">&gt;</span><span class="nx">Logged</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">{{</span><span class="nx">session</span><span class="p">.</span><span class="nx">userFn</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="nx">session</span><span class="p">.</span><span class="nx">userLn</span><span class="p">}}</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/p</span>
 <span class="w">                    </span><span class="p">{{</span><span class="k">else</span><span class="p">}}</span>
-<span class="w">                        </span><span class="p">{{</span><span class="err">#</span><span class="nx">link</span><span class="o">-</span><span class="nx">to</span><span class="w"> </span><span class="s1">&#39;login&#39;</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;btn navbar-btn navbar-left&quot;</span><span class="w"> </span><span class="p">}}</span><span class="nx">Login</span><span class="p">{{</span><span class="err">/link-to}}</span>
+<span class="w">                        </span><span class="p">{{</span><span class="err">#</span><span class="nx">link</span><span class="o">-</span><span class="nx">to</span><span class="w"> </span><span class="s1">'login'</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn navbar-btn navbar-left"</span><span class="w"> </span><span class="p">}}</span><span class="nx">Login</span><span class="p">{{</span><span class="err">/link-to}}</span>
 <span class="w">                    </span><span class="p">{{</span><span class="err">/if}}</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
 <span class="o">&lt;</span><span class="err">/nav&gt;</span>
@@ -252,9 +256,9 @@ it has a conditional statement that checks if the session is authenticated. If i
 the logout button as well as some user information retrieved from Google after a successful
 authentication.  Otherwise, it just links to our Login route.</p>
 <p>Here's the next template that handles the listing of the Events:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/x-handlebars&quot;</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"events"</span><span class="p">&gt;</span>
 <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="o">&lt;</span><span class="nx">table</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;table table-striped table-bordered table-condensed&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">table</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"table table-striped table-bordered table-condensed"</span><span class="o">&gt;</span>
 <span class="w">        </span><span class="o">&lt;</span><span class="nx">thead</span><span class="o">&gt;</span>
 <span class="w">            </span><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
 <span class="w">                </span><span class="o">&lt;</span><span class="nx">th</span><span class="o">&gt;</span><span class="nb">Date</span><span class="o">&lt;</span><span class="err">/th&gt;</span>
@@ -278,16 +282,16 @@ array of events returned by the <tt class="docutils literal">EventsModel</tt> in
 event.  Nothing in this template has any reference to authentication; all the protecting is done
 in the app itself as we'll see shortly.</p>
 <p>Finally, we need a <tt class="docutils literal">Login</tt> template as shown below:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/x-handlebars&quot;</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">&quot;login&quot;</span><span class="p">&gt;</span>
-<span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;page-header&quot;</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/x-handlebars"</span> <span class="na">data-template-name</span><span class="o">=</span><span class="s">"login"</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"page-header"</span><span class="o">&gt;</span>
 <span class="w">      </span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Login</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
 <span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-<span class="w">      </span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="w"> </span><span class="p">{{</span><span class="nx">action</span><span class="w"> </span><span class="s2">&quot;authenticate&quot;</span><span class="p">}}</span><span class="o">&gt;</span><span class="nx">Login</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">Google</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="w"> </span><span class="p">{{</span><span class="nx">action</span><span class="w"> </span><span class="s2">"authenticate"</span><span class="p">}}</span><span class="o">&gt;</span><span class="nx">Login</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">Google</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
 
 <span class="w">      </span><span class="p">{{</span><span class="err">#</span><span class="k">if</span><span class="w"> </span><span class="nx">errorMessage</span><span class="p">}}</span>
-<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">&quot;alert alert-danger&quot;</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"alert alert-danger"</span><span class="o">&gt;</span>
 <span class="w">          </span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 <span class="w">                </span><span class="o">&lt;</span><span class="nx">strong</span><span class="o">&gt;</span><span class="nx">Login</span><span class="w"> </span><span class="nx">failed</span><span class="o">:&lt;</span><span class="err">/strong&gt;</span>
 <span class="w">                </span><span class="o">&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">errorMessage</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/code&gt;</span>
@@ -301,33 +305,33 @@ Authenticator in our app.  In addition, it has an additional rendering part to d
 any authentication errors (e.g. if the user decided not to authorize access to their information. )</p>
 <p>Finally, we have all the javascript includes.  I've gone ahead and bundled the dependencies in the
 example code, but usually this would be more modular and perhaps pointing to a CDN:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jquery.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;handlebars.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;ember.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;ember-simple-auth.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;ember-oauth2.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"jquery.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"handlebars.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"ember.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"ember-simple-auth.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"ember-oauth2.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"app.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <div class="section" id="ember-app-js">
-<h3><a class="toc-backref" href="#toc-entry-7">3.2&nbsp;&nbsp;&nbsp;Ember app.js</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-7">3.2   Ember app.js</a></h3>
 <p>Now, let's discuss the second part of our app, the main javascript code that implements
 the Ember App, located in <tt class="docutils literal">app.js</tt>.</p>
 <div class="section" id="initialize">
-<h4><a class="toc-backref" href="#toc-entry-8">3.2.1&nbsp;&nbsp;&nbsp;Initialize</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-8">3.2.1   Initialize</a></h4>
 <p>Here, we initialize our authentication plugins as well as the authorizer.  This is taken
 straight from the Ember-Simple-Auth guides:</p>
 <div class="highlight"><pre><span></span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Application</span><span class="p">.</span><span class="nx">initializer</span><span class="p">({</span>
-<span class="w">         </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;authentication&#39;</span><span class="p">,</span>
+<span class="w">         </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'authentication'</span><span class="p">,</span>
 <span class="w">         </span><span class="nx">initialize</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">application</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">             </span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;authenticator:custom&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">App</span><span class="p">.</span><span class="nx">GoogleAuthenticator</span><span class="p">);</span>
-<span class="w">             </span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;authorizer:custom&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">App</span><span class="p">.</span><span class="nx">CustomAuthorizer</span><span class="p">);</span>
+<span class="w">             </span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'authenticator:custom'</span><span class="p">,</span><span class="w"> </span><span class="nx">App</span><span class="p">.</span><span class="nx">GoogleAuthenticator</span><span class="p">);</span>
+<span class="w">             </span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'authorizer:custom'</span><span class="p">,</span><span class="w"> </span><span class="nx">App</span><span class="p">.</span><span class="nx">CustomAuthorizer</span><span class="p">);</span>
 <span class="w">             </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">SimpleAuth</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">application</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                 </span><span class="nx">authorizerFactory</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;authorizer:custom&#39;</span><span class="p">,</span>
+<span class="w">                 </span><span class="nx">authorizerFactory</span><span class="o">:</span><span class="w"> </span><span class="s1">'authorizer:custom'</span><span class="p">,</span>
 <span class="w">             </span><span class="p">});</span>
 <span class="w">         </span><span class="p">}</span>
 <span class="w">     </span><span class="p">});</span>
@@ -346,59 +350,59 @@ we transition from route to route:</p>
 </pre></div>
 </div>
 <div class="section" id="define-routes">
-<h4><a class="toc-backref" href="#toc-entry-9">3.2.2&nbsp;&nbsp;&nbsp;Define routes</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-9">3.2.2   Define routes</a></h4>
 <p>Now, here's the usual Ember code that defines our routes.  We only have two in this app,
 a login page, and an events page.  Notice that the EventsRoute is now using
 a special mixin <tt class="docutils literal">AuthenticatedRouteMixin</tt> that marks it as requiring authentication.</p>
 <div class="highlight"><pre><span></span><span class="c1">// Add some routes</span>
 <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">resource</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;events&#39;</span><span class="p">},</span><span class="w">  </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">'login'</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">resource</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'events'</span><span class="p">},</span><span class="w">  </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">});</span>
 <span class="p">});</span>
 
 
 <span class="nx">App</span><span class="p">.</span><span class="nx">EventsRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Ember</span><span class="p">.</span><span class="nx">SimpleAuth</span><span class="p">.</span><span class="nx">AuthenticatedRouteMixin</span><span class="p">,{</span>
 <span class="w">    </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Apr 26th&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Science festival&quot;</span><span class="p">},</span>
-<span class="w">                 </span><span class="p">{</span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Apr 27th&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Swim class&quot;</span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">"Apr 26th"</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">"Science festival"</span><span class="p">},</span>
+<span class="w">                 </span><span class="p">{</span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">"Apr 27th"</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">"Swim class"</span><span class="p">}</span>
 <span class="w">                </span><span class="p">];</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 <div class="section" id="simpleauth-boiler-plate">
-<h4><a class="toc-backref" href="#toc-entry-10">3.2.3&nbsp;&nbsp;&nbsp;SimpleAuth boiler-plate</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-10">3.2.3   SimpleAuth boiler-plate</a></h4>
 <p>Next up is the code that is common to any application that uses SimpleAuth, whether you're
 using the default password authentication or the custom Oauth authenticator we're building.  All
 this code is taken from the examples and documentation of this library.</p>
 <div class="highlight"><pre><span></span><span class="c1">// Simple authentication</span>
 <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">reopen</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">rootURL</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;index.html&#39;</span>
+<span class="w">    </span><span class="nx">rootURL</span><span class="o">:</span><span class="w"> </span><span class="s1">'index.html'</span>
 <span class="p">});</span>
 
 <span class="nx">App</span><span class="p">.</span><span class="nx">ApplicationRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Ember</span><span class="p">.</span><span class="nx">SimpleAuth</span><span class="p">.</span><span class="nx">ApplicationRouteMixin</span><span class="p">);</span>
 
 <span class="nx">App</span><span class="p">.</span><span class="nx">LoginRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">setupController</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">controller</span><span class="p">,</span><span class="w"> </span><span class="nx">model</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">controller</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;errorMessage&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">controller</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'errorMessage'</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">actions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">sessionAuthenticationFailed</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;errorMessage&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'errorMessage'</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">});</span>
 
 <span class="nx">App</span><span class="p">.</span><span class="nx">LoginController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">Controller</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Ember</span><span class="p">.</span><span class="nx">SimpleAuth</span><span class="p">.</span><span class="nx">LoginControllerMixin</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">authenticatorFactory</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;authenticator:custom&#39;</span>
+<span class="w">    </span><span class="nx">authenticatorFactory</span><span class="o">:</span><span class="w"> </span><span class="s1">'authenticator:custom'</span>
 <span class="w">  </span><span class="p">});</span>
 
 <span class="c1">// The authorizer that injects the auth token into every api request</span>
 <span class="nx">App</span><span class="p">.</span><span class="nx">CustomAuthorizer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">SimpleAuth</span><span class="p">.</span><span class="nx">Authorizers</span><span class="p">.</span><span class="nx">Base</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">authorize</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">jqXHR</span><span class="p">,</span><span class="w"> </span><span class="nx">requestOptions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;session.isAuthenticated&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">Ember</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;session.token&#39;</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">jqXHR</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;Authorization&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Token: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;session.token&#39;</span><span class="p">));</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'session.isAuthenticated'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">Ember</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'session.token'</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jqXHR</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Token: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'session.token'</span><span class="p">));</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">});</span>
@@ -416,19 +420,19 @@ show you how easy it is to transfer the token to your REST API.</p>
 </div>
 </div>
 <div class="section" id="oauth2-authenticator">
-<h4><a class="toc-backref" href="#toc-entry-11">3.2.4&nbsp;&nbsp;&nbsp;Oauth2 Authenticator</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-11">3.2.4   Oauth2 Authenticator</a></h4>
 <p>Now we come to the main portion of the example that leverages both the SimpleAuth library
 as well as the Oauth library.  First there's a bit of configuration that needs to happen in
 your app that specifies the oauth server.</p>
 <div class="highlight"><pre><span></span><span class="nx">Ember</span><span class="p">.</span><span class="nx">OAuth2</span><span class="p">.</span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">google</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">clientId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXX.apps.googleusercontent.com&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">authBaseUri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://accounts.google.com/o/oauth2/auth&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">redirectUri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://127.0.0.1:5000/redirect.html&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&#39;</span>
+<span class="w">        </span><span class="nx">clientId</span><span class="o">:</span><span class="w"> </span><span class="s2">"XXXXXXXX.apps.googleusercontent.com"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">authBaseUri</span><span class="o">:</span><span class="w"> </span><span class="s1">'https://accounts.google.com/o/oauth2/auth'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">redirectUri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://127.0.0.1:5000/redirect.html'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s1">'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-<span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">OAuth2</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">providerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;google&#39;</span><span class="p">});</span>
+<span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">OAuth2</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">providerId</span><span class="o">:</span><span class="w"> </span><span class="s1">'google'</span><span class="p">});</span>
 </pre></div>
 <p>You need to go to the <a class="reference external" href="https://console.developers.google.com/project">developer google panel</a>, and setup a new application
 as detailed in <a class="reference external" href="https://virantha.github.io/2014/05/08/setting-up-new-project-using-google-oauth2-api/">this post</a>,
@@ -443,7 +447,7 @@ the docs for <tt class="docutils literal"><span class="pre">ember-oauth2</span><
     <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Authorize<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">;</span>
-<span class="w">      </span><span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;redirect&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">hash</span><span class="p">);</span>
+<span class="w">      </span><span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'redirect'</span><span class="p">,</span><span class="w"> </span><span class="nx">hash</span><span class="p">);</span>
 <span class="w">      </span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 <span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
@@ -465,9 +469,9 @@ the docs for <tt class="docutils literal"><span class="pre">ember-oauth2</span><
 <span class="w">        </span><span class="c1">// Call the google api with our token to get the user info</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">RSVP</span><span class="p">.</span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-<span class="w">                </span><span class="nx">url</span><span class="o">:</span><span class="w">         </span><span class="s1">&#39;https://www.googleapis.com/oauth2/v2/userinfo?access_token=&#39;</span><span class="o">+</span><span class="nx">access_token</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">type</span><span class="o">:</span><span class="w">        </span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
-<span class="w">                </span><span class="nx">contentType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span>
+<span class="w">                </span><span class="nx">url</span><span class="o">:</span><span class="w">         </span><span class="s1">'https://www.googleapis.com/oauth2/v2/userinfo?access_token='</span><span class="o">+</span><span class="nx">access_token</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">type</span><span class="o">:</span><span class="w">        </span><span class="s1">'GET'</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">contentType</span><span class="o">:</span><span class="w"> </span><span class="s1">'application/json'</span>
 <span class="w">            </span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="nx">resolve</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
 <span class="w">            </span><span class="p">},</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span><span class="w"> </span><span class="nx">status</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -481,7 +485,7 @@ the docs for <tt class="docutils literal"><span class="pre">ember-oauth2</span><
 <span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">_this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Ember</span><span class="p">.</span><span class="nx">RSVP</span><span class="p">.</span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Setup handlers</span>
-<span class="w">            </span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">stateObj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'success'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">stateObj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Setup the callback to resolve this function</span>
 <span class="w">                </span><span class="nx">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">getAccessToken</span><span class="p">();</span>
 <span class="w">                </span><span class="c1">// Get all the user info</span>
@@ -500,7 +504,7 @@ the docs for <tt class="docutils literal"><span class="pre">ember-oauth2</span><
 <span class="w">                   </span><span class="p">}</span>
 <span class="w">               </span><span class="p">);</span>
 <span class="w">            </span><span class="p">});</span><span class="c1">// oauth.on</span>
-<span class="w">            </span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">error</span><span class="p">);});</span>
+<span class="w">            </span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">error</span><span class="p">);});</span>
 <span class="w">            </span><span class="nx">App</span><span class="p">.</span><span class="nx">oauth</span><span class="p">.</span><span class="nx">authorize</span><span class="p">();</span>
 <span class="w">        </span><span class="p">});</span><span class="c1">// return</span>
 <span class="w">    </span><span class="p">},</span>
@@ -533,7 +537,7 @@ button that clears out the session information.</p>
 </div>
 </div>
 <div class="section" id="summary">
-<h3><a class="toc-backref" href="#toc-entry-12">3.3&nbsp;&nbsp;&nbsp;Summary</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-12">3.3   Summary</a></h3>
 <p>And there you have it: A really concise example of how to use Oauth2 authentication using
 implicit grant, all handled in the client-side Ember application!  Hope you find this useful!</p>
 <div class="admonition note">

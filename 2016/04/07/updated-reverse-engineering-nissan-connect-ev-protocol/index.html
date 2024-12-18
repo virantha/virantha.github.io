@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -150,24 +154,24 @@ and this post details how to connect to the new API that went into place in
 early April.</p>
 </div>
 <div class="section" id="nissan-connect-ev">
-<h2>1&nbsp;&nbsp;&nbsp;Nissan Connect EV</h2>
+<h2>1   Nissan Connect EV</h2>
 <p>Most of this updated login information is courtesy of users on the MyNissanLeaf portal and specifically <a class="reference external" href="http://www.mynissanleaf.com/viewtopic.php?f=31&amp;t=2214&amp;start=110#p457263">this post</a>
 The new endpoints are now rooted at '<a class="reference external" href="https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/">https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/</a>' instead of '<a class="reference external" href="https://gdcportalgw.its-mo.com/orchestration_1111/gdc/">https://gdcportalgw.its-mo.com/orchestration_1111/gdc/</a>', and all accesses are now
 POST requests.</p>
 <div class="section" id="initial-login-to-nissan-servers">
-<h3>1.1&nbsp;&nbsp;&nbsp;Initial login to Nissan servers</h3>
+<h3>1.1   Initial login to Nissan servers</h3>
 <p>The initial login is now a two step process.</p>
 <div class="section" id="request-an-encryption-key">
-<h4>1.1.1&nbsp;&nbsp;&nbsp;Request an encryption key</h4>
+<h4>1.1.1   Request an encryption key</h4>
 <p>First, you need to call InitialApp.php with the parameter <tt class="docutils literal">initial_app_string</tt> set to <tt class="docutils literal">geORNtsZe5I4lRGjG9GZiA</tt> (taken from analyzing the iOS app traffic).</p>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA&quot;</span> <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/InitialApp.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA"</span> <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/InitialApp.php"</span></tt></blockquote>
 <p>This returns an encryption key in the parameter <tt class="docutils literal">baseprm</tt></p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;baseprm&quot;</span><span class="p">:</span><span class="s2">&quot;uyI5Dj9g8VCOFDnBRUbr3g&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="nt">"baseprm"</span><span class="p">:</span><span class="s2">"uyI5Dj9g8VCOFDnBRUbr3g"</span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="initial-logon-request">
-<h4>1.1.2&nbsp;&nbsp;&nbsp;Initial logon request</h4>
+<h4>1.1.2   Initial logon request</h4>
 <p>Once you have the encryption key, you need to use it to encrypt the user's NissanConnect password using Blowfish ECB with PKCS5Padding.  The encrypted key
 is then Base64 encoded, and then also urlencoded before being used in the login API request.   Here's some sample Python code to show what needs to be done, assuming
 you have the pycrypto library installed.</p>
@@ -182,214 +186,214 @@ you have the pycrypto library installed.</p>
             <span class="n">new_str</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pad_chars</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">new_str</span>
 
-<span class="n">plaintext</span> <span class="o">=</span> <span class="s2">&quot;YOURPASSWORD&quot;</span>
+<span class="n">plaintext</span> <span class="o">=</span> <span class="s2">"YOURPASSWORD"</span>
 
-<span class="n">crypt_obj</span> <span class="o">=</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;uyI5Dj9g8VCOFDnBRUbr3g&#39;</span><span class="p">,</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+<span class="n">crypt_obj</span> <span class="o">=</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">'uyI5Dj9g8VCOFDnBRUbr3g'</span><span class="p">,</span> <span class="n">Blowfish</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
 <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">crypt_obj</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">pad_string</span><span class="p">(</span><span class="n">plaintext</span><span class="p">))</span>
 
-<span class="nb">print</span> <span class="s2">&quot;Plaintext: &quot;</span> <span class="o">+</span> <span class="n">plaintext</span>
-<span class="nb">print</span> <span class="s2">&quot;Blowfish Cyphertext: &quot;</span> <span class="o">+</span> <span class="n">ciphertext</span>
-<span class="nb">print</span> <span class="s2">&quot;Blowfish base64: &quot;</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">"Plaintext: "</span> <span class="o">+</span> <span class="n">plaintext</span>
+<span class="nb">print</span> <span class="s2">"Blowfish Cyphertext: "</span> <span class="o">+</span> <span class="n">ciphertext</span>
+<span class="nb">print</span> <span class="s2">"Blowfish base64: "</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
 </pre></div>
 <p>The base64 encoded string can then be used in the following API call:</p>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA&amp;UserId=YOUREMAIL&quot;</span> <span class="pre">--data-urlencode</span> &quot;Password=YOURBASE64PASSWORD&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/UserLoginRequest.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;initial_app_strings=geORNtsZe5I4lRGjG9GZiA&amp;UserId=YOUREMAIL"</span> <span class="pre">--data-urlencode</span> "Password=YOURBASE64PASSWORD" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/UserLoginRequest.php"</span></tt></blockquote>
 <p>If successful, you will get back the following JSON, where <tt class="docutils literal">custom_sessionid</tt> is what you'll be using for subsequent requests.</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXX&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;VehicleInfoList&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;VehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sessionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXX"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"VehicleInfoList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"VehicleInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;charger20066&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLeaf&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;telematicsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span>
+<span class="w">                </span><span class="nt">"charger20066"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VLeaf"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"telematicsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;vehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"vehicleInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;charger20066&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLeaf&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;telematicsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;custom_sessionid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span>
+<span class="w">                </span><span class="nt">"charger20066"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VLeaf"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"telematicsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"custom_sessionid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;vehicle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;profile&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;gdcUserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;gdcPassword&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;encAuthToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;dcmId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ACCEPTED&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;statusDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sep 24, 2015 12:00 AM&quot;</span>
+<span class="w">  </span><span class="nt">"vehicle"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"gdcUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"gdcPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"encAuthToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"dcmId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACCEPTED"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"statusDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sep 24, 2015 12:00 AM"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;EncAuthToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;CustomerInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;UserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Timezone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;America/New_York&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;RegionCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NNA&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;OwnerId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Nickname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;Country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;VehicleImage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/content/language/default/images/img/ph_car.jpg&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;UserVehicleBoundDurationSec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;946771200&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;VehicleInfo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;VIN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;DCMID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;SIMID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;NAVIID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;EncryptedNAVIID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;MSN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;LastVehicleLoginTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;UserVehicleBoundTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2015-09-24T18:10:06Z&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;LastDCMUseTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  7, 2016 12:27 PM&quot;</span>
+<span class="w">  </span><span class="nt">"EncAuthToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"CustomerInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"Language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en-US"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"Timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"RegionCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NNA"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"OwnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"Nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"Country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"VehicleImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/content/language/default/images/img/ph_car.jpg"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"UserVehicleBoundDurationSec"</span><span class="p">:</span><span class="w"> </span><span class="s2">"946771200"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"VehicleInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"VIN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"DCMID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"SIMID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"NAVIID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"EncryptedNAVIID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"MSN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"LastVehicleLoginTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"UserVehicleBoundTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:10:06Z"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"LastDCMUseTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr  7, 2016 12:27 PM"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;UserInfoRevisionNo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">  </span><span class="nt">"UserInfoRevisionNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="request-current-status">
-<h3>1.2&nbsp;&nbsp;&nbsp;Request current status</h3>
+<h3>1.2   Request current status</h3>
 <p>Request the current battery status (not necessarily the latest, but whatever is cached from the last update on Nissan's server), using the urlencoded <tt class="docutils literal">custom_session_id</tt></p>
 <blockquote>
-curl --data &quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot; --data-urlencode &quot;custom_sessionid=XXXXXXXXXX&quot; -X POST &quot;<a class="reference external" href="https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php">https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php</a>&quot;</blockquote>
+curl --data "RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York" --data-urlencode "custom_sessionid=XXXXXXXXXX" -X POST "<a class="reference external" href="https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php">https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusRecordsRequest.php</a>"</blockquote>
 <p>Response:</p>
-<div class="highlight"><pre><span></span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="nt">&quot;BatteryStatusRecords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="nt">&quot;OperationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
-<span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 05:57 PM&quot;</span><span class="p">,</span>
-<span class="nt">&quot;BatteryStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;BatteryChargingStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NORMAL_CHARGING&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;BatteryCapacity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmountWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;BatteryRemainingAmountkWH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="nt">"BatteryStatusRecords"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nt">"OperationResult"</span><span class="p">:</span><span class="w"> </span><span class="s2">"START"</span><span class="p">,</span>
+<span class="nt">"OperationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr  6, 2016 05:57 PM"</span><span class="p">,</span>
+<span class="nt">"BatteryStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"BatteryChargingStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NORMAL_CHARGING"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"BatteryCapacity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"BatteryRemainingAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"BatteryRemainingAmountWH"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"BatteryRemainingAmountkWH"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="p">},</span>
-<span class="nt">&quot;PluginState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CONNECTED&quot;</span><span class="p">,</span>
-<span class="nt">&quot;CruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;110760.0&quot;</span><span class="p">,</span>
-<span class="nt">&quot;CruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;112320.0&quot;</span><span class="p">,</span>
-<span class="nt">&quot;TimeRequiredToFull200_6kW&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;HourRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;MinutesRequiredToFull&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30&quot;</span>
+<span class="nt">"PluginState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONNECTED"</span><span class="p">,</span>
+<span class="nt">"CruisingRangeAcOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110760.0"</span><span class="p">,</span>
+<span class="nt">"CruisingRangeAcOff"</span><span class="p">:</span><span class="w"> </span><span class="s2">"112320.0"</span><span class="p">,</span>
+<span class="nt">"TimeRequiredToFull200_6kW"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"HourRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"MinutesRequiredToFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span>
 <span class="p">},</span>
-<span class="nt">&quot;NotificationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/04/06 21:58&quot;</span><span class="p">,</span>
-<span class="nt">&quot;TargetDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016/04/06 21:57&quot;</span>
+<span class="nt">"NotificationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/04/06 21:58"</span><span class="p">,</span>
+<span class="nt">"TargetDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/04/06 21:57"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="update-status">
-<h3>1.3&nbsp;&nbsp;&nbsp;Update status</h3>
+<h3>1.3   Update status</h3>
 <p>Ask for an update from the car:</p>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckRequest.php&quot;</span></tt></blockquote>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXX&quot;</span><span class="p">,</span><span class="nt">&quot;resultKey&quot;</span><span class="p">:</span><span class="s2">&quot;XXXXXXXXXX&quot;</span><span class="p">}</span><span class="err">%</span>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckRequest.php"</span></tt></blockquote>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="nt">"userId"</span><span class="p">:</span><span class="s2">"XXXXXX"</span><span class="p">,</span><span class="nt">"vin"</span><span class="p">:</span><span class="s2">"XXXXXXXXX"</span><span class="p">,</span><span class="nt">"resultKey"</span><span class="p">:</span><span class="s2">"XXXXXXXXXX"</span><span class="p">}</span><span class="err">%</span>
 </pre></div>
 <p>The resultKey can be used to poll for when the updated value is available:</p>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckResultRequest.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/BatteryStatusCheckResultRequest.php"</span></tt></blockquote>
 <p>If it's not ready yet:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">}</span>
 </pre></div>
 <p>Once status is updated, you get:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;operationResult&quot;</span><span class="p">:</span><span class="s2">&quot;START&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;timeStamp&quot;</span><span class="p">:</span><span class="s2">&quot;2016-02-20 20:29:33&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOn&quot;</span><span class="p">:</span><span class="s2">&quot;129712.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;cruisingRangeAcOff&quot;</span><span class="p">:</span><span class="s2">&quot;133584.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;currentChargeLevel&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;chargeMode&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CHARGING&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;pluginState&quot;</span><span class="p">:</span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;charging&quot;</span><span class="p">:</span><span class="s2">&quot;NO&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;chargeStatus&quot;</span><span class="p">:</span><span class="s2">&quot;CT&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;batteryDegradation&quot;</span><span class="p">:</span><span class="s2">&quot;11&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;batteryCapacity&quot;</span><span class="p">:</span><span class="s2">&quot;12&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;timeRequiredToFull200_6kW&quot;</span><span class="p">:{</span><span class="nt">&quot;hours&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;minutes&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"status"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"operationResult"</span><span class="p">:</span><span class="s2">"START"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"timeStamp"</span><span class="p">:</span><span class="s2">"2016-02-20 20:29:33"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cruisingRangeAcOn"</span><span class="p">:</span><span class="s2">"129712.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"cruisingRangeAcOff"</span><span class="p">:</span><span class="s2">"133584.0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"currentChargeLevel"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"chargeMode"</span><span class="p">:</span><span class="s2">"NOT_CHARGING"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"pluginState"</span><span class="p">:</span><span class="s2">"NOT_CONNECTED"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"charging"</span><span class="p">:</span><span class="s2">"NO"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"chargeStatus"</span><span class="p">:</span><span class="s2">"CT"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"batteryDegradation"</span><span class="p">:</span><span class="s2">"11"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"batteryCapacity"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull200"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"timeRequiredToFull200_6kW"</span><span class="p">:{</span><span class="nt">"hours"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"minutes"</span><span class="p">:</span><span class="s2">""</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="remote-climate-control">
-<h3>1.4&nbsp;&nbsp;&nbsp;Remote Climate Control</h3>
+<h3>1.4   Remote Climate Control</h3>
 <div class="section" id="get-current-ac-status">
-<h4>1.4.1&nbsp;&nbsp;&nbsp;Get current AC status</h4>
+<h4>1.4.1   Get current AC status</h4>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/remoteACRecordsRequest.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/remoteACRecordsRequest.php"</span></tt></blockquote>
 <p>Response:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;RemoteACRecords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;OperationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FINISH&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 07:19 PM&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;RemoteACOperation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;STOP&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;ACStartStopDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apr  6, 2016 07:19 PM&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;CruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;152880.0&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;CruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;157248.0&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;ACStartStopURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;PluginState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NOT_CONNECTED&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;ACDurationBatterySec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;900&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;ACDurationPluggedSec&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7200&quot;</span>
+<span class="w">      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"RemoteACRecords"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"OperationResult"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINISH"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"OperationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr  6, 2016 07:19 PM"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"RemoteACOperation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STOP"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"ACStartStopDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr  6, 2016 07:19 PM"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"CruisingRangeAcOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"152880.0"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"CruisingRangeAcOff"</span><span class="p">:</span><span class="w"> </span><span class="s2">"157248.0"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"ACStartStopURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"PluginState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_CONNECTED"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"ACDurationBatterySec"</span><span class="p">:</span><span class="w"> </span><span class="s2">"900"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"ACDurationPluggedSec"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7200"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;OperationDateAndTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="nt">"OperationDateAndTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="turn-on-ac">
-<h4>1.4.2&nbsp;&nbsp;&nbsp;Turn on AC</h4>
+<h4>1.4.2   Turn on AC</h4>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRequest.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRequest.php"</span></tt></blockquote>
 <p>Response:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;virantha@gmail.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;vin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;resultKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXXXXXXXXXXX&quot;</span>
+<span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"virantha@gmail.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"resultKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXXXXXXXXXXX"</span>
 <span class="p">}</span>
 </pre></div>
 <p>Use the <tt class="docutils literal">resultKey</tt> to get the status of the AC request:</p>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRsult.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&amp;resultKey=XXXXXX"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteRsult.php"</span></tt></blockquote>
 <p>If the status is not ready yet:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span>
 <span class="p">}</span>
 </pre></div>
 <p>Once the AC is turned on, the following response will be sent:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;responseFlag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;operationResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;START_BATTERY&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;acContinueTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;cruisingRangeAcOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;104720.0&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;cruisingRangeAcOff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;109208.0&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;timeStamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-04-07 16:47:41&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;hvacStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ON&quot;</span>
+<span class="w">      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"responseFlag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"operationResult"</span><span class="p">:</span><span class="w"> </span><span class="s2">"START_BATTERY"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"acContinueTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"cruisingRangeAcOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"104720.0"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"cruisingRangeAcOff"</span><span class="p">:</span><span class="w"> </span><span class="s2">"109208.0"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"timeStamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-07 16:47:41"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"hvacStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ON"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="turn-off-ac">
-<h4>1.4.3&nbsp;&nbsp;&nbsp;Turn off AC</h4>
+<h4>1.4.3   Turn off AC</h4>
 <blockquote>
-<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">&quot;RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York&quot;</span> <span class="pre">--data-urlencode</span> &quot;custom_sessionid=XXXXXXXXXX&quot; <span class="pre">-X</span> POST <span class="pre">&quot;https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteOffRequest.php&quot;</span></tt></blockquote>
+<tt class="docutils literal">curl <span class="pre">--data</span> <span class="pre">"RegionCode=NNA&amp;lg=en-US&amp;DCMID=XXXX&amp;VIN=XXXX&amp;tz=America/New_York"</span> <span class="pre">--data-urlencode</span> "custom_sessionid=XXXXXXXXXX" <span class="pre">-X</span> POST <span class="pre">"https://gdcportalgw.its-mo.com/gworchest_0323A/gdc/ACRemoteOffRequest.php"</span></tt></blockquote>
 <p>The response checking is identical to the AC on request.</p>
 </div>
 </div>
 </div>
 <div class="section" id="to-be-continued">
-<h2>2&nbsp;&nbsp;&nbsp;to be continued....</h2>
+<h2>2   to be continued....</h2>
 </div>
 
   </div>

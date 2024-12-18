@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Replacing the upstream oxygen (O2) sensor in a Honda Civic 2005 | Virantha Namal
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -149,25 +153,25 @@ bit.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#diagnosis" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Diagnosis</a></li>
-<li><a class="reference internal" href="#parts-required" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Parts required</a></li>
-<li><a class="reference internal" href="#replacement" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Replacement</a></li>
+<li><a class="reference internal" href="#diagnosis" id="toc-entry-1">1   Diagnosis</a></li>
+<li><a class="reference internal" href="#parts-required" id="toc-entry-2">2   Parts required</a></li>
+<li><a class="reference internal" href="#replacement" id="toc-entry-3">3   Replacement</a></li>
 </ul>
 </div>
 <div class="section" id="diagnosis">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Diagnosis</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Diagnosis</a></h2>
 <p>The check engine light came on in my wife's car, and I finally got a
-chance to buy an OBD-II sensor. &nbsp;I ended up going with the <a class="reference external" href="http://www.amazon.com/gp/product/B005NLQAHS/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=virantha-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005NLQAHS">BAFX ELM 327
-Bluetooth OBD2 scan tool</a><img alt="image0" src="http://www.assoc-amazon.com/e/ir?t=virantha-20&amp;l=as2&amp;o=1&amp;a=B005NLQAHS" />. This tool had decent reviews, was
+chance to buy an OBD-II sensor.  I ended up going with the <a class="reference external" href="http://www.amazon.com/gp/product/B005NLQAHS/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=virantha-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B005NLQAHS">BAFX ELM 327
+Bluetooth OBD2 scan tool</a><img alt="image0" src="http://www.assoc-amazon.com/e/ir?t=virantha-20&amp;l=as2&amp;o=1&amp;a=B005NLQAHS"/>. This tool had decent reviews, was
 under $25, and could connect via bluetooth to an old android tablet I
 had lying around. This scanner pairs up easily with the free Andoid app
-called <a class="reference external" href="https://play.google.com/store/apps/details?id=org.prowl.torquefree">&quot;Torque Lite&quot;</a>, which can read the error out of the car's
+called <a class="reference external" href="https://play.google.com/store/apps/details?id=org.prowl.torquefree">"Torque Lite"</a>, which can read the error out of the car's
 engine-control-unit (ECU) and reset it.</p>
 <p>When I got this hooked up (the OBD-II port is under the dash on the
 driver's side, coming out from the right side above the accelerator
 pedal), the code reported using Torque was:</p>
 <pre class="literal-block">
-P0135 &quot;O2 sensor heater circuit &nbsp;bank 1 sensor 1&quot;
+P0135 "O2 sensor heater circuit  bank 1 sensor 1"
 </pre>
 <p>A quick internet search yielded the information that this was the
 upstream sensor.
@@ -180,68 +184,68 @@ pricey to replace compared to a regular narrow-band O2 sensor.
 [/ref]</p>
 </div>
 <div class="section" id="parts-required">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Parts required</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Parts required</a></h2>
 <p>With the problem identified, I just had to replace the O2 sensor.</p>
 <ol><ol class="arabic">
 <li><p class="first"><strong>Replacement Sensor</strong>: The OEM part for this is manufactured by
-Denso. &nbsp;You can find a replacement (at the time of writing) at
+Denso.  You can find a replacement (at the time of writing) at
 Amazon.com for less the $100, the cheapest I could find online
 [ref]`Rock Auto`_ is also a good source[/ref]:</p>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B000C5UFVM/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000C5UFVM&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B000C5UFVM.01._SCMZZZZZZZ_.jpg"/>Denso 234-9005 Oxygen Sensor for the Civic LX</a></div><p>Note that this part does&nbsp;<strong>not</strong> work in the EX model, which
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B000C5UFVM/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B000C5UFVM&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B000C5UFVM.01._SCMZZZZZZZ_.jpg"/>Denso 234-9005 Oxygen Sensor for the Civic LX</a></div><p>Note that this part does <strong>not</strong> work in the EX model, which
 requires the 234-9017:</p>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B00122EENE/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00122EENE&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00122EENE.01._SCMZZZZZZZ_.jpg"/>Denso 234-9017 Oxygen Sensor for the Civic EX</a></div><p>Be careful with box stores like Autozone that give you the wrong part
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00122EENE/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00122EENE&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00122EENE.01._SCMZZZZZZZ_.jpg"/>Denso 234-9017 Oxygen Sensor for the Civic EX</a></div><p>Be careful with box stores like Autozone that give you the wrong part
 numbers for this car.</p>
 </li>
 <li><p class="first"><strong>Oxygen sensor socket:</strong>This is a special socket with a slot down
-the side that lets you slide the O2 sensor wire &nbsp;through it. &nbsp;I ended
-up getting this one from amazon for $25 that fits the 7/8&quot;
+the side that lets you slide the O2 sensor wire  through it.  I ended
+up getting this one from amazon for $25 that fits the 7/8"
 sensor.</p>
 <blockquote>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B00062ZK5M/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00062ZK5M&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00062ZK5M.01._SCMZZZZZZZ_.jpg"/>Socket</a></div></blockquote>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00062ZK5M/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00062ZK5M&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00062ZK5M.01._SCMZZZZZZZ_.jpg"/>Socket</a></div></blockquote>
 </li>
-<li><p class="first"><strong>Ratcheting socket wrench 3/8&quot;:</strong> To fit the above socket; had this
+<li><p class="first"><strong>Ratcheting socket wrench 3/8":</strong> To fit the above socket; had this
 lying around in my toolbox.</p>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B001FOQH2K/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B001FOQH2K&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B001FOQH2K.01._SCMZZZZZZZ_.jpg"/>Wrench</a></div></li>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B001FOQH2K/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B001FOQH2K&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B001FOQH2K.01._SCMZZZZZZZ_.jpg"/>Wrench</a></div></li>
 <li><p class="first"><strong>Penetrating oil:</strong>Essential to have some kind of penetrating oil
 to loosen up the old sensor. I cheaped out and just used some WD-40 I
 had lying around, but you could use something like this:</p>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B00200MR8Q/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00200MR8Q&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00200MR8Q.01._SCMZZZZZZZ_.jpg"/>Liquid Wrench</a></div></li>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B00200MR8Q/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00200MR8Q&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00200MR8Q.01._SCMZZZZZZZ_.jpg"/>Liquid Wrench</a></div></li>
 <li><p class="first"><strong>Gloves and protective eyewear:</strong>Never hurts to be safe.</p>
-<div><a class="amazon" href="http://www.amazon.com/gp/product/B001D1FV72/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B001D1FV72&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B001D1FV72.01._SCMZZZZZZZ_.jpg"/>CLC gloves</a></div><div><a class="amazon" href="http://www.amazon.com/gp/product/B000RKQ1NI/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000RKQ1NI&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B000RKQ1NI.01._SCMZZZZZZZ_.jpg"/>Eyewear</a></div></li>
+<div><a class="amazon" href="http://www.amazon.com/gp/product/B001D1FV72/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B001D1FV72&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B001D1FV72.01._SCMZZZZZZZ_.jpg"/>CLC gloves</a></div><div><a class="amazon" href="http://www.amazon.com/gp/product/B000RKQ1NI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B000RKQ1NI&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B000RKQ1NI.01._SCMZZZZZZZ_.jpg"/>Eyewear</a></div></li>
 </ol>
 </ol></div>
 <div class="section" id="replacement">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Replacement</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Replacement</a></h2>
 <ol class="arabic">
 <li><p class="first">Apply some penetrating oil to the sensor</p>
 </li>
 <li><p class="first">Examine the wiring harness while you wait for the sensor to loosen
-up. &nbsp;The wire from the sensor clips into a socket, and both are
+up.  The wire from the sensor clips into a socket, and both are
 attached via a metal tab to the frame.</p>
 </li>
 <li><p class="first">Disconnecting the old sensor wiring harness
 was the most difficult part of this whole task, given that I'd never
 done this before, and also the least documented piece.</p>
-<div class="figure align-left" style="width: 80%">
-<img alt="Oxygen sensor layout" src="/images/2013/o2sensor.jpg" />
+<div class="figure align-left" style="width: 30%width: 960px; height: auto; max-width: 100%;">
+<img alt="Oxygen sensor layout" src="/images/2013/o2sensor.jpg" style="width: 960px; height: auto; max-width: 100%;"/>
 </div>
 </li>
 <li><p class="first">The first step is to pry the wire clip and socket off this metal
-clip. &nbsp;Push the little tab shown in the picture up towards the wire
+clip.  Push the little tab shown in the picture up towards the wire
 clip (you may hear a slight click) [green arrow], and then start
-wiggling the clip off the metal tab [red arrow]. &nbsp;Go slow; the metal
+wiggling the clip off the metal tab [red arrow].  Go slow; the metal
 will usually have oxidized, and you don't want to yank too hard in
 case it comes loose quickly and you end up stressing the wiring
 coming from the ECU.</p>
 </li>
 <li><p class="first">Once the wire clip and socket are free from the metal tab, you need
-to remove the clip from the socket. &nbsp;Push down on the far end of the
+to remove the clip from the socket.  Push down on the far end of the
 top of the socket [blue arrow], and pull the clip out slowly [purple
-arrow]. &nbsp;This part should come out fairly easily; if it doesn't, that
+arrow].  This part should come out fairly easily; if it doesn't, that
 means you're not pushing the tab on the socket correctly to release
 the clip properly.</p>
 </li>
-<li><p class="first">Now, you're free to use the socket to remove the old O2 sensor. &nbsp;Turn
+<li><p class="first">Now, you're free to use the socket to remove the old O2 sensor.  Turn
 counter-clockwise to loosen, and then use your hands to rotate the
 remainder and pull out the sensor, being careful not to damage the
 threads.</p>
@@ -253,9 +257,9 @@ tight)</p>
 </li>
 <li><p class="first">Connect the new wiring clip to the socket, and slide the whole wiring
 harness back on to the metal clip (you should hear a slight click).
-&nbsp;Make sure the wire doesn't touch the engine block after attaching.</p>
+ Make sure the wire doesn't touch the engine block after attaching.</p>
 </li>
-<li><p class="first">You're done! &nbsp;Clear out the error code using the OBD II tool, and
+<li><p class="first">You're done!  Clear out the error code using the OBD II tool, and
 start your engine and drive away with the satisfaction of having
 learned a little bit about your car and saved a few hundred
 dollars.[ref]You may have some slight burning smell for a little

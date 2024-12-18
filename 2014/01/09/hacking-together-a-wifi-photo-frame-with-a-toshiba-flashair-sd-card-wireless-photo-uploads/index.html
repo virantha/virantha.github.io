@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ AirFrame: Hacking together a WiFi photo frame with a Toshiba FlashAir SD card an
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -146,10 +150,10 @@ on <a class="reference external" href="http://github.com/virantha/airframe">GitH
 matching a given set of tags from an authorized Flickr account, and
 wirelessly push them to a WiFi enabled SD card sitting inside an
 inexpensive digital photo frame. Pair this $30 SD card with an
-inexpensive 8-inch digital photo frame (like these <a class="amazon" href="http://www.amazon.com/gp/product/B008FC8GJM?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">1</a>,
-<a class="amazon" href="http://www.amazon.com/gp/product/B008FC8FUW?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">2</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B008MW6Y12?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">3</a>), and you
+inexpensive 8-inch digital photo frame (like these <a class="amazon" href="http://www.amazon.com/gp/product/B008FC8GJM?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">1</a>,
+<a class="amazon" href="http://www.amazon.com/gp/product/B008FC8FUW?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">2</a>, <a class="amazon" href="http://www.amazon.com/gp/product/B008MW6Y12?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">3</a>), and you
 can have a wireless photo frame for well under $100. And unlike with just using
-a tablet, you can get a <a class="amazon" href="http://www.amazon.com/gp/product/B006O714PS?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">15-inch display</a> and still keep the
+a tablet, you can get a <a class="amazon" href="http://www.amazon.com/gp/product/B006O714PS?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">15-inch display</a> and still keep the
 cost under $150.</p>
 <p>Please see the following documentation on how to use this script:</p>
 <ul class="simple">
@@ -159,40 +163,40 @@ cost under $150.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#background" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a><ul class="auto-toc">
-<li><a class="reference internal" href="#kodak-s-vanishing-act" id="toc-entry-2">1.1&nbsp;&nbsp;&nbsp;Kodak's vanishing act</a></li>
-<li><a class="reference internal" href="#sd-cards-with-wifi-built-in-for-cameras" id="toc-entry-3">1.2&nbsp;&nbsp;&nbsp;SD cards with WiFi built-in for cameras</a></li>
-<li><a class="reference internal" href="#sd-cards-with-upload-capability" id="toc-entry-4">1.3&nbsp;&nbsp;&nbsp;SD cards with upload capability</a></li>
+<li><a class="reference internal" href="#background" id="toc-entry-1">1   Background</a><ul class="auto-toc">
+<li><a class="reference internal" href="#kodak-s-vanishing-act" id="toc-entry-2">1.1   Kodak's vanishing act</a></li>
+<li><a class="reference internal" href="#sd-cards-with-wifi-built-in-for-cameras" id="toc-entry-3">1.2   SD cards with WiFi built-in for cameras</a></li>
+<li><a class="reference internal" href="#sd-cards-with-upload-capability" id="toc-entry-4">1.3   SD cards with upload capability</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#toshiba-flashair-uploads" id="toc-entry-5">2&nbsp;&nbsp;&nbsp;Toshiba FlashAir Uploads</a><ul class="auto-toc">
-<li><a class="reference internal" href="#technical-information" id="toc-entry-6">2.1&nbsp;&nbsp;&nbsp;Technical information</a></li>
-<li><a class="reference internal" href="#enabling-the-flashair" id="toc-entry-7">2.2&nbsp;&nbsp;&nbsp;Enabling the FlashAir</a></li>
+<li><a class="reference internal" href="#toshiba-flashair-uploads" id="toc-entry-5">2   Toshiba FlashAir Uploads</a><ul class="auto-toc">
+<li><a class="reference internal" href="#technical-information" id="toc-entry-6">2.1   Technical information</a></li>
+<li><a class="reference internal" href="#enabling-the-flashair" id="toc-entry-7">2.2   Enabling the FlashAir</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#airframe-code-discussion" id="toc-entry-8">3&nbsp;&nbsp;&nbsp;AirFrame code discussion</a><ul class="auto-toc">
-<li><a class="reference internal" href="#flickr-download" id="toc-entry-9">3.1&nbsp;&nbsp;&nbsp;Flickr download</a><ul class="auto-toc">
-<li><a class="reference internal" href="#authorization" id="toc-entry-10">3.1.1&nbsp;&nbsp;&nbsp;Authorization</a></li>
-<li><a class="reference internal" href="#retrieving-photos" id="toc-entry-11">3.1.2&nbsp;&nbsp;&nbsp;Retrieving photos</a></li>
+<li><a class="reference internal" href="#airframe-code-discussion" id="toc-entry-8">3   AirFrame code discussion</a><ul class="auto-toc">
+<li><a class="reference internal" href="#flickr-download" id="toc-entry-9">3.1   Flickr download</a><ul class="auto-toc">
+<li><a class="reference internal" href="#authorization" id="toc-entry-10">3.1.1   Authorization</a></li>
+<li><a class="reference internal" href="#retrieving-photos" id="toc-entry-11">3.1.2   Retrieving photos</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#flashair-code-discussion" id="toc-entry-12">3.2&nbsp;&nbsp;&nbsp;FlashAir code discussion</a><ul class="auto-toc">
-<li><a class="reference internal" href="#setting-the-write-protect" id="toc-entry-13">3.2.1&nbsp;&nbsp;&nbsp;Setting the write-protect</a></li>
-<li><a class="reference internal" href="#getting-the-file-list" id="toc-entry-14">3.2.2&nbsp;&nbsp;&nbsp;Getting the file list</a></li>
-<li><a class="reference internal" href="#hash-the-filenames" id="toc-entry-15">3.2.3&nbsp;&nbsp;&nbsp;Hash the filenames</a></li>
-<li><a class="reference internal" href="#construct-the-timestamp" id="toc-entry-16">3.2.4&nbsp;&nbsp;&nbsp;Construct the timestamp</a></li>
-<li><a class="reference internal" href="#upload-files-to-the-flashair" id="toc-entry-17">3.2.5&nbsp;&nbsp;&nbsp;Upload files to the FlashAir</a></li>
+<li><a class="reference internal" href="#flashair-code-discussion" id="toc-entry-12">3.2   FlashAir code discussion</a><ul class="auto-toc">
+<li><a class="reference internal" href="#setting-the-write-protect" id="toc-entry-13">3.2.1   Setting the write-protect</a></li>
+<li><a class="reference internal" href="#getting-the-file-list" id="toc-entry-14">3.2.2   Getting the file list</a></li>
+<li><a class="reference internal" href="#hash-the-filenames" id="toc-entry-15">3.2.3   Hash the filenames</a></li>
+<li><a class="reference internal" href="#construct-the-timestamp" id="toc-entry-16">3.2.4   Construct the timestamp</a></li>
+<li><a class="reference internal" href="#upload-files-to-the-flashair" id="toc-entry-17">3.2.5   Upload files to the FlashAir</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#summary" id="toc-entry-18">4&nbsp;&nbsp;&nbsp;Summary</a></li>
+<li><a class="reference internal" href="#summary" id="toc-entry-18">4   Summary</a></li>
 </ul>
 </div>
 <div class="section" id="background">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Background</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Background</a></h2>
 <div class="section" id="kodak-s-vanishing-act">
-<h3><a class="toc-backref" href="#toc-entry-2">1.1&nbsp;&nbsp;&nbsp;Kodak's vanishing act</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-2">1.1   Kodak's vanishing act</a></h3>
 <p>I watched Kodak's WiFi-enabled photoframes become useless paperweights
 with Kodak and its related FrameChannel service demise several years
 ago. Until then, this amazing product pulled images automatically from
@@ -206,17 +210,17 @@ then walk the SD card back to the frame, usually results in photos just
 not being updated on the frame.</p>
 </div>
 <div class="section" id="sd-cards-with-wifi-built-in-for-cameras">
-<h3><a class="toc-backref" href="#toc-entry-3">1.2&nbsp;&nbsp;&nbsp;SD cards with WiFi built-in for cameras</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-3">1.2   SD cards with WiFi built-in for cameras</a></h3>
 <p>What has changed in the last few years is the introduction of a few
 remarkable devices that combine a SD card with a wifi radio built-in.
-The <a class="amazon" href="http://www.amazon.com/gp/product/B00CS4WPD6?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">EyeFi WiFi SD card</a> has really changed the way we take pictures in our house now; we use
+The <a class="amazon" href="http://www.amazon.com/gp/product/B00CS4WPD6?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">EyeFi WiFi SD card</a> has really changed the way we take pictures in our house now; we use
 these cards in all our digital cameras, and it automatically uploads our photos
 from inside the camera to Flickr (with an auto-created set per day) and my home
 server over any recognized WiFi network. The iOS app, although slightly quirky,
 also does the same for any photos taken with our iPhones.</p>
 </div>
 <div class="section" id="sd-cards-with-upload-capability">
-<h3><a class="toc-backref" href="#toc-entry-4">1.3&nbsp;&nbsp;&nbsp;SD cards with upload capability</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">1.3   SD cards with upload capability</a></h3>
 <p>Unfortunately, the Eye-Fi only allows getting files/photos off the card
 onto a computer or cloud service (download). If you could go in the
 opposite direction (upload) that would be game-changing, and allow you
@@ -225,10 +229,10 @@ photo frame with an SD card slot. Although there is no card primarily
 designed for that, there are, in fact, several that support writing the
 SD card via the WiFi link:</p>
 <ul>
-<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00AARIEVK/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00AARIEVK&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00AARIEVK.01._SCMZZZZZZZ_.jpg"/>FlashAir 8GB Wireless SD Card</a></div></div></li>
-<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00GEBTFNM/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00GEBTFNM&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00GEBTFNM.01._SCMZZZZZZZ_.jpg"/>Toshiba FlashAir II 16GB Wireless SD card</a></div></div></li>
-<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00A659IJI/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00A659IJI&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00A659IJI.01._SCMZZZZZZZ_.jpg"/>Transcend 16 GB Wi-Fi SDHC Class 10</a></div></div></li>
-<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00AKONZ3U/ref=as_li_tf_il?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00AKONZ3U&linkCode=am2&tag=virantha-20"><img src="http://images.amazon.com/images/P/B00AKONZ3U.01._SCMZZZZZZZ_.jpg"/>EZ Share WiFi SD card</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00AARIEVK/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00AARIEVK&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00AARIEVK.01._SCMZZZZZZZ_.jpg"/>FlashAir 8GB Wireless SD Card</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00GEBTFNM/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00GEBTFNM&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00GEBTFNM.01._SCMZZZZZZZ_.jpg"/>Toshiba FlashAir II 16GB Wireless SD card</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00A659IJI/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00A659IJI&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00A659IJI.01._SCMZZZZZZZ_.jpg"/>Transcend 16 GB Wi-Fi SDHC Class 10</a></div></div></li>
+<li><div class="first"><div><a class="amazon" href="http://www.amazon.com/gp/product/B00AKONZ3U/ref=as_li_tf_il?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00AKONZ3U&amp;linkCode=am2&amp;tag=virantha-20"><img src="http://images.amazon.com/images/P/B00AKONZ3U.01._SCMZZZZZZZ_.jpg"/>EZ Share WiFi SD card</a></div></div></li>
 </ul>
 <p>Of these, only the first two (FlashAir) appear to work without any
 egregious hacks or custom firmwares, and involve just adding a few lines
@@ -237,7 +241,7 @@ section, I'll discuss how to set this up.</p>
 </div>
 </div>
 <div class="section" id="toshiba-flashair-uploads">
-<h2><a class="toc-backref" href="#toc-entry-5">2&nbsp;&nbsp;&nbsp;Toshiba FlashAir Uploads</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">2   Toshiba FlashAir Uploads</a></h2>
 <p>I first learned about the upload capabilities of this card through a
 discussion post on the MakerBot 3D printer, where people would use this
 to print their designs wirelessly from their computer. You can basically
@@ -245,7 +249,7 @@ enable this card to hop on to any WiFi network as a regular client (I
 currently have it on my 802.11n network with WPA2-AES encryption), where
 it presents a cursory REST and CGI interface to access the card.</p>
 <div class="section" id="technical-information">
-<h3><a class="toc-backref" href="#toc-entry-6">2.1&nbsp;&nbsp;&nbsp;Technical information</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-6">2.1   Technical information</a></h3>
 <p>The following list is my collection of information that I found useful
 when writing my script for this card:</p>
 <ul><ul class="simple">
@@ -256,13 +260,13 @@ when writing my script for this card:</p>
 </ul>
 </ul></div>
 <div class="section" id="enabling-the-flashair">
-<h3><a class="toc-backref" href="#toc-entry-7">2.2&nbsp;&nbsp;&nbsp;Enabling the FlashAir</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-7">2.2   Enabling the FlashAir</a></h3>
 <p>You can follow the steps given at <a class="reference external" href="http://www.extrud3d.com/flashair">Extrd3D</a>:</p>
 <ul><ul><ol class="arabic">
 <li><p class="first">Get your card from Amazon</p>
 <ul>
-<li><div class="first"><a class="amazon" href="http://www.amazon.com/gp/product/B00AARIEVK?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">FlashAir Class 6 (first-gen), or,</a></div></li>
-<li><div class="first"><a class="amazon" href="http://www.amazon.com/gp/product/B00GEBTFNM?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">FlashAir Class 10 (second-gen)</a></div></li>
+<li><div class="first"><a class="amazon" href="http://www.amazon.com/gp/product/B00AARIEVK?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">FlashAir Class 6 (first-gen), or,</a></div></li>
+<li><div class="first"><a class="amazon" href="http://www.amazon.com/gp/product/B00GEBTFNM?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">FlashAir Class 10 (second-gen)</a></div></li>
 </ul>
 </li>
 <li><p class="first">Statically assign an IP and/or hostname on your home network to this
@@ -296,25 +300,25 @@ browser</p>
 </ul></ul></div>
 </div>
 <div class="section" id="airframe-code-discussion">
-<h2><a class="toc-backref" href="#toc-entry-8">3&nbsp;&nbsp;&nbsp;AirFrame code discussion</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-8">3   AirFrame code discussion</a></h2>
 <p>The code is raw right now, with little error-checking, but gets the job
 done. I'll first discuss the Flickr download code, and then how I do the
 FlashAir upload. First, get the code from GitHub and go to
 airframe/airframe.</p>
 <div class="section" id="flickr-download">
-<h3><a class="toc-backref" href="#toc-entry-9">3.1&nbsp;&nbsp;&nbsp;Flickr download</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-9">3.1   Flickr download</a></h3>
 <p>For this, I rely on <a class="reference external" href="http://stuvel.eu/flickrapi">an excellent Flickr api library</a> (formerly known
 as Beej's Flickr API).</p>
 <div class="section" id="authorization">
-<h4><a class="toc-backref" href="#toc-entry-10">3.1.1&nbsp;&nbsp;&nbsp;Authorization</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-10">3.1.1   Authorization</a></h4>
 <p>You need to first get yourself an authorization key for your Flickr
-account to get at your private photos. Go <a class="reference external" href="http://www.flickr.com/services/api/misc.api_keys.html">here</a> to &quot;apply&quot; for one,
+account to get at your private photos. Go <a class="reference external" href="http://www.flickr.com/services/api/misc.api_keys.html">here</a> to "apply" for one,
 which will be instantaneous, and note down the key and secret.</p>
 <p>Then, create a file in the src directory (or wherever you plan to run
 the file from) called flickr_api.yaml and put the following in it:</p>
 <pre class="literal-block">
-key: &quot;YOUR_API_KEY&quot;
-secret: &quot;YOUR_API_SECRET&quot;
+key: "YOUR_API_KEY"
+secret: "YOUR_API_SECRET"
 </pre>
 <p>And here's how we use that key and secret to authenticate using the
 flickrapi library; first we read the yaml file, set our instance
@@ -328,71 +332,71 @@ that it will cache the authentication token).</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_auth2</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">read_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            Read the flickr API key and secret from a local file</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;flickr_api.yaml&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="sd">        """</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"flickr_api.yaml"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">api</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">api</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">api</span><span class="p">[</span><span class="s2">&quot;secret&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">api</span><span class="p">[</span><span class="s2">"key"</span><span class="p">],</span> <span class="n">api</span><span class="p">[</span><span class="s2">"secret"</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">set_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">secret</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api_secret</span> <span class="o">=</span> <span class="n">secret</span>
 
     <span class="k">def</span> <span class="nf">get_auth2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Authenticating to Flickr&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Authenticating to Flickr"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span> <span class="o">=</span> <span class="n">flickrapi</span><span class="o">.</span><span class="n">FlickrAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_secret</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="n">frob</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span><span class="o">.</span><span class="n">get_token_part_one</span><span class="p">(</span><span class="n">perms</span><span class="o">=</span><span class="s1">&#39;read&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span> <span class="n">raw_input</span><span class="p">(</span><span class="s2">&quot;Press ENTER after you authorized this program&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="n">frob</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span><span class="o">.</span><span class="n">get_token_part_one</span><span class="p">(</span><span class="n">perms</span><span class="o">=</span><span class="s1">'read'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span> <span class="n">raw_input</span><span class="p">(</span><span class="s2">"Press ENTER after you authorized this program"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span><span class="o">.</span><span class="n">get_token_part_two</span><span class="p">((</span><span class="n">token</span><span class="p">,</span><span class="n">frob</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Authentication succeeded&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Authentication succeeded"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="retrieving-photos">
-<h4><a class="toc-backref" href="#toc-entry-11">3.1.2&nbsp;&nbsp;&nbsp;Retrieving photos</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-11">3.1.2   Retrieving photos</a></h4>
 <p>The flickrapi library provides direct access to the <a class="reference external" href="http://www.flickr.com/services/api/">Flickr API</a>, so
 for example, the API function flickr.photos.search would be called by
 using Flickr.photos_search, as shown in the method below that gets
 photos matching a list of tags:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_tagged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="s2">&quot;photos&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Get photos with the given list of tags</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;connecting to flickr, and getting </span><span class="si">%d</span><span class="s2"> photos with tags </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">tags</span><span class="p">))</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span><span class="o">.</span><span class="n">photos_search</span><span class="p">(</span><span class="n">api_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="s2">&quot;me&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tags</span><span class="p">),</span> <span class="n">per_page</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_tagged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="s2">"photos"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">""" Get photos with the given list of tags</span>
+<span class="sd">    """</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">"connecting to flickr, and getting </span><span class="si">%d</span><span class="s2"> photos with tags </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">tags</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flickr</span><span class="o">.</span><span class="n">photos_search</span><span class="p">(</span><span class="n">api_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="s2">"me"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tags</span><span class="p">),</span> <span class="n">per_page</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
     <span class="n">photos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_photos_from_xml</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">photo_filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sync_photos</span><span class="p">(</span><span class="n">photos</span><span class="p">,</span> <span class="n">download_dir</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">%d</span><span class="s2"> photos&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">photos</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Found </span><span class="si">%d</span><span class="s2"> photos"</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">photos</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">photo_filenames</span>
 
 <span class="k">def</span> <span class="nf">_extract_photos_from_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
     <span class="n">photos</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xml</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;rsp&#39;</span><span class="p">:</span>
-            <span class="c1"># the response header.  stat member should be &#39;ok&#39;</span>
-            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;stat&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ok&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">'rsp'</span><span class="p">:</span>
+            <span class="c1"># the response header.  stat member should be 'ok'</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'stat'</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'ok'</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># error, so just break</span>
                 <span class="k">break</span>
-        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;photo&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">'photo'</span><span class="p">:</span>
             <span class="n">photos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Photo</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">photos</span>
 </pre></div>
 <p>The flickrapi then returns a REST response with encapsulated XML
 matching <a class="reference external" href="http://www.flickr.com/services/api/flickr.photos.search.html">this spec</a>, a sample of which is shown below:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;photos</span><span class="w"> </span><span class="na">page=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="na">pages=</span><span class="s">&quot;89&quot;</span><span class="w"> </span><span class="na">perpage=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">total=</span><span class="s">&quot;881&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;2636&quot;</span><span class="w"> </span><span class="na">owner=</span><span class="s">&quot;47058503995@N01&quot;</span>
-<span class="w">        </span><span class="na">secret=</span><span class="s">&quot;a123456&quot;</span><span class="w"> </span><span class="na">server=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="na">title=</span><span class="s">&quot;test_04&quot;</span>
-<span class="w">        </span><span class="na">ispublic=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;2635&quot;</span><span class="w"> </span><span class="na">owner=</span><span class="s">&quot;47058503995@N01&quot;</span>
-<span class="w">        </span><span class="na">secret=</span><span class="s">&quot;b123456&quot;</span><span class="w"> </span><span class="na">server=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="na">title=</span><span class="s">&quot;test_03&quot;</span>
-<span class="w">        </span><span class="na">ispublic=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;2633&quot;</span><span class="w"> </span><span class="na">owner=</span><span class="s">&quot;47058503995@N01&quot;</span>
-<span class="w">        </span><span class="na">secret=</span><span class="s">&quot;c123456&quot;</span><span class="w"> </span><span class="na">server=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="na">title=</span><span class="s">&quot;test_01&quot;</span>
-<span class="w">        </span><span class="na">ispublic=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;2610&quot;</span><span class="w"> </span><span class="na">owner=</span><span class="s">&quot;12037949754@N01&quot;</span>
-<span class="w">        </span><span class="na">secret=</span><span class="s">&quot;d123456&quot;</span><span class="w"> </span><span class="na">server=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="na">title=</span><span class="s">&quot;00_tall&quot;</span>
-<span class="w">        </span><span class="na">ispublic=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;photos</span><span class="w"> </span><span class="na">page=</span><span class="s">"2"</span><span class="w"> </span><span class="na">pages=</span><span class="s">"89"</span><span class="w"> </span><span class="na">perpage=</span><span class="s">"10"</span><span class="w"> </span><span class="na">total=</span><span class="s">"881"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">"2636"</span><span class="w"> </span><span class="na">owner=</span><span class="s">"47058503995@N01"</span>
+<span class="w">        </span><span class="na">secret=</span><span class="s">"a123456"</span><span class="w"> </span><span class="na">server=</span><span class="s">"2"</span><span class="w"> </span><span class="na">title=</span><span class="s">"test_04"</span>
+<span class="w">        </span><span class="na">ispublic=</span><span class="s">"1"</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">"0"</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">"0"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">"2635"</span><span class="w"> </span><span class="na">owner=</span><span class="s">"47058503995@N01"</span>
+<span class="w">        </span><span class="na">secret=</span><span class="s">"b123456"</span><span class="w"> </span><span class="na">server=</span><span class="s">"2"</span><span class="w"> </span><span class="na">title=</span><span class="s">"test_03"</span>
+<span class="w">        </span><span class="na">ispublic=</span><span class="s">"0"</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">"1"</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">"1"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">"2633"</span><span class="w"> </span><span class="na">owner=</span><span class="s">"47058503995@N01"</span>
+<span class="w">        </span><span class="na">secret=</span><span class="s">"c123456"</span><span class="w"> </span><span class="na">server=</span><span class="s">"2"</span><span class="w"> </span><span class="na">title=</span><span class="s">"test_01"</span>
+<span class="w">        </span><span class="na">ispublic=</span><span class="s">"1"</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">"0"</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">"0"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;photo</span><span class="w"> </span><span class="na">id=</span><span class="s">"2610"</span><span class="w"> </span><span class="na">owner=</span><span class="s">"12037949754@N01"</span>
+<span class="w">        </span><span class="na">secret=</span><span class="s">"d123456"</span><span class="w"> </span><span class="na">server=</span><span class="s">"2"</span><span class="w"> </span><span class="na">title=</span><span class="s">"00_tall"</span>
+<span class="w">        </span><span class="na">ispublic=</span><span class="s">"1"</span><span class="w"> </span><span class="na">isfriend=</span><span class="s">"0"</span><span class="w"> </span><span class="na">isfamily=</span><span class="s">"0"</span><span class="w"> </span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/photos&gt;</span>
 </pre></div>
 <p>We then iterate through the XML photo tags, and construct a list of
@@ -401,19 +405,19 @@ to construct the final URL used to download the actual jpeg from
 Flickr's server farm:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Photo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">photo_element</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a photo object out of the XML response from Flickr&quot;&quot;&quot;</span>
-        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;farm&#39;</span><span class="p">:</span> <span class="s1">&#39;farmid&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">:</span><span class="s1">&#39;serverid&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;photoid&#39;</span><span class="p">,</span><span class="s1">&#39;secret&#39;</span><span class="p">:</span><span class="s1">&#39;secret&#39;</span><span class="p">}</span>
+<span class="w">        </span><span class="sd">"""Construct a photo object out of the XML response from Flickr"""</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'farm'</span><span class="p">:</span> <span class="s1">'farmid'</span><span class="p">,</span> <span class="s1">'server'</span><span class="p">:</span><span class="s1">'serverid'</span><span class="p">,</span><span class="s1">'id'</span><span class="p">:</span><span class="s1">'photoid'</span><span class="p">,</span><span class="s1">'secret'</span><span class="p">:</span><span class="s1">'secret'</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">flickr_attr</span><span class="p">,</span> <span class="n">py_attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">py_attr</span><span class="p">,</span> <span class="n">photo_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flickr_attr</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_construct_flickr_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://farm</span><span class="si">%s</span><span class="s2">.staticflickr.com/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_b.jpg&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">farmid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">serverid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">photoid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://farm</span><span class="si">%s</span><span class="s2">.staticflickr.com/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_b.jpg"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">farmid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">serverid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">photoid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">url</span>
 
     <span class="k">def</span> <span class="nf">download_photo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tgt_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
-        <span class="n">tgt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.jpg&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">photoid</span><span class="p">)</span>
+        <span class="n">tgt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">.jpg"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">photoid</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cache</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">tgt</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">tgt</span>
@@ -426,7 +430,7 @@ Photo object.</p>
 </div>
 </div>
 <div class="section" id="flashair-code-discussion">
-<h3><a class="toc-backref" href="#toc-entry-12">3.2&nbsp;&nbsp;&nbsp;FlashAir code discussion</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-12">3.2   FlashAir code discussion</a></h3>
 <p>With the images downloaded from Flickr, we now need to upload to the
 FlashAir card, using the following flow that calls various REST methods:</p>
 <ol class="arabic simple">
@@ -440,36 +444,36 @@ the card from writing while we upload the photos)</li>
 <p>Here is the simple init method of our Python class, and we will add the
 other methods for each item above, in the sections that follow.</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FlashAir</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">        Interface to the REST API of the Toshiba FlashAir card.</span>
 <span class="sd">        See the documentation to their API at:</span>
 <span class="sd">            https://flashair-developers.com/en/</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hostname</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            :param hostname: IP address or hostname of the FlashAir card</span>
 <span class="sd">            :type hostname: string</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="n">hostname</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">card_path</span> <span class="o">=</span> <span class="s2">&quot;/DCIM/100__TSB&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">card_path</span> <span class="o">=</span> <span class="s2">"/DCIM/100__TSB"</span>
 </pre></div>
 <div class="section" id="setting-the-write-protect">
-<h4><a class="toc-backref" href="#toc-entry-13">3.2.1&nbsp;&nbsp;&nbsp;Setting the write-protect</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-13">3.2.1   Setting the write-protect</a></h4>
 <p>This is a simple GET <tt class="docutils literal"><span class="pre">http://ip/upload.cgi?WRITEPROTECT=ON</span></tt> that
 execute using the Python <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_set_write_protect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c1"># Change the upload directory on the card</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">/upload.cgi&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://</span><span class="si">%s</span><span class="s2">/upload.cgi"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
 
-    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;WRITEPROTECT&#39;</span><span class="p">:</span> <span class="s2">&quot;ON&quot;</span><span class="p">}</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'WRITEPROTECT'</span><span class="p">:</span> <span class="s2">"ON"</span><span class="p">}</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;SUCCESS&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not put card into host-write-protect mode&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">"SUCCESS"</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Could not put card into host-write-protect mode"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="getting-the-file-list">
-<h4><a class="toc-backref" href="#toc-entry-14">3.2.2&nbsp;&nbsp;&nbsp;Getting the file list</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-14">3.2.2   Getting the file list</a></h4>
 <p>The file listing is also a http request, and the SD card returns a list
 that looks like the following:</p>
 <pre class="literal-block">
@@ -482,17 +486,17 @@ WLANSD_FILELIST
 </pre>
 <p>We then parse this using the following code:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_file_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;op&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;DIR&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">card_path</span><span class="p">}</span>
-     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">/command.cgi&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"op"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">"DIR"</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">card_path</span><span class="p">}</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://</span><span class="si">%s</span><span class="s2">/command.cgi"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>                                                           <span class="nb">print</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
-     <span class="c1"># Divide the returned text by newline, and ignore the first line &quot;WLANSD_FILELIST&quot;</span>
-     <span class="n">lines</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-     <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;WLANSD_FILELIST&#39;</span>
+     <span class="c1"># Divide the returned text by newline, and ignore the first line "WLANSD_FILELIST"</span>
+     <span class="n">lines</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+     <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s1">'WLANSD_FILELIST'</span>
 
      <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
      <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-         <span class="c1"># Split each line by &#39;,&#39; and take the second column for the filename</span>
-         <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+         <span class="c1"># Split each line by ',' and take the second column for the filename</span>
+         <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
          <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
              <span class="n">filename</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
              <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -502,7 +506,7 @@ WLANSD_FILELIST
 </pre></div>
 </div>
 <div class="section" id="hash-the-filenames">
-<h4><a class="toc-backref" href="#toc-entry-15">3.2.3&nbsp;&nbsp;&nbsp;Hash the filenames</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-15">3.2.3   Hash the filenames</a></h4>
 <p>The first-generation FlashAir card only allows REST/CGI uploading of
 files that follow the 8.3 DOS naming convention (I've read that the 2nd
 gen does away with this requirement). So, we need to convert the jpg
@@ -514,33 +518,33 @@ minimize the chances of a filename conflict, using the hashlib libary:</p>
         <span class="n">fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
         <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-        <span class="n">hash_filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.JPG&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="n">hash_filename</span> <span class="o">=</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">.JPG"</span> <span class="o">%</span> <span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
 
         <span class="n">hash_full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">hash_filename</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Hashed file: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">hash_full_filename</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Hashed file: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">hash_full_filename</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">hash_full_filename</span>
 </pre></div>
 </div>
 <div class="section" id="construct-the-timestamp">
-<h4><a class="toc-backref" href="#toc-entry-16">3.2.4&nbsp;&nbsp;&nbsp;Construct the timestamp</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-16">3.2.4   Construct the timestamp</a></h4>
 <p>The FlashAir also requires that you set the timestamp before uploading
 any file, in the FAT32 format (a 32-bit integer). After some googling, I
 found a solution to convert a time object into this format:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            :param t: The time stamp</span>
 <span class="sd">            :type t: time.struct_time</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">fat32_time</span> <span class="o">=</span> <span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">tm_year</span><span class="o">-</span><span class="mi">1980</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">25</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tm_mon</span> <span class="o">&lt;&lt;</span> <span class="mi">21</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tm_mday</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tm_hour</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tm_min</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tm_sec</span> <span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">/upload.cgi&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
-        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;FTIME&#39;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">%0.8X</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">fat32_time</span><span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://</span><span class="si">%s</span><span class="s2">/upload.cgi"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'FTIME'</span><span class="p">:</span> <span class="s2">"0x</span><span class="si">%0.8X</span><span class="s2">"</span> <span class="o">%</span> <span class="n">fat32_time</span><span class="p">}</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
         <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="upload-files-to-the-flashair">
-<h4><a class="toc-backref" href="#toc-entry-17">3.2.5&nbsp;&nbsp;&nbsp;Upload files to the FlashAir</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-17">3.2.5   Upload files to the FlashAir</a></h4>
 <p>Finally, the actual upload is via a HTML form that we access using the
 Requests library. First, we set the timestamp, then set the upload
 directory, and then submit the upload via a POST.</p>
@@ -548,9 +552,9 @@ directory, and then submit the upload via a POST.</p>
      <span class="c1"># First, set the time of the photo to right now</span>
      <span class="bp">self</span><span class="o">.</span><span class="n">set_timestamp</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
      <span class="c1"># Change the upload directory on the card</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">/upload.cgi&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://</span><span class="si">%s</span><span class="s2">/upload.cgi"</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span>
 
-     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UPDIR&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">card_path</span><span class="p">}</span>
+     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'UPDIR'</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">card_path</span><span class="p">}</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
@@ -558,7 +562,7 @@ directory, and then submit the upload via a POST.</p>
      <span class="n">hash_full_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_renamed_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
      <span class="n">hash_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">hash_full_filename</span><span class="p">)</span>
 
-     <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:(</span><span class="n">hash_filename</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))}</span>
+     <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'file'</span><span class="p">:(</span><span class="n">hash_filename</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">))}</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 </pre></div>
@@ -566,7 +570,7 @@ directory, and then submit the upload via a POST.</p>
 </div>
 </div>
 <div class="section" id="summary">
-<h2><a class="toc-backref" href="#toc-entry-18">4&nbsp;&nbsp;&nbsp;Summary</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-18">4   Summary</a></h2>
 <p>In this post, I've gone over how I added wireless photo sync from Flickr
 to any digital photo frame using the FlashAir Wifi SD card. It was quite
 easy to get working, and it wouldn't be too hard to extend this to other

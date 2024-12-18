@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Setting up the Edgemax EdgeRouter Lite (ERLite-3) in a Home Environment | Virant
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -141,7 +145,7 @@ on Fri 22 August 2014 </p>
     <h1><a href="https://virantha.github.io/2014/08/22/setting-up-edgemax-edgerouter-lite-erlite-3/" class="nohover">Setting up the Edgemax EdgeRouter Lite (ERLite-3) in a Home Environment</a></h1>
   </div>
   <div class="article_text">
-    <p>This is just my cheat sheet on setting up the <a class="amazon" href="http://www.amazon.com/gp/product/B00CPRVF5K?ie=UTF8&linkCode=as2&camp=1634&tag=virantha-20">EdgeRouter ERLite-3</a>
+    <p>This is just my cheat sheet on setting up the <a class="amazon" href="http://www.amazon.com/gp/product/B00CPRVF5K?ie=UTF8&amp;linkCode=as2&amp;camp=1634&amp;tag=virantha-20">EdgeRouter ERLite-3</a>
 in a home environment.  I recently migrated to this after a long
 search for a low-power firewall and router solution.  Prior to getting this
 beauty, I'd migrated my stand-alone PC running Ipcop/Smoothwall to a Xen
@@ -149,16 +153,16 @@ virtual machine firewall, which unfortunately had some usability issues.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#command-line-interface" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Command-line interface</a></li>
-<li><a class="reference internal" href="#setting-up-dyndns" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Setting up DynDNS</a></li>
-<li><a class="reference internal" href="#setting-up-web-filtering-using-squidguard" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Setting up web filtering using SquidGuard</a></li>
-<li><a class="reference internal" href="#qos-for-voip-calls" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;QOS for VOIP calls</a></li>
-<li><a class="reference internal" href="#installing-pound-reverse-proxy" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Installing Pound Reverse Proxy</a></li>
-<li><a class="reference internal" href="#setting-up-vpn-for-example-your-ios-device" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Setting up VPN (for example, your iOS device)</a></li>
+<li><a class="reference internal" href="#command-line-interface" id="toc-entry-1">1   Command-line interface</a></li>
+<li><a class="reference internal" href="#setting-up-dyndns" id="toc-entry-2">2   Setting up DynDNS</a></li>
+<li><a class="reference internal" href="#setting-up-web-filtering-using-squidguard" id="toc-entry-3">3   Setting up web filtering using SquidGuard</a></li>
+<li><a class="reference internal" href="#qos-for-voip-calls" id="toc-entry-4">4   QOS for VOIP calls</a></li>
+<li><a class="reference internal" href="#installing-pound-reverse-proxy" id="toc-entry-5">5   Installing Pound Reverse Proxy</a></li>
+<li><a class="reference internal" href="#setting-up-vpn-for-example-your-ios-device" id="toc-entry-6">6   Setting up VPN (for example, your iOS device)</a></li>
 </ul>
 </div>
 <div class="section" id="command-line-interface">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Command-line interface</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Command-line interface</a></h2>
 <p>Although the gui is fairly responsive, a lot of the features are only exposed through the
 underlying command line.  The Ubiquiti EdgeOS products run a fork of the open-source
 Vyatta firewall OS, and you can usually find what you're looking for with a quick web search.</p>
@@ -179,7 +183,7 @@ exit
 </pre>
 </div>
 <div class="section" id="setting-up-dyndns">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Setting up DynDNS</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Setting up DynDNS</a></h2>
 <p>If you use No-IP.com you have to rely on the built-in dyndns service but modify the server setting
 as detailed in this <a class="reference external" href="http://www.ubnt.com/t5/EdgeMAX/DDNS-for-NO-IP/td-p/492809">post</a>.</p>
 <pre class="literal-block">
@@ -199,12 +203,12 @@ show dns dynamic status
 <p>To schedule this using the built-in task scheduler (1.5.0 firmware)</p>
 <pre class="literal-block">
 set system task-scheduler task dyndns_update executable path /opt/vyatta/bin/vyatta-op-cmd-wrapper
-set system task-scheduler task dyndns_update executable arguments &quot;update dns dynamic interface eth1&quot;
+set system task-scheduler task dyndns_update executable arguments "update dns dynamic interface eth1"
 set system task-scheduler task dyndns_update interval 7d
 </pre>
 </div>
 <div class="section" id="setting-up-web-filtering-using-squidguard">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Setting up web filtering using SquidGuard</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Setting up web filtering using SquidGuard</a></h2>
 <p>First, get the blacklists</p>
 <pre class="literal-block">
 update webproxy blacklists
@@ -218,37 +222,37 @@ set service webproxy url-filtering squidguard block-category ads
 set service webproxy url-filtering squidguard block-category malware
 set service webproxy url-filtering squidguard block-category phishing
 set service webproxy url-filtering squidguard auto-update update-hour 15
-set service webproxy url-filtering squidguard redirect-url &quot;http://192.168.9.1/cgi-bin/squidGuard-simple.cgi?targetclass=%t&amp;url=%u&quot;
+set service webproxy url-filtering squidguard redirect-url "http://192.168.9.1/cgi-bin/squidGuard-simple.cgi?targetclass=%t&amp;url=%u"
 </pre>
 <p>I'm not convinced I'll stick with the ad blocks, as the redirects cause my browsing sessions to sometimes
 fail.</p>
 </div>
 <div class="section" id="qos-for-voip-calls">
-<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;QOS for VOIP calls</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">4   QOS for VOIP calls</a></h2>
 <p>Taken directly from <a class="reference external" href="https://community.ubnt.com/t5/EdgeMAX-Configuration-Examples/EdgeMAX-Quality-of-Service-for-Voice-Over-IP-QoS-for-VoIP/ta-p/529077">this page</a></p>
 <p>Assumes your LAN is on eth0, Internet is eth1, and 30/6Mbps connection.</p>
 <pre class="literal-block">
 # Set-up the details of the DownStream Policy
-set traffic-policy shaper DownStream description &quot;DownStream QoS policy&quot;
+set traffic-policy shaper DownStream description "DownStream QoS policy"
 set traffic-policy shaper DownStream bandwidth 30000kbit
-set traffic-policy shaper DownStream class 10 description &quot;RTP&quot;
+set traffic-policy shaper DownStream class 10 description "RTP"
 set traffic-policy shaper DownStream class 10 bandwidth 25%
 set traffic-policy shaper DownStream class 10 ceiling 100%
 set traffic-policy shaper DownStream class 10 match VOIP-RTP ip dscp 46
-set traffic-policy shaper DownStream class 20 description &quot;SIP&quot;
+set traffic-policy shaper DownStream class 20 description "SIP"
 set traffic-policy shaper DownStream class 20 bandwidth 5%
 set traffic-policy shaper DownStream class 20 ceiling 100%
 set traffic-policy shaper DownStream class 20 match VOIP-SIP ip dscp 24
 set traffic-policy shaper DownStream default bandwidth 70%
 set traffic-policy shaper DownStream default ceiling 100%
 #  Set-up the details of the UpStream Policy
-set traffic-policy shaper UpStream description &quot;UpStream QoS policy&quot;
+set traffic-policy shaper UpStream description "UpStream QoS policy"
 set traffic-policy shaper UpStream bandwidth 6000kbit
-set traffic-policy shaper UpStream class 10 description &quot;RTP&quot;
+set traffic-policy shaper UpStream class 10 description "RTP"
 set traffic-policy shaper UpStream class 10 bandwidth 50%
 set traffic-policy shaper UpStream class 10 ceiling 100%
 set traffic-policy shaper UpStream class 10 match VOIP-RTP ip dscp 46
-set traffic-policy shaper UpStream class 20 description &quot;SIP&quot;
+set traffic-policy shaper UpStream class 20 description "SIP"
 set traffic-policy shaper UpStream class 20 bandwidth 10%
 set traffic-policy shaper UpStream class 20 ceiling 100%
 set traffic-policy shaper UpStream class 20 match VOIP-SIP ip dscp 24
@@ -261,7 +265,7 @@ set interfaces ethernet eth1 traffic-policy out UpStream
 </pre>
 </div>
 <div class="section" id="installing-pound-reverse-proxy">
-<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Installing Pound Reverse Proxy</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">5   Installing Pound Reverse Proxy</a></h2>
 <p>First, follow the <a class="reference external" href="http://wiki.ubnt.com/Add_Other_Debian_Packages_to_EdgeOS">instructions here</a> to add Debian packages
 with apt.</p>
 <pre class="literal-block">
@@ -285,10 +289,10 @@ sudo apt-get install pound
 <p>You'll need to set the bind port to something other than 80, and follow the rest of the instructions <a class="reference external" href="http://virantha.com/2014/03/08/pound-reverse-proxy-easy-to-use-hostnames/">here</a>.</p>
 </div>
 <div class="section" id="setting-up-vpn-for-example-your-ios-device">
-<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Setting up VPN (for example, your iOS device)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">6   Setting up VPN (for example, your iOS device)</a></h2>
 <p>Follow the <a class="reference external" href="https://help.ubnt.com/hc/en-us/articles/205146070-EdgeMAX-L2TP-Server">procedure here</a> .  Here is the relevant configuration after following all the commands:</p>
 <pre class="literal-block">
-admin&#64;ubnt# show vpn ipsec
+admin@ubnt# show vpn ipsec
  auto-firewall-nat-exclude disable
  ipsec-interfaces {
      interface eth1
@@ -299,7 +303,7 @@ admin&#64;ubnt# show vpn ipsec
  }
  nat-traversal enable
 
-admin&#64;ubnt# show vpn l2tp
+admin@ubnt# show vpn l2tp
  remote-access {
      authentication {
          local-users {
@@ -327,13 +331,13 @@ admin&#64;ubnt# show vpn l2tp
      mtu 1492
  }
 
-admin&#64;ubnt# show firewall name WAN_LOCAL
+admin@ubnt# show firewall name WAN_LOCAL
  name WAN_LOCAL {
      default-action drop
-     description &quot;WAN to router&quot;
+     description "WAN to router"
      rule 1 {
          action accept
-         description &quot;Allow L2tp&quot;
+         description "Allow L2tp"
          destination {
              port 500,1701,4500
          }

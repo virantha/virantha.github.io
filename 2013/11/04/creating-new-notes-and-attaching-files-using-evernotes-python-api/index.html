@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js""></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/edible.css" />
+  <link rel="stylesheet" href="https://files.stork-search.net/releases/v1.6.0/basic.css" />
 
 
   <meta charset="utf-8" />
@@ -51,7 +51,11 @@ Creating new notes and attaching files using Evernote's Python API | Virantha Na
         <img src="http://localhost:8000/images/static/veezer_mini.jpg" alt="logo" id="logo">
       </a>
       <h2><a href="https://virantha.github.io" class="nohover">Virantha Ekanayake</a></h2>
-      <p>Technology * Python * FPGAs * Semiconductors * Startups
+      <p>Technology * Python * FPGAs * Semiconductors * Startups</p>
+      <div class="stork-wrapper">
+       <input data-stork="sitesearch" class="stork-input"/>
+        <div data-stork="sitesearch-output" class="stork-output"></div>
+    </div>
       
       <div>
           <ul>
@@ -141,12 +145,12 @@ on Mon 04 November 2013 </p>
     <h1><a href="https://virantha.github.io/2013/11/04/creating-new-notes-and-attaching-files-using-evernotes-python-api/" class="nohover">Creating new notes and attaching files using Evernote's Python API</a></h1>
   </div>
   <div class="article_text">
-    <div class="figure align-right">
-<img alt="Documents to Evernote" src="/images/2013/cloud.jpg" />
+    <div class="figure align-right" style="width: 282px; height: auto; max-width: 100%;">
+<img alt="Documents to Evernote" src="/images/2013/cloud.jpg" style="width: 282px; height: auto; max-width: 100%;"/>
 </div>
 <p>I managed to piece together how to attach a new PDF file to an Evernote
 note using their Python API, so I thought it might be useful to have a
-post that has all of this information together in one place. &nbsp;I've put
+post that has all of this information together in one place.  I've put
 together a complete example that will:</p>
 <ol class="arabic simple">
 <li>Authenticate to Evernote using a developer token (Oauth2 is a topic
@@ -162,22 +166,22 @@ each function separately in the next sections.</p>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title"><a class="reference internal" href="#top">Table of Contents:</a></p>
 <ul class="auto-toc simple">
-<li><a class="reference internal" href="#imports" id="toc-entry-1">1&nbsp;&nbsp;&nbsp;Imports</a></li>
-<li><a class="reference internal" href="#authentication" id="toc-entry-2">2&nbsp;&nbsp;&nbsp;Authentication</a></li>
-<li><a class="reference internal" href="#handle-notebooks" id="toc-entry-3">3&nbsp;&nbsp;&nbsp;Handle notebooks</a></li>
-<li><a class="reference internal" href="#create-the-new-note-with-attachment" id="toc-entry-4">4&nbsp;&nbsp;&nbsp;Create the new note with attachment</a></li>
-<li><a class="reference internal" href="#uploading-the-note" id="toc-entry-5">5&nbsp;&nbsp;&nbsp;Uploading the note</a></li>
-<li><a class="reference internal" href="#complete-example" id="toc-entry-6">6&nbsp;&nbsp;&nbsp;Complete example</a></li>
+<li><a class="reference internal" href="#imports" id="toc-entry-1">1   Imports</a></li>
+<li><a class="reference internal" href="#authentication" id="toc-entry-2">2   Authentication</a></li>
+<li><a class="reference internal" href="#handle-notebooks" id="toc-entry-3">3   Handle notebooks</a></li>
+<li><a class="reference internal" href="#create-the-new-note-with-attachment" id="toc-entry-4">4   Create the new note with attachment</a></li>
+<li><a class="reference internal" href="#uploading-the-note" id="toc-entry-5">5   Uploading the note</a></li>
+<li><a class="reference internal" href="#complete-example" id="toc-entry-6">6   Complete example</a></li>
 </ul>
 </div>
 <div class="section" id="imports">
-<h2><a class="toc-backref" href="#toc-entry-1">1&nbsp;&nbsp;&nbsp;Imports</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">1   Imports</a></h2>
 <p>Here's the complete set of imports that took me a while to track down,
 even from Evernote's own examples:</p>
 <p>[gist:id=7294365,file=_imports.py]</p>
 </div>
 <div class="section" id="authentication">
-<h2><a class="toc-backref" href="#toc-entry-2">2&nbsp;&nbsp;&nbsp;Authentication</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">2   Authentication</a></h2>
 <p>And here's how to do the authentication using a developer token (Go to
 the following places to get a token: <a class="reference external" href="https://sandbox.evernote.com/api/DeveloperToken.action">Sandbox evernote server</a> or <a class="reference external" href="https://www.evernote.com/api/DeveloperToken.action">Production Evernote server</a></p>
 <p>[gist:id=7294365,file=_auth.py]</p>
@@ -186,7 +190,7 @@ the following places to get a token: <a class="reference external" href="https:/
 note stores.</p>
 </div>
 <div class="section" id="handle-notebooks">
-<h2><a class="toc-backref" href="#toc-entry-3">3&nbsp;&nbsp;&nbsp;Handle notebooks</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">3   Handle notebooks</a></h2>
 <p>The next step is to check whether the required notebook is available,
 or if we need to make it. See the _check_and_make_notebook function.</p>
 <p>[gist:id=7294365,file=_notebook.py]</p>
@@ -194,20 +198,20 @@ or if we need to make it. See the _check_and_make_notebook function.</p>
 notebooks, and return a dict with the notebook name mapping to the
 notebook, in function <tt class="docutils literal">_get_notebooks</tt>. Then, if the desired
 notebook is present, we update the stack (in Evernote, a notebook can be
-in a collection called a &quot;stack&quot; of notebooks) and return the notebook
+in a collection called a "stack" of notebooks) and return the notebook
 pointer. If not, we create a new notebook using the <tt class="docutils literal">Types.Notebook()</tt>
 call, and store it using the <tt class="docutils literal">createNotebook</tt> API call in the
 <tt class="docutils literal">note_store</tt>.</p>
 </div>
 <div class="section" id="create-the-new-note-with-attachment">
-<h2><a class="toc-backref" href="#toc-entry-4">4&nbsp;&nbsp;&nbsp;Create the new note with attachment</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">4   Create the new note with attachment</a></h2>
 <p>Next is the real meat of this example, where we create the note with
 the attachment:</p>
 <p>[gist:id=7294365,file=_note.py]</p>
 <p>We create a new note using <tt class="docutils literal">Types.Note()</tt>, and set its containing
 notebook using the <tt class="docutils literal">GUID</tt> of the notebook. We then start setting the
 contents of the note using the Evernote markup language. All the text
-and attachment links must be inside the &quot;en-note&quot; tag. The content is
+and attachment links must be inside the "en-note" tag. The content is
 then built up as follows:</p>
 <ul class="simple">
 <li>Read in the PDF file to attach</li>
@@ -222,12 +226,12 @@ a <tt class="docutils literal">Resource</tt> list</li>
 </ul>
 </div>
 <div class="section" id="uploading-the-note">
-<h2><a class="toc-backref" href="#toc-entry-5">5&nbsp;&nbsp;&nbsp;Uploading the note</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">5   Uploading the note</a></h2>
 <p>The final step is to upload the note:</p>
 <p>[gist:id=7294365,file=_upload.py]</p>
 </div>
 <div class="section" id="complete-example">
-<h2><a class="toc-backref" href="#toc-entry-6">6&nbsp;&nbsp;&nbsp;Complete example</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">6   Complete example</a></h2>
 <p>[gist:id=7294365,file=evernote_pdf_upload.py]</p>
 </div>
 
